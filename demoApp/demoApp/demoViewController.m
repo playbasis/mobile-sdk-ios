@@ -20,7 +20,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     pb = [[Playbasis alloc] init];
-    [pb auth:@"API_KEY" :@"API_SECRET" :self];
+    [pb auth:@"2409609667" :@"ca58bad1f0c69e0d9229d2fba2646d62" :self];
 }
 
 - (void)didReceiveMemoryWarning
