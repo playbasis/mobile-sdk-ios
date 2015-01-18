@@ -20,9 +20,10 @@
 {
     // Override point for customization after application launch.
     
-    // make it know we want to receive push notification
+    // register for push notification
     // note: ios 8 changes the way to setup push notification, it's deprecated the old method
     // thus we need to check on this one
+    // note 2: we will register device with this device token later with playbasis
     if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
@@ -69,7 +70,17 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"Token is %@", deviceToken);
+    // we got device token, then we need to trim the brackets, and cut out space
+    NSString *device = [deviceToken description];
+    device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"Device token is: %@", device);
+    
+    // save it via NSUserDefaults (non-critical data to be encrypted)
+    // we will got this data later in UIViewController-based class
+    [[NSUserDefaults standardUserDefaults] setObject:device forKey:@"DeviceToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

@@ -539,6 +539,30 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
     return [self call:method withData:nil andDelegate:delegate];
 }
 
+-(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
+{
+    // TODO: Change the default template id later
+    NSString *defaultTemplateId = @"1";
+    
+    return [self push:playerId :message :delegate :defaultTemplateId];
+}
+
+-(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate :(NSString *)templateId
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Push/notification"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", token, playerId, message, templateId];
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+-(PBRequest *)registerForPushNotification:(NSString *)deviceToken :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Push/registerdevice"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", token, deviceToken];
+    return [self call:method withData:data andDelegate:delegate];
+}
+
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate
 {
     id request = nil;

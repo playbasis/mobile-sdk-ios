@@ -7,6 +7,7 @@
 //
 
 #import "demoViewController.h"
+#import "playbasis.h"
 
 @interface demoViewController ()
 
@@ -38,7 +39,13 @@
         authed = YES;
         NSLog(@"authed");
         
-        NSString *user = @"1";
+        // immediately after we're authenticated, then register device with playbasis
+        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppDeviceToken"];
+        NSLog(@"device token in controller: %@ ", deviceToken);
+        // register device token with playbasis for push notification
+        //[pb registerForPushNotification:deviceToken :self];
+        
+        /*NSString *user = @"1";
         [pb player:user :self];
         //[pb registerUser:@"user123" :self :@"username123" :@"username@email.com" :@"http://imageurl.html", @"first_name=fname", @"last_name=lname", nil];
         [pb login:user :self];
@@ -53,7 +60,17 @@
         [pb badges:self];
         [pb badge:@"1" :self];
         [pb actionConfig:self];
-        [pb rule:user :@"like" :self, @"url=http://mysite.com/page", nil];
+        [pb rule:user :@"like" :self, @"url=http://mysite.com/page", nil];*/
+        
+        // TODO: Change the information to register as another user ...
+        //[pb registerUser:@"2" :self :@"haxpor" :@"haxpor@gmail.com" :@"http://imageurl.html", @"first_name=Wasin", @"last_name=Thonkaew", @"gender=1", nil];
+    }
+    else if(authed)
+    {
+        NSLog(@"Entered 2nd block");
+        
+        // TODO: Add test for other things else ...
     }
 }
+
 @end
