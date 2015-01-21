@@ -34,10 +34,14 @@
 
 - (void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url
 {
-    NSLog(@"delegate triggered from URL: %@", [url path]);
-    NSLog(@"%@", jsonResponse);
-    if(!authed && [[url path] isEqualToString:@"/Auth"])
+    // get url path
+    NSString* urlPath = [url path];
+    
+    if(!authed && [urlPath isEqualToString:@"/Auth"])
     {
+        NSLog(@"delegate triggered from URL: %@", [url path]);
+        NSLog(@"%@", jsonResponse);
+        
         authed = YES;
         NSLog(@"authed");
         
@@ -66,16 +70,43 @@
         
         // TODO: Change the information to register as another user ...
         //[pb registerUser:@"2" :self :@"haxpor" :@"haxpor@gmail.com" :@"http://imageurl.html", @"first_name=Wasin", @"last_name=Thonkaew", @"gender=1", nil];
-        
+        [pb login:@"1" :self];
         //[pb player:@"1" :self];
         //[pb playerPublic:@"2" :self];
-        [pb playerDetailPublic:@"2" :self];
+        //[pb playerDetailPublic:@"2" :self];
+        //[pb actionTime:@"1" :@"login" :self];
+        
+        [pb actionLastPerformedTime:@"1" :@"login" :self];
     }
     else if(authed)
     {
-        NSLog(@"Entered 2nd block");
-        
         // TODO: Add test for other things else ...
+        if([urlPath isEqualToString:@"/Player/1/login"])
+        {
+            NSLog(@"delegate triggered from URL: %@", urlPath);
+            NSLog(@"%@", jsonResponse);
+            
+            NSLog(@"%@", [jsonResponse valueForKey:@"success"]);
+            
+            // get whether logging in successful or not
+            BOOL isSuccess = [[jsonResponse valueForKey:@"success"] boolValue];
+            
+            // check if log in successfully
+            if(isSuccess)
+                NSLog(@"Player 1 log in successfully.");
+            else
+                NSLog(@"Player 1 log in failed.");
+        }
+        else if([urlPath isEqualToString:@"/Player/1/action/login/time"])
+        {
+            NSLog(@"delegate triggered from URL: %@", urlPath);
+            NSLog(@"%@", jsonResponse);
+        }
+        else if([urlPath isEqualToString:@"/Player/1/action/login/time"])
+        {
+            NSLog(@"delegate triggered from URL: %@", urlPath);
+            NSLog(@"%@", jsonResponse);
+        }
     }
 }
 

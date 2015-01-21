@@ -355,6 +355,12 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
     return [self call:method withData:nil andDelegate:delegate];
 }
 
+-(PBRequest *)actionTime:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, apiKeyParam];
+    return [self call:method withData:nil andDelegate:delegate];
+}
+
 -(PBRequest *)actionLastPerformed:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/time%@", playerId, apiKeyParam];

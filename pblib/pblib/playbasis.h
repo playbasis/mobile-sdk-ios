@@ -97,14 +97,52 @@ PBRequestState;
  Update player information.
  */
 -(PBRequest *)updateUser:(NSString *)playerId :(id<PBResponseHandler>)delegate :(NSString *)firstArg ,...;
+
+/**
+ Permanently delete user from Playbasis's database.
+ */
 -(PBRequest *)deleteUser:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Tell Playbasis system that player has logged in.
+ */
 -(PBRequest *)login:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Tell Playbasis system that player has logged out.
+ */
 -(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Returns information about all point-based rewards that a player currently have.
+ */
 -(PBRequest *)points:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Returns how much of specified the point-based reward a player currently have.
+ */
 -(PBRequest *)point:(NSString *)playerId :(NSString *)pointName :(id<PBResponseHandler>)delegate;
+
+/**
+ Get history point of user.
+ */
 -(PBRequest *)pointHistory:(NSString *)playerId :(NSString *)pointName :(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate;
+
+/**
+ Get the latest time for the specified action that player has performed.
+ */
+-(PBRequest *)actionTime:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate;
+
+/**
+ Return the time and action that player has performed.
+ */
 -(PBRequest *)actionLastPerformed:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Get the latest time of specified action that player has performed.
+ */
 -(PBRequest *)actionLastPerformedTime:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate;
+
 -(PBRequest *)actionPerformedCount:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate;
 -(PBRequest *)badgeOwned:(NSString *)playerId :(id<PBResponseHandler>)delegate;
 -(PBRequest *)rank:(NSString *)rankedBy :(unsigned int)limit :(id<PBResponseHandler>)delegate;
