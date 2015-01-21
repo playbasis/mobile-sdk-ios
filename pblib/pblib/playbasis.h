@@ -42,12 +42,35 @@ PBRequestState;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection;
 @end
 
+/**
+ Playbasis
+ Handle the API end-point calls from client side.
+ */
 @interface Playbasis : NSObject
 {
     NSString *token;
     NSString *apiKeyParam;
     id<PBResponseHandler> authDelegate;
 }
+
+/**
+ Utility method to register device for push notification.
+ Call this method inside
+ */
++(void)registerDeviceForPushNotification;
+
+/**
+ Utility method to handle device token data, and convert it into
+ a proper format ready to use later, then save it to NSUserDefaults
+ for Playbasis SDK to retrieve it and register device for push
+ notification later.
+ 
+ @param deviceToken Device token sent in from native iOS platform.
+ @param withKey Key string for Playbasis SDK to retrieve the value from later via NSUserDefaults.
+ 
+ */
++(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
+
 -(id)init;
 -(void)dealloc;
 
@@ -291,6 +314,10 @@ PBRequestState;
 /**
  Register device for push notification.
  */
--(PBRequest *)registerForPushNotification:(NSString *)deviceToken :(id<PBResponseHandler>)delegate;
+-(PBRequest *)registerForPushNotification:(id<PBResponseHandler>)delegate;
+
+/**
+ Send http request.
+ */
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate;
 @end

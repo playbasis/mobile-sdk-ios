@@ -23,6 +23,7 @@
     pb = [[Playbasis alloc] init];
     
     // TODO: Change to user's appKey and appSecret
+    //[pb auth:@"API_KEY" :@"API_SECRET" :self];
     [pb auth:@"2409609667" :@"ca58bad1f0c69e0d9229d2fba2646d62" :self];
 }
 
@@ -45,16 +46,10 @@
         authed = YES;
         NSLog(@"authed");
         
-        // immediately after we're authenticated, then register device with playbasis
-        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppDeviceToken"];
-        NSLog(@"device token in controller: %@ ", deviceToken);
-        // register device token with playbasis for push notification
-        //[pb registerForPushNotification:deviceToken :self];
-        
-        /*NSString *user = @"1";
+        NSString *user = @"1";
         [pb player:user :self];
         //[pb registerUser:@"user123" :self :@"username123" :@"username@email.com" :@"http://imageurl.html", @"first_name=fname", @"last_name=lname", nil];
-        [pb login:user :self];
+        /*[pb login:user :self];
         [pb logout:user :self];
         [pb points:user :self];
         [pb point:user :@"exp" :self];
@@ -70,13 +65,16 @@
         
         // TODO: Change the information to register as another user ...
         //[pb registerUser:@"2" :self :@"haxpor" :@"haxpor@gmail.com" :@"http://imageurl.html", @"first_name=Wasin", @"last_name=Thonkaew", @"gender=1", nil];
-        [pb login:@"1" :self];
+        
         //[pb player:@"1" :self];
         //[pb playerPublic:@"2" :self];
         //[pb playerDetailPublic:@"2" :self];
         //[pb actionTime:@"1" :@"login" :self];
         
-        [pb actionLastPerformedTime:@"1" :@"login" :self];
+        //[pb actionLastPerformedTime:@"1" :@"login" :self];
+        
+        // register device token with playbasis for push notification
+        //[pb registerForPushNotification:self];
     }
     else if(authed)
     {
@@ -106,6 +104,13 @@
         {
             NSLog(@"delegate triggered from URL: %@", urlPath);
             NSLog(@"%@", jsonResponse);
+        }
+        else if([urlPath isEqualToString:@"/Push/registerdevice"])
+        {
+            NSLog(@"delegate triggered from URL: %@", urlPath);
+            NSLog(@"%@", jsonResponse);
+            
+            NSLog(@"Successfully registered device with Playbasis system");
         }
     }
 }
