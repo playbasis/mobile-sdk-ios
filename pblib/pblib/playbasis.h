@@ -143,35 +143,154 @@ PBRequestState;
  */
 -(PBRequest *)actionLastPerformedTime:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate;
 
+/**
+ Return the number of times that player has performed the specified action.
+ */
 -(PBRequest *)actionPerformedCount:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about all badges that player has earned.
+ */
 -(PBRequest *)badgeOwned:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Returns list of players sorted by the specified point type.
+ */
 -(PBRequest *)rank:(NSString *)rankedBy :(unsigned int)limit :(id<PBResponseHandler>)delegate;
+
+/**
+ Return list of players sorted by each point type.
+ */
 -(PBRequest *)ranks:(unsigned int)limit :(id<PBResponseHandler>)delegate;
+
+/**
+ Return detail of level.
+ */
 -(PBRequest *)level:(unsigned int)level :(id<PBResponseHandler>)delegate;
+
+/**
+ Return all detail of levels.
+ */
 -(PBRequest *)levels:(id<PBResponseHandler>)delegate;
+
+/**
+ Claim a badge that player has earned.
+ */
 -(PBRequest *)claimBadge:(NSString *)playerId :(NSString *)badgeId :(id<PBResponseHandler>)delegate;
+
+/**
+ Redeem a badge that player has claimed.
+ */
 -(PBRequest *)redeemBadge:(NSString *)playerId :(NSString *)badgeId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about all goods that player has redeemed.
+ */
 -(PBRequest *)goodsOwned:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return quest information that player has joined.
+ */
 -(PBRequest *)questOfPlayer:(NSString *)playerId :(NSString *)questId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return list of quest that player has joined.
+ */
 -(PBRequest *)questListOfPlayer:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information of specified badge.
+ */
 -(PBRequest *)badge:(NSString *)badgeId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about all badges of the current site.
+ */
 -(PBRequest *)badges :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about goods for the specified id.
+ */
 -(PBRequest *)goods:(NSString *)goodId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about all available goods on the current site.
+ */
 -(PBRequest *)goodsList :(id<PBResponseHandler>)delegate;
+
+/**
+ Return the name of actions that can trigger game's rules within a client's website.
+ */
 -(PBRequest *)actionConfig :(id<PBResponseHandler>)delegate;
+
+/**
+ Process an action through all the game's rules defined for client's website.
+ */
 -(PBRequest *)rule:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...;
+
+/**
+ Return information about all quests in current site.
+ */
 -(PBRequest *)quests:(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about quest with the specified id.
+ */
 -(PBRequest *)quest:(NSString *)questId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about mission with the specified id.
+ */
 -(PBRequest *)mission:(NSString *)questId :(NSString *)missionId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information whether the quest is ready for the player.
+ */
 -(PBRequest *)questAvailable:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Return information about all of the quests available for the player.
+ */
 -(PBRequest *)questsAvailable:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Player joins a quest.
+ */
 -(PBRequest *)joinQuest:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Player cancels a quest.
+ */
 -(PBRequest *)cancelQuest:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Redeem goods for player.
+ */
 -(PBRequest *)redeemGoods:(NSString *)goodsId :(NSString *)playerId :(unsigned int)amount :(id<PBResponseHandler>)delegate;
+
+/**
+ Return recent activity points of all players.
+ */
 -(PBRequest *)recentPoint:(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate;
+
+/**
+ Return recent activity points of point name of all players.
+ */
 -(PBRequest *)recentPointByName:(NSString *)pointName :(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate;
+
+/**
+ Push message.
+ */
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate;
+
+/**
+ Push message with template id.
+ */
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate :(NSString *)templateId;
+
+/**
+ Register device for push notification.
+ */
 -(PBRequest *)registerForPushNotification:(NSString *)deviceToken :(id<PBResponseHandler>)delegate;
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate;
 @end
