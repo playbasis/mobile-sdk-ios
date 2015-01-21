@@ -569,10 +569,11 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
-    // TODO: Change the default template id later
-    NSString *defaultTemplateId = @"1";
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Push/notification"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
     
-    return [self push:playerId :message :delegate :defaultTemplateId];
+    return [self call:method withData:data andDelegate:delegate];
 }
 
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate :(NSString *)templateId
