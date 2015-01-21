@@ -31,7 +31,7 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
         return nil;
     
     url = [request URL];
-    [url retain];
+    
 #if __has_feature(objc_arc)
     receivedData = [NSMutableData data];
 #else
@@ -44,8 +44,12 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 
 -(void)dealloc
 {
+#if __has_feature(objc_arc)
+    // do nothing
+#else
     [url release];
     [super dealloc];
+#endif
 }
 
 -(PBRequestState)getRequestState
@@ -175,11 +179,15 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 
 -(void)dealloc
 {
+#if __has_feature(objc_arc)
+    // do nothing
+#else
     if(token)
         [token release];
     if(authDelegate)
         [authDelegate release];
     [super dealloc];
+#endif
 }
 
 -(PBRequest *)auth:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
@@ -582,15 +590,26 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
         [request setHTTPBody:postData];
     }
     id pbRequest = [[PBRequest alloc] initWithURLRequest:request andDelegate:delegate];
+    
+#if __has_feature(objc_arc)
+    return pbRequest;
+#else
     return [pbRequest autorelease];
+#endif
 }
 
 -(void)setToken:(NSString *)newToken
 {
+    
+#if __has_feature(objc_arc)
+    token = newToken;
+#else
     if(token)
         [token release];
     token = newToken;
     [token retain];
+#endif
+    
     NSLog(@"token assigned: %@", token);
 }
 

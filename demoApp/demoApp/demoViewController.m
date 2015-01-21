@@ -21,6 +21,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     pb = [[Playbasis alloc] init];
+    
+    // TODO: Change to user's appKey and appSecret
     [pb auth:@"2409609667" :@"ca58bad1f0c69e0d9229d2fba2646d62" :self];
 }
 
@@ -64,6 +66,8 @@
         
         // TODO: Change the information to register as another user ...
         //[pb registerUser:@"2" :self :@"haxpor" :@"haxpor@gmail.com" :@"http://imageurl.html", @"first_name=Wasin", @"last_name=Thonkaew", @"gender=1", nil];
+        
+        [pb player:@"1" :self];
     }
     else if(authed)
     {

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
-		2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; };
+		2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2C1C750B17461E6B005F3B57 /* playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* playbasis.m */; };
 /* End PBXBuildFile section */
 
@@ -204,6 +204,7 @@
 		2C1C750417461E1B005F3B57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = /tmp/pblib.dst;
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -217,6 +218,7 @@
 		2C1C750517461E1B005F3B57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = /tmp/pblib.dst;
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -246,6 +248,7 @@
 				2C1C750517461E1B005F3B57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
