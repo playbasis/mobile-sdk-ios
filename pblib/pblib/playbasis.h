@@ -53,6 +53,12 @@ PBRequestState;
 
 -(PBRequest *)auth:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate;
 -(PBRequest *)renew:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate;
+
+/** Get player's public information.
+ * It will send request via GET method.
+ */
+-(PBRequest *)playerPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
 -(PBRequest *)player:(NSString *)playerId :(id<PBResponseHandler>)delegate;
 -(PBRequest *)playerList:(NSString *)playerListId :(id<PBResponseHandler>)delegate;
 -(PBRequest *)playerDetail:(NSString *)playerId :(id<PBResponseHandler>)delegate;

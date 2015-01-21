@@ -67,7 +67,8 @@
         // TODO: Change the information to register as another user ...
         //[pb registerUser:@"2" :self :@"haxpor" :@"haxpor@gmail.com" :@"http://imageurl.html", @"first_name=Wasin", @"last_name=Thonkaew", @"gender=1", nil];
         
-        [pb player:@"1" :self];
+        //[pb player:@"1" :self];
+        [pb playerPublic:@"2" :self];
     }
     else if(authed)
     {

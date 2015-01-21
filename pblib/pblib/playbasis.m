@@ -206,6 +206,13 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
     return [self call:@"Auth/renew" withData:data andDelegate:authDelegate];
 }
 
+-(PBRequest *)playerPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
+    return [self call:method withData:nil andDelegate:delegate];
+}
+
 -(PBRequest *)player:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
