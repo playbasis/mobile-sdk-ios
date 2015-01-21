@@ -230,6 +230,13 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
    return [self call:method withData:data andDelegate:delegate];
 }
 
+-(PBRequest *)playerDetailPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, apiKeyParam];
+    return [self call:method withData:nil andDelegate:delegate];
+}
+
 -(PBRequest *)playerDetail:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
    NSAssert(token, @"access token is nil");

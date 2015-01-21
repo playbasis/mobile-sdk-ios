@@ -51,18 +51,51 @@ PBRequestState;
 -(id)init;
 -(void)dealloc;
 
+/**
+ Authenticate and get access token.
+ */
 -(PBRequest *)auth:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate;
+
+/**
+ Request a new access token, and discard the current one.
+ */
 -(PBRequest *)renew:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate;
 
-/** Get player's public information.
- * It will send request via GET method.
+/** 
+ Get player's public information.
+ It will send request via GET method.
  */
 -(PBRequest *)playerPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate;
 
+/** 
+ Get player's both private and public information.
+ */
 -(PBRequest *)player:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Get basic information of list of players.
+ playerListId is in the format of id separated by "," ie. "1,2,3".
+ */
 -(PBRequest *)playerList:(NSString *)playerListId :(id<PBResponseHandler>)delegate;
+
+/**
+ Get player's detailed public information including points and badge.
+ */
+-(PBRequest *)playerDetailPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Get player's detailed information both private and public one including points and badges.
+ */
 -(PBRequest *)playerDetail:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+
+/**
+ Register from the client side as a Playbasis player.
+ */
 -(PBRequest *)registerUser:(NSString *)playerId :(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...;
+
+/**
+ Update player information.
+ */
 -(PBRequest *)updateUser:(NSString *)playerId :(id<PBResponseHandler>)delegate :(NSString *)firstArg ,...;
 -(PBRequest *)deleteUser:(NSString *)playerId :(id<PBResponseHandler>)delegate;
 -(PBRequest *)login:(NSString *)playerId :(id<PBResponseHandler>)delegate;
