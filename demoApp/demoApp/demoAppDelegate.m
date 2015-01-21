@@ -7,6 +7,7 @@
 //
 
 #import "demoAppDelegate.h"
+#import "playbasis.h"
 
 @implementation demoAppDelegate
 
@@ -24,23 +25,8 @@
 {
     // Override point for customization after application launch.
     
-    // register for push notification
-    // note: ios 8 changes the way to setup push notification, it's deprecated the old method
-    // thus we need to check on this one
-    // note 2: we will register device with this device token later with playbasis
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
-        NSLog(@"Register device ios %f+", 8.0f);
-    }
-    else
-    {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-        
-        NSLog(@"Registered devie ios < %f", 8.0f);
-    }
+    // call class method of Playbasis to handle native thing of trying to registering device for push notification for us
+    [Playbasis registerDeviceForPushNotification];
     
     return YES;
 }
@@ -74,17 +60,10 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    // we got device token, then we need to trim the brackets, and cut out space
-    NSString *device = [deviceToken description];
-    device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
+    // call utility method of Playbasis to handle and save device token for later use
+    [Playbasis saveDeviceToken:deviceToken withKey:@"DeviceToken"];
     
-    NSLog(@"Device token is: %@", device);
-    
-    // save it via NSUserDefaults (non-critical data to be encrypted)
-    // we will got this data later in UIViewController-based class
-    [[NSUserDefaults standardUserDefaults] setObject:device forKey:@"DeviceToken"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Successfully registered for push notification.");
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

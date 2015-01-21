@@ -8,6 +8,7 @@
 
 #import "playbasis.h"
 #import "JSONKit.h"
+#import <UIKit/UIKit.h>
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 
@@ -166,6 +167,48 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // The Playbasis Object
 //
 @implementation Playbasis
+
+// NSUserDefaults key for Playbasis sdk to retrieve it later
+static NSString *sDeviceTokenRetrievalKey = nil;
+
++(void)registerDeviceForPushNotification
+{
+    // register for push notification
+    // note: ios 8 changes the way to setup push notification, it's deprecated the old method
+    // thus we need to check on this one
+    // note 2: we will register device with this device token later with playbasis
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+        NSLog(@"Register device ios %f+", 8.0f);
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+        
+        NSLog(@"Registered devie ios < %f", 8.0f);
+    }
+}
+
++(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString *)key
+{
+    // we got device token, then we need to trim the brackets, and cut out space
+    NSString *device = [deviceToken description];
+    device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"Device token is: %@", device);
+    
+    // save the key for Playbasis to be able to retrieve it via NSUserDefaults later
+    sDeviceTokenRetrievalKey = key;
+    
+    // save it via NSUserDefaults (non-critical data to be encrypted)
+    // we will got this data later in UIViewController-based class
+    [[NSUserDefaults standardUserDefaults] setObject:device forKey:sDeviceTokenRetrievalKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 -(id)init
 {
@@ -569,10 +612,11 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
-    // TODO: Change the default template id later
-    NSString *defaultTemplateId = @"1";
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Push/notification"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
     
-    return [self push:playerId :message :delegate :defaultTemplateId];
+    return [self call:method withData:data andDelegate:delegate];
 }
 
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate :(NSString *)templateId
@@ -583,9 +627,14 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
     return [self call:method withData:data andDelegate:delegate];
 }
 
--(PBRequest *)registerForPushNotification:(NSString *)deviceToken :(id<PBResponseHandler>)delegate
+-(PBRequest *)registerForPushNotification:(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
+    
+    // get device token from what we save in NSUserDefaults
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
+    NSAssert(deviceToken, @"device token is nil");
+    
     NSString *method = [NSString stringWithFormat:@"Push/registerdevice"];
     NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", token, deviceToken];
     return [self call:method withData:data andDelegate:delegate];
