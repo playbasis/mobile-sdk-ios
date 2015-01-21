@@ -7,40 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef enum
-{
-    Started,
-    ResponseReceived,
-    ReceivingData,
-    FinishedWithError,
-    Finished
-}
-PBRequestState;
-
-@protocol PBResponseHandler <NSObject>
--(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url;
-@end
-
-@interface PBRequest : NSObject
-{
-    NSURL* url;
-    NSMutableData *receivedData;
-    NSDictionary *jsonResponse;
-    PBRequestState state;
-    id<PBResponseHandler> responseDelegate;
-}
--(id)initWithURLRequest:(NSURLRequest *)request;
--(id)initWithURLRequest:(NSURLRequest *)request andDelegate:(id<PBResponseHandler>)delegate;
--(void)dealloc;
--(PBRequestState)getRequestState;
--(NSDictionary *)getResponse;
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
--(void)connectionDidFinishLoading:(NSURLConnection *)connection;
-@end
+#import "PBTypes.h"
+#import "PBRequest.h"
+#import "NSMutableArray+QueueAndSerializationAdditions.h"
 
 /**
  Playbasis
@@ -51,6 +20,7 @@ PBRequestState;
     NSString *token;
     NSString *apiKeyParam;
     id<PBResponseHandler> authDelegate;
+    NSMutableArray *requestOptQueue;
 }
 
 /**
@@ -73,6 +43,12 @@ PBRequestState;
 
 -(id)init;
 -(void)dealloc;
+
+/**
+ Get request-operational-queue.
+ It holds all created http requests. Those requests are not dispatched or sent just yet. It's after dequeing, it will start sending those request one by one.
+ */
+-(const NSMutableArray *)getRequestOperationalQueue;
 
 /**
  Authenticate and get access token.

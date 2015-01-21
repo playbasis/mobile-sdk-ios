@@ -38,6 +38,10 @@
     // get url path
     NSString* urlPath = [url path];
     
+    // print out the response
+    NSLog(@"delegate triggered from URL: %@", urlPath);
+    NSLog(@"%@", jsonResponse);
+    
     if(!authed && [urlPath isEqualToString:@"/Auth"])
     {
         NSLog(@"delegate triggered from URL: %@", [url path]);
@@ -46,8 +50,13 @@
         authed = YES;
         NSLog(@"authed");
         
+        // test user
         NSString *user = @"1";
         [pb player:user :self];
+        
+        // register device token with playbasis for push notification
+        //[pb registerForPushNotification:self];
+        
         //[pb registerUser:@"user123" :self :@"username123" :@"username@email.com" :@"http://imageurl.html", @"first_name=fname", @"last_name=lname", nil];
         /*[pb login:user :self];
         [pb logout:user :self];
@@ -72,18 +81,12 @@
         //[pb actionTime:@"1" :@"login" :self];
         
         //[pb actionLastPerformedTime:@"1" :@"login" :self];
-        
-        // register device token with playbasis for push notification
-        //[pb registerForPushNotification:self];
     }
     else if(authed)
     {
         // TODO: Add test for other things else ...
         if([urlPath isEqualToString:@"/Player/1/login"])
         {
-            NSLog(@"delegate triggered from URL: %@", urlPath);
-            NSLog(@"%@", jsonResponse);
-            
             NSLog(@"%@", [jsonResponse valueForKey:@"success"]);
             
             // get whether logging in successful or not
@@ -97,22 +100,23 @@
         }
         else if([urlPath isEqualToString:@"/Player/1/action/login/time"])
         {
-            NSLog(@"delegate triggered from URL: %@", urlPath);
-            NSLog(@"%@", jsonResponse);
+            // do something here
         }
         else if([urlPath isEqualToString:@"/Player/1/action/login/time"])
         {
-            NSLog(@"delegate triggered from URL: %@", urlPath);
-            NSLog(@"%@", jsonResponse);
+            // do something here
         }
         else if([urlPath isEqualToString:@"/Push/registerdevice"])
         {
-            NSLog(@"delegate triggered from URL: %@", urlPath);
-            NSLog(@"%@", jsonResponse);
-            
             NSLog(@"Successfully registered device with Playbasis system");
         }
     }
+}
+
+- (IBAction)callAPI_player1:(id)sender {
+    NSLog(@"Touched to callAPI_player1");
+    
+    [[pb getRequestOperationalQueue] dequeueAndStart];
 }
 
 @end

@@ -15,4 +15,6 @@
     BOOL authed;
 }
 -(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url;
+
+- (IBAction)callAPI_player1:(id)sender;
 @end

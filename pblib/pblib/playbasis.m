@@ -7,105 +7,9 @@
 //
 
 #import "playbasis.h"
-#import "JSONKit.h"
 #import <UIKit/UIKit.h>
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
-
-//
-// object for handling requests response
-//
-@implementation PBRequest
-
--(id)initWithURLRequest:(NSURLRequest *)request
-{
-    return [self initWithURLRequest:request andDelegate:nil];
-}
-
--(id)initWithURLRequest:(NSURLRequest *)request andDelegate:(id<PBResponseHandler>)delegate
-{
-    if(!(self = [super init]))
-        return nil;
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if(!connection)
-        return nil;
-    
-    url = [request URL];
-    
-#if __has_feature(objc_arc)
-    receivedData = [NSMutableData data];
-#else
-    receivedData = [[NSMutableData data] retain];
-#endif
-    responseDelegate = delegate;
-    state = Started;
-    return self;
-}
-
--(void)dealloc
-{
-#if __has_feature(objc_arc)
-    // do nothing
-#else
-    [url release];
-    [super dealloc];
-#endif
-}
-
--(PBRequestState)getRequestState
-{
-    return state;
-}
-
--(NSDictionary *)getResponse
-{
-    return jsonResponse;
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    [receivedData setLength:0];
-    state = ResponseReceived;
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [receivedData appendData:data];
-    state = ReceivingData;
-}
-
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-#if __has_feature(objc_arc)
-    //do nothing
-#else
-    [connection release];
-    [receivedData release];
-#endif
-    //error inform user of error
-    state = FinishedWithError;
-    NSLog(@"request from %@ failed: %ld - %@ - %@", [url absoluteString], (long)[error code], [error domain], [error helpAnchor]);
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    //process data received
-    NSString *response = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-    jsonResponse = [response objectFromJSONString];
-    if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:)]))
-        [responseDelegate processResponse:jsonResponse withURL:url];
-
-#if __has_feature(objc_arc)
-    //do nothing
-#else
-    [connection release];
-    [receivedData release];
-#endif
-    state = Finished;
-    NSLog(@"request from %@ finished", [url absoluteString]);
-}
-@end
 
 //
 // additional interface for private methods
@@ -217,6 +121,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     token = nil;
     apiKeyParam = nil;
     authDelegate = nil;
+    
+#if __has_feature(objc_arc)
+    requestOptQueue = [NSMutableArray array];
+#else
+    requestOptQueue = [[NSMutableArray array] retain];
+#endif
     return self;
 }
 
@@ -229,8 +139,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [token release];
     if(authDelegate)
         [authDelegate release];
+    if(requestOptQueue)
+        [requestOptQueue release];
     [super dealloc];
 #endif
+}
+
+-(const NSMutableArray *)getRequestOperationalQueue
+{
+    return requestOptQueue;
 }
 
 -(PBRequest *)auth:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
@@ -659,6 +576,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [request setHTTPBody:postData];
     }
     id pbRequest = [[PBRequest alloc] initWithURLRequest:request andDelegate:delegate];
+    
+    // add PBRequest into operational queue
+    [requestOptQueue enqueue:pbRequest];
+    
+    NSLog(@"Queue size = %d", [requestOptQueue count]);
     
 #if __has_feature(objc_arc)
     return pbRequest;
