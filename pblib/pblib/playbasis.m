@@ -8,6 +8,7 @@
 
 #import "playbasis.h"
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 
@@ -15,7 +16,26 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // additional interface for private methods
 //
 @interface Playbasis ()
+{
+    BOOL isNetworkReachable;
+    Reachability *reachability;
+}
+
+/**
+ Set token.
+ */
 -(void)setToken:(NSString *)newToken;
+
+/**
+ Dispatch a first founded request in the operational queue and only if network
+ can be reached.
+ */
+-(void)dispatchFirstRequestInQueue:(NSTimer*)dt;
+
+/**
+ This method will be called whenever network status changed.
+ */
+-(void)checkNetworkStatus:(NSNotification*)notice;
 @end
 
 //
@@ -118,9 +138,26 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     if(!(self = [super init]))
         return nil;
+    
+    isNetworkReachable = FALSE;
     token = nil;
     apiKeyParam = nil;
     authDelegate = nil;
+    
+    // create reachability instance
+    reachability = [Reachability reachabilityForInternetConnection];
+    // initially set the network status here
+    // send 'nil' in has no effect for this method
+    [self checkNetworkStatus:nil];
+    
+    // add notification of network status change
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
+    
+    // start notifier right away
+    [reachability startNotifier];
+    
+    // schedule interval call to dispatch request in queue
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
     
 #if __has_feature(objc_arc)
     requestOptQueue = [NSMutableArray array];
@@ -132,6 +169,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)dealloc
 {
+    // stop notifier
+    [reachability stopNotifier];
+    // remove notification of network status change
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    
 #if __has_feature(objc_arc)
     // do nothing
 #else
@@ -572,6 +614,28 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         request = [NSMutableURLRequest requestWithURL:url];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        
+        {
+            // set date header
+            // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
+            NSDate *date = [NSDate date];
+            
+            // crete a date formatter
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            // setup format to be http date
+            // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
+            // get http date string
+            NSString *httpDateStr = [dateFormatter stringFromDate:date];
+            
+            NSLog(@"date: %@", [date description]);
+            NSLog(@"dateStr: %@", httpDateStr);
+            
+            // set to request's date header
+            [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
+        }
+        
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
         [request setHTTPBody:postData];
     }
@@ -602,6 +666,39 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 #endif
     
     NSLog(@"token assigned: %@", token);
+}
+
+-(void)dispatchFirstRequestInQueue:(NSTimer *)dt
+{
+    //NSLog(@"Called dispatchFirstRequestInQueue");
+    
+    // only dispatch a first found request if network can be reached, and
+    // operational queue is not empty
+    if(isNetworkReachable && ![requestOptQueue empty])
+    {
+        [[self getRequestOperationalQueue] dequeueAndStart];
+        NSLog(@"Dispatched first founed request in queue");
+    }
+}
+
+-(void)checkNetworkStatus:(NSNotification *)notice
+{
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    switch(networkStatus)
+    {
+        case NotReachable:
+            isNetworkReachable = FALSE;
+            NSLog(@"Network is not reachable");
+            break;
+        case ReachableViaWiFi:
+            isNetworkReachable = TRUE;
+            NSLog(@"Network is reachable via WiFi");
+            break;
+        case ReachableViaWWAN:
+            isNetworkReachable = TRUE;
+            NSLog(@"Network is reachable via WWAN");
+            break;
+    }
 }
 
 @end

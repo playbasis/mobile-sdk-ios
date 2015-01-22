@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
+		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequest.m */; };
 		1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
 		2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
@@ -27,6 +29,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1EDC5FD71A701D9700991CEB /* PBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequest.h; sourceTree = "<group>"; };
 		1EDC5FD81A701D9700991CEB /* PBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequest.m; sourceTree = "<group>"; };
 		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
@@ -46,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */,
 				2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +59,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EA3AE191A717AE0008F17F3 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				1EA3AE1A1A717AE0008F17F3 /* Reachability */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		1EA3AE1A1A717AE0008F17F3 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				1EA3AE1B1A717AE0008F17F3 /* Reachability.h */,
+				1EA3AE1C1A717AE0008F17F3 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		2C1C74EC17461E1B005F3B57 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +96,7 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */,
 				2C1C74F817461E1B005F3B57 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -81,6 +105,7 @@
 		2C1C74FA17461E1B005F3B57 /* pblib */ = {
 			isa = PBXGroup;
 			children = (
+				1EA3AE191A717AE0008F17F3 /* libs */,
 				1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */,
 				1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */,
 				2C1C750617461E6B005F3B57 /* JSONKit.h */,
@@ -158,6 +183,7 @@
 				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* playbasis.m in Sources */,
+				1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +249,11 @@
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pblib/pblib-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					libs,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -237,6 +268,11 @@
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pblib/pblib-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					libs,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

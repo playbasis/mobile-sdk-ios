@@ -45,8 +45,9 @@
 {
     PBRequest *req = [self dequeue];
     
-    // start sending request right away
-    [req start];
+    // start sending request right away if founded a request object there
+    if(req != nil)
+        [req start];
     
     return req;
 }

@@ -24,7 +24,8 @@
     
     // TODO: Change to user's appKey and appSecret
     //[pb auth:@"API_KEY" :@"API_SECRET" :self];
-    [pb auth:@"3026965093" :@"ce9c9335d542674a2a3e286307dba8c0" :self];
+    [pb auth:@"2409609667" :@"ca58bad1f0c69e0d9229d2fba2646d62" :self];
+    //[pb auth:@"3026965093" :@"ce9c9335d542674a2a3e286307dba8c0" :self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,8 +52,10 @@
         NSLog(@"authed");
         
         // test user
-        NSString *user = @"jontestuser";
+        NSString *user = @"1";
+        //NSString *user = @"jontestuser";
         [pb player:user :self];
+        //[pb login:user :self];
         
         // register device token with playbasis for push notification
         //[pb registerForPushNotification:self];
@@ -116,7 +119,8 @@
 - (IBAction)callAPI_player1:(id)sender {
     NSLog(@"Touched to callAPI_player1");
     
-    [[pb getRequestOperationalQueue] dequeueAndStart];
+    // execute like action
+    [pb rule:@"1" :@"like" :self, nil];
 }
 
 @end
