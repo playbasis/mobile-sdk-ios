@@ -43,6 +43,11 @@
  */
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
 
+/**
+ Get the singleton instance of Playbasis.
+ */
++(id)sharedPB;
+
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)init;

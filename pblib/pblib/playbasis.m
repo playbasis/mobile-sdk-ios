@@ -160,6 +160,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++(id)sharedPB
+{
+    static Playbasis *sharedPlaybasis = nil;
+    
+    // use dispatch_once_t to initialize singleton just once
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedPlaybasis = [[self alloc] init];
+    });
+    
+    return sharedPlaybasis;
+}
+
 -(id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
