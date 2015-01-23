@@ -139,8 +139,6 @@ static NSString * const SAVEFILE_NAME = @"requests.pb";
 
 -(BOOL)load
 {
-    NSAssert(![self empty], @"opt queue should be in state of having no requests.");
-    
     // get the path to write file to
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];

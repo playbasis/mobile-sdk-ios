@@ -139,16 +139,4 @@
     }
 }
 
-- (IBAction)queueSerializeAndSaveToFile:(id)sender {
-    NSLog(@"Touched to serialize all requests in an opt-queue");
-    
-    [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
-}
-
-- (IBAction)QueueLoadFromFile:(id)sender {
-    NSLog(@"Touched to load requests into an opt-queue from file.");
-    
-    [[[Playbasis sharedPB] getRequestOperationalQueue] load];
-}
-
 @end
