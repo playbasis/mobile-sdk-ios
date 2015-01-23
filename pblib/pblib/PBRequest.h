@@ -11,6 +11,7 @@
 
 typedef enum
 {
+    ReadyToStart,
     Started,
     ResponseReceived,
     ReceivingData,
@@ -21,24 +22,29 @@ PBRequestState;
 
 @interface PBRequest : NSObject
 {
-    NSURL* url;
+    NSURLRequest *urlRequest;
     NSMutableData *receivedData;
     NSDictionary *jsonResponse;
     PBRequestState state;
     id<PBResponseHandler> responseDelegate;
-    NSURLConnection *connection;
 }
+
+@property PBRequestState state;
 
 -(id)initWithURLRequest:(NSURLRequest *)request;
 -(id)initWithURLRequest:(NSURLRequest *)request andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithCoder:(NSCoder*)decoder;
+-(void)encodeWithCoder:(NSCoder*)encoder;
 -(void)dealloc;
 -(PBRequestState)getRequestState;
 -(NSDictionary *)getResponse;
 
 /**
- Start its internal request. This sends request over nextwork.
+ Start its internal request. This sends request over network.
+ 
+ @return TRUE if successfully started, otherwise return FALSE.
  */
--(void)start;
+-(BOOL)start;
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;

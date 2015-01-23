@@ -10,6 +10,8 @@
 
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
 
+static NSString * const SAVEFILE_NAME = @"requests.pb";
+
 @implementation NSMutableArray (QueueAndSerializationAdditions) 
 
 // Add to the tail of the queue
@@ -47,7 +49,13 @@
     
     // start sending request right away if founded a request object there
     if(req != nil)
+    {
+        // update state of request
+        req.state = Started;
+        
+        // start a request
         [req start];
+    }
     
     return req;
 }
@@ -88,6 +96,58 @@
 -(BOOL) empty
 {
     return ([self lastObject] == nil);
+}
+
+-(BOOL)serializeAndSaveToFile
+{
+    // if there's no requests in the queue then return immediately
+    if([self empty])
+    {
+        // treat it as success
+        return true;
+    }
+    
+    // get the path to write file to
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:SAVEFILE_NAME];
+    
+    // loop through all the requests from first to last item
+    // as we need to preserve order
+    NSMutableArray *requests = [NSMutableArray array];
+    for (int i=0; i<self.count; i++)
+    {
+        [requests addObject:[self objectAtIndex:i]];
+    }
+    
+    // save to file
+    if([NSKeyedArchiver archiveRootObject:requests toFile:appFile])
+    {
+        // remove all objects in a queue
+        // this is for consistency
+        [self removeAllObjects];
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+-(void)load
+{
+    NSAssert([self empty], @"opt queue should be in state of having no requests.");
+    
+    // get the path to write file to
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:SAVEFILE_NAME];
+    
+    // unarchive requests into array
+    NSMutableArray *requests = [NSKeyedUnarchiver unarchiveObjectWithFile:appFile];
+    
+    // add those loaded items into queue
+    [self addObjectsFromArray:requests];
 }
 
 @end

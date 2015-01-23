@@ -23,6 +23,8 @@
     NSMutableArray *requestOptQueue;
 }
 
+@property (nonatomic, readonly) NSString* token;
+
 /**
  Utility method to register device for push notification.
  Call this method inside
@@ -41,6 +43,8 @@
  */
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
 
+-(id)initWithCoder:(NSCoder *)decoder;
+-(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)init;
 -(void)dealloc;
 

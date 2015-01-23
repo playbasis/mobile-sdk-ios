@@ -20,4 +20,17 @@
 -(id) peekTail;
 -(BOOL) empty;
 
+/**
+ Serialize all requests in this queue and save into file on local storage in Document directory.
+ 
+ @return YES if successfully serialized and saved to file, otherwise return FALSE.
+ */
+-(BOOL)serializeAndSaveToFile;
+
+/**
+ Load all saved serialized requests from file.
+ */
+-(void)load;
+
+
 @end

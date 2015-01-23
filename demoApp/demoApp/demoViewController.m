@@ -84,6 +84,9 @@
         //[pb actionTime:@"1" :@"login" :self];
         
         //[pb actionLastPerformedTime:@"1" :@"login" :self];
+        
+        // Test showing access token got from auth process
+        //NSLog(@"Token = %@", pb.token);
     }
     else if(authed)
     {
@@ -117,10 +120,41 @@
 }
 
 - (IBAction)callAPI_player1:(id)sender {
-    NSLog(@"Touched to callAPI_player1");
+    // execute this only if authenticate app successfully
+    if(pb.token != nil)
+    {
+        NSLog(@"Touched to callAPI_player1");
+
+        // execute like action
+        [pb rule:@"1" :@"like" :self, nil];
+    }
+}
+
+- (IBAction)callAPI_player:(id)sender {
+    // execute this only if authenticate app successfully
+    if(pb.token != nil)
+    {
+        NSLog(@"Touched to get player's info");
+        
+        // get player information
+        [pb player:@"1" :self];
+    }
+}
+
+- (IBAction)queueSerializeAndSaveToFile:(id)sender {
+    NSLog(@"Touched to serialize all requests in an opt-queue");
     
-    // execute like action
-    [pb rule:@"1" :@"like" :self, nil];
+    [[pb getRequestOperationalQueue] serializeAndSaveToFile];
+    
+    NSLog(@"Successfully serialized and saved to file from a queue.");
+}
+
+- (IBAction)QueueLoadFromFile:(id)sender {
+    NSLog(@"Touched to load requests into an opt-queue from file.");
+    
+    [[pb getRequestOperationalQueue] load];
+    
+    NSLog(@"Successfully loaded from file");
 }
 
 @end

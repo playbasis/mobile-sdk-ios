@@ -47,12 +47,36 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
     BOOL finished;
     id<PBResponseHandler> finishDelegate;
 }
+-(id)initWithCoder:(NSCoder *)decoder;
+-(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)initWithPlaybasis:(Playbasis*)playbasis andDelegate:(id<PBResponseHandler>)delegate;
 -(BOOL)isFinished;
 -(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *) url;
 @end
 
 @implementation PBAuthDelegate
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if(!self)
+    {
+        return nil;
+    }
+    
+    pb = [decoder decodeObjectForKey:@"pb"];
+    finished = [decoder decodeBoolForKey:@"finished"];
+    finishDelegate = [decoder decodeObjectForKey:@"finishDelegate"];
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:pb forKey:@"pb"];
+    [encoder encodeBool:finished forKey:@"finished"];
+    [encoder encodeObject:finishDelegate forKey:@"finishDelegate"];
+}
 
 -(id)initWithPlaybasis:(Playbasis *)playbasis andDelegate:(id<PBResponseHandler>)delegate
 {
@@ -95,6 +119,8 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // NSUserDefaults key for Playbasis sdk to retrieve it later
 static NSString *sDeviceTokenRetrievalKey = nil;
 
+@synthesize token;
+
 +(void)registerDeviceForPushNotification
 {
     // register for push notification
@@ -132,6 +158,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // we will got this data later in UIViewController-based class
     [[NSUserDefaults standardUserDefaults] setObject:device forKey:sDeviceTokenRetrievalKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if(!self)
+    {
+        return nil;
+    }
+    
+    token = [decoder decodeObjectForKey:@"token"];
+    apiKeyParam = [decoder decodeObjectForKey:@"apiKeyParam"];
+    authDelegate = [decoder decodeObjectForKey:@"authDelegate"];
+    requestOptQueue = [decoder decodeObjectForKey:@"requestOptQueue"];
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:token forKey:@"token"];
+    [encoder encodeObject:apiKeyParam forKey:@"apiKeyParam"];
+    [encoder encodeObject:authDelegate forKey:@"authDelegate"];
+    [encoder encodeObject:requestOptQueue forKey:@"requestOptQueue"];
 }
 
 -(id)init

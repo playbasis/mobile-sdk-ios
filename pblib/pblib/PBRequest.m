@@ -14,6 +14,8 @@
 //
 @implementation PBRequest
 
+@synthesize state;
+
 -(id)initWithURLRequest:(NSURLRequest *)request
 {
     return [self initWithURLRequest:request andDelegate:nil];
@@ -24,15 +26,8 @@
     if(!(self = [super init]))
         return nil;
     
-    // we don't start it immediately as we need to send this whole PBRequest into
-    // operational queue for it to be dispatched later
-    self->connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:FALSE];
-    
-    // return nil immediately if connection cannot be created
-    if(!self->connection)
-        return nil;
-    
-    url = [request URL];
+    // save NSURLRequest for later creation of NSURLConnection, and retrieve information from it
+    urlRequest = request;
     
 #if __has_feature(objc_arc)
     receivedData = [NSMutableData data];
@@ -40,8 +35,34 @@
     receivedData = [[NSMutableData data] retain];
 #endif
     responseDelegate = delegate;
-    state = Started;
+    state = ReadyToStart;
     return self;
+}
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    urlRequest = [decoder decodeObjectForKey:@"urlRequest"];
+    receivedData = [decoder decodeObjectForKey:@"receivedData"];
+    jsonResponse = [decoder decodeObjectForKey:@"jsonResponse"];
+    state = [decoder decodeIntForKey:@"state"];
+    responseDelegate = [decoder decodeObjectForKey:@"responseDelegate"];
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:urlRequest forKey:@"urlRequest"];
+    [encoder encodeObject:receivedData forKey:@"receivedData"];
+    [encoder encodeObject:jsonResponse forKey:@"jsonResponse"];
+    [encoder encodeInt:state forKey:@"state"];
+    [encoder encodeObject:responseDelegate forKey:@"responseDelegate"];
 }
 
 -(void)dealloc
@@ -64,12 +85,20 @@
     return jsonResponse;
 }
 
--(void)start
+-(BOOL)start
 {
-    NSAssert(connection != nil, @"connection is nil");
+    // use urlRequest to create a connection and start it immediately
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
     
-    // send the request
-    [connection start];
+    // return FALSE immediately if connection cannot be created
+    if(connection == nil)
+    {
+        NSLog(@"Error creating connection");
+        return FALSE;
+    }
+    
+    // return TRUE as it can start successfully
+    return TRUE;
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -94,7 +123,7 @@
 #endif
     //error inform user of error
     state = FinishedWithError;
-    NSLog(@"request from %@ failed: %ld - %@ - %@", [url absoluteString], (long)[error code], [error domain], [error helpAnchor]);
+    NSLog(@"request from %@ failed: %ld - %@ - %@", [[urlRequest URL] absoluteString], (long)[error code], [error domain], [error helpAnchor]);
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -103,7 +132,7 @@
     NSString *response = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
     jsonResponse = [response objectFromJSONString];
     if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:)]))
-        [responseDelegate processResponse:jsonResponse withURL:url];
+        [responseDelegate processResponse:jsonResponse withURL:[urlRequest URL]];
     
 #if __has_feature(objc_arc)
     //do nothing
@@ -112,6 +141,6 @@
     [receivedData release];
 #endif
     state = Finished;
-    NSLog(@"request from %@ finished", [url absoluteString]);
+    NSLog(@"request from %@ finished", [[urlRequest URL] absoluteString]);
 }
 @end
