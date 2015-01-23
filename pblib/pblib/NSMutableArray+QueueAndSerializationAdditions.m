@@ -126,28 +126,65 @@ static NSString * const SAVEFILE_NAME = @"requests.pb";
         // remove all objects in a queue
         // this is for consistency
         [self removeAllObjects];
-        return true;
+        
+        NSLog(@"Successfully serialized and saved all requests to %@", SAVEFILE_NAME);
+        return YES;
     }
     else
     {
-        return false;
+        NSLog(@"Failed serializing and saving all requests to %@", SAVEFILE_NAME);
+        return NO;
     }
 }
 
--(void)load
+-(BOOL)load
 {
-    NSAssert([self empty], @"opt queue should be in state of having no requests.");
+    NSAssert(![self empty], @"opt queue should be in state of having no requests.");
     
     // get the path to write file to
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *appFile = [documentsDirectory stringByAppendingPathComponent:SAVEFILE_NAME];
     
+    // create a file manager
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // check if file exists or not
+    if(![fileManager fileExistsAtPath:appFile])
+    {
+        NSLog(@"File didn't exist. Start fresh :)");
+        return NO;
+    }
+    
     // unarchive requests into array
     NSMutableArray *requests = [NSKeyedUnarchiver unarchiveObjectWithFile:appFile];
     
-    // add those loaded items into queue
+    /**
+     add those loaded items into queue
+    
+     Note: we *add* and not wipe out all requests residing in the queue
+     this gives us some more control ie. client will be able to push auth() request
+     at the first item (in ViewController class), then after application loaded requests
+     from file successfully, it further continues the work from there with new token.
+     
+     This guaranteeds that each request will have token available before making a request
+     even after the app started again after termination.
+     */
     [self addObjectsFromArray:requests];
+    
+    // now we're done, then we need to remove file
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:appFile error:&error];
+    if(success)
+    {
+        NSLog(@"Successfully loaded requests from %@", SAVEFILE_NAME);
+        return YES;
+    }
+    else
+    {
+        NSLog(@"Failed loading requests file from %@, error: %@", SAVEFILE_NAME, [error localizedDescription]);
+        return NO;
+    }
 }
 
 @end

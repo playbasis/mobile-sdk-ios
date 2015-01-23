@@ -20,9 +20,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    pb = [[Playbasis alloc] init];
-    
-    // TODO: Change to user's appKey and appSecret
+    // TODO: Change to user's app_key and app_secret here
     //[[Playbasis sharedPB] auth:@"API_KEY" :@"API_SECRET" :self];
     [[Playbasis sharedPB] auth:@"2409609667" :@"ca58bad1f0c69e0d9229d2fba2646d62" :self];
     //[[Playbasis sharedPB] auth:@"3026965093" :@"ce9c9335d542674a2a3e286307dba8c0" :self];
@@ -121,7 +119,7 @@
 
 - (IBAction)callAPI_player1:(id)sender {
     // execute this only if authenticate app successfully
-    if(pb.token != nil)
+    if([[Playbasis sharedPB] token] != nil)
     {
         NSLog(@"Touched to callAPI_player1");
 
@@ -132,7 +130,7 @@
 
 - (IBAction)callAPI_player:(id)sender {
     // execute this only if authenticate app successfully
-    if(pb.token != nil)
+    if([[Playbasis sharedPB] token] != nil)
     {
         NSLog(@"Touched to get player's info");
         
@@ -145,16 +143,12 @@
     NSLog(@"Touched to serialize all requests in an opt-queue");
     
     [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
-    
-    NSLog(@"Successfully serialized and saved to file from a queue.");
 }
 
 - (IBAction)QueueLoadFromFile:(id)sender {
     NSLog(@"Touched to load requests into an opt-queue from file.");
     
     [[[Playbasis sharedPB] getRequestOperationalQueue] load];
-    
-    NSLog(@"Successfully loaded from file");
 }
 
 @end

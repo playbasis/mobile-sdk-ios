@@ -36,6 +36,14 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
  This method will be called whenever network status changed.
  */
 -(void)checkNetworkStatus:(NSNotification*)notice;
+
+-(void)onApplicationDidFinishLaunching:(NSNotification *)notif;
+-(void)onApplicationWillResignActive:(NSNotification *)notif;
+-(void)onApplicationDidEnterBackground:(NSNotification *)notif;
+-(void)onApplicationWillEnterForeground:(NSNotification *)notif;
+-(void)onApplicationDidBecomeActive:(NSNotification *)notif;
+-(void)onApplicationWillTerminate:(NSNotification *)notif;
+
 @end
 
 //
@@ -216,6 +224,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // add notification of network status change
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
     
+    // add notification of UIApplication
+    // we add them here to reduce code user has to add in Delegate class
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+    
     // start notifier right away
     [reachability startNotifier];
     
@@ -236,6 +253,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [reachability stopNotifier];
     // remove notification of network status change
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    
+    // remove notification of UIApplication
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidFinishLaunchingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
     
 #if __has_feature(objc_arc)
     // do nothing
@@ -762,6 +787,48 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             NSLog(@"Network is reachable via WWAN");
             break;
     }
+}
+
+-(void)onApplicationDidFinishLaunching:(NSNotification *)notif
+{
+    NSLog(@"called onApplicationDidFinishLaunching()");
+    
+    // immediately load requests from file
+    [[[Playbasis sharedPB] getRequestOperationalQueue] load];
+}
+
+-(void)onApplicationWillResignActive:(NSNotification *)notif
+{
+    NSLog(@"called onApplicatoinWillResignActive()");
+}
+
+-(void)onApplicationDidEnterBackground:(NSNotification *)notif
+{
+    NSLog(@"called onApplicationDidEnterBackground()");
+    
+    // serialize and save all requests in queue
+    [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
+}
+
+-(void)onApplicationWillEnterForeground:(NSNotification *)notif
+{
+    NSLog(@"called onApplicationWillEnterForeground()");
+    
+    // load saved requests from file
+    [[[Playbasis sharedPB] getRequestOperationalQueue] load];
+}
+
+-(void)onApplicationDidBecomeActive:(NSNotification *)notif
+{
+    NSLog(@"called onApplicationDidBecomeActive()");
+}
+
+-(void)onApplicationWillTerminate:(NSNotification *)notif
+{
+    NSLog(@"called onApplicationWillTerminate()");
+    
+    // serialize and save all requests in queue
+    [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
 }
 
 @end

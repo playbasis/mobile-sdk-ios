@@ -11,7 +11,6 @@
 
 @interface demoViewController : UIViewController <PBResponseHandler>
 {
-    Playbasis *pb;
     BOOL authed;
 }
 -(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url;
