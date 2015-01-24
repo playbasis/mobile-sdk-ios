@@ -53,13 +53,13 @@
         NSString *user = @"1";
         //NSString *user = @"jontestuser";
         //[[Playbasis sharedPB] player:user :self];
-        //[[Playbasis sharedPB] login:user :self];
+        [[Playbasis sharedPB] login:user :self];
         
         // register device token with playbasis for push notification
         //[[Playbasis sharedPB] registerForPushNotification:self];
         
         //[[Playbasis sharedPB] registerUser:@"user123" :self :@"username123" :@"username@email.com" :@"http://imageurl.html", @"first_name=fname", @"last_name=lname", nil];
-        //[[Playbasis sharedPB] updateUser:user :self :@"1", @"haxpor@gmail.com", @"http://wasin.io", nil];
+        //[[Playbasis sharedPB] updateUser:user :self :@"username=1", @"email=haxpor@gmail.com", @"image=http://wasin.io/wp-content/uploads/2015/01/L-lYrqmV.png", nil];
         /*[[Playbasis sharedPB] login:user :self];
         [[Playbasis sharedPB] logout:user :self];
         [[Playbasis sharedPB] points:user :self];
@@ -88,7 +88,12 @@
         //NSLog(@"Token = %@", pb.token);
         
         //[[Playbasis sharedPB] sms:user :@"SMS content" :self];
-        [[Playbasis sharedPB] sendEmail:user :@"Subject" :@"Content of Email" :self];
+        //[[Playbasis sharedPB] sendEmail:user :@"Subject" :@"Content of Email" :self];
+        
+        //[[Playbasis sharedPB] ruleAsync:user :@"like" :self, nil];
+        //[[Playbasis sharedPB] ruleAsync:user :@"like" :self, nil];
+        
+        
     }
     else if(authed)
     {

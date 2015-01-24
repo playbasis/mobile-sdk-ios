@@ -11,6 +11,8 @@
 #import "Reachability.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
+// only apply to some of api call ie. rule()
+static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
 
 //
 // additional interface for private methods
@@ -43,6 +45,11 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 -(void)onApplicationWillEnterForeground:(NSNotification *)notif;
 -(void)onApplicationDidBecomeActive:(NSNotification *)notif;
 -(void)onApplicationWillTerminate:(NSNotification *)notif;
+
+/**
+ Internal working method to send http request.
+ */
+-(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data syncMode:(BOOL)syncMode andDelegate:(id<PBResponseHandler>)delegate;
 
 @end
 
@@ -588,6 +595,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:@"Engine/rule" withData:data andDelegate:delegate];
 }
 
+-(PBRequest *)ruleAsync:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...
+{
+    NSAssert(token, @"access token is nil");
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
+    
+    id optionalData;
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    while ((optionalData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", optionalData];
+    }
+    va_end(argumentList);
+    
+    return [self callAsync:@"Engine/rule" withData:data andDelegate:delegate];
+}
+
 -(PBRequest *)quests:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
@@ -761,8 +785,25 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate
 {
+    return [self callInternal:method withData:data syncMode:YES andDelegate:delegate];
+}
+
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self callInternal:method withData:data syncMode:NO andDelegate:delegate];
+}
+
+-(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data syncMode:(BOOL)syncMode andDelegate:(id<PBResponseHandler>)delegate
+{
     id request = nil;
-    id url = [NSURL URLWithString:[BASE_URL stringByAppendingString:method]];
+    
+    // set the default mode to sync mode
+    NSString *useMode = BASE_URL;
+    // if it goes to async mode, then set it accordingly
+    if(!syncMode)
+        useMode = BASE_ASYNC_URL;
+    
+    id url = [NSURL URLWithString:[useMode stringByAppendingString:method]];
     if(!data)
     {
         request = [NSURLRequest requestWithURL:url];

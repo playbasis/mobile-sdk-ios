@@ -237,6 +237,11 @@
 -(PBRequest *)rule:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...;
 
 /**
+ Process an action through all the game's rules defined for client's website in asynchronized manner.
+ */
+-(PBRequest *)ruleAsync:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...;
+
+/**
  Return information about all quests in current site.
  */
 -(PBRequest *)quests:(id<PBResponseHandler>)delegate;
@@ -345,4 +350,9 @@
  Send http request.
  */
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate;
+
+/**
+ Send http request in asynchronized manner.
+ */
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate;
 @end
