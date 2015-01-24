@@ -657,6 +657,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:nil andDelegate:delegate];
 }
 
+-(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token , @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/send"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+-(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token , @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/send"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", token, playerId, message, templateId];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+-(PBRequest *)smsCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)message :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/goods"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+-(PBRequest *)smsCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/goods"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, refId, message, templateId];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
