@@ -59,7 +59,7 @@
         //[[Playbasis sharedPB] registerForPushNotification:self];
         
         //[[Playbasis sharedPB] registerUser:@"user123" :self :@"username123" :@"username@email.com" :@"http://imageurl.html", @"first_name=fname", @"last_name=lname", nil];
-        [[Playbasis sharedPB] updateUser:user :self :@"1", @"haxpor@gmail.com", @"http://wasin.io", nil];
+        //[[Playbasis sharedPB] updateUser:user :self :@"1", @"haxpor@gmail.com", @"http://wasin.io", nil];
         /*[[Playbasis sharedPB] login:user :self];
         [[Playbasis sharedPB] logout:user :self];
         [[Playbasis sharedPB] points:user :self];
@@ -88,6 +88,7 @@
         //NSLog(@"Token = %@", pb.token);
         
         //[[Playbasis sharedPB] sms:user :@"SMS content" :self];
+        [[Playbasis sharedPB] sendEmail:user :@"Subject" :@"Content of Email" :self];
     }
     else if(authed)
     {

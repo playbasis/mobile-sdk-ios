@@ -657,6 +657,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:nil andDelegate:delegate];
 }
 
+-(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/send"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@", token, playerId, subject, message];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+-(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/send"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@&template_id=%@", token, playerId, subject, message, templateId];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+- (PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/send"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/send"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, refId, message, templateId];
+    
+    return [self call:method withData:data andDelegate:delegate];
+}
+
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
     NSAssert(token , @"access token is nil");

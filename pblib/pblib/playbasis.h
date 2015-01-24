@@ -287,6 +287,26 @@
 -(PBRequest *)recentPointByName:(NSString *)pointName :(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate;
 
 /**
+ Send Email to a player.
+ */
+-(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate;
+
+/**
+ Send Email to a player with template-id.
+ */
+-(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate;
+
+/**
+ Send Email Coupon to a player.
+ */
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate;
+
+/**
+ Send Email Coupon to a player with template-id.
+ */
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate;
+
+/**
  Send SMS to a player.
  */
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate;
