@@ -47,9 +47,46 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
 -(void)onApplicationWillTerminate:(NSNotification *)notif;
 
 /**
- Internal working method to send http request.
+ @abstract Send http request via synchronized blocking call with delegate.
+ 
+ @param syncURLRequest Whether or not to use sync-url request.
+ This url is independent from blocking or non-blocking call. A blocking call can still use async url-request. The difference is that async url-request will response back to client immediately, and faster than sync url-request with will piggyback actual payload data upon request.
  */
--(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data syncMode:(BOOL)syncMode andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate;
+
+/**
+ @abstract Send http request via synchronized blocking call with block.
+ 
+ @param syncURLRequest Whether or not to use sync-url request.
+ This url is independent from blocking or non-blocking call. A blocking call can still use async url-request. The difference is that async url-request will response back to client immediately, and faster than sync url-request with will piggyback actual payload data upon request.
+ */
+-(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block;
+
+/**
+ @abstract Send http request via non-blocking call with delegate.
+ 
+ @param syncURLRequest Whether or not to use sync-url request.
+ This url is independent from blocking or non-blocking call. A blocking call can still use async url-request. The difference is that async url-request will response back to client immediately, and faster than sync url-request with will piggyback actual payload data upon request.
+ */
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate;
+
+/**
+ @abstract Send http request via non-blocking call.
+ 
+ @param syncURLRequest Whether or not to use sync-url request with delegate.
+ This url is independent from blocking or non-blocking call. A blocking call can still use async url-request. The difference is that async url-request will response back to client immediately, and faster than sync url-request with will piggyback actual payload data upon request.
+ */
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block;
+
+/**
+ Internal working method to send http request with delegate.
+ */
+-(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate;
+
+/**
+ Internal working method to send http request with block.
+ */
+-(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block;
 
 @end
 
@@ -66,7 +103,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
 -(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)initWithPlaybasis:(Playbasis*)playbasis andDelegate:(id<PBResponseHandler>)delegate;
 -(BOOL)isFinished;
--(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *) url;
+-(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 @end
 
 @implementation PBAuthDelegate
@@ -106,23 +143,30 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
 {
     return finished;
 }
--(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url
+-(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url error:(NSError*)error
 {
+    if(error)
+    {
+        // auth failed
+        NSLog(@"Auth failed, return immediately");
+        return;
+    }
+    
     id success = [jsonResponse objectForKey:@"success"];
     if(!success)
     {
         //auth failed
         finished = YES;
-        if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponse:withURL:)]))
-            [finishDelegate processResponse:jsonResponse withURL:url];
+        if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+            [finishDelegate processResponse:jsonResponse withURL:url error:error];
         return;
     }
     id response = [jsonResponse objectForKey:@"response"];
     id token = [response objectForKey:@"token"];
     [pb setToken:token];
     finished = YES;
-    if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponse:withURL:)]))
-        [finishDelegate processResponse:jsonResponse withURL:url];
+    if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+        [finishDelegate processResponse:jsonResponse withURL:url error:error];
 }
 @end
 
@@ -251,6 +295,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 #else
     requestOptQueue = [[NSMutableArray array] retain];
 #endif
+    
+    // after queue creation then start checking to load requests from file
+    [[self getRequestOperationalQueue] load];
+    
     return self;
 }
 
@@ -292,7 +340,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:delegate];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
-    return [self call:@"Auth" withData:data andDelegate:authDelegate];
+    return [self call:@"Auth" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
 
 -(PBRequest *)renew:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
@@ -300,22 +348,46 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:delegate];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
-    return [self call:@"Auth/renew" withData:data andDelegate:authDelegate];
+    return [self call:@"Auth/renew" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
 
 -(PBRequest *)playerPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)player:(NSString *)playerId :(id<PBResponseHandler>)delegate
+-(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)playerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)player:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+}
+
+-(PBRequest *)playerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
 
 // playerListId player id as used in client's website separate with ',' example '1,2,3'
@@ -324,14 +396,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
    NSAssert(token, @"access token is nil");
    NSString *method = [NSString stringWithFormat:@"Player/list"];
    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
-   return [self call:method withData:data andDelegate:delegate];
+   return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)playerDetailPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)playerDetail:(NSString *)playerId :(id<PBResponseHandler>)delegate
@@ -339,7 +411,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
    NSAssert(token, @"access token is nil");
    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-   return [self call:method withData:data andDelegate:delegate];
+   return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 //
@@ -370,7 +442,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     va_end(argumentList);
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 // @param	...[vararg]		Key-value for data to be updated.
@@ -403,7 +475,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     va_end(argumentList);
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)deleteUser:(NSString *)playerId :(id<PBResponseHandler>)delegate
@@ -411,15 +483,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/delete", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)login:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self call:method withData:data syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
@@ -427,19 +507,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/logout", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)points:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/points%@", playerId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)point:(NSString *)playerId :(NSString *)pointName :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/point/%@%@", playerId, pointName, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)pointHistory:(NSString *)playerId :(NSString *)pointName :(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate
@@ -449,61 +529,61 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [NSString stringWithFormat:@"%@&point_name=%@", data, pointName];
     }
     NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, data];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)actionTime:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)actionLastPerformed:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/time%@", playerId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)actionLastPerformedTime:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)actionPerformedCount:(NSString *)playerId :(NSString *)actionName :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/count%@", playerId, actionName, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)badgeOwned:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge%@", playerId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)rank:(NSString *)rankedBy :(unsigned int)limit :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/rank/%@/%u%@", rankedBy, limit, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)ranks:(unsigned int)limit :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/ranks/%u%@", limit, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)level:(unsigned int)level :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/level/%u%@", level, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)levels:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/levels%@", apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)claimBadge:(NSString *)playerId :(NSString *)badgeId :(id<PBResponseHandler>)delegate
@@ -511,7 +591,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/claim", playerId, badgeId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)redeemBadge:(NSString *)playerId :(NSString *)badgeId :(id<PBResponseHandler>)delegate
@@ -519,55 +599,55 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/redeem", playerId, badgeId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)goodsOwned:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/goods%@", playerId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)questOfPlayer:(NSString *)playerId :(NSString *)questId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/quest/%@%@&player_id=%@", questId, apiKeyParam, playerId];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)questListOfPlayer:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Player/quest%@&player_id=%@", apiKeyParam, playerId];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)badge:(NSString *)badgeId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Badge/%@%@", badgeId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)badges :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Badge%@", apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)goods:(NSString *)goodId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Goods/%@%@", goodId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)goodsList:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Goods%@", apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)actionConfig :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Engine/actionConfig%@", apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 //
@@ -578,7 +658,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- reward	name of the custom-point reward to give (for triggering rules with custom-point reward)
 // 							- quantity	amount of points to give (for triggering rules with custom-point reward)
 //
--(PBRequest *)rule:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)rule:(NSString *)playerId :(NSString *)action :(BOOL)syncUrl :(id<PBResponseHandler>)delegate, ...
 {
     NSAssert(token, @"access token is nil");
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
@@ -592,54 +672,37 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     va_end(argumentList);
     
-    return [self call:@"Engine/rule" withData:data andDelegate:delegate];
-}
-
--(PBRequest *)ruleAsync:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...
-{
-    NSAssert(token, @"access token is nil");
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
-    
-    id optionalData;
-    va_list argumentList;
-    va_start(argumentList, delegate);
-    while ((optionalData = va_arg(argumentList, NSString *)))
-    {
-        [data appendFormat:@"&%@", optionalData];
-    }
-    va_end(argumentList);
-    
-    return [self callAsync:@"Engine/rule" withData:data andDelegate:delegate];
+    return [self call:@"Engine/rule" withData:data syncURLRequest:syncUrl andDelegate:delegate];
 }
 
 -(PBRequest *)quests:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)quest:(NSString *)questId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)mission:(NSString *)questId :(NSString *)missionId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@/misson/%@%@", questId, missionId, apiKeyParam];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)questAvailable:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@/available/%@&player_id=%@", questId, apiKeyParam, playerId];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)questsAvailable:(NSString *)playerId :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/available/%@&player_id=%@", apiKeyParam, playerId];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)joinQuest:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate
@@ -647,7 +710,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/join", questId];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id%@", token, playerId];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)cancelQuest:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate
@@ -655,7 +718,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/cancel", questId];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id%@", token, playerId];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)redeemGoods:(NSString *)goodsId :(NSString *)playerId :(unsigned int)amount :(id<PBResponseHandler>)delegate
@@ -666,19 +729,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     NSString *method = [NSString stringWithFormat:@"Redeem/goods"];
     NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id%@&amount=%u", token, goodsId, playerId, amount];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)recentPoint:(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u", apiKeyParam, offset, limit];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)recentPointByName:(NSString *)pointName :(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u&point_name=%@", apiKeyParam, offset, limit, pointName];
-    return [self call:method withData:nil andDelegate:delegate];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate
@@ -687,7 +750,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Email/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@", token, playerId, subject, message];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
@@ -696,7 +759,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Email/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@&template_id=%@", token, playerId, subject, message, templateId];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 - (PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate
@@ -705,7 +768,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Email/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
@@ -714,7 +777,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Email/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, refId, message, templateId];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
@@ -723,7 +786,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Sms/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
@@ -732,7 +795,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Sms/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", token, playerId, message, templateId];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)smsCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)message :(id<PBResponseHandler>)delegate
@@ -741,7 +804,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Sms/goods"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)smsCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
@@ -750,24 +813,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Sms/goods"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, refId, message, templateId];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
+    
+    // check if device token is there and set before making a request
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
+    if(deviceToken == nil)
+    {
+        NSLog(@"No device token acquired just yet.");
+        return nil;
+    }
+    
     NSString *method = [NSString stringWithFormat:@"Push/notification"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
     
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)push:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate :(NSString *)templateId
 {
     NSAssert(token, @"access token is nil");
+    
+    // check if device token is there and set before making a request
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
+    if(deviceToken == nil)
+    {
+        NSLog(@"No device token acquired just yet.");
+        return nil;
+    }
+    
     NSString *method = [NSString stringWithFormat:@"Push/notification"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", token, playerId, message, templateId];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
 -(PBRequest *)registerForPushNotification:(id<PBResponseHandler>)delegate
@@ -780,30 +861,54 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     NSString *method = [NSString stringWithFormat:@"Push/registerdevice"];
     NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", token, deviceToken];
-    return [self call:method withData:data andDelegate:delegate];
+    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)track:(NSString *)playerId action:(NSString *)action
 {
-    return [self callInternal:method withData:data syncMode:YES andDelegate:delegate];
+    
 }
 
--(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action
 {
-    return [self callInternal:method withData:data syncMode:NO andDelegate:delegate];
+    // check if specified playerId is alrady there in the system
+    
+    // if not then register player with the system
+    
+    // finally do the action
 }
 
--(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data syncMode:(BOOL)syncMode andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self callInternal:method withData:data blockingCall:YES syncURLRequest:syncURLRequest andDelegate:delegate];
+}
+
+-(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
+{
+    return [self callInternal:method withData:data blockingCall:YES syncURLRequest:syncURLRequest andBlock:block];
+}
+
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self callInternal:method withData:data blockingCall:NO syncURLRequest:syncURLRequest andDelegate:delegate];
+}
+
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
+{
+    return [self callInternal:method withData:data blockingCall:NO syncURLRequest:syncURLRequest andBlock:block];
+}
+
+-(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
 {
     id request = nil;
     
     // set the default mode to sync mode
-    NSString *useMode = BASE_URL;
+    NSString *urlRequest = BASE_URL;
     // if it goes to async mode, then set it accordingly
-    if(!syncMode)
-        useMode = BASE_ASYNC_URL;
+    if(!syncURLRequest)
+        urlRequest = BASE_ASYNC_URL;
     
-    id url = [NSURL URLWithString:[useMode stringByAppendingString:method]];
+    id url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
     if(!data)
     {
         request = [NSURLRequest requestWithURL:url];
@@ -840,12 +945,95 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
         [request setHTTPBody:postData];
     }
-    id pbRequest = [[PBRequest alloc] initWithURLRequest:request andDelegate:delegate];
+    // create PBRequest with delegate callback
+    PBRequest* pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andDelegate:delegate];
     
-    // add PBRequest into operational queue
-    [requestOptQueue enqueue:pbRequest];
+    // if network is reachable then dispatch it immediately
+    if(isNetworkReachable)
+    {
+        // start the request
+        [pbRequest start];
+    }
+    // otherwise, then add into the queue
+    else
+    {
+        // add PBRequest into operational queue
+        [requestOptQueue enqueue:pbRequest];
     
-    NSLog(@"Queue size = %d", [requestOptQueue count]);
+        NSLog(@"Queue size = %d", [requestOptQueue count]);
+    }
+    
+#if __has_feature(objc_arc)
+    return pbRequest;
+#else
+    return [pbRequest autorelease];
+#endif
+}
+
+-(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
+{
+    id request = nil;
+    
+    // set the default mode to sync mode
+    NSString *urlRequest = BASE_URL;
+    // if it goes to async mode, then set it accordingly
+    if(!syncURLRequest)
+        urlRequest = BASE_ASYNC_URL;
+    
+    id url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
+    if(!data)
+    {
+        request = [NSURLRequest requestWithURL:url];
+    }
+    else
+    {
+        NSData *postData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+        request = [NSMutableURLRequest requestWithURL:url];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        
+        {
+            // set date header
+            // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
+            NSDate *date = [NSDate date];
+            
+            // crete a date formatter
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            // setup format to be http date
+            // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
+            // get http date string
+            NSString *httpDateStr = [dateFormatter stringFromDate:date];
+            
+            NSLog(@"date: %@", [date description]);
+            NSLog(@"dateStr: %@", httpDateStr);
+            
+            // set to request's date header
+            [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
+        }
+        
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:postData];
+    }
+    // create PBRequest with block callback
+    PBRequest* pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andBlock:block];
+    
+    // if network is reachable then dispatch it immediately
+    if(isNetworkReachable)
+    {
+        // start the request
+        [pbRequest start];
+    }
+    // otherwise, then add into the queue
+    else
+    {
+        // add PBRequest into operational queue
+        [requestOptQueue enqueue:pbRequest];
+        
+        NSLog(@"Queue size = %d", [requestOptQueue count]);
+    }
     
 #if __has_feature(objc_arc)
     return pbRequest;
@@ -905,9 +1093,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)onApplicationDidFinishLaunching:(NSNotification *)notif
 {
     NSLog(@"called onApplicationDidFinishLaunching()");
-    
-    // immediately load requests from file
-    [[[Playbasis sharedPB] getRequestOperationalQueue] load];
 }
 
 -(void)onApplicationWillResignActive:(NSNotification *)notif

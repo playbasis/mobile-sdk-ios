@@ -21,16 +21,16 @@
 -(BOOL) empty;
 
 /**
- Serialize all requests in this queue and save into file on local storage in Document directory.
+ @abstract Serialize all requests in this queue and save into file on local storage in Document directory.
  
- @return YES if successfully serialized and saved to file, otherwise return NO.
+ @returns YES if successfully serialized and saved to file, otherwise return NO.
  */
 -(BOOL)serializeAndSaveToFile;
 
 /**
  Load all saved serialized requests from file.
  
- @return YES if successfully loaded, and deleted the file we load as to preserve consistency, otherwise return NO.
+ @returns YES if successfully loaded, and deleted the file we load as to preserve consistency, otherwise return NO.
  */
 -(BOOL)load;
 

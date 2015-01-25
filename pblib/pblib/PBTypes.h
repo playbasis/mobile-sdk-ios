@@ -10,7 +10,14 @@
 #define pblib_PBTypes_h
 
 @protocol PBResponseHandler <NSObject>
--(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url;
+-(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 @end
+
+
+///--------------------------------------
+/// @name Blocks
+///--------------------------------------
+// Generic response block call
+typedef void (^PBResponseBlock)(NSDictionary *jsonResponse, NSURL* url, NSError *error);
 
 #endif

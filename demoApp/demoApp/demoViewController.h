@@ -13,7 +13,7 @@
 {
     BOOL authed;
 }
--(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url;
+-(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 
 - (IBAction)callAPI_player1:(id)sender;
 - (IBAction)callAPI_player:(id)sender;

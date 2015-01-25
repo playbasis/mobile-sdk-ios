@@ -26,13 +26,18 @@ PBRequestState;
     NSMutableData *receivedData;
     NSDictionary *jsonResponse;
     PBRequestState state;
+    BOOL isBlockingCall;
+    
+    // either one or another
     id<PBResponseHandler> responseDelegate;
+    PBResponseBlock responseBlock;
 }
 
 @property PBRequestState state;
+@property (nonatomic, readonly) BOOL isBlockingCall;
 
--(id)initWithURLRequest:(NSURLRequest *)request;
--(id)initWithURLRequest:(NSURLRequest *)request andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andBlock:(PBResponseBlock)block;
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
 -(void)dealloc;
@@ -41,13 +46,6 @@ PBRequestState;
 
 /**
  Start its internal request. This sends request over network.
- 
- @return TRUE if successfully started, otherwise return FALSE.
  */
--(BOOL)start;
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
--(void)connectionDidFinishLoading:(NSURLConnection *)connection;
+-(void)start;
 @end

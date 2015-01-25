@@ -15,13 +15,9 @@
 @implementation PBRequest
 
 @synthesize state;
+@synthesize isBlockingCall;
 
--(id)initWithURLRequest:(NSURLRequest *)request
-{
-    return [self initWithURLRequest:request andDelegate:nil];
-}
-
--(id)initWithURLRequest:(NSURLRequest *)request andDelegate:(id<PBResponseHandler>)delegate
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andDelegate:(id<PBResponseHandler>)delegate
 {
     if(!(self = [super init]))
         return nil;
@@ -34,7 +30,41 @@
 #else
     receivedData = [[NSMutableData data] retain];
 #endif
+    
+    // save blocking call flag
+    isBlockingCall = blockingCall;
+    
+    // in this case use delegate, thus we set block to nil
     responseDelegate = delegate;
+    responseBlock = nil;
+    
+    // set state
+    state = ReadyToStart;
+    return self;
+}
+
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andBlock:(PBResponseBlock)block
+{
+    if(!(self = [super init]))
+        return nil;
+    
+    // save NSURLRequest for later creation of NSURLConnection, and retrieve information from it
+    urlRequest = request;
+    
+#if __has_feature(objc_arc)
+    receivedData = [NSMutableData data];
+#else
+    receivedData = [[NSMutableData data] retain];
+#endif
+    
+    // save blocking call flag
+    isBlockingCall = blockingCall;
+    
+    // in this case use block, thus we set delegate to nil
+    responseDelegate = nil;
+    responseBlock = block;
+    
+    // set state
     state = ReadyToStart;
     return self;
 }
@@ -51,7 +81,11 @@
     receivedData = [decoder decodeObjectForKey:@"receivedData"];
     jsonResponse = [decoder decodeObjectForKey:@"jsonResponse"];
     state = [decoder decodeIntForKey:@"state"];
-    responseDelegate = [decoder decodeObjectForKey:@"responseDelegate"];
+    isBlockingCall = [decoder decodeBoolForKey:@"isBlockingCall"];
+    
+    // for delegate and block, we don't serialize it as those objects might not be available
+    // after queue loaded all requests from file
+    // The important thing here is that we execute the API call, result is another story.
     
     return self;
 }
@@ -62,7 +96,11 @@
     [encoder encodeObject:receivedData forKey:@"receivedData"];
     [encoder encodeObject:jsonResponse forKey:@"jsonResponse"];
     [encoder encodeInt:state forKey:@"state"];
-    [encoder encodeObject:responseDelegate forKey:@"responseDelegate"];
+    [encoder encodeBool:isBlockingCall forKey:@"isBlockingCall"];
+    
+    // for delegate and block, we don't serialize it as those objects might not be available
+    // after queue loaded all requests from file
+    // The important thing here is that we execute the API call, result is another story.
 }
 
 -(void)dealloc
@@ -85,62 +123,110 @@
     return jsonResponse;
 }
 
--(BOOL)start
+-(void)start
 {
-    // use urlRequest to create a connection and start it immediately
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-    
-    // return FALSE immediately if connection cannot be created
-    if(connection == nil)
+    // start the request according to the type of request
+    // if it's blocking call
+    if(isBlockingCall)
     {
-        NSLog(@"Error creating connection");
-        return FALSE;
+        // create http response & error to get back from request's result
+        NSHTTPURLResponse __autoreleasing *httpResponse;
+        NSError __autoreleasing *error;
+        
+        NSData* responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&httpResponse error:&error];
+        
+        // if all okay
+        if(error == nil)
+        {
+            // convert response data to string
+            NSString *response = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            // parse string into json
+            jsonResponse = [response objectFromJSONString];
+
+            // check if responseDelegate is there, and conforms to the calling format
+            if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+            {
+                NSLog(@"call delegate");
+                
+                [responseDelegate processResponse:jsonResponse withURL:[urlRequest URL] error:nil];
+            }
+            else if(responseBlock)
+            {
+                NSLog(@"call block");
+                
+                // execute block call
+                responseBlock(jsonResponse, [urlRequest URL], error);
+            }
+        }
+        // otherwise print out error
+        else
+        {
+            NSLog(@"Failed request, error: %@", [error localizedDescription]);
+            
+            // check if responseDelegate is there, and conforms to the calling format
+            if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+            {
+                NSLog(@"call delegate with error");
+                [responseDelegate processResponse:jsonResponse  withURL:[urlRequest URL] error:error];
+            }
+            else if(responseBlock)
+            {
+                NSLog(@"call block with error");
+                // execute block call
+                responseBlock(jsonResponse, [urlRequest URL], error);
+            }
+        }
     }
-    
-    // return TRUE as it can start successfully
-    return TRUE;
+    // otherwise, it's non-blocking call
+    else
+    {
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            
+            // if data received
+            if(data)
+            {
+                // convert response data to string
+                NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                // parse string into json
+                jsonResponse = [response objectFromJSONString];
+                
+                // check if responseDelegate is there, and conforms to the calling format
+                if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+                {
+                    NSLog(@"call async delegate");
+                    
+                    [responseDelegate processResponse:jsonResponse  withURL:[urlRequest URL] error:nil];
+                }
+                else if(responseBlock)
+                {
+                    NSLog(@"call async block");
+                    
+                    // execute block call
+                    responseBlock(jsonResponse, [urlRequest URL], connectionError);
+                }
+            }
+            // no data received
+            else
+            {
+                NSLog(@"Failed request, error: %@", [connectionError localizedDescription]);
+                
+                // check if responseDelegate is there, and conforms to the calling format
+                if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+                {
+                    NSLog(@"call async delegate with error");
+                    
+                    [responseDelegate processResponse:nil  withURL:[urlRequest URL] error:connectionError];
+                }
+                else if(responseBlock)
+                {
+                    NSLog(@"call async block with error");
+                    
+                    // execute block call
+                    responseBlock(nil, [urlRequest URL], connectionError);
+                }
+            }
+        }];
+    }
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    [receivedData setLength:0];
-    state = ResponseReceived;
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [receivedData appendData:data];
-    state = ReceivingData;
-}
-
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-#if __has_feature(objc_arc)
-    //do nothing
-#else
-    [connection release];
-    [receivedData release];
-#endif
-    //error inform user of error
-    state = FinishedWithError;
-    NSLog(@"request from %@ failed: %ld - %@ - %@", [[urlRequest URL] absoluteString], (long)[error code], [error domain], [error helpAnchor]);
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    //process data received
-    NSString *response = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-    jsonResponse = [response objectFromJSONString];
-    if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:)]))
-        [responseDelegate processResponse:jsonResponse withURL:[urlRequest URL]];
-    
-#if __has_feature(objc_arc)
-    //do nothing
-#else
-    [connection release];
-    [receivedData release];
-#endif
-    state = Finished;
-    NSLog(@"request from %@ finished", [[urlRequest URL] absoluteString]);
-}
 @end

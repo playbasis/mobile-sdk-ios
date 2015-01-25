@@ -77,8 +77,17 @@
 
 /** 
  Get player's both private and public information.
+ It use delegate callback.
  */
--(PBRequest *)player:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+
+/**
+ Get player's both private and public information.
+ It uses block callback.
+ */
+-(PBRequest *)player:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Get basic information of list of players.
@@ -113,8 +122,14 @@
 
 /**
  Tell Playbasis system that player has logged in.
+ It uses delegate callback.
  */
--(PBRequest *)login:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+/**
+ Tell Playbasis system that player has logged in.
+ It uses block callback.
+ */
+-(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Tell Playbasis system that player has logged out.
@@ -237,11 +252,6 @@
 -(PBRequest *)rule:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...;
 
 /**
- Process an action through all the game's rules defined for client's website in asynchronized manner.
- */
--(PBRequest *)ruleAsync:(NSString *)playerId :(NSString *)action :(id<PBResponseHandler>)delegate, ...;
-
-/**
  Return information about all quests in current site.
  */
 -(PBRequest *)quests:(id<PBResponseHandler>)delegate;
@@ -347,12 +357,13 @@
 -(PBRequest *)registerForPushNotification:(id<PBResponseHandler>)delegate;
 
 /**
- Send http request.
+ Track player with an action.
  */
--(PBRequest *)call:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)track:(NSString *)playerId action:(NSString *)action;
 
 /**
- Send http request in asynchronized manner.
+ Do
  */
--(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action;
+
 @end
