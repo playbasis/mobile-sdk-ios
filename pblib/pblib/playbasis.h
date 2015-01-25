@@ -369,11 +369,13 @@
 /**
  Track player with an action.
  */
--(PBRequest *)track:(NSString *)playerId action:(NSString *)action;
+-(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block;
 
 /**
- Do
+ Execute action for player.
  */
--(PBRequest *)do:(NSString *)playerId action:(NSString *)action;
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
 
 @end

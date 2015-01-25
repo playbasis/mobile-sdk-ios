@@ -61,12 +61,12 @@
             NSLog(@"authed");
             
             // test user
-            //NSString *user = @"1";
+            NSString *user = @"1";
             //NSString *user = @"jontestuser";
             //[[Playbasis sharedPB] player:user :self];
             
-            // test callling via block
-            /*NSLog(@"Begin blocking call via block");
+            // test callling login via block
+            NSLog(@"Calling login via block");
             [[Playbasis sharedPB] login:user withBlock:^(NSDictionary *jsonResponse, NSURL* url, NSError *error) {
                 if(error)
                 {
@@ -79,8 +79,28 @@
                 }
             }];
             
+            // test track()
+            NSLog(@"Calling track()");
+            [[Playbasis sharedPB] track:user forAction:@"like" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"response from url = %@", [url path]);
+                    NSLog(@"response = %@", [jsonResponse description]);
+                }
+            }];
+            
+            // test do()
+            NSLog(@"Calling do()");
+            [[Playbasis sharedPB] do:user action:@"like" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"response from url = %@", [url path]);
+                    NSLog(@"response = %@", [jsonResponse description]);
+                }
+            }];
+            
             // test calling via non-blocking call
-            NSLog(@"Non-blocking player() call 1");
+            /*NSLog(@"Non-blocking player() call 1");
             [[Playbasis sharedPB] playerAsync:user withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
                 if(error)
                 {

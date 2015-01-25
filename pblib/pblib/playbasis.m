@@ -970,18 +970,34 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)track:(NSString *)playerId action:(NSString *)action
+-(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
 {
+    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
     
+    // use the async-url request and non-blocking call
+    return [self ruleAsync:playerId forAction:action syncUrl:NO withDelegate:delegate, nil];
 }
 
--(PBRequest *)do:(NSString *)playerId action:(NSString *)action
+-(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block
 {
-    // check if specified playerId is alrady there in the system
+    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
     
-    // if not then register player with the system
+    // use the async-url request and non-blocking call
+    return [self ruleAsync:playerId forAction:action syncUrl:NO withBlock:block, nil];
+}
+
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
+{
+    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
     
-    // finally do the action
+    return [self rule:playerId forAction:action withDelegate:delegate, nil];
+}
+
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block
+{
+    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
+    
+    return [self rule:playerId forAction:action withBlock:block, nil];
 }
 
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
