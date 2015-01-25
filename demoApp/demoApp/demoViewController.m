@@ -61,12 +61,12 @@
             NSLog(@"authed");
             
             // test user
-            NSString *user = @"1";
+            //NSString *user = @"1";
             //NSString *user = @"jontestuser";
             //[[Playbasis sharedPB] player:user :self];
             
             // test callling via block
-            NSLog(@"Begin blocking call via block");
+            /*NSLog(@"Begin blocking call via block");
             [[Playbasis sharedPB] login:user withBlock:^(NSDictionary *jsonResponse, NSURL* url, NSError *error) {
                 if(error)
                 {
@@ -127,7 +127,7 @@
                     NSLog(@"[Blocking call via block 4] block triggered from URL: %@", [url path]);
                     NSLog(@"%@", [jsonResponse description]);
                 }
-            }];
+            }];*/
             
             // register device token with playbasis for push notification
             //[[Playbasis sharedPB] registerForPushNotification:self];
@@ -215,7 +215,7 @@
         NSLog(@"Touched to callAPI_player1");
 
         // execute like action
-        [[Playbasis sharedPB] rule:@"1" :@"like" :self, nil];
+        [[Playbasis sharedPB] rule:@"1" forAction:@"like" withDelegate:self, nil];
     }
 }
 
@@ -276,6 +276,70 @@
                 NSLog(@"%@", [jsonResponse description]);
             }
         }];
+    }
+}
+
+- (IBAction)callAPI_asyncPlayerBulk:(id)sender {
+    // execute this only if authenticate app successfully
+    if([[Playbasis sharedPB] token] != nil)
+    {
+        NSLog(@"Touched to send rule: for 'like' 4 requests");
+        
+        NSString *user = @"1";
+        NSString *action = @"like";
+        
+        // test calling via non-blocking call
+        NSLog(@"Non-blocking rule():like call 1");
+        [[Playbasis sharedPB] rule:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            if(error)
+            {
+                NSLog(@"Failed rule():like - 1, error = %@", [error localizedDescription]);
+            }
+            else
+            {
+                NSLog(@"response req 1 from url = %@", [url path]);
+                NSLog(@"%@", [jsonResponse description]);
+            }
+        }, nil];
+        
+        NSLog(@"Non-blocking rule():like call 2");
+        [[Playbasis sharedPB] rule:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            if(error)
+            {
+                NSLog(@"Failed rule():like - 2, error = %@", [error localizedDescription]);
+            }
+            else
+            {
+                NSLog(@"response req 2 from url = %@", [url path]);
+                NSLog(@"%@", [jsonResponse description]);
+            }
+        }, nil];
+        
+        NSLog(@"Non-blocking rule():like call 3");
+        [[Playbasis sharedPB] rule:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            if(error)
+            {
+                NSLog(@"Failed rule():like - 3, error = %@", [error localizedDescription]);
+            }
+            else
+            {
+                NSLog(@"response req 3 from url = %@", [url path]);
+                NSLog(@"%@", [jsonResponse description]);
+            }
+        }, nil];
+        
+        NSLog(@"Non-blocking rule():like call 4");
+        [[Playbasis sharedPB] rule:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            if(error)
+            {
+                NSLog(@"Failed rule():like - 4, error = %@", [error localizedDescription]);
+            }
+            else
+            {
+                NSLog(@"response req 4 from url = %@", [url path]);
+                NSLog(@"%@", [jsonResponse description]);
+            }
+        }, nil];
     }
 }
 

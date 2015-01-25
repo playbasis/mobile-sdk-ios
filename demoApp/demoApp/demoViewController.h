@@ -17,4 +17,5 @@
 
 - (IBAction)callAPI_player1:(id)sender;
 - (IBAction)callAPI_player:(id)sender;
+- (IBAction)callAPI_asyncPlayerBulk:(id)sender;
 @end

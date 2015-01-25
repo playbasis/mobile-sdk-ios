@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6FC-VD-eBT">
-                                <rect key="frame" x="118" y="104" width="86" height="44"/>
+                                <rect key="frame" x="118" y="94" width="86" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="API: Like">
                                     <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
@@ -29,9 +29,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doq-u3-Klc">
-                                <rect key="frame" x="111" y="155" width="101" height="44"/>
+                                <rect key="frame" x="58" y="145" width="205" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="API: Player">
+                                <state key="normal" title="API: Async Player (4 reqs)">
                                     <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -42,13 +42,29 @@
                                     <action selector="callAPI_player:" destination="2" eventType="touchUpInside" id="cW3-oO-ei3"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b02-Qd-gFK">
+                                <rect key="frame" x="66" y="196" width="190" height="44"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="API: Async Like (4 reqs)">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="callAPI_asyncPlayerBulk:" destination="2" eventType="touchUpInside" id="ehw-aK-S9P"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Doq-u3-Klc" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="111" id="5Vi-Id-Hxd"/>
+                            <constraint firstItem="Doq-u3-Klc" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="DJx-bX-OiP"/>
                             <constraint firstItem="Doq-u3-Klc" firstAttribute="top" secondItem="6FC-VD-eBT" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FpW-ZQ-UqH"/>
-                            <constraint firstItem="6FC-VD-eBT" firstAttribute="top" secondItem="3" secondAttribute="top" constant="104" id="lWn-3b-PvG"/>
+                            <constraint firstItem="6FC-VD-eBT" firstAttribute="top" secondItem="3" secondAttribute="top" constant="94" id="Ur7-ES-jc3"/>
+                            <constraint firstItem="b02-Qd-gFK" firstAttribute="top" secondItem="Doq-u3-Klc" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="k1A-Tn-OgY"/>
                             <constraint firstItem="Doq-u3-Klc" firstAttribute="centerX" secondItem="6FC-VD-eBT" secondAttribute="centerX" type="default" id="sWC-mu-H30"/>
+                            <constraint firstItem="b02-Qd-gFK" firstAttribute="centerX" secondItem="Doq-u3-Klc" secondAttribute="centerX" type="default" id="yze-SB-Udg"/>
                         </constraints>
                     </view>
                 </viewController>

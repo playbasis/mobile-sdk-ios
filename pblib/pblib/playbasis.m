@@ -88,6 +88,19 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
  */
 -(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block;
 
+/**
+ Internal working method to send request to process an action through all game's rules defined for client's website.
+ This method return result via delegate.
+ */
+-(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params;
+
+/**
+ Internal working method to send request to process an action through all game's rules defined for client's website.
+ This method return result via block.
+ */
+-(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block withParams:(va_list)params;
+
+
 @end
 
 //
@@ -658,21 +671,114 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- reward	name of the custom-point reward to give (for triggering rules with custom-point reward)
 // 							- quantity	amount of points to give (for triggering rules with custom-point reward)
 //
--(PBRequest *)rule:(NSString *)playerId :(NSString *)action :(BOOL)syncUrl :(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:YES withDelegate:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
+
+    va_end(argumentList);
+}
+
+-(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:YES withBlock:block withParams:argumentList];
+    
+    va_end(argumentList);
+}
+-(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:syncUrl withBlock:block withParams:argumentList];
+    
+    va_end(argumentList);
+}
+
+-(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:YES withDelegate:delegate withParams:argumentList];
+    
+    va_end(argumentList);
+}
+-(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
+    
+    va_end(argumentList);
+}
+
+-(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:YES withBlock:block withParams:argumentList];
+    
+    va_end(argumentList);
+}
+-(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:syncUrl withBlock:block withParams:argumentList];
+    
+    va_end(argumentList);
+}
+
+-(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
     
     id optionalData;
-    va_list argumentList;
-    va_start(argumentList, delegate);
-    while ((optionalData = va_arg(argumentList, NSString *)))
+    while ((optionalData = va_arg(params, NSString *)))
     {
         [data appendFormat:@"&%@", optionalData];
     }
-    va_end(argumentList);
     
-    return [self call:@"Engine/rule" withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    // call to a proper type of call
+    if(blockingCall)
+        return [self call:@"Engine/rule" withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    else
+        return [self callAsync:@"Engine/rule" withData:data syncURLRequest:syncUrl andDelegate:delegate];
+}
+
+-(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block withParams:(va_list)params
+{
+    NSAssert(token, @"access token is nil");
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
+    
+    id optionalData;
+    while ((optionalData = va_arg(params, NSString *)))
+    {
+        [data appendFormat:@"&%@", optionalData];
+    }
+    
+    // call to a proper type of call
+    if(blockingCall)
+        return [self call:@"Engine/rule" withData:data syncURLRequest:syncUrl andBlock:block];
+    else
+        return [self callAsync:@"Engine/rule" withData:data syncURLRequest:syncUrl andBlock:block];
 }
 
 -(PBRequest *)quests:(id<PBResponseHandler>)delegate
