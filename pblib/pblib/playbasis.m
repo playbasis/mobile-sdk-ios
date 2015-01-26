@@ -9,6 +9,7 @@
 #import "playbasis.h"
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
+#import "JSONKit.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -499,20 +500,64 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self login:playerId syncUrl:YES withDelegate:delegate];
+}
+-(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+    NSString *data = nil;
+    
+    if(syncUrl)
+        data = [NSString stringWithFormat:@"token=%@", token];
+    else
+    {
+        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+        [dictData setObject:token forKey:@"token"];
+        
+        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+        [dictWholeData setObject:method forKey:@"endpoint"];
+        [dictWholeData setObject:dictData forKey:@"data"];
+        [dictWholeData setObject:@"nil" forKey:@"channel"];
+        
+        // get json string
+        data = [dictWholeData JSONString];
+        NSLog(@"jsonString = %@", data);
+    }
+    return [self call:method withData:data syncURLRequest:syncUrl andDelegate:delegate];
 }
 
 -(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
+    return [self login:playerId syncUrl:YES withBlock:block];
+}
+-(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block
+{
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+    
+    NSString *data = nil;
+    
+    if(syncUrl)
+        data = [NSString stringWithFormat:@"token=%@", token];
+    else
+    {
+        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+        [dictData setObject:token forKey:@"token"];
+        
+        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+        [dictWholeData setObject:method forKey:@"endpoint"];
+        [dictWholeData setObject:dictData forKey:@"data"];
+        [dictWholeData setObject:@"nil" forKey:@"channel"];
+        
+        // get json string
+        data = [dictWholeData JSONString];
+        NSLog(@"jsonString = %@", data);
+    }
+    
+    return [self call:method withData:data syncURLRequest:syncUrl andBlock:block];
 }
 
 -(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
@@ -1109,11 +1154,28 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     else
     {
+        // get data from string encoded
         NSData *postData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+        
+        // create a request
         request = [NSMutableURLRequest requestWithURL:url];
         [request setHTTPMethod:@"POST"];
-        [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        
+        // set length, and data to request's header
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:postData];
+        
+        // if using sync url request, then form a normal http request via encoded string
+        if(syncURLRequest)
+        {
+            [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        }
+        // otherwise, it's for async url request
+        else
+        {
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        }
         
         {
             // set date header
@@ -1135,9 +1197,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             // set to request's date header
             [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
         }
-        
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setHTTPBody:postData];
     }
     // create PBRequest with block callback
     PBRequest* pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andBlock:block];

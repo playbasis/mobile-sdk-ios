@@ -67,7 +67,7 @@
             
             // test callling login via block
             NSLog(@"Calling login via block");
-            [[Playbasis sharedPB] login:user withBlock:^(NSDictionary *jsonResponse, NSURL* url, NSError *error) {
+            [[Playbasis sharedPB] login:user syncUrl:YES withBlock:^(NSDictionary *jsonResponse, NSURL* url, NSError *error) {
                 if(error)
                 {
                     NSLog(@"failed login, error = %@", [error localizedDescription]);
@@ -80,7 +80,7 @@
             }];
             
             // test track()
-            NSLog(@"Calling track()");
+            /*NSLog(@"Calling track()");
             [[Playbasis sharedPB] track:user forAction:@"like" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
                 if(!error)
                 {
@@ -97,7 +97,7 @@
                     NSLog(@"response from url = %@", [url path]);
                     NSLog(@"response = %@", [jsonResponse description]);
                 }
-            }];
+            }];*/
             
             // test calling via non-blocking call
             /*NSLog(@"Non-blocking player() call 1");
