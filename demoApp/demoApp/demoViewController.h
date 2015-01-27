@@ -12,6 +12,7 @@
 @interface demoViewController : UIViewController <PBResponseHandler>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UITextView *resultTextArea;
 
 -(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 

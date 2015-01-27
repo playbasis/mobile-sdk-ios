@@ -56,6 +56,12 @@
         // print out the response
         NSLog(@"delegate triggered from URL: %@", urlPath);
         NSLog(@"%@", jsonResponse);
+        
+        // set result to text area
+        dispatch_queue_t uiThread = dispatch_get_main_queue();
+        dispatch_async(uiThread, ^{
+            self.resultTextArea.text = [jsonResponse description];
+        });
     }
     
     // show activity indicator
@@ -90,6 +96,9 @@
     {
         NSLog(@"Touched to get player's info");
         
+        // show activity indicator
+        self.activityIndicator.hidden = false;
+        
         // test calling via non-blocking call
         NSLog(@"Non-blocking player() call 1");
         [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
@@ -101,42 +110,12 @@
             {
                 NSLog(@"[Blocking call via block 1] block triggered from URL: %@", [url path]);
                 NSLog(@"%@", [jsonResponse description]);
-            }
-        }];
-        NSLog(@"Non-blocking player() call 2");
-        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"failed player(), error = %@", [error localizedDescription]);
-            }
-            else
-            {
-                NSLog(@"[Blocking call via block 2] block triggered from URL: %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
-            }
-        }];
-        NSLog(@"Non-blocking player() call 3");
-        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"failed player(), error = %@", [error localizedDescription]);
-            }
-            else
-            {
-                NSLog(@"[Blocking call via block 3] block triggered from URL: %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
-            }
-        }];
-        NSLog(@"Non-blocking player() call 4");
-        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"failed player(), error = %@", [error localizedDescription]);
-            }
-            else
-            {
-                NSLog(@"[Blocking call via block 4] block triggered from URL: %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
+                
+                // set result to text area
+                self.resultTextArea.text = [jsonResponse description];
+                
+                // hide activity indicator
+                self.activityIndicator.hidden = true;
             }
         }];
     }
@@ -146,7 +125,10 @@
     // execute this only if authenticate app successfully
     if([[Playbasis sharedPB] token] != nil)
     {
-        NSLog(@"Touched to send rule: for 'like' 4 requests");
+        NSLog(@"Touched to send rule: for 'like'");
+        
+        // show activity indicator
+        self.activityIndicator.hidden = false;
         
         NSString *action = @"like";
         
@@ -161,45 +143,12 @@
             {
                 NSLog(@"response req 1 from url = %@", [url path]);
                 NSLog(@"%@", [jsonResponse description]);
-            }
-        }, nil];
-        
-        NSLog(@"Non-blocking rule():like call 2");
-        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"Failed rule():like - 2, error = %@", [error localizedDescription]);
-            }
-            else
-            {
-                NSLog(@"response req 2 from url = %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
-            }
-        }, nil];
-        
-        NSLog(@"Non-blocking rule():like call 3");
-        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"Failed rule():like - 3, error = %@", [error localizedDescription]);
-            }
-            else
-            {
-                NSLog(@"response req 3 from url = %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
-            }
-        }, nil];
-        
-        NSLog(@"Non-blocking rule():like call 4");
-        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"Failed rule():like - 4, error = %@", [error localizedDescription]);
-            }
-            else
-            {
-                NSLog(@"response req 4 from url = %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
+                
+                // set result to text area
+                self.resultTextArea.text = [jsonResponse description];
+                
+                // hide activity indicator
+                self.activityIndicator.hidden = true;
             }
         }, nil];
     }
