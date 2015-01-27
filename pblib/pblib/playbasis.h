@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONKit.h"
 #import "PBTypes.h"
 #import "PBRequest.h"
 #import "NSMutableArray+QueueAndSerializationAdditions.h"

@@ -9,7 +9,6 @@
 #import "playbasis.h"
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
-#import "JSONKit.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
