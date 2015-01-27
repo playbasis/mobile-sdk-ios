@@ -8,6 +8,7 @@
 
 #import "demoViewController.h"
 #import "playbasis.h"
+#import "demoAppSettings.h"
 
 @interface demoViewController ()
 
@@ -78,7 +79,7 @@
         // note: this will let activity indicator to be updated in UI thread
         dispatch_queue_t gQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_async(gQueue, ^{
-            [[Playbasis sharedPB] rule:@"1" forAction:@"like" withDelegate:self, nil];
+            [[Playbasis sharedPB] rule:USER forAction:@"like" withDelegate:self, nil];
         });
     }
 }
@@ -89,11 +90,9 @@
     {
         NSLog(@"Touched to get player's info");
         
-        NSString *user = @"1";
-        
         // test calling via non-blocking call
         NSLog(@"Non-blocking player() call 1");
-        [[Playbasis sharedPB] playerAsync:user withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"failed player(), error = %@", [error localizedDescription]);
@@ -105,7 +104,7 @@
             }
         }];
         NSLog(@"Non-blocking player() call 2");
-        [[Playbasis sharedPB] playerAsync:user withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"failed player(), error = %@", [error localizedDescription]);
@@ -117,7 +116,7 @@
             }
         }];
         NSLog(@"Non-blocking player() call 3");
-        [[Playbasis sharedPB] playerAsync:user withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"failed player(), error = %@", [error localizedDescription]);
@@ -129,7 +128,7 @@
             }
         }];
         NSLog(@"Non-blocking player() call 4");
-        [[Playbasis sharedPB] playerAsync:user withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"failed player(), error = %@", [error localizedDescription]);
@@ -149,12 +148,11 @@
     {
         NSLog(@"Touched to send rule: for 'like' 4 requests");
         
-        NSString *user = @"1";
         NSString *action = @"like";
         
         // test calling via non-blocking call
         NSLog(@"Non-blocking rule():like call 1");
-        [[Playbasis sharedPB] ruleAsync:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"Failed rule():like - 1, error = %@", [error localizedDescription]);
@@ -167,7 +165,7 @@
         }, nil];
         
         NSLog(@"Non-blocking rule():like call 2");
-        [[Playbasis sharedPB] ruleAsync:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"Failed rule():like - 2, error = %@", [error localizedDescription]);
@@ -180,7 +178,7 @@
         }, nil];
         
         NSLog(@"Non-blocking rule():like call 3");
-        [[Playbasis sharedPB] ruleAsync:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"Failed rule():like - 3, error = %@", [error localizedDescription]);
@@ -193,7 +191,7 @@
         }, nil];
         
         NSLog(@"Non-blocking rule():like call 4");
-        [[Playbasis sharedPB] ruleAsync:user forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"Failed rule():like - 4, error = %@", [error localizedDescription]);

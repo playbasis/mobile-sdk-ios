@@ -8,6 +8,7 @@
 
 #import "badgeDemoViewController.h"
 #import "playbasis.h"
+#import "demoAppSettings.h"
 
 @interface badgeDemoViewController ()
 
@@ -47,7 +48,7 @@
     // note: this will let activity indicator to be updated in UI thread
     dispatch_queue_t gQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(gQueue, ^{
-        [[Playbasis sharedPB] rule:@"1" forAction:@"like" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] rule:USER forAction:@"like" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             
             // if thing goes okay
             if(!error)

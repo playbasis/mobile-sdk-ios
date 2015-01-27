@@ -49,6 +49,7 @@
 		1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = authAndLoginViewController.m; sourceTree = "<group>"; };
 		1E9AF5631A77681700A6E416 /* badgeDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badgeDemoViewController.h; sourceTree = "<group>"; };
 		1E9AF5641A77681700A6E416 /* badgeDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = badgeDemoViewController.m; sourceTree = "<group>"; };
+		1E9AF5681A77A99200A6E416 /* demoAppSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demoAppSettings.h; sourceTree = "<group>"; };
 		1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2C1C75151749D7DB005F3B57 /* demoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1C75181749D7DB005F3B57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -129,6 +130,7 @@
 				1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */,
 				1E9AF5631A77681700A6E416 /* badgeDemoViewController.h */,
 				1E9AF5641A77681700A6E416 /* badgeDemoViewController.m */,
+				1E9AF5681A77A99200A6E416 /* demoAppSettings.h */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
