@@ -335,6 +335,30 @@
 -(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate;
 
 /**
+ Return a list of active quizzes.
+ */
+-(PBRequest *)quizList:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizList:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizListAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizListAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+/**
+ Get detail of a quiz.
+ */
+-(PBRequest *)quizDetail:(NSString *)quizId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizDetail:(NSString *)quizId withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizDetailAsync:(NSString *)quizId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizDetailAsync:(NSString *)quizId withBlock:(PBResponseBlock)block;
+
+/**
+ Get detail of a quiz by also specifying player-id.
+ */
+-(PBRequest *)quizDetail:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizDetail:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizDetailAsync:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizDetailAsync:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+/**
  Send SMS to a player.
  */
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate;

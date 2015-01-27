@@ -115,7 +115,7 @@
         <!--Quiz Demo Screen-->
         <scene sceneID="WTx-Mz-VrS">
             <objects>
-                <viewController title="Quiz Demo Screen" id="ajk-5j-TJz" sceneMemberID="viewController">
+                <viewController title="Quiz Demo Screen" id="ajk-5j-TJz" customClass="quizDemoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tht-gO-gER">
                         <rect key="frame" x="0.0" y="20" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

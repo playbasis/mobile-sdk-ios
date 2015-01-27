@@ -10,6 +10,7 @@
 		1E9AF55D1A7746C200A6E416 /* mainmenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55C1A7746C200A6E416 /* mainmenuViewController.m */; };
 		1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */; };
 		1E9AF5651A77681700A6E416 /* badgeDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF5641A77681700A6E416 /* badgeDemoViewController.m */; };
+		1E9AF56D1A77B66F00A6E416 /* quizDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF56C1A77B66F00A6E416 /* quizDemoViewController.m */; };
 		1EA3AE1F1A717EBB008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */; };
 		2C1C75191749D7DB005F3B57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C75181749D7DB005F3B57 /* UIKit.framework */; };
 		2C1C751B1749D7DB005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C751A1749D7DB005F3B57 /* Foundation.framework */; };
@@ -50,6 +51,8 @@
 		1E9AF5631A77681700A6E416 /* badgeDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badgeDemoViewController.h; sourceTree = "<group>"; };
 		1E9AF5641A77681700A6E416 /* badgeDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = badgeDemoViewController.m; sourceTree = "<group>"; };
 		1E9AF5681A77A99200A6E416 /* demoAppSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demoAppSettings.h; sourceTree = "<group>"; };
+		1E9AF56B1A77B66F00A6E416 /* quizDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quizDemoViewController.h; sourceTree = "<group>"; };
+		1E9AF56C1A77B66F00A6E416 /* quizDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = quizDemoViewController.m; sourceTree = "<group>"; };
 		1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2C1C75151749D7DB005F3B57 /* demoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1C75181749D7DB005F3B57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -131,6 +134,8 @@
 				1E9AF5631A77681700A6E416 /* badgeDemoViewController.h */,
 				1E9AF5641A77681700A6E416 /* badgeDemoViewController.m */,
 				1E9AF5681A77A99200A6E416 /* demoAppSettings.h */,
+				1E9AF56B1A77B66F00A6E416 /* quizDemoViewController.h */,
+				1E9AF56C1A77B66F00A6E416 /* quizDemoViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 				1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */,
 				2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */,
 				1E9AF5651A77681700A6E416 /* badgeDemoViewController.m in Sources */,
+				1E9AF56D1A77B66F00A6E416 /* quizDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
