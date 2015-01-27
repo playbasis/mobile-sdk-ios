@@ -10,9 +10,9 @@
 #import "playbasis.h"
 
 @interface demoViewController : UIViewController <PBResponseHandler>
-{
-    BOOL authed;
-}
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 -(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 
 - (IBAction)callAPI_player1:(id)sender;
