@@ -10,4 +10,9 @@
 
 @interface quizDemoViewController : UIViewController
 
+/**
+ Testcases included here in this method.
+ */
+-(void)testcases;
+
 @end

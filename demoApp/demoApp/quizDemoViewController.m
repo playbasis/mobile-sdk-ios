@@ -19,7 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+}
+
+-(void)testcases
+{
     __block NSString *quizId = nil;
     
     // TEST API Calls
