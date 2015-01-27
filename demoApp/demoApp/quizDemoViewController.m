@@ -93,6 +93,15 @@
             NSLog(@"response data = %@", [jsonResponse description]);
         }
     }];
+    
+    // get pending quiz by player
+    [[Playbasis sharedPB] quizPending:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"response from url %@", [url path]);
+            NSLog(@"response data = %@", [jsonResponse description]);
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

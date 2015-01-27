@@ -1050,6 +1050,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
+-(PBRequest *)quizPending:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/pending/%ld%@", playerId, (long)limit, apiKeyParam];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)quizPending:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/pending/%ld%@", playerId, (long)limit, apiKeyParam];
+    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+}
+
+-(PBRequest *)quizPendingAsync:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/pending/%ld%@", playerId, (long)limit, apiKeyParam];
+    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)quizPendingAsync:(NSString *)playerId limit:(NSInteger *)limit withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/pending/%ld%@", playerId, (long)limit, apiKeyParam];
+    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
+}
+
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
     NSAssert(token , @"access token is nil");

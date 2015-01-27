@@ -367,12 +367,20 @@
 -(PBRequest *)quizRandomAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
- Get recent quizzes done by players.
+ Get recent quizzes done by player.
  */
 -(PBRequest *)quizDone:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)quizDone:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
 -(PBRequest *)quizDoneAsync:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)quizDoneAsync:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
+
+/**
+ Get pending quizzzes by player.
+ */
+-(PBRequest *)quizPending:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizPending:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizPendingAsync:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizPendingAsync:(NSString *)playerId limit:(NSInteger *)limit withBlock:(PBResponseBlock)block;
 
 /**
  Send SMS to a player.
