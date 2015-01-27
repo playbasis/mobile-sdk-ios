@@ -65,6 +65,13 @@
     }
     
     // get random quiz from available list of quiz
+    [[Playbasis sharedPB] quizRandom:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"response from url %@", [url path]);
+            NSLog(@"response data = %@", [jsonResponse description]);
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

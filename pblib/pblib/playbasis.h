@@ -359,6 +359,14 @@
 -(PBRequest *)quizDetailAsync:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
+ Get a random of quiz from available quizzes of player.
+ */
+-(PBRequest *)quizRandom:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizRandom:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizRandomAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizRandomAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+/**
  Send SMS to a player.
  */
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate;

@@ -954,6 +954,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
+-(PBRequest *)quizRandom:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)quizRandom:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
+    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+}
+
+-(PBRequest *)quizRandomAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
+    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)quizRandomAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
+    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
+}
+
 -(PBRequest *)quizDetail:(NSString *)quizId withDelegate:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quiz/%@/detail%@", quizId, apiKeyParam];
