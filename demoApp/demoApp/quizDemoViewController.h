@@ -9,10 +9,19 @@
 #import <UIKit/UIKit.h>
 
 @interface quizDemoViewController : UIViewController
+{
+    NSDictionary *quizJsonResponse;
+    UIImage *cachedQuizImage;
+}
 
 /**
  Testcases included here in this method.
  */
 -(void)testcases;
+
+/**
+ Load a quiz.
+ */
+-(void)loadQuizAsync;
 
 @end

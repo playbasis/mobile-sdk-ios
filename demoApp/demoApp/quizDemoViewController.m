@@ -9,6 +9,7 @@
 #import "quizDemoViewController.h"
 #import "playbasis.h"
 #import "demoAppSettings.h"
+#import "quizScreenViewController.h"
 
 @interface quizDemoViewController ()
 
@@ -19,6 +20,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSLog(@"Begin loading a quiz.");
+    // begin loading quiz information
+    [self loadQuizAsync];
+}
+
+-(void)loadQuizAsync
+{
+    // load information in async as we need UI to still be in updating
+    [[Playbasis sharedPB] quizRandomAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"response from url %@", [url path]);
+            NSLog(@"response data = %@", [jsonResponse description]);
+            
+            // get json-response, and save it internally for use later when
+            // we trainsition into another UIViewController
+            NSDictionary *rootResponse = [jsonResponse objectForKey:@"response"];
+            quizJsonResponse = [rootResponse objectForKey:@"result"];
+            
+            // get quiz's image url
+            NSString *quizImageUrl = [quizJsonResponse objectForKey:@"image"];
+            // load and cache image from above url
+            NSURL *url = [NSURL URLWithString:quizImageUrl];
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            cachedQuizImage = [[UIImage alloc] initWithData:imageData];
+            
+            // transition into another UIViewController
+            [self performSegueWithIdentifier:@"showQuizScreen" sender:self];
+        }
+    }];
 }
 
 -(void)testcases
@@ -148,14 +180,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([[segue identifier] isEqualToString:@"showQuizScreen"])
+    {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+        quizScreenViewController *quizScreen = [segue destinationViewController];
+        
+        // set all loaded information to target screen
+        quizScreen.quizId = [quizJsonResponse objectForKey:@"quiz_id"];
+        quizScreen.quizName = [quizJsonResponse objectForKey:@"name"];
+        quizScreen.quizImage = cachedQuizImage;
+        quizScreen.quizDescription = [quizJsonResponse objectForKey:@"description"];
+    }
 }
-*/
 
 @end
