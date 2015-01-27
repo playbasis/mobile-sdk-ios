@@ -1074,6 +1074,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
+-(PBRequest *)quizQuestion:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@", quizId, apiKeyParam, playerId];
+    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)quizQuestion:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@", quizId, apiKeyParam, playerId];
+    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+}
+
+-(PBRequest *)quizQuestionAsync:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@", quizId, apiKeyParam, playerId];
+    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+
+-(PBRequest *)quizQuestionAsync:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@", quizId, apiKeyParam, playerId];
+    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
+}
+
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate
 {
     NSAssert(token , @"access token is nil");

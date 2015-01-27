@@ -383,6 +383,14 @@
 -(PBRequest *)quizPendingAsync:(NSString *)playerId limit:(NSInteger *)limit withBlock:(PBResponseBlock)block;
 
 /**
+ Get a question from a quiz for player.
+ */
+-(PBRequest *)quizQuestion:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizQuestion:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizQuestionAsync:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizQuestionAsync:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+/**
  Send SMS to a player.
  */
 -(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(id<PBResponseHandler>)delegate;
