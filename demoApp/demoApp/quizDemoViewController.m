@@ -64,8 +64,29 @@
         }];
     }
     
+    // get detail of a quiz
+    if(quizId != nil)
+    {
+        [[Playbasis sharedPB] quizDetail:quizId forPlayer:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"response from url %@", [url path]);
+                NSLog(@"response data = %@", [jsonResponse description]);
+            }
+        }];
+    }
+    
     // get random quiz from available list of quiz
     [[Playbasis sharedPB] quizRandom:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"response from url %@", [url path]);
+            NSLog(@"response data = %@", [jsonResponse description]);
+        }
+    }];
+    
+    // get recent quiz done by the player
+    [[Playbasis sharedPB] quizDone:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"response from url %@", [url path]);
