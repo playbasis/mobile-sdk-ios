@@ -22,6 +22,9 @@
     // Do any additional setup after loading the view.
     
     NSLog(@"Begin loading a quiz.");
+    
+    self.activityIndicator.hidden = false;
+    
     // begin loading quiz information
     [self loadQuizAsync];
 }
@@ -40,15 +43,35 @@
             NSDictionary *rootResponse = [jsonResponse objectForKey:@"response"];
             quizJsonResponse = [rootResponse objectForKey:@"result"];
             
-            // get quiz's image url
-            NSString *quizImageUrl = [quizJsonResponse objectForKey:@"image"];
-            // load and cache image from above url
-            NSURL *url = [NSURL URLWithString:quizImageUrl];
-            NSData *imageData = [NSData dataWithContentsOfURL:url];
-            cachedQuizImage = [[UIImage alloc] initWithData:imageData];
+            NSLog(@"quizJsonResponse = %@", [quizJsonResponse description]);
             
-            // transition into another UIViewController
-            [self performSegueWithIdentifier:@"showQuizScreen" sender:self];
+            // only if 'quizJsonResponse' is NSDictionary type
+            if(quizJsonResponse != nil && [quizJsonResponse isKindOfClass:[NSDictionary class]])
+            {
+                // get quiz's image url
+                NSString *quizImageUrl = [quizJsonResponse objectForKey:@"image"];
+                // load and cache image from above url
+                NSURL *url = [NSURL URLWithString:quizImageUrl];
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                cachedQuizImage = [[UIImage alloc] initWithData:imageData];
+                
+                // transition into another UIViewController
+                [self performSegueWithIdentifier:@"showQuizScreen" sender:self];
+            }
+            else
+            {
+                NSLog(@"No more questions available.");
+                
+                // update ui
+                // to let user knows that there's no more questions available
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // hide activity indicator
+                    self.activityIndicator.hidden = true;
+                    
+                    // update loading status
+                    self.loadingStatusLabel.text = @"No more quiz available";
+                });
+            }
         }
     }];
 }

@@ -24,5 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *quizNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *quizImageView;
 @property (weak, nonatomic) IBOutlet UILabel *quizDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *takeThisQuizButton;
 
 @end

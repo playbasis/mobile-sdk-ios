@@ -14,6 +14,9 @@
     UIImage *cachedQuizImage;
 }
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *loadingStatusLabel;
+
 /**
  Testcases included here in this method.
  */
