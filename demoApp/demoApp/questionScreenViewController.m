@@ -9,6 +9,7 @@
 #import "questionScreenViewController.h"
 #import "demoAppSettings.h"
 #import "playbasis.h"
+#import "quizResultScreenViewController.h"
 
 @interface questionScreenViewController ()
 
@@ -124,7 +125,9 @@
 
 - (void)transitionToResultScreen
 {
+    NSLog(@"Begin transition into result screen");
     
+    [self performSegueWithIdentifier:@"showQuizResultScreen" sender:self];
 }
 
 - (IBAction)answerQuestion:(id)sender {
@@ -151,6 +154,10 @@
             if([rewards count] > 0)
             {
                 NSLog(@"No more questions.");
+                
+                // save this json response to send to result screen
+                resultJsonResponse = [jsonResponse copy];
+                
                 // finish the quiz now, then transition into result screen
                 [self transitionToResultScreen];
             }
@@ -187,14 +194,20 @@
     return cell;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([[segue identifier] isEqualToString:@"showQuizResultScreen"])
+    {
+        quizResultScreenViewController *quizResult = [segue destinationViewController];
+        quizResult.jsonResponse = resultJsonResponse;
+    }
 }
-*/
+
 
 @end

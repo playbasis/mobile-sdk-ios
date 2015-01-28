@@ -18,6 +18,9 @@
     NSMutableArray* optionsTexts;
     NSMutableArray* optionsIds;
     NSMutableArray* optionsUIImages;
+    
+    // result jsonResponse
+    NSDictionary* resultJsonResponse;
 }
 
 @property (nonatomic, strong) NSString *quizId;

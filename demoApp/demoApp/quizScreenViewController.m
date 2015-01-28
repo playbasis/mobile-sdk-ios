@@ -24,10 +24,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    // enable user interaction for 'Take This Quiz' button
-    self.takeThisQuizButton.userInteractionEnabled = true;
-    self.takeThisQuizButton.enabled = true;
-    
     // set up label's setting
     self.quizDescriptionLabel.numberOfLines = 0;
     self.quizDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
