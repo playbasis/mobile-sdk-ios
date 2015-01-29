@@ -20,9 +20,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // will be got from the request
+    __block NSString *questId = nil;
+    
     // test quest api
-    // /Quest
+    // - /Quest
     [[Playbasis sharedPB] questListWithBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            // print out the response
+            NSLog(@"delegate triggered from URL: %@", [url path]);
+            NSLog(@"%@", jsonResponse);
+            
+            // get 'response'
+            NSDictionary *response = [jsonResponse objectForKey:@"response"];
+            NSArray* quests = [response objectForKey:@"quests"];
+            
+            if([quests count] >= 1)
+            {
+                // get first quest json-data
+                NSDictionary *firstQuestJson = [quests objectAtIndex:0];
+                // get quest id
+                questId = [firstQuestJson objectForKey:@"quest_id"];
+                
+                NSLog(@"Got questId = %@", questId);
+            }
+        }
+    }];
+    
+    // - /Quest:id
+    [[Playbasis sharedPB] quest:questId withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             // print out the response
