@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *loadingStatusLabel;
+- (IBAction)goBack:(id)sender;
+- (IBAction)refreshAvailableQuiz:(id)sender;
 
 /**
  Testcases included here in this method.

@@ -30,5 +30,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *pointRewardLabel;
 @property (weak, nonatomic) IBOutlet UILabel *expRewardLabel;
 @property (weak, nonatomic) IBOutlet UILabel *coinRewardLabel;
+- (IBAction)goBackToMainMenu:(id)sender;
 
 @end

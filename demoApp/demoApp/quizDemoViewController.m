@@ -222,4 +222,18 @@
     }
 }
 
+- (IBAction)goBack:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"dismissed and went back to mainmenu screen");
+    }];
+}
+
+- (IBAction)refreshAvailableQuiz:(id)sender {
+    NSLog(@"Begin loading a quiz.");
+    
+    self.activityIndicator.hidden = false;
+    
+    // begin loading quiz information
+    [self loadQuizAsync];
+}
 @end
