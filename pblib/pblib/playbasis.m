@@ -825,10 +825,25 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return [self callAsync:@"Engine/rule" withData:data syncURLRequest:syncUrl andBlock:block];
 }
 
--(PBRequest *)quests:(id<PBResponseHandler>)delegate
+-(PBRequest *)questListWithDelegate:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
     return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)questListWithBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
+    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)questListWithDelegateAsync:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
+    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)questListWithBlockAsync:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
+    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)quest:(NSString *)questId :(id<PBResponseHandler>)delegate
@@ -843,10 +858,25 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)questAvailable:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate
+-(PBRequest *)questAvailable:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@/available/%@&player_id=%@", questId, apiKeyParam, playerId];
     return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)questAvailable:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/available/%@&player_id=%@", questId, apiKeyParam, playerId];
+    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)questAvailableAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/available/%@&player_id=%@", questId, apiKeyParam, playerId];
+    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)questAvailableAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/available/%@&player_id=%@", questId, apiKeyParam, playerId];
+    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)questsAvailable:(NSString *)playerId :(id<PBResponseHandler>)delegate

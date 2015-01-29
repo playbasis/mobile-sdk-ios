@@ -267,7 +267,10 @@
 /**
  Return information about all quests in current site.
  */
--(PBRequest *)quests:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questListWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questListWithBlock:(PBResponseBlock)block;
+-(PBRequest *)questListWithDelegateAsync:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questListWithBlockAsync:(PBResponseBlock)block;
 
 /**
  Return information about quest with the specified id.
@@ -282,7 +285,10 @@
 /**
  Return information whether the quest is ready for the player.
  */
--(PBRequest *)questAvailable:(NSString *)questId :(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)questAvailable:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questAvailable:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)questAvailableAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questAvailableAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Return information about all of the quests available for the player.
