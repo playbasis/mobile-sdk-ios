@@ -563,12 +563,33 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
--(PBRequest *)playerDetail:(NSString *)playerId :(id<PBResponseHandler>)delegate
+-(PBRequest *)playerDetail:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
    NSAssert(token, @"access token is nil");
    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
    NSString *data = [NSString stringWithFormat:@"token=%@", token];
    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)playerDetail:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)playerDetailAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)playerDetailAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
 
 //
