@@ -80,7 +80,10 @@
  Get player's public information.
  It will send request via GET method.
  */
--(PBRequest *)playerPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerPublic:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /** 
  Get player's both private and public information.

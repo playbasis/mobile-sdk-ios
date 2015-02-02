@@ -454,11 +454,29 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:@"Auth/renew" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
 
--(PBRequest *)playerPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate
+-(PBRequest *)playerPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
     return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)playerPublic:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
+    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
+    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
+    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
