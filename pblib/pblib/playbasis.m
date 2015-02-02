@@ -401,8 +401,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)renew:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
 {
+    // note: the final response is via PBAuthDelegate either by delegate or block
+    // in this case, it's by block
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:delegate];
+    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
+    return [self call:@"Auth/renew" withData:data syncURLRequest:YES andDelegate:authDelegate];
+}
+-(PBRequest *)renew:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andBlock:(PBResponseBlock)block
+{
+    // note: the final response is via PBAuthDelegate either by delegate or block
+    // in this case, it's by block
+    apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
+    authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:block];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
     return [self call:@"Auth/renew" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
