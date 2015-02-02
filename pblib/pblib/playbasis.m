@@ -689,7 +689,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 //                          - nickname
 //                          - gender		1=Male, 2=Female
 //                          - birth_date	format YYYY-MM-DD
--(PBRequest *)updateUser:(NSString *)playerId :(id<PBResponseHandler>)delegate :(NSString *)firstArg ,...
+-(PBRequest *)updateUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)firstArg ,...
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
@@ -705,6 +705,57 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     va_end(argumentList);
     
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)updateUser:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)firstArg ,...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    
+    id updateData;
+    va_list argumentList;
+    va_start(argumentList, firstArg);
+    while ((updateData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", updateData];
+    }
+    va_end(argumentList);
+    
+    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)updateUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)firstArg ,...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    
+    id updateData;
+    va_list argumentList;
+    va_start(argumentList, firstArg);
+    while ((updateData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", updateData];
+    }
+    va_end(argumentList);
+    
+    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)updateUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)firstArg ,...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    
+    id updateData;
+    va_list argumentList;
+    va_start(argumentList, firstArg);
+    while ((updateData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", updateData];
+    }
+    va_end(argumentList);
+    
+    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)deleteUser:(NSString *)playerId :(id<PBResponseHandler>)delegate
