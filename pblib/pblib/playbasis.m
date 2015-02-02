@@ -605,7 +605,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- gender		1=Male, 2=Female
 // 							- birth_date	format YYYY-MM-DD
 //
--(PBRequest *)registerUser:(NSString *)playerId :(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+-(PBRequest *)registerUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/register", playerId];
@@ -621,6 +621,57 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     va_end(argumentList);
     
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)registerUser:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/register", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
+    
+    id optionalData;
+    va_list argumentList;
+    va_start(argumentList, imageUrl);
+    while ((optionalData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", optionalData];
+    }
+    va_end(argumentList);
+    
+    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)registerUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/register", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
+    
+    id optionalData;
+    va_list argumentList;
+    va_start(argumentList, imageUrl);
+    while ((optionalData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", optionalData];
+    }
+    va_end(argumentList);
+    
+    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)registerUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/register", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
+    
+    id optionalData;
+    va_list argumentList;
+    va_start(argumentList, imageUrl);
+    while ((optionalData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", optionalData];
+    }
+    va_end(argumentList);
+    
+    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
 
 // @param	...[vararg]		Key-value for data to be updated.
