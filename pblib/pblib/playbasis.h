@@ -275,9 +275,9 @@
 /**
  Return information about quest with the specified id.
  */
--(PBRequest *)quest:(NSString *)questId witDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quest:(NSString *)questId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)quest:(NSString *)questId withBlock:(PBResponseBlock)block;
--(PBRequest *)questAsync:(NSString *)questId witDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questAsync:(NSString *)questId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)questAsync:(NSString *)questId withBlock:(PBResponseBlock)block;
 
 /**

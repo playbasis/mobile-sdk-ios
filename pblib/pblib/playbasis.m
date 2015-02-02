@@ -846,7 +846,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
 }
 
--(PBRequest *)quest:(NSString *)questId :(id<PBResponseHandler>)delegate
+-(PBRequest *)quest:(NSString *)questId withDelegate:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, apiKeyParam];
     return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
@@ -856,7 +856,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, apiKeyParam];
     return [self call:method withData:nil syncURLRequest:YES andBlock:block];
 }
--(PBRequest *)questAsync:(NSString *)questId witDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)questAsync:(NSString *)questId withDelegate:(id<PBResponseHandler>)delegate
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, apiKeyParam];
     return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
