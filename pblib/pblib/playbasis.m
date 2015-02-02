@@ -509,12 +509,33 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 
 // playerListId player id as used in client's website separate with ',' example '1,2,3'
--(PBRequest *)playerList:(NSString *)playerListId :(id<PBResponseHandler>)delegate
+-(PBRequest *)playerList:(NSString *)playerListId withDelegate:(id<PBResponseHandler>)delegate
 {
    NSAssert(token, @"access token is nil");
    NSString *method = [NSString stringWithFormat:@"Player/list"];
    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)playerList:(NSString *)playerListId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/list"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
+    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBResponseHandler>)delegate
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/list"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
+    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+}
+-(PBRequest *)playerListAsync:(NSString *)playerListId withBlock:(PBResponseBlock)block
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/list"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
+    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)playerDetailPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate
