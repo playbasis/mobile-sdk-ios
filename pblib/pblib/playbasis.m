@@ -417,7 +417,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callAsync:@"Auth" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
 
--(PBRequest *)renew:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
+-(PBRequest *)renew:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
 {
     // note: the final response is via PBAuthDelegate either by delegate or block
     // in this case, it's by block
@@ -435,7 +435,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
     return [self call:@"Auth/renew" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
--(PBRequest *)renewAsync:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
+-(PBRequest *)renewAsync:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
 {
     // note: the final response is via PBAuthDelegate either by delegate or block
     // in this case, it's by block
