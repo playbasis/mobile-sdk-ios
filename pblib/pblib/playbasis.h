@@ -105,7 +105,10 @@
 /**
  Get player's detailed public information including points and badge.
  */
--(PBRequest *)playerDetailPublic:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerDetailPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerDetailPublic:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerDetailPublicAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)playerDetailPublicAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Get player's detailed information both private and public one including points and badges.
