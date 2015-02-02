@@ -137,7 +137,10 @@
 /**
  Permanently delete user from Playbasis's database.
  */
--(PBRequest *)deleteUser:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)deleteUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)deleteUser:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)deleteUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)deleteUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Tell Playbasis system that player has logged in.
@@ -145,6 +148,7 @@
  */
 -(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
+
 /**
  Tell Playbasis system that player has logged in.
  It uses block callback.
