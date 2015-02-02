@@ -47,6 +47,11 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(void)onApplicationWillTerminate:(NSNotification *)notif;
 
 /**
+ Refactored method to return PBRequest according to the setting input to the method.
+ */
+-(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data andResponse:(id)response;
+
+/**
  @abstract Send http request via synchronized blocking call with delegate.
  
  @param syncURLRequest Whether or not to use sync-url request.
@@ -110,6 +115,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 // - playerDetailPublic
 -(PBRequest *)playerDetailPublicInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - playerDetail
+-(PBRequest *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - login
 -(PBRequest *)loginInternalBase:(NSString *)playerId syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -388,6 +396,32 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 #endif
 }
 
+-(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data andResponse:(id)response
+{
+    if(blockingCall)
+    {
+        if(useDelegate)
+        {
+            return [self call:method withData:data syncURLRequest:syncUrl andDelegate:response];
+        }
+        else
+        {
+            return [self call:method withData:data syncURLRequest:syncUrl andBlock:response];
+        }
+    }
+    else
+    {
+        if(useDelegate)
+        {
+            return [self callAsync:method withData:data syncURLRequest:syncUrl andDelegate:response];
+        }
+        else
+        {
+            return [self callAsync:method withData:data syncURLRequest:syncUrl andBlock:response];
+        }
+    }
+}
+
 -(const NSMutableArray *)getRequestOperationalQueue
 {
     return requestOptQueue;
@@ -486,20 +520,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
     
-    if(blockingCall)
-    {
-        if(useDelegate)
-            return [self call:method withData:nil syncURLRequest:syncUrl andDelegate:response];
-        else
-            return [self call:method withData:nil syncURLRequest:syncUrl andBlock:response];
-    }
-    else
-    {
-        if(useDelegate)
-            return  [self callAsync:method withData:nil syncURLRequest:syncUrl andDelegate:response];
-        else
-            return [self callAsync:method withData:nil syncURLRequest:syncUrl andBlock:response];
-    }
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
@@ -524,20 +545,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Player/%@", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
     
-    if(blockingCall)
-    {
-        if(useDelegate)
-            return [self call:method withData:data syncURLRequest:syncUrl andDelegate:response];
-        else
-            return [self call:method withData:data syncURLRequest:syncUrl andBlock:response];
-    }
-    else
-    {
-        if(useDelegate)
-            return [self callAsync:method withData:data syncURLRequest:syncUrl andDelegate:response];
-        else
-            return [self callAsync:method withData:data syncURLRequest:syncUrl andBlock:response];
-    }
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 // playerListId player id as used in client's website separate with ',' example '1,2,3'
@@ -563,28 +571,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Player/list"];
     NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
     
-    if(blockingCall)
-    {
-        if(useDelegate)
-        {
-            return [self call:method withData:data syncURLRequest:syncUrl andDelegate:response];
-        }
-        else
-        {
-            return [self call:method withData:data syncURLRequest:syncUrl andBlock:response];
-        }
-    }
-    else
-    {
-        if(useDelegate)
-        {
-            return [self callAsync:method withData:data syncURLRequest:syncUrl andDelegate:response];
-        }
-        else
-        {
-            return [self callAsync:method withData:data syncURLRequest:syncUrl andBlock:response];
-        }
-    }
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 -(PBRequest *)playerDetailPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
@@ -608,57 +595,32 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, apiKeyParam];
     
-    if(blockingCall)
-    {
-        if(useDelegate)
-        {
-            return [self call:method withData:nil syncURLRequest:syncUrl andDelegate:response];
-        }
-        else
-        {
-            return [self call:method withData:nil syncURLRequest:syncUrl andBlock:response];
-        }
-    }
-    else
-    {
-        if(useDelegate)
-        {
-            return [self callAsync:method withData:nil syncURLRequest:syncUrl andDelegate:response];
-        }
-        else
-        {
-            return [self callAsync:method withData:nil syncURLRequest:syncUrl andBlock:response];
-        }
-    }
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)playerDetail:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-   NSAssert(token, @"access token is nil");
-   NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
-   NSString *data = [NSString stringWithFormat:@"token=%@", token];
-   return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+    return [self playerDetailInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)playerDetail:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+    return [self playerDetailInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)playerDetailAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+    return [self playerDetailInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)playerDetailAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self playerDetailInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/data/all", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 //
