@@ -110,11 +110,15 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
 {
     Playbasis* pb;
     BOOL finished;
+    
+    // either use one or another
     id<PBResponseHandler> finishDelegate;
+    PBResponseBlock finishBlock;
 }
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)initWithPlaybasis:(Playbasis*)playbasis andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithPlaybasis:(Playbasis*)playbasis andBlock:(PBResponseBlock)block;
 -(BOOL)isFinished;
 -(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 @end
@@ -149,9 +153,28 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
         return nil;
     finished = NO;
     pb = playbasis;
+    
+    // use delegate, thus nil out block
     finishDelegate = delegate;
+    finishBlock = nil;
+    
     return self;
 }
+
+-(id)initWithPlaybasis:(Playbasis *)playbasis andBlock:(PBResponseBlock)block
+{
+    if(!(self = [super init]))
+        return nil;
+    finished = NO;
+    pb = playbasis;
+    
+    // use block, thus nil out delegate
+    finishDelegate = nil;
+    finishBlock = block;
+    
+    return self;
+}
+
 -(BOOL)isFinished
 {
     return finished;
@@ -178,8 +201,17 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
     id token = [response objectForKey:@"token"];
     [pb setToken:token];
     finished = YES;
+    
+    // choose either to response back via delegate or block
+    // response via delegate
     if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
+    {
         [finishDelegate processResponse:jsonResponse withURL:url error:error];
+    }
+    else if(finishBlock)
+    {
+        finishBlock(jsonResponse, url, error);
+    }
 }
 @end
 
@@ -350,8 +382,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)auth:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
 {
+    // note: the final response is via PBAuthDelegate either by delegate or block
+    // in this case, it's by delegate
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:delegate];
+    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
+    return [self call:@"Auth" withData:data syncURLRequest:YES andDelegate:authDelegate];
+}
+-(PBRequest *)auth:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andBlock:(PBResponseBlock)block
+{
+    // note: the final response is via PBAuthDelegate either by delegate or block
+    // in this case, it's by block
+    apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
+    authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:block];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
     return [self call:@"Auth" withData:data syncURLRequest:YES andDelegate:authDelegate];
 }
