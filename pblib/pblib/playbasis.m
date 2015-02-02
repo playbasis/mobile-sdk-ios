@@ -348,7 +348,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return requestOptQueue;
 }
 
--(PBRequest *)auth:(NSString *)apiKey :(NSString *)apiSecret :(id<PBResponseHandler>)delegate
+-(PBRequest *)auth:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
 {
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:delegate];
