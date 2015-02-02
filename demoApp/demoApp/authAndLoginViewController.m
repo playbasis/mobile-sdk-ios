@@ -108,6 +108,13 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                     [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];
                 }
             }];
+            
+            [[Playbasis sharedPB] player:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"Player response = %@", [jsonResponse description]);
+                }
+            }];
         }
     }
 }
