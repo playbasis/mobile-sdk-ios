@@ -87,16 +87,10 @@
 
 /** 
  Get player's both private and public information.
- It use delegate callback.
  */
 -(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
-
-/**
- Get player's both private and public information.
- It uses block callback.
- */
 -(PBRequest *)player:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)playerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
