@@ -79,16 +79,6 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block;
 
 /**
- Internal working method to send http request with delegate.
- */
--(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate;
-
-/**
- Internal working method to send http request with block.
- */
--(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block;
-
-/**
  Internal working method to send request to process an action through all game's rules defined for client's website.
  This method return result via delegate.
  */
@@ -100,6 +90,10 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
  */
 -(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block withParams:(va_list)params;
 
+/*
+ All internal base methods for API calls are listed here.
+ */
+-(PBRequest *)loginInternalBase:(NSString *)playerId syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 @end
 
@@ -789,38 +783,22 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self login:playerId syncUrl:YES withDelegate:delegate];
+    return [self loginInternalBase:playerId syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
-    NSString *data = nil;
-    
-    if(syncUrl)
-        data = [NSString stringWithFormat:@"token=%@", token];
-    else
-    {
-        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        [dictData setObject:token forKey:@"token"];
-        
-        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
-        [dictWholeData setObject:method forKey:@"endpoint"];
-        [dictWholeData setObject:dictData forKey:@"data"];
-        [dictWholeData setObject:@"nil" forKey:@"channel"];
-        
-        // get json string
-        data = [dictWholeData JSONString];
-        NSLog(@"jsonString = %@", data);
-    }
-    return [self call:@"" withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    return [self loginInternalBase:playerId syncUrl:syncUrl useDelegate:YES withResponse:delegate];
 }
 
 -(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    return [self login:playerId syncUrl:YES withBlock:block];
+    return [self loginInternalBase:playerId syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block
+{
+    return [self loginInternalBase:playerId syncUrl:syncUrl useDelegate:NO withResponse:block];
+}
+-(PBRequest *)loginInternalBase:(NSString *)playerId syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
@@ -844,7 +822,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         NSLog(@"jsonString = %@", data);
     }
     
-    return [self call:@"" withData:data syncURLRequest:syncUrl andBlock:block];
+    // return with the proper response
+    if(useDelegate)
+        return [self call:method withData:data syncURLRequest:syncUrl andDelegate:response];
+    else
+        return [self call:method withData:data syncURLRequest:syncUrl andBlock:response];
 }
 
 -(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
@@ -1603,25 +1585,25 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self callInternal:method withData:data blockingCall:YES syncURLRequest:syncURLRequest andDelegate:delegate];
+    return [self callInternalBase:method withData:data blockingCall:YES syncURLRequest:syncURLRequest useDelegate:YES withResponse:delegate];
 }
 
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
 {
-    return [self callInternal:method withData:data blockingCall:YES syncURLRequest:syncURLRequest andBlock:block];
+    return [self callInternalBase:method withData:data blockingCall:YES syncURLRequest:syncURLRequest useDelegate:NO withResponse:block];
 }
 
 -(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self callInternal:method withData:data blockingCall:NO syncURLRequest:syncURLRequest andDelegate:delegate];
+    return [self callInternalBase:method withData:data blockingCall:NO syncURLRequest:syncURLRequest useDelegate:YES withResponse:delegate];
 }
 
 -(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
 {
-    return [self callInternal:method withData:data blockingCall:NO syncURLRequest:syncURLRequest andBlock:block];
+    return [self callInternalBase:method withData:data blockingCall:NO syncURLRequest:syncURLRequest useDelegate:NO withResponse:block];
 }
 
--(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)callInternalBase:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     id request = nil;
     
@@ -1631,7 +1613,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if(!syncURLRequest)
         urlRequest = BASE_ASYNC_URL;
     
-    id url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
+    id url = nil;
+    
+    // if it's sync url request then append method into base url
+    if(syncURLRequest)
+        url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
+    // otherwise, no need to append anything to the base url
+    else
+        url = [NSURL URLWithString:urlRequest];
+    
     if(!data)
     {
         request = [NSURLRequest requestWithURL:url];
@@ -1673,93 +1663,16 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [request setHTTPBody:postData];
     }
     // create PBRequest with delegate callback
-    PBRequest* pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andDelegate:delegate];
-    
-    // if network is reachable then dispatch it immediately
-    if(isNetworkReachable)
+    PBRequest* pbRequest = nil;
+    if(useDelegate)
     {
-        // start the request
-        [pbRequest start];
-    }
-    // otherwise, then add into the queue
-    else
-    {
-        // add PBRequest into operational queue
-        [requestOptQueue enqueue:pbRequest];
-    
-        NSLog(@"Queue size = %d", [requestOptQueue count]);
-    }
-    
-#if __has_feature(objc_arc)
-    return pbRequest;
-#else
-    return [pbRequest autorelease];
-#endif
-}
-
--(PBRequest *)callInternal:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
-{
-    id request = nil;
-    
-    // set the default mode to sync mode
-    NSString *urlRequest = BASE_URL;
-    // if it goes to async mode, then set it accordingly
-    if(!syncURLRequest)
-        urlRequest = BASE_ASYNC_URL;
-    
-    id url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
-    if(!data)
-    {
-        request = [NSURLRequest requestWithURL:url];
-    }
-    else
-    {
-        // get data from string encoded
-        NSData *postData = [data dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-        
-        // create a request
-        request = [NSMutableURLRequest requestWithURL:url];
-        [request setHTTPMethod:@"POST"];
-        
-        // set length, and data to request's header
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setHTTPBody:postData];
-        
-        // if using sync url request, then form a normal http request via encoded string
-        if(syncURLRequest)
-        {
-            [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        }
-        // otherwise, it's for async url request
-        else
-        {
-            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        }
-        
-        {
-            // set date header
-            // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
-            NSDate *date = [NSDate date];
-            
-            // crete a date formatter
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            // setup format to be http date
-            // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-            [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
-            // get http date string
-            NSString *httpDateStr = [dateFormatter stringFromDate:date];
-            
-            NSLog(@"date: %@", [date description]);
-            NSLog(@"dateStr: %@", httpDateStr);
-            
-            // set to request's date header
-            [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
-        }
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andDelegate:response];
     }
     // create PBRequest with block callback
-    PBRequest* pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andBlock:block];
+    else
+    {
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andBlock:response];
+    }
     
     // if network is reachable then dispatch it immediately
     if(isNetworkReachable)

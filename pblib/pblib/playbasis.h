@@ -148,11 +148,6 @@
  */
 -(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
-
-/**
- Tell Playbasis system that player has logged in.
- It uses block callback.
- */
 -(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block;
 
