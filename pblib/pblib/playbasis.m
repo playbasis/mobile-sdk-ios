@@ -119,6 +119,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - playerDetail
 -(PBRequest *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - deleteUser
+-(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - login
 -(PBRequest *)loginInternalBase:(NSString *)playerId syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -791,31 +794,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)deleteUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/delete", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+    return [self deleteUserInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)deleteUser:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/delete", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data syncURLRequest:YES andBlock:block];
+    return [self deleteUserInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)deleteUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/delete", playerId];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
+    return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)deleteUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/delete", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
+
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 -(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
