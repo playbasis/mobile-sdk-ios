@@ -12,7 +12,7 @@
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
-static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/";
+static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 //
 // additional interface for private methods
@@ -813,7 +813,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [dictWholeData JSONString];
         NSLog(@"jsonString = %@", data);
     }
-    return [self call:method withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    return [self call:@"" withData:data syncURLRequest:syncUrl andDelegate:delegate];
 }
 
 -(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block
@@ -844,7 +844,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         NSLog(@"jsonString = %@", data);
     }
     
-    return [self call:method withData:data syncURLRequest:syncUrl andBlock:block];
+    return [self call:@"" withData:data syncURLRequest:syncUrl andBlock:block];
 }
 
 -(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
@@ -1642,7 +1642,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
         request = [NSMutableURLRequest requestWithURL:url];
         [request setHTTPMethod:@"POST"];
-        [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        
+        if(syncURLRequest)
+            [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        else
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         {
             // set date header
