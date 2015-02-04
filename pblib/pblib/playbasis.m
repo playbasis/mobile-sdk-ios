@@ -194,6 +194,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - actionConfig
 -(PBRequest *)actionConfigInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - questList
+-(PBRequest *)questListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 @end
 
 //
@@ -1599,23 +1602,25 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)questListWithDelegate:(id<PBResponseHandler>)delegate
 {
-    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
-    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    return [self questListInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)questListWithBlock:(PBResponseBlock)block
 {
-    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
-    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+    return [self questListInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)questListWithDelegateAsync:(id<PBResponseHandler>)delegate
 {
-    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
-    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    return [self questListInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)questListWithBlockAsync:(PBResponseBlock)block
 {
+    return [self questListInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)questListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
     NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
-    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)quest:(NSString *)questId withDelegate:(id<PBResponseHandler>)delegate
