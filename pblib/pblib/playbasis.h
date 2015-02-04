@@ -174,7 +174,10 @@
 /**
  Returns how much of specified the point-based reward a player currently have.
  */
--(PBRequest *)point:(NSString *)playerId :(NSString *)pointName :(id<PBResponseHandler>)delegate;
+-(PBRequest *)point:(NSString *)playerId forPoint:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)point:(NSString *)playerId forPoint:(NSString *)pointName withBlock:(PBResponseBlock)block;
+-(PBRequest *)pointAsync:(NSString *)playerId forPoint:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)pointAsync:(NSString *)playerId forPoint:(NSString *)pointName withBlock:(PBResponseBlock)block;
 
 /**
  Get history point of user.
