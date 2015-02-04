@@ -238,7 +238,10 @@
 /**
  Return list of players sorted by each point type.
  */
--(PBRequest *)ranks:(unsigned int)limit :(id<PBResponseHandler>)delegate;
+-(PBRequest *)ranks:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)ranks:(unsigned int)limit withBlock:(PBResponseBlock)block;
+-(PBRequest *)ranksAsync:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)ranksAsync:(unsigned int)limit withBlock:(PBResponseBlock)block;
 
 /**
  Return detail of level.

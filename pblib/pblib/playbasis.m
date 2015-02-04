@@ -155,6 +155,8 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - rank
 -(PBRequest *)rankInternalBase:(NSString *)rankedBy withLimit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - ranks
+-(PBRequest *)ranksInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 @end
 
@@ -1138,10 +1140,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)ranks:(unsigned int)limit :(id<PBResponseHandler>)delegate
+-(PBRequest *)ranks:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self ranksInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)ranks:(unsigned int)limit withBlock:(PBResponseBlock)block
+{
+    return [self ranksInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)ranksAsync:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self ranksInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)ranksAsync:(unsigned int)limit withBlock:(PBResponseBlock)block
+{
+    return [self ranksInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)ranksInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Player/ranks/%u%@", limit, apiKeyParam];
-    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)level:(unsigned int)level :(id<PBResponseHandler>)delegate
