@@ -188,6 +188,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - goods
 -(PBRequest *)goodsInternalBase:(NSString *)goodId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - goodsList
+-(PBRequest *)goodsListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 @end
 
 //
@@ -1427,10 +1430,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)goodsList:(id<PBResponseHandler>)delegate
+-(PBRequest *)goodsListWithDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self goodsListInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)goodsListWithBlock:(PBResponseBlock)block
+{
+    return [self goodsListInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)goodsListAsyncWithDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self goodsListInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)goodsListAsyncWithBlock:(PBResponseBlock)block
+{
+    return [self goodsListInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)goodsListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Goods%@", apiKeyParam];
-    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)actionConfig :(id<PBResponseHandler>)delegate
