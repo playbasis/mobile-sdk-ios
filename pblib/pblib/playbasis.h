@@ -246,7 +246,11 @@
 /**
  Return detail of level.
  */
--(PBRequest *)level:(unsigned int)level :(id<PBResponseHandler>)delegate;
+-(PBRequest *)level:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)level:(unsigned int)level withBlock:(PBResponseBlock)block;
+-(PBRequest *)levelAsync:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)levelAsync:(unsigned int)level withBlock:(PBResponseBlock)block;
+
 
 /**
  Return all detail of levels.
