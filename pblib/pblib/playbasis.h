@@ -251,11 +251,13 @@
 -(PBRequest *)levelAsync:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)levelAsync:(unsigned int)level withBlock:(PBResponseBlock)block;
 
-
 /**
  Return all detail of levels.
  */
--(PBRequest *)levels:(id<PBResponseHandler>)delegate;
+-(PBRequest *)levelsWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)levelsWithBlock:(PBResponseBlock)block;
+-(PBRequest *)levelsAsyncWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)levelsAsyncWithBlock:(PBResponseBlock)block;
 
 /**
  Claim a badge that player has earned.
