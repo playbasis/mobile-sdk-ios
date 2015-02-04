@@ -222,7 +222,10 @@
 /**
  Return information about all badges that player has earned.
  */
--(PBRequest *)badgeOwned:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Returns list of players sorted by the specified point type.
