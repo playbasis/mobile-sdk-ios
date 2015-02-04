@@ -181,6 +181,8 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 // - badge
 -(PBRequest *)badgeInternalBase:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+// - badges
+-(PBRequest *)badgesInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 @end
 
@@ -1375,10 +1377,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)badges :(id<PBResponseHandler>)delegate
+-(PBRequest *)badgesWithDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self badgesInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)badgesWithBlock:(PBResponseBlock)block
+{
+    return [self badgesInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)badgesAsyncWithDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self badgesInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)badgesAsyncWithBlock:(PBResponseBlock)block
+{
+    return [self badgesInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)badgesInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Badge%@", apiKeyParam];
-    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)goods:(NSString *)goodId :(id<PBResponseHandler>)delegate

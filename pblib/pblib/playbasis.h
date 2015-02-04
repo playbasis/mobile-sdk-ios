@@ -310,7 +310,10 @@
 /**
  Return information about all badges of the current site.
  */
--(PBRequest *)badges :(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgesWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgesWithBlock:(PBResponseBlock)block;
+-(PBRequest *)badgesAsyncWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgesAsyncWithBlock:(PBResponseBlock)block;
 
 /**
  Return information about goods for the specified id.
