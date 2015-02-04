@@ -334,7 +334,10 @@
 /**
  Return the name of actions that can trigger game's rules within a client's website.
  */
--(PBRequest *)actionConfig :(id<PBResponseHandler>)delegate;
+-(PBRequest *)actionConfigWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)actionConfigWithBlock:(PBResponseBlock)block;
+-(PBRequest *)actionConfigAsyncWithDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)actionConfigAsyncWithBlock:(PBResponseBlock)block;
 
 /**
  Process an action through all the game's rules defined for client's website.
