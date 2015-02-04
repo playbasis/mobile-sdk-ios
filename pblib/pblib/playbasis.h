@@ -302,7 +302,10 @@
 /**
  Return information of specified badge.
  */
--(PBRequest *)badge:(NSString *)badgeId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)badge:(NSString *)badgeId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)badge:(NSString *)badgeId withBlock:(PBResponseBlock)block;
+-(PBRequest *)badgeAsync:(NSString *)badgeId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)badgeAsync:(NSString *)badgeId withBlock:(PBResponseBlock)block;
 
 /**
  Return information about all badges of the current site.
