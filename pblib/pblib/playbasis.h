@@ -294,7 +294,10 @@
 /**
  Return list of quest that player has joined.
  */
--(PBRequest *)questListOfPlayer:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)questListOfPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questListOfPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)questListOfPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questListOfPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Return information of specified badge.
