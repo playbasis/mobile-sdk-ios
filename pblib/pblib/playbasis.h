@@ -146,15 +146,21 @@
  Tell Playbasis system that player has logged in.
  It uses delegate callback.
  */
--(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block;
+
+-(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)loginAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)loginAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Tell Playbasis system that player has logged out.
  */
--(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)logout:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)logout:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)logoutAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)logoutAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Returns information about all point-based rewards that a player currently have.

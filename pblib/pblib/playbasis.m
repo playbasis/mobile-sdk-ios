@@ -123,7 +123,10 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - login
--(PBRequest *)loginInternalBase:(NSString *)playerId syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)loginInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - logout
+-(PBRequest *)logoutInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 @end
 
@@ -819,22 +822,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self loginInternalBase:playerId syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self loginInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
 {
-    return [self loginInternalBase:playerId syncUrl:syncUrl useDelegate:YES withResponse:delegate];
+    return [self loginInternalBase:playerId blockingCall:YES syncUrl:syncUrl useDelegate:YES withResponse:delegate];
 }
 
 -(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    return [self loginInternalBase:playerId syncUrl:YES useDelegate:NO withResponse:block];
+    return [self loginInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block
 {
-    return [self loginInternalBase:playerId syncUrl:syncUrl useDelegate:NO withResponse:block];
+    return [self loginInternalBase:playerId blockingCall:YES syncUrl:syncUrl useDelegate:NO withResponse:block];
 }
--(PBRequest *)loginInternalBase:(NSString *)playerId syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)loginAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self loginInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)loginAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self loginInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)loginInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
@@ -858,19 +869,32 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         NSLog(@"jsonString = %@", data);
     }
     
-    // return with the proper response
-    if(useDelegate)
-        return [self call:method withData:data syncURLRequest:syncUrl andDelegate:response];
-    else
-        return [self call:method withData:data syncURLRequest:syncUrl andBlock:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)logout:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)logout:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+{
+    return [self logoutInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)logout:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self logoutInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)logoutAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self logoutInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)logoutAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self logoutInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)logoutInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/logout", playerId];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
-    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 -(PBRequest *)points:(NSString *)playerId :(id<PBResponseHandler>)delegate
