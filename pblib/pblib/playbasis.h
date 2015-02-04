@@ -230,7 +230,10 @@
 /**
  Returns list of players sorted by the specified point type.
  */
--(PBRequest *)rank:(NSString *)rankedBy :(unsigned int)limit :(id<PBResponseHandler>)delegate;
+-(PBRequest *)rank:(NSString *)rankedBy withLimit:(unsigned int)limit andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)rank:(NSString *)rankedBy withLimit:(unsigned int)limit andBlock:(PBResponseBlock)block;
+-(PBRequest *)rankAsync:(NSString *)rankedBy withLimit:(unsigned int)limit andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)rankAsync:(NSString *)rankedBy withLimit:(unsigned int)limit andBlock:(PBResponseBlock)block;
 
 /**
  Return list of players sorted by each point type.
