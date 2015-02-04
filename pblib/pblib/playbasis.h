@@ -318,7 +318,10 @@
 /**
  Return information about goods for the specified id.
  */
--(PBRequest *)goods:(NSString *)goodId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)goods:(NSString *)goodId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)goods:(NSString *)goodId withBlock:(PBResponseBlock)block;
+-(PBRequest *)goodsAsync:(NSString *)goodId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)goodsAsync:(NSString *)goodId withBlock:(PBResponseBlock)block;
 
 /**
  Return information about all available goods on the current site.
