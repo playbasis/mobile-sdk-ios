@@ -421,7 +421,10 @@
 /**
  Return recent activity points of all players.
  */
--(PBRequest *)recentPoint:(unsigned int)offset :(unsigned int)limit :(id<PBResponseHandler>)delegate;
+-(PBRequest *)recentPoint:(unsigned int)offset limit:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)recentPoint:(unsigned int)offset limit:(unsigned int)limit withBlock:(PBResponseBlock)block;
+-(PBRequest *)recentPointAsync:(unsigned int)offset limit:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)recentPointAsync:(unsigned int)offset limit:(unsigned int)limit withBlock:(PBResponseBlock)block;
 
 /**
  Return recent activity points of point name of all players.
