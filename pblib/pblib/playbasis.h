@@ -549,7 +549,10 @@
 /**
  Send SMS to a player with a template-id.
  */
--(PBRequest *)sms:(NSString *)playerId :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)sms:(NSString *)playerId message:(NSString *)message template:(NSString *)templateId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)sms:(NSString *)playerId message:(NSString *)message tempalte:(NSString *)templateId withBlock:(PBResponseBlock)block;
+-(PBRequest *)smsAsync:(NSString *)playerId message:(NSString *)message template:(NSString *)templateId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)smsAsync:(NSString *)playerId message:(NSString *)message tempalte:(NSString *)templateId withBlock:(PBResponseBlock)block;
 
 /**
  Send SMS Coupon to a player via SMS.
