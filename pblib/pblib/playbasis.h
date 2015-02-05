@@ -565,7 +565,10 @@
 /**
  Send SMS Coupon to a player via SMS with a template-id.
  */
--(PBRequest *)smsCoupon:(NSString *)playerId ref:(NSString *)refId :(NSString *)message template:(NSString *)templateId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)smsCoupon:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message template:(NSString *)templateId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)smsCoupon:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message template:(NSString *)templateId withBlock:(PBResponseBlock)block;
+-(PBRequest *)smsCouponAsync:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message template:(NSString *)templateId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)smsCouponAsync:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message template:(NSString *)templateId withBlock:(PBResponseBlock)block;
 
 /**
  Push message.
