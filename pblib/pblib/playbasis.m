@@ -212,6 +212,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - sendEmail (with template-id)
 -(PBRequest *)sendEmailInternalBase:(NSString *)playerId subject:(NSString *)subject message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - sendEmailCoupon
+-(PBRequest *)sendEmailCouponInternalBase:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - badge
 -(PBRequest *)badgeInternalBase:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -1873,7 +1876,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate
+-(PBRequest *)sendEmail:(NSString *)playerId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate
 {
     return [self sendEmailInternalBase:playerId subject:subject message:message blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
@@ -1923,13 +1926,29 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
-- (PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self sendEmailCouponInternalBase:playerId ref:refId subject:subject message:message blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self sendEmailCouponInternalBase:playerId ref:refId subject:subject message:message blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)sendEmailCouponAsync:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self sendEmailCouponInternalBase:playerId ref:refId subject:subject message:message blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)sendEmailCouponAsync:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self sendEmailCouponInternalBase:playerId ref:refId subject:subject message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)sendEmailCouponInternalBase:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Email/send"];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
     
-    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 -(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate

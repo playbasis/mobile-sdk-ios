@@ -453,12 +453,15 @@
 /**
  Send Email Coupon to a player.
  */
--(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(id<PBResponseHandler>)delegate;
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block;
+-(PBRequest *)sendEmailCouponAsync:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)sendEmailCouponAsync:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block;
 
 /**
  Send Email Coupon to a player with template-id.
  */
--(PBRequest *)sendEmailCoupon:(NSString *)playerId :(NSString *)refId :(NSString *)subject :(NSString *)message :(NSString *)templateId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)sendEmailCoupon:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message template:(NSString *)templateId withDelegate:(id<PBResponseHandler>)delegate;
 
 /**
  Return a list of active quizzes.
