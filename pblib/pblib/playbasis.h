@@ -389,7 +389,10 @@
 /**
  Return information about all of the quests available for the player.
  */
--(PBRequest *)questsAvailable:(NSString *)playerId :(id<PBResponseHandler>)delegate;
+-(PBRequest *)questsAvailable:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questsAvailable:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)questsAvailableAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)questsAvailableAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Player joins a quest.
