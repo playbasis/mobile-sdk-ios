@@ -227,6 +227,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - quizDetail (with player-id)
 -(PBRequest *)quizDetailInternalBase:(NSString *)quizId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - quizRandom
+-(PBRequest *)quizRandomInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - badge
 -(PBRequest *)badgeInternalBase:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -2059,26 +2062,25 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequest *)quizRandom:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
-    return [self call:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    return [self quizRandomInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
-
 -(PBRequest *)quizRandom:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
-    return [self call:method withData:nil syncURLRequest:YES andBlock:block];
+    return [self quizRandomInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
-
 -(PBRequest *)quizRandomAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
-    return [self callAsync:method withData:nil syncURLRequest:YES andDelegate:delegate];
+    return [self quizRandomInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
-
 -(PBRequest *)quizRandomAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
+    return [self quizRandomInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)quizRandomInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
     NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
-    return [self callAsync:method withData:nil syncURLRequest:YES andBlock:block];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
 -(PBRequest *)quizDone:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate
