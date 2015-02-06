@@ -1846,7 +1846,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/join", questId];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id%@", token, playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", token, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }

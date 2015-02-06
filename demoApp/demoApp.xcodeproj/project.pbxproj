@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E20741F1A844757002D77A1 /* questPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20741E1A844757002D77A1 /* questPageViewController.m */; };
+		1E2074221A848141002D77A1 /* missionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2074211A848141002D77A1 /* missionViewController.m */; };
 		1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */; };
 		1E9AF55D1A7746C200A6E416 /* mainmenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55C1A7746C200A6E416 /* mainmenuViewController.m */; };
 		1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */; };
@@ -51,6 +52,8 @@
 /* Begin PBXFileReference section */
 		1E20741D1A844756002D77A1 /* questPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questPageViewController.h; sourceTree = "<group>"; };
 		1E20741E1A844757002D77A1 /* questPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questPageViewController.m; sourceTree = "<group>"; };
+		1E2074201A848140002D77A1 /* missionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = missionViewController.h; sourceTree = "<group>"; };
+		1E2074211A848141002D77A1 /* missionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = missionViewController.m; sourceTree = "<group>"; };
 		1E83D4B71A7A1A8A00D2670C /* questDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questDemoViewController.h; sourceTree = "<group>"; };
 		1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questDemoViewController.m; sourceTree = "<group>"; };
 		1E9AF55B1A7746C200A6E416 /* mainmenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainmenuViewController.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */,
 				1E20741D1A844756002D77A1 /* questPageViewController.h */,
 				1E20741E1A844757002D77A1 /* questPageViewController.m */,
+				1E2074201A848140002D77A1 /* missionViewController.h */,
+				1E2074211A848141002D77A1 /* missionViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				2C1C75251749D7DB005F3B57 /* main.m in Sources */,
 				2C1C75291749D7DB005F3B57 /* demoAppDelegate.m in Sources */,
 				1E9AF5751A783EDE00A6E416 /* questionScreenViewController.m in Sources */,
+				1E2074221A848141002D77A1 /* missionViewController.m in Sources */,
 				1E9AF5781A783EFF00A6E416 /* quizResultScreenViewController.m in Sources */,
 				1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */,
 				1E20741F1A844757002D77A1 /* questPageViewController.m in Sources */,

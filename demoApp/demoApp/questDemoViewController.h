@@ -11,6 +11,7 @@
 @interface questDemoViewController : UIViewController
 
 @property NSUInteger pageIndex;
+@property NSString *questId;
 @property NSString *questName;
 @property UIImage *questImage;
 @property NSString *questDescription;

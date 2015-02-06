@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface questPageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+{
+    NSUInteger currentPageIndex;
+}
 
 @property (strong, nonatomic) NSMutableArray *pageAllQuestIds;
 @property (strong, nonatomic) NSMutableArray *pageAllQuestNames;
-@property (strong, nonatomic) NSMutableArray *pageAllImages;
+@property (strong, atomic) NSMutableArray *pageAllImages;
 @property (strong, nonatomic) NSMutableArray *pageAllQuestDescriptions;
 @property (strong, nonatomic) NSMutableArray *pageAllQuestRewards;
 @property (strong, nonatomic) NSMutableArray *pageQuestJoinedStatuses;

@@ -7,6 +7,7 @@
 //
 
 #import "questDemoViewController.h"
+#import "missionViewController.h"
 #import "playbasis.h"
 #import "demoAppSettings.h"
 
@@ -47,14 +48,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([[segue identifier] isEqualToString:@"showMissionInfoScreenViaJoin"])
+    {
+        missionViewController *missionView = [segue destinationViewController];
+        missionView.questId = _questId;
+        missionView.viaMethod = QUEST_JOIN;
+    }
+    else if([[segue identifier] isEqualToString:@"showMissionInfoScreenViaContinue"])
+    {
+        missionViewController *missionView = [segue destinationViewController];
+        missionView.questId = _questId;
+        missionView.viaMethod = QUEST_CONTINUE;
+    }
 }
-*/
 
 @end

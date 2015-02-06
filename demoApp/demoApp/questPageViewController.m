@@ -66,17 +66,13 @@
                     // get question's image url
                     NSString *imageUrl = [quest objectForKey:@"image"];
                     
-                    int toSaveIndex = i;
-                    
                     // async loading image
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        // load and cache image from above url
-                        NSURL *url = [NSURL URLWithString:imageUrl];
-                        NSData *imageData = [NSData dataWithContentsOfURL:url];
-                        
-                        // replace to 'toSaveIndex' index
-                        [_pageAllImages replaceObjectAtIndex:toSaveIndex withObject:[[UIImage alloc] initWithData:imageData]];
-                    });
+                    // load and cache image from above url
+                    NSURL *url = [NSURL URLWithString:imageUrl];
+                    NSData *imageData = [NSData dataWithContentsOfURL:url];
+                    
+                    // replace to 'toSaveIndex' index
+                    [self.pageAllImages replaceObjectAtIndex:i withObject:[[UIImage alloc] initWithData:imageData]];
                     
                     // cache quest description
                     [_pageAllQuestDescriptions addObject:[quest objectForKey:@"description"]];
@@ -172,6 +168,9 @@
             questDemoViewController *viewController = [self viewControllerAtIndex:0];
             NSArray *viewControllers = [NSArray arrayWithObject:viewController];
             [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+            
+            // set the current page index for later use when we touch the button
+            currentPageIndex = 0;
         }
     }];
 }
@@ -223,6 +222,7 @@
     contentViewController.pageIndex = index;
     
     // set text string to be loaded into ui when the view controller is loaded
+    contentViewController.questId = [_pageAllQuestIds objectAtIndex:index];
     contentViewController.questName = [_pageAllQuestNames objectAtIndex:index];
     contentViewController.questImage = [_pageAllImages objectAtIndex:index];
     contentViewController.questDescription = [_pageAllQuestDescriptions objectAtIndex:index];
@@ -249,7 +249,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
+}*/
+
 
 @end
