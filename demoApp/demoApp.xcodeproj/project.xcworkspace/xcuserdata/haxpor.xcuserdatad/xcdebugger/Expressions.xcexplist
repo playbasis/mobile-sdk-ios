@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "__38-[questPageViewController viewDidLoad]_block_invoke:questPageViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(UIImage)[0]-&gt;[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

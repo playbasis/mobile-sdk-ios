@@ -19,44 +19,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.questNameLabel.text = self.questName;
+    self.questImageView.image = self.questImage;
+    self.questDescriptionLabel.text = self.questDescription;
+    self.questRewardsLabel.text = self.questRewards;
     
-    // will be got from the request
-    __block NSString *questId = nil;
-    
-    // test quest api
-    // - /Quest
-    [[Playbasis sharedPB] questListWithBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-        if(!error)
-        {
-            // print out the response
-            NSLog(@"delegate triggered from URL: %@", [url path]);
-            NSLog(@"%@", jsonResponse);
-            
-            // get 'response'
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            NSArray* quests = [response objectForKey:@"quests"];
-            
-            if([quests count] >= 1)
-            {
-                // get first quest json-data
-                NSDictionary *firstQuestJson = [quests objectAtIndex:0];
-                // get quest id
-                questId = [firstQuestJson objectForKey:@"quest_id"];
-                
-                NSLog(@"Got questId = %@", questId);
-            }
-        }
-    }];
-    
-    // - /Quest:id
-    [[Playbasis sharedPB] quest:questId withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-        if(!error)
-        {
-            // print out the response
-            NSLog(@"delegate triggered from URL: %@", [url path]);
-            NSLog(@"%@", jsonResponse);
-        }
-    }];
+    if([self.questStatus isEqualToString:@"finish"])
+    {
+        self.questAbleToJoinOrContinueButton.hidden = YES;
+        self.questContinueButton.hidden = YES;
+    }
+    else if([self.questStatus isEqualToString:@"join"])
+    {
+        self.questAbleToJoinOrContinueButton.hidden = YES;
+        self.questContinueButton.hidden = NO;
+    }
+    else
+    {
+        self.questAbleToJoinOrContinueButton.hidden = NO;
+        self.questContinueButton.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
