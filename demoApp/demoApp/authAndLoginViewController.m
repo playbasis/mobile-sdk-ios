@@ -46,7 +46,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url error:(NSError *)error
+- (void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError *)error
 {
     if(error)
     {
@@ -88,7 +88,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             // update activity label that we will log in user
             self.activityLabel.text = [NSString stringWithFormat:@"Logging in user '%@'", USER];
             
-            [[Playbasis sharedPB] login:USER syncUrl:YES withBlock:^(NSDictionary *jsonResponse, NSURL* url, NSError *error) {
+            [[Playbasis sharedPB] login:USER syncUrl:YES withBlock:^(id jsonResponse, NSURL* url, NSError *error) {
                 if(error)
                 {
                     NSLog(@"failed login, error = %@", [error localizedDescription]);
@@ -109,14 +109,37 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 }
             }];
             
-            [[Playbasis sharedPB] player:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            // via delegate
+            //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
+            
+            // via block
+            [[Playbasis sharedPB] playerPublicAsync:USER withBlock:^(PBPlayerPublic_Response *playerResponse, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"Player response = %@", [jsonResponse description]);
+                    NSLog(@"Username = %@", playerResponse.userName);
+                    NSLog(@"Image = %@", playerResponse.image);
+                    NSLog(@"First name = %@", playerResponse.firstName);
+                    NSLog(@"Last name = %@", playerResponse.lastName);
+                    NSLog(@"Exp = %u", playerResponse.exp);
+                    NSLog(@"Level = %u", playerResponse.level);
+                }
+                else
+                {
+                    NSLog(@"Error = %@", [error localizedDescription]);
                 }
             }];
         }
     }
+}
+
+-(void)processResponseWithPlayerPublic:(PBPlayerPublic_Response *)playerResponse withURL:(NSURL *)url error:(NSError *)error
+{
+    NSLog(@"Username = %@", playerResponse.userName);
+    NSLog(@"Image = %@", playerResponse.image);
+    NSLog(@"First name = %@", playerResponse.firstName);
+    NSLog(@"Last name = %@", playerResponse.lastName);
+    NSLog(@"Exp = %u", playerResponse.exp);
+    NSLog(@"Level = %u", playerResponse.level);
 }
 
 -(void)authenticateApp

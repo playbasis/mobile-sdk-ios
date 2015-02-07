@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITextView *resultTextArea;
 
--(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
+-(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 
 - (IBAction)callAPI_player1:(id)sender;
 - (IBAction)callAPI_player:(id)sender;

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PBTypes.h"
+#import "PBResponses.h"
+#import "JSONKit.h"
 
 typedef enum
 {
@@ -28,6 +30,8 @@ PBRequestState;
     PBRequestState state;
     BOOL isBlockingCall;
     
+    pbResponseType responseType;
+    
     // either one or another
     id<PBResponseHandler> responseDelegate;
     PBResponseBlock responseBlock;
@@ -36,8 +40,8 @@ PBRequestState;
 @property PBRequestState state;
 @property (nonatomic, readonly) BOOL isBlockingCall;
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andDelegate:(id<PBResponseHandler>)delegate;
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andBlock:(PBResponseBlock)block;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block;
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
 -(void)dealloc;

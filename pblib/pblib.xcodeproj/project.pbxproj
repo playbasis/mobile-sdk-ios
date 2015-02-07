@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequest.m */; };
@@ -29,6 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1E2074291A84B069002D77A1 /* PBResponses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
+		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -115,7 +118,9 @@
 				1EDC5FD71A701D9700991CEB /* PBRequest.h */,
 				1EDC5FD81A701D9700991CEB /* PBRequest.m */,
 				1EDC5FDA1A7022EA00991CEB /* PBTypes.h */,
+				1E2074291A84B069002D77A1 /* PBResponses.h */,
 				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
+				1E20742A1A84B329002D77A1 /* PBResponses.m */,
 			);
 			path = pblib;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* playbasis.m in Sources */,
+				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,
 				1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +263,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
 			};
 			name = Debug;
 		};
@@ -276,6 +283,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
 			};
 			name = Release;
 		};

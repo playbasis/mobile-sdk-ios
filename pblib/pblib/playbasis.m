@@ -7,8 +7,6 @@
 //
 
 #import "playbasis.h"
-#import <UIKit/UIKit.h>
-#import "Reachability.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -50,6 +48,11 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
  Refactored method to return PBRequest according to the setting input to the method.
  */
 -(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data andResponse:(id)response;
+
+/**
+ Refactored method to return PBRequest according to the setting input to the method.
+ */
+-(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data responseType:(pbResponseType) responseType andResponse:(id)response;
 
 /**
  @abstract Send http request via synchronized blocking call with delegate.
@@ -303,7 +306,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(id)initWithPlaybasis:(Playbasis*)playbasis andDelegate:(id<PBResponseHandler>)delegate;
 -(id)initWithPlaybasis:(Playbasis*)playbasis andBlock:(PBResponseBlock)block;
 -(BOOL)isFinished;
--(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
+-(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
 @end
 
 @implementation PBAuthDelegate
@@ -362,7 +365,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 {
     return finished;
 }
--(void)processResponse:(NSDictionary *)jsonResponse withURL:(NSURL *)url error:(NSError*)error
+-(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error
 {
     if(error)
     {
@@ -584,6 +587,32 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
 }
 
+-(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data responseType:(pbResponseType)responseType andResponse:(id)response
+{
+    if(blockingCall)
+    {
+        if(useDelegate)
+        {
+            return [self call:method withData:data syncURLRequest:syncUrl responseType:responseType andDelegate:response];
+        }
+        else
+        {
+            return [self call:method withData:data syncURLRequest:syncUrl responseType:responseType andBlock:response];
+        }
+    }
+    else
+    {
+        if(useDelegate)
+        {
+            return [self callAsync:method withData:data syncURLRequest:syncUrl responseType:responseType andDelegate:response];
+        }
+        else
+        {
+            return [self callAsync:method withData:data syncURLRequest:syncUrl responseType:responseType andBlock:response];
+        }
+    }
+}
+
 -(const NSMutableArray *)getRequestOperationalQueue
 {
     return requestOptQueue;
@@ -661,19 +690,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return [self callAsync:@"Auth" withData:data syncURLRequest:syncUrl andDelegate:authDelegate];
 }
 
--(PBRequest *)playerPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate
 {
     return [self playerPublicInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)playerPublic:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)playerPublic:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block
 {
     return [self playerPublicInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate
 {
     return [self playerPublicInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)playerPublicAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block
 {
     return [self playerPublicInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -682,7 +711,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerPublic andResponse:response];
 }
 
 -(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
@@ -2475,9 +2504,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callInternalBase:method withData:data blockingCall:YES syncURLRequest:syncURLRequest useDelegate:YES withResponse:delegate];
 }
 
+-(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest responseType:(pbResponseType)responseType andDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self callInternalBase:method withData:data blockingCall:YES syncURLRequest:syncURLRequest useDelegate:YES responseType:responseType withResponse:delegate];
+}
+
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
 {
     return [self callInternalBase:method withData:data blockingCall:YES syncURLRequest:syncURLRequest useDelegate:NO withResponse:block];
+}
+
+-(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest responseType:(pbResponseType)responseType andBlock:(PBResponseBlock)block
+{
+    return [self callInternalBase:method withData:data blockingCall:YES syncURLRequest:syncURLRequest useDelegate:NO responseType:responseType withResponse:block];
 }
 
 -(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
@@ -2485,9 +2524,113 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self callInternalBase:method withData:data blockingCall:NO syncURLRequest:syncURLRequest useDelegate:YES withResponse:delegate];
 }
 
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest responseType:(pbResponseType)responseType andDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self callInternalBase:method withData:data blockingCall:NO syncURLRequest:syncURLRequest useDelegate:YES responseType:responseType withResponse:delegate];
+}
+
 -(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andBlock:(PBResponseBlock)block
 {
     return [self callInternalBase:method withData:data blockingCall:NO syncURLRequest:syncURLRequest useDelegate:NO withResponse:block];
+}
+
+-(PBRequest *)callAsync:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest responseType:(pbResponseType)responseType andBlock:(PBResponseBlock)block
+{
+    return [self callInternalBase:method withData:data blockingCall:NO syncURLRequest:syncURLRequest useDelegate:NO responseType:responseType withResponse:block];
+}
+
+
+-(PBRequest *)callInternalBase:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest useDelegate:(BOOL)useDelegate responseType:(pbResponseType)responseType withResponse:(id)response
+{
+    id request = nil;
+    
+    // set the default mode to sync mode
+    NSString *urlRequest = BASE_URL;
+    // if it goes to async mode, then set it accordingly
+    if(!syncURLRequest)
+        urlRequest = BASE_ASYNC_URL;
+    
+    id url = nil;
+    
+    // if it's sync url request then append method into base url
+    if(syncURLRequest)
+        url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
+    // otherwise, no need to append anything to the base url
+    else
+        url = [NSURL URLWithString:urlRequest];
+    
+    if(!data)
+    {
+        request = [NSURLRequest requestWithURL:url];
+    }
+    else
+    {
+        NSData *postData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+        request = [NSMutableURLRequest requestWithURL:url];
+        [request setHTTPMethod:@"POST"];
+        
+        if(syncURLRequest)
+            [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        else
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        {
+            // set date header
+            // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
+            NSDate *date = [NSDate date];
+            
+            // crete a date formatter
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            // setup format to be http date
+            // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
+            // get http date string
+            NSString *httpDateStr = [dateFormatter stringFromDate:date];
+            
+            NSLog(@"date: %@", [date description]);
+            NSLog(@"dateStr: %@", httpDateStr);
+            
+            // set to request's date header
+            [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
+        }
+        
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:postData];
+    }
+    // create PBRequest with delegate callback
+    PBRequest* pbRequest = nil;
+    if(useDelegate)
+    {
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType andDelegate:response];
+    }
+    // create PBRequest with block callback
+    else
+    {
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType andBlock:response];
+    }
+    
+    // if network is reachable then dispatch it immediately
+    if(isNetworkReachable)
+    {
+        // start the request
+        [pbRequest start];
+    }
+    // otherwise, then add into the queue
+    else
+    {
+        // add PBRequest into operational queue
+        [requestOptQueue enqueue:pbRequest];
+        
+        NSLog(@"Queue size = %d", [requestOptQueue count]);
+    }
+    
+#if __has_feature(objc_arc)
+    return pbRequest;
+#else
+    return [pbRequest autorelease];
+#endif
 }
 
 -(PBRequest *)callInternalBase:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest useDelegate:(BOOL)useDelegate withResponse:(id)response
@@ -2553,12 +2696,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     PBRequest* pbRequest = nil;
     if(useDelegate)
     {
-        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andDelegate:response];
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType_normal andDelegate:response];
     }
     // create PBRequest with block callback
     else
     {
-        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall andBlock:response];
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType_normal andBlock:response];
     }
     
     // if network is reachable then dispatch it immediately

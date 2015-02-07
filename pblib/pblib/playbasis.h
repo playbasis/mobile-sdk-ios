@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "libs/Reachability/Reachability.h"
 #import "JSONKit.h"
 #import "PBTypes.h"
 #import "PBRequest.h"
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
+#import "PBResponses.h"
 
 /**
  Playbasis
@@ -80,10 +83,10 @@
  Get player's public information.
  It will send request via GET method.
  */
--(PBRequest *)playerPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerPublic:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerPublicAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate;
+-(PBRequest *)playerPublic:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block;
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate;
+-(PBRequest *)playerPublicAsync:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block;
 
 /** 
  Get player's both private and public information.

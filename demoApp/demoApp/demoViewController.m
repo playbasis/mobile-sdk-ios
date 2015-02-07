@@ -31,7 +31,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error
+-(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error
 {
     // now the returning part is in user's thread, not ui thread.
     // thus updating any ui related elements, we need to get UI queue via dispatch_get_main_queue().

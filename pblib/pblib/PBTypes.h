@@ -9,8 +9,14 @@
 #ifndef pblib_PBTypes_h
 #define pblib_PBTypes_h
 
+#import "PBResponses.h"
+
 @protocol PBResponseHandler <NSObject>
--(void)processResponse:(NSDictionary*)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
+-(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+@protocol PBPlayerPublic_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerPublic:(PBPlayerPublic_Response*)playerResponse withURL:(NSURL *)url error:(NSError*)error;
 @end
 
 
@@ -18,6 +24,8 @@
 /// @name Blocks
 ///--------------------------------------
 // Generic response block call
-typedef void (^PBResponseBlock)(NSDictionary *jsonResponse, NSURL* url, NSError *error);
+typedef void (^PBResponseBlock)(id jsonResponse, NSURL* url, NSError *error);
+
+typedef void (^PBPlayerPublic_ResponseBlock)(PBPlayerPublic_Response *playerResponse, NSURL *url, NSError *error);
 
 #endif

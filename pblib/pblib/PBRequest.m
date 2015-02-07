@@ -17,7 +17,7 @@
 @synthesize state;
 @synthesize isBlockingCall;
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andDelegate:(id<PBResponseHandler>)delegate
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate
 {
     if(!(self = [super init]))
         return nil;
@@ -33,6 +33,8 @@
     
     // save blocking call flag
     isBlockingCall = blockingCall;
+    
+    responseType = _responseType;
     
     // in this case use delegate, thus we set block to nil
     responseDelegate = delegate;
@@ -43,7 +45,7 @@
     return self;
 }
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall andBlock:(PBResponseBlock)block
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block
 {
     if(!(self = [super init]))
         return nil;
@@ -59,6 +61,8 @@
     
     // save blocking call flag
     isBlockingCall = blockingCall;
+    
+    responseType = _responseType;
     
     // in this case use block, thus we set delegate to nil
     responseDelegate = nil;
@@ -123,6 +127,158 @@
     return jsonResponse;
 }
 
+-(void)responseFromJSONResponse:(NSDictionary *)_jsonResponse
+{
+    // we need to check the error code, and success flag from json-response first before dispatch out either for success or failure
+    // check "error_code" and "success"
+    BOOL success = [[_jsonResponse objectForKey:@"success"] boolValue];
+    NSString *errorCode = [_jsonResponse objectForKey:@"error_code"];
+    
+    // success
+    if(success && [errorCode isEqualToString:@"0000"])
+    {
+        // response success
+        [self responseSuccessFromJSONResponse:_jsonResponse];
+    }
+    else
+    {
+        // get error message
+        NSString *errorMessage = [_jsonResponse objectForKey:@"message"];
+        
+        // create an userInfo for NSError
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: NSLocalizedString([NSString stringWithString:errorMessage], nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString([NSString stringWithString:errorMessage], nil)
+                                   };
+        
+        // convert errorCode from Playbasis platform
+        NSInteger nserrorErrorCode = [errorCode integerValue];
+        
+        // create an NSError
+        NSError *error = [NSError errorWithDomain:[[urlRequest URL] path]  code:nserrorErrorCode userInfo:userInfo];
+        
+        // response with fail
+        [self responseFailFromJSONResponseWithError:error];
+    }
+}
+
+-(void)responseSuccessFromJSONResponse:(NSDictionary *)_jsonResponse
+{
+    // response back success doesn't include error, only jsonResponse
+    
+    // if response via delegate
+    if(responseDelegate)
+    {
+        switch(responseType)
+        {
+            case responseType_normal:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)])
+                {
+                    // generic case
+                    [responseDelegate processResponse:_jsonResponse withURL:[urlRequest URL] error:nil];
+                }
+                
+                break;
+            }
+            case responseType_playerPublic:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerPublic:withURL:error:)])
+                {
+                    id<PBPlayerPublic_ResponseHandler> sd = (id<PBPlayerPublic_ResponseHandler>)responseDelegate;
+                    
+                    // parse data
+                    PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse];
+                    
+                    // execute
+                    [sd processResponseWithPlayerPublic:response withURL:[urlRequest URL] error:nil];
+                }
+                
+                break;
+            }
+        }
+    }
+    // if response via block
+    else if(responseBlock)
+    {
+        switch(responseType)
+        {
+            case responseType_normal:
+            {
+                // execute block call
+                responseBlock(jsonResponse, [urlRequest URL], nil);
+                
+                break;
+            }
+            case responseType_playerPublic:
+            {
+                // parse data
+                PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse];
+                
+                PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], nil);
+                
+                break;
+            }
+        }
+    }
+}
+
+-(void)responseFailFromJSONResponseWithError:(NSError*)error
+{
+    // response back failure doesn't include jsonResponse, only error
+    
+    // if response via delegate
+    if(responseDelegate)
+    {
+        switch(responseType)
+        {
+            case responseType_normal:
+            {
+                // check if responseDelegate is there, and conforms to the calling format
+                if([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)])
+                {
+                    [responseDelegate processResponse:nil  withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
+            case responseType_playerPublic:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerPublic:withURL:error:)])
+                {
+                    id<PBPlayerPublic_ResponseHandler> sd = (id<PBPlayerPublic_ResponseHandler>)responseDelegate;
+                    
+                    // execute
+                    [sd processResponseWithPlayerPublic:nil withURL:[urlRequest URL] error:error];
+                }
+                   
+                break;
+            }
+        }
+    }
+    else if(responseBlock)
+    {
+        switch(responseType)
+        {
+            case responseType_normal:
+            {
+                // execute block call
+                responseBlock(nil, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_playerPublic:
+            {
+                PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
+                sb(nil, [urlRequest URL], error);
+                
+                break;
+            }
+        }
+    }
+}
+
 -(void)start
 {
     // start the request according to the type of request
@@ -143,87 +299,37 @@
             // parse string into json
             jsonResponse = [response objectFromJSONString];
 
-            // check if responseDelegate is there, and conforms to the calling format
-            if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
-            {
-                NSLog(@"call delegate");
-                
-                [responseDelegate processResponse:jsonResponse withURL:[urlRequest URL] error:nil];
-            }
-            else if(responseBlock)
-            {
-                NSLog(@"call block");
-                
-                // execute block call
-                responseBlock(jsonResponse, [urlRequest URL], error);
-            }
+            // response according to the type of response
+            [self responseFromJSONResponse:jsonResponse];
         }
         // otherwise print out error
         else
         {
-            NSLog(@"Failed request, error: %@", [error localizedDescription]);
-            
-            // check if responseDelegate is there, and conforms to the calling format
-            if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
-            {
-                NSLog(@"call delegate with error");
-                [responseDelegate processResponse:jsonResponse  withURL:[urlRequest URL] error:error];
-            }
-            else if(responseBlock)
-            {
-                NSLog(@"call block with error");
-                // execute block call
-                responseBlock(jsonResponse, [urlRequest URL], error);
-            }
+            // respnose fail
+            [self responseFailFromJSONResponseWithError:error];
         }
     }
     // otherwise, it's non-blocking call
     else
     {
-        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             
             // if data received
-            if(data)
+            if(error == nil)
             {
                 // convert response data to string
                 NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 // parse string into json
                 jsonResponse = [response objectFromJSONString];
                 
-                // check if responseDelegate is there, and conforms to the calling format
-                if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
-                {
-                    NSLog(@"call async delegate");
-                    
-                    [responseDelegate processResponse:jsonResponse  withURL:[urlRequest URL] error:nil];
-                }
-                else if(responseBlock)
-                {
-                    NSLog(@"call async block");
-                    
-                    // execute block call
-                    responseBlock(jsonResponse, [urlRequest URL], connectionError);
-                }
+                // response according to the type of response
+                [self responseFromJSONResponse:jsonResponse];
             }
-            // no data received
+            // otherwise, there's an error
             else
             {
-                NSLog(@"Failed request, error: %@", [connectionError localizedDescription]);
-                
-                // check if responseDelegate is there, and conforms to the calling format
-                if(responseDelegate && ([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)]))
-                {
-                    NSLog(@"call async delegate with error");
-                    
-                    [responseDelegate processResponse:nil  withURL:[urlRequest URL] error:connectionError];
-                }
-                else if(responseBlock)
-                {
-                    NSLog(@"call async block with error");
-                    
-                    // execute block call
-                    responseBlock(nil, [urlRequest URL], connectionError);
-                }
+                // respnose fail
+                [self responseFailFromJSONResponseWithError:error];
             }
         }];
     }

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "playbasis.h"
 
 @interface mainmenuViewController : UIViewController
 
