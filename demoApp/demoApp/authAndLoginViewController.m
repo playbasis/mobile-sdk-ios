@@ -116,12 +116,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             [[Playbasis sharedPB] playerPublicAsync:USER withBlock:^(PBPlayerPublic_Response *playerResponse, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"Username = %@", playerResponse.userName);
-                    NSLog(@"Image = %@", playerResponse.image);
-                    NSLog(@"First name = %@", playerResponse.firstName);
-                    NSLog(@"Last name = %@", playerResponse.lastName);
-                    NSLog(@"Exp = %u", playerResponse.exp);
-                    NSLog(@"Level = %u", playerResponse.level);
+                    NSLog(@"playerPublic = %@", playerResponse);
                 }
                 else
                 {
@@ -134,12 +129,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
 
 -(void)processResponseWithPlayerPublic:(PBPlayerPublic_Response *)playerResponse withURL:(NSURL *)url error:(NSError *)error
 {
-    NSLog(@"Username = %@", playerResponse.userName);
-    NSLog(@"Image = %@", playerResponse.image);
-    NSLog(@"First name = %@", playerResponse.firstName);
-    NSLog(@"Last name = %@", playerResponse.lastName);
-    NSLog(@"Exp = %u", playerResponse.exp);
-    NSLog(@"Level = %u", playerResponse.level);
+    NSLog(@"playerPublic = %@", playerResponse);
 }
 
 -(void)authenticateApp

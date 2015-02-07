@@ -18,6 +18,16 @@
 @synthesize firstName;
 @synthesize lastName;
 @synthesize gender;
+@synthesize registered;
+@synthesize lastLogin;
+@synthesize lastLogout;
+@synthesize clPlayerId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"{\r   image : %@\r   userName : %@\r   exp : %u\r   level : %u\r   first_name : %@\r   last_name : %@\r   gender : %u\r   registered : %@\r   last_login : %@\r   last_logout : %@\r   cl_player_id : %@\r}", self.image, self.userName, self.exp, self.level, self.firstName, self.lastName, self.gender, self.registered, self.lastLogin, self.lastLogout, self.clPlayerId];
+    return descriptionString;
+}
 
 +(PBPlayerPublic_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse
 {
@@ -37,6 +47,17 @@
     c.firstName = [player objectForKey:@"first_name"];
     c.lastName = [player objectForKey:@"last_name"];
     c.gender = [[player objectForKey:@"gender"] unsignedIntegerValue];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.registered = [dateFormatter dateFromString:[player objectForKey:@"registered"]];
+    c.lastLogin = [dateFormatter dateFromString:[player objectForKey:@"last_login"]];
+    c.lastLogout = [dateFormatter dateFromString:[player objectForKey:@"last_logout"]];
+    
+    c.clPlayerId = [player objectForKey:@"cl_player_id"];
     
     return c;
 }

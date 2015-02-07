@@ -23,11 +23,34 @@ typedef enum
 ///--------------------------------------
 /// JSON Response - Refactored Classes
 ///--------------------------------------
-
 ///--------------------------------------
-/// JSON Response - Refactored Classes
+/// Player Info - Public Data Only
 ///--------------------------------------
 @interface PBPlayerPublic_Response : NSObject
+
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *userName;
+@property (nonatomic) NSUInteger exp;
+@property (nonatomic) NSUInteger level;
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
+@property (nonatomic) NSUInteger gender;
+@property (strong, nonatomic) NSDate *registered;
+@property (strong, nonatomic) NSDate *lastLogin;
+@property (strong, nonatomic) NSDate *lastLogout;
+@property (strong, nonatomic) NSString* clPlayerId;
+
+/**
+ Parse json-response data into NSDictionary.
+ */
++(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
+
+@end
+
+///--------------------------------------
+/// Player Info - Included Private Data
+///--------------------------------------
+@interface PBPlayer_Response : NSObject
 
 @property (strong, nonatomic) NSString *image;
 @property (strong, nonatomic) NSString *userName;
