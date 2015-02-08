@@ -724,19 +724,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 
 // playerListId player id as used in client's website separate with ',' example '1,2,3'
--(PBRequest *)playerList:(NSString *)playerListId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)playerList:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate
 {
     return [self playerListInternalBase:playerListId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)playerList:(NSString *)playerListId withBlock:(PBResponseBlock)block
+-(PBRequest *)playerList:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block
 {
     return [self playerListInternalBase:playerListId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate
 {
     return [self playerListInternalBase:playerListId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)playerListAsync:(NSString *)playerListId withBlock:(PBResponseBlock)block
+-(PBRequest *)playerListAsync:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block
 {
     return [self playerListInternalBase:playerListId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -744,9 +744,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/list"];
-    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id%@", token, playerListId];
+    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id=%@", token, playerListId];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerList andResponse:response];
 }
 
 -(PBRequest *)playerDetailPublic:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate

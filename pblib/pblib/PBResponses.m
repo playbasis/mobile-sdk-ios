@@ -9,9 +9,9 @@
 #import "PBResponses.h"
 #import "JSONKit.h"
 
-/**
- Auth
- */
+///--------------------------------------
+/// Auth
+///--------------------------------------
 @implementation PBAuth_Response
 
 @synthesize token;
@@ -47,9 +47,9 @@
 
 @end
 
-/**
- PlayerPublic
- */
+///--------------------------------------
+/// PlayerPublic
+///--------------------------------------
 @implementation PBPlayerPublic_Response
 
 @synthesize image;
@@ -108,9 +108,9 @@
 
 @end
 
-/**
- Player
- */
+///--------------------------------------
+/// Player
+///--------------------------------------
 @implementation PBPlayer_Response
 
 @synthesize image;
@@ -169,6 +169,91 @@
     c.clPlayerId = [player objectForKey:@"cl_player_id"];
     
     return c;
+}
+
+@end
+
+///--------------------------------------
+/// PlayerList
+///--------------------------------------
+@implementation PBPlayerList_Response
+
+@synthesize players;
+
+-(NSString *)description
+{
+    // create string to hold all players line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"PlayerList : {\r   "];
+    
+    for(PBPlayer_Response *player in self.players)
+    {
+        // get description line from each player
+        NSString *playerLine = [player description];
+        // append \r
+        NSString *playerLineWithCR = [NSString stringWithFormat:@"%@\r", playerLine];
+        
+        // append to result 'lines'
+        [lines appendString:playerLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPlayerList_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // get 'response'
+    NSDictionary *response = [jsonResponse objectForKey:@"response"];
+    NSAssert(response != nil, @"response must not be nil");
+    
+    // get array of 'player'
+    NSArray *players = [response objectForKey:@"player"];
+    NSAssert(response != nil, @"player must not be nil");
+    
+    // create an empty array to add each player into it
+    NSMutableArray *playerArray = [NSMutableArray array];
+    
+    // iterate through all the players, add add into result array
+    for(NSDictionary *player in players)
+    {
+        // create a player object
+        PBPlayer_Response *c = [[PBPlayer_Response alloc] init];
+        c.image = [player objectForKey:@"image"];
+        c.email = [player objectForKey:@"email"];
+        c.userName = [player objectForKey:@"username"];
+        c.exp = [[player objectForKey:@"exp"] unsignedIntegerValue];
+        c.level = [[player objectForKey:@"level"] unsignedIntegerValue];
+        c.phoneNumber = [player objectForKey:@"phone_number"];
+        c.firstName = [player objectForKey:@"first_name"];
+        c.lastName = [player objectForKey:@"last_name"];
+        c.gender = [[player objectForKey:@"gender"] unsignedIntegerValue];
+        
+        // create a date formatter to parse date-timestamp
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+        
+        c.registered = [dateFormatter dateFromString:[player objectForKey:@"registered"]];
+        c.lastLogin = [dateFormatter dateFromString:[player objectForKey:@"last_login"]];
+        c.lastLogout = [dateFormatter dateFromString:[player objectForKey:@"last_logout"]];
+        
+        c.clPlayerId = [player objectForKey:@"cl_player_id"];
+        
+        // add to temporary array
+        [playerArray addObject:c];
+    }
+    
+    // create a result playerList object
+    PBPlayerList_Response *playerList = [[PBPlayerList_Response alloc] init];
+    // add a player into an array
+    playerList.players = [NSArray arrayWithArray:playerArray];
+    
+    return playerList;
 }
 
 @end

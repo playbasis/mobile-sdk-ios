@@ -19,7 +19,8 @@ typedef enum
     responseType_normal,
     responseType_auth,
     responseType_playerPublic,
-    responseType_player
+    responseType_player,
+    responseType_playerList
 }pbResponseType;
 
 ///--------------------------------------
@@ -83,6 +84,20 @@ typedef enum
  Parse json-response data into NSDictionary.
  */
 +(PBPlayer_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
+
+@end
+
+///--------------------------------------
+/// PlayerList
+///--------------------------------------
+@interface PBPlayerList_Response : NSObject
+
+@property (strong, nonatomic) NSArray *players;
+
+/**
+ Parse json-response data into NSDictionary.
+ */
++(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
 
 @end
 

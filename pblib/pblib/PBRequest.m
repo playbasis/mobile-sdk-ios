@@ -224,6 +224,21 @@
                 
                 break;
             }
+            case responseType_playerList:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerList:withURL:error:)])
+                {
+                    id<PBPlayerList_ResponseHandler> sd = (id<PBPlayerList_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse];
+                    
+                    // execute
+                    [sd processResponseWithPlayerList:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
         }
     }
     // if response via block
@@ -264,6 +279,16 @@
                 PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse];
                 
                 PBPlayer_ResponseBlock sb = (PBPlayer_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_playerList:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse];
+                
+                PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
                 
                 break;

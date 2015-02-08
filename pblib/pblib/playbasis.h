@@ -100,10 +100,10 @@
  Get basic information of list of players.
  playerListId is in the format of id separated by "," ie. "1,2,3".
  */
--(PBRequest *)playerList:(NSString *)playerListId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerList:(NSString *)playerListId withBlock:(PBResponseBlock)block;
--(PBRequest *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerListAsync:(NSString *)playerListId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerList:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate;
+-(PBRequest *)playerList:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block;
+-(PBRequest *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate;
+-(PBRequest *)playerListAsync:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block;
 
 /**
  Get player's detailed public information including points and badge.

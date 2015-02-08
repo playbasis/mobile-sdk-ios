@@ -50,5 +50,14 @@ typedef void (^PBPlayerPublic_ResponseBlock)(PBPlayerPublic_Response *playerResp
 
 typedef void (^PBPlayer_ResponseBlock)(PBPlayer_Response * player, NSURL *url, NSError *error);
 
+///----------------
+/// PlayerList
+///----------------
+@protocol PBPlayerList_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerList:(PBPlayerList_Response*)playerList withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerList_ResponseBlock)(PBPlayerList_Response * playerList, NSURL *url, NSError *error);
+
 
 #endif
