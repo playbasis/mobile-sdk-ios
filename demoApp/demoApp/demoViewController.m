@@ -101,7 +101,7 @@
         
         // test calling via non-blocking call
         NSLog(@"Non-blocking player() call 1");
-        [[Playbasis sharedPB] playerAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] playerAsync:USER withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"failed player(), error = %@", [error localizedDescription]);
@@ -109,10 +109,10 @@
             else
             {
                 NSLog(@"[Blocking call via block 1] block triggered from URL: %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
+                NSLog(@"%@", player);
                 
                 // set result to text area
-                self.resultTextArea.text = [jsonResponse description];
+                self.resultTextArea.text = [player description];
                 
                 // hide activity indicator
                 self.activityIndicator.hidden = true;

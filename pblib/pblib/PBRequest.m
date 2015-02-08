@@ -138,7 +138,7 @@
     if(success && [errorCode isEqualToString:@"0000"])
     {
         // response success
-        [self responseSuccessFromJSONResponse:_jsonResponse];
+        [self responseFromJSONResponse:_jsonResponse error:nil];
     }
     else
     {
@@ -158,14 +158,12 @@
         NSError *error = [NSError errorWithDomain:[[urlRequest URL] path]  code:nserrorErrorCode userInfo:userInfo];
         
         // response with fail
-        [self responseFailFromJSONResponseWithError:error];
+        [self responseFromJSONResponse:nil error:error];
     }
 }
 
--(void)responseSuccessFromJSONResponse:(NSDictionary *)_jsonResponse
+-(void)responseFromJSONResponse:(NSDictionary *)_jsonResponse error:(NSError*)error
 {
-    // response back success doesn't include error, only jsonResponse
-    
     // if response via delegate
     if(responseDelegate)
     {
@@ -176,7 +174,7 @@
                 if([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)])
                 {
                     // generic case
-                    [responseDelegate processResponse:_jsonResponse withURL:[urlRequest URL] error:nil];
+                    [responseDelegate processResponse:_jsonResponse withURL:[urlRequest URL] error:error];
                 }
                 
                 break;
@@ -187,11 +185,26 @@
                 {
                     id<PBPlayerPublic_ResponseHandler> sd = (id<PBPlayerPublic_ResponseHandler>)responseDelegate;
                     
-                    // parse data
+                    // parse data (get nil if jsonResponse is nil)
                     PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse];
                     
                     // execute
-                    [sd processResponseWithPlayerPublic:response withURL:[urlRequest URL] error:nil];
+                    [sd processResponseWithPlayerPublic:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
+            case responseType_player:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayer:withURL:error:)])
+                {
+                    id<PBPlayer_ResponseHandler> sd = (id<PBPlayer_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse];
+                    
+                    // execute
+                    [sd processResponseWithPlayer:response withURL:[urlRequest URL] error:error];
                 }
                 
                 break;
@@ -206,72 +219,27 @@
             case responseType_normal:
             {
                 // execute block call
-                responseBlock(jsonResponse, [urlRequest URL], nil);
+                responseBlock(jsonResponse, [urlRequest URL], error);
                 
                 break;
             }
             case responseType_playerPublic:
             {
-                // parse data
+                // parse data (get nil if jsonResponse is nil)
                 PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse];
                 
                 PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], nil);
+                sb(response, [urlRequest URL], error);
                 
                 break;
             }
-        }
-    }
-}
-
--(void)responseFailFromJSONResponseWithError:(NSError*)error
-{
-    // response back failure doesn't include jsonResponse, only error
-    
-    // if response via delegate
-    if(responseDelegate)
-    {
-        switch(responseType)
-        {
-            case responseType_normal:
+            case responseType_player:
             {
-                // check if responseDelegate is there, and conforms to the calling format
-                if([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)])
-                {
-                    [responseDelegate processResponse:nil  withURL:[urlRequest URL] error:error];
-                }
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse];
                 
-                break;
-            }
-            case responseType_playerPublic:
-            {
-                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerPublic:withURL:error:)])
-                {
-                    id<PBPlayerPublic_ResponseHandler> sd = (id<PBPlayerPublic_ResponseHandler>)responseDelegate;
-                    
-                    // execute
-                    [sd processResponseWithPlayerPublic:nil withURL:[urlRequest URL] error:error];
-                }
-                   
-                break;
-            }
-        }
-    }
-    else if(responseBlock)
-    {
-        switch(responseType)
-        {
-            case responseType_normal:
-            {
-                // execute block call
-                responseBlock(nil, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_playerPublic:
-            {
-                PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
-                sb(nil, [urlRequest URL], error);
+                PBPlayer_ResponseBlock sb = (PBPlayer_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
                 
                 break;
             }
@@ -306,7 +274,7 @@
         else
         {
             // respnose fail
-            [self responseFailFromJSONResponseWithError:error];
+            [self responseFromJSONResponse:nil error:error];
         }
     }
     // otherwise, it's non-blocking call
@@ -329,7 +297,7 @@
             else
             {
                 // respnose fail
-                [self responseFailFromJSONResponseWithError:error];
+                [self responseFromJSONResponse:nil error:error];
             }
         }];
     }

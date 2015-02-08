@@ -91,10 +91,10 @@
 /** 
  Get player's both private and public information.
  */
--(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)player:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)playerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)player:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
+-(PBRequest *)player:(NSString *)playerId withBlock:(PBPlayer_ResponseBlock)block;
+-(PBRequest *)playerAsync:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
+-(PBRequest *)playerAsync:(NSString *)playerId withBlock:(PBPlayer_ResponseBlock)block;
 
 /**
  Get basic information of list of players.

@@ -112,15 +112,11 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             // via delegate
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
-            // via block
-            [[Playbasis sharedPB] playerPublicAsync:USER withBlock:^(PBPlayerPublic_Response *playerResponse, NSURL *url, NSError *error) {
+            // TODO: Test something it here
+            [[Playbasis sharedPB] player:USER withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"playerPublic = %@", playerResponse);
-                }
-                else
-                {
-                    NSLog(@"Error = %@", [error localizedDescription]);
+                    NSLog(@"Player response = %@", player);
                 }
             }];
         }
