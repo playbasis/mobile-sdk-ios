@@ -46,7 +46,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError *)error
+-(void)processResponseWithAuth:(PBAuth_Response *)auth withURL:(NSURL *)url error:(NSError *)error
 {
     if(error)
     {
@@ -55,7 +55,6 @@ static const NSTimeInterval kWaitingTime = 0.15f;
         
         // print out the response
         NSLog(@"delegate triggered from URL: %@", urlPath);
-        NSLog(@"%@", jsonResponse);
         NSLog(@"Error = %@", [error localizedDescription]);
         
         // indicating that it failed in authenticated the app
@@ -73,7 +72,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
         
         // print out the response
         NSLog(@"delegate triggered from URL: %@", urlPath);
-        NSLog(@"%@", jsonResponse);
+        NSLog(@"%@", auth);
         
         if(!authed && [urlPath isEqualToString:@"/Auth"])
         {

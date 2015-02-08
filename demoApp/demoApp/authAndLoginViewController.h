@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "playbasis.h"
 
-@interface authAndLoginViewController : UIViewController<PBResponseHandler, PBPlayerPublic_ResponseHandler>
+@interface authAndLoginViewController : UIViewController<PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler>
 {
     BOOL authed;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *activityLabel;
 
--(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
+-(void)processResponseWithAuth:(PBAuth_Response *)auth withURL:(NSURL *)url error:(NSError *)error;
 -(void)processResponseWithPlayerPublic:(PBPlayerPublic_Response *)playerResponse withURL:(NSURL *)url error:(NSError *)error;
 
 @end

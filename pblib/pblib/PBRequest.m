@@ -179,6 +179,21 @@
                 
                 break;
             }
+            case responseType_auth:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithAuth:withURL:error:)])
+                {
+                    id<PBAuth_ResponseHandler> sd = (id<PBAuth_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse];
+                    
+                    // execute
+                    [sd processResponseWithAuth:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
             case responseType_playerPublic:
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerPublic:withURL:error:)])
@@ -220,6 +235,16 @@
             {
                 // execute block call
                 responseBlock(jsonResponse, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_auth:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse];
+                
+                PBAuth_ResponseBlock sb = (PBAuth_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
                 
                 break;
             }

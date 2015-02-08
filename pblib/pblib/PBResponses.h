@@ -17,13 +17,25 @@
 typedef enum
 {
     responseType_normal,
+    responseType_auth,
     responseType_playerPublic,
     responseType_player
 }pbResponseType;
 
 ///--------------------------------------
-/// JSON Response - Refactored Classes
+/// Auth
 ///--------------------------------------
+@interface PBAuth_Response : NSObject
+
+@property (strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSDate *dateExpire;
+
+/**
+ Parse json-response data into NSDictionary.
+ */
++(PBAuth_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
+
+@end
 ///--------------------------------------
 /// Player Info - Public Data Only
 ///--------------------------------------

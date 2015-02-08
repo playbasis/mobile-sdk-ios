@@ -10,6 +10,44 @@
 #import "JSONKit.h"
 
 /**
+ Auth
+ */
+@implementation PBAuth_Response
+
+@synthesize token;
+@synthesize dateExpire;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Auth : {\r   token : %@\r   date_expire : %@\r}", self.token, self.dateExpire];
+    return descriptionString;
+}
+
++(PBAuth_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // get 'response'
+    NSDictionary *response = [jsonResponse objectForKey:@"response"];
+    NSAssert(response != nil, @"response must not be nil");
+    
+    PBAuth_Response *c = [[PBAuth_Response alloc] init];
+    c.token = [response objectForKey:@"token"];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateExpire = [dateFormatter dateFromString:[response objectForKey:@"date_expire"]];
+    
+    return c;
+}
+
+@end
+
+/**
  PlayerPublic
  */
 @implementation PBPlayerPublic_Response
