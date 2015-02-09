@@ -31,7 +31,8 @@ typedef enum
     responseType_pointHistory,
     responseType_actionTime,
     responseType_lastAction,
-    responseType_actionCount
+    responseType_actionCount,
+    responseType_level
 }pbResponseType;
 
 ///--------------------------------------
@@ -290,6 +291,21 @@ typedef enum
 @property (nonatomic) NSUInteger count;
 
 +(PBActionCount_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Level
+///--------------------------------------
+@interface PBLevel_Response : PBBase_Response
+
+@property (strong, nonatomic) NSString *levelTitle;
+@property (nonatomic) NSUInteger level;
+@property (nonatomic) NSUInteger minExp;
+@property (nonatomic) NSUInteger maxExp;
+@property (strong, nonatomic) NSString *levelImage;
+
++(PBLevel_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

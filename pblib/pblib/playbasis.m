@@ -1302,19 +1302,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)level:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)level:(unsigned int)level withDelegate:(id<PBLevel_ResponseHandler>)delegate
 {
     return [self levelInternalBase:level blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)level:(unsigned int)level withBlock:(PBResponseBlock)block
+-(PBRequest *)level:(unsigned int)level withBlock:(PBLevel_ResponseBlock)block
 {
     return [self levelInternalBase:level blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)levelAsync:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)levelAsync:(unsigned int)level withDelegate:(id<PBLevel_ResponseHandler>)delegate
 {
     return [self levelInternalBase:level blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)levelAsync:(unsigned int)level withBlock:(PBResponseBlock)block
+-(PBRequest *)levelAsync:(unsigned int)level withBlock:(PBLevel_ResponseBlock)block
 {
     return [self levelInternalBase:level blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1322,7 +1322,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/level/%u%@", level, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_level andResponse:response];
 }
 
 -(PBRequest *)levelsWithDelegate:(id<PBResponseHandler>)delegate

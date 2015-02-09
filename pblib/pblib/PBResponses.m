@@ -1159,3 +1159,54 @@
 }
 
 @end
+
+///--------------------------------------
+/// Level
+///--------------------------------------
+@implementation PBLevel_Response
+
+@synthesize levelTitle;
+@synthesize level;
+@synthesize minExp;
+@synthesize maxExp;
+@synthesize levelImage;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Level : {\r\tlevel_title : %@\r\tlevel = %lu\r\tmin_exp : %lu\r\tmax_exp : %lu\r\tlevel_image : %@\r\t}", self.levelTitle, (unsigned long)self.level, (unsigned long)self.minExp, (unsigned long)self.maxExp, self.levelImage];
+    
+    return descriptionString;
+}
+
++(PBLevel_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBLevel_Response *c = [[PBLevel_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // parse
+    c.levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
+    c.level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
+    c.minExp = [[c.parseLevelJsonResponse objectForKey:@"min_exp"] unsignedIntegerValue];
+    c.maxExp = [[c.parseLevelJsonResponse objectForKey:@"max_exp"] unsignedIntegerValue];
+    c.levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
+    
+    return c;
+}
+
+@end

@@ -249,10 +249,10 @@
 /**
  Return detail of level.
  */
--(PBRequest *)level:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)level:(unsigned int)level withBlock:(PBResponseBlock)block;
--(PBRequest *)levelAsync:(unsigned int)level withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)levelAsync:(unsigned int)level withBlock:(PBResponseBlock)block;
+-(PBRequest *)level:(unsigned int)level withDelegate:(id<PBLevel_ResponseHandler>)delegate;
+-(PBRequest *)level:(unsigned int)level withBlock:(PBLevel_ResponseBlock)block;
+-(PBRequest *)levelAsync:(unsigned int)level withDelegate:(id<PBLevel_ResponseHandler>)delegate;
+-(PBRequest *)levelAsync:(unsigned int)level withBlock:(PBLevel_ResponseBlock)block;
 
 /**
  Return all detail of levels.
