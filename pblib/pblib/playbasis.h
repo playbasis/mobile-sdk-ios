@@ -168,10 +168,10 @@
 /**
  Returns information about all point-based rewards that a player currently have.
  */
--(PBRequest *)points:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)points:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)pointsAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)pointsAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)points:(NSString *)playerId withDelegate:(id<PBPoints_ResponseHandler>)delegate;
+-(PBRequest *)points:(NSString *)playerId withBlock:(PBPoints_ResponseBlock)block;
+-(PBRequest *)pointsAsync:(NSString *)playerId withDelegate:(id<PBPoints_ResponseHandler>)delegate;
+-(PBRequest *)pointsAsync:(NSString *)playerId withBlock:(PBPoints_ResponseBlock)block;
 
 
 /**

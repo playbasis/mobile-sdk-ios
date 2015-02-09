@@ -254,6 +254,21 @@
                 
                 break;
             }
+            case responseType_points:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPoints:withURL:error:)])
+                {
+                    id<PBPoints_ResponseHandler> sd = (id<PBPoints_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPoints_Response *response = [PBPoints_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithPoints:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
             case responseType_playerBadge:
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerBadge:withURL:error:)])
@@ -329,6 +344,16 @@
                 PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPoint_ResponseBlock sb = (PBPoint_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_points:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPoints_Response *response = [PBPoints_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPoints_ResponseBlock sb = (PBPoints_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
                 
                 break;

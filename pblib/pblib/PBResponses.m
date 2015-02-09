@@ -291,6 +291,10 @@
 @implementation PBPlayerDetailPublic_Response
 
 @synthesize playerPublic;
+@synthesize percentOfLevel;
+@synthesize levelTitle;
+@synthesize levelImage;
+@synthesize badges;
 
 -(NSString *)description
 {
@@ -346,17 +350,17 @@
 ///--------------------------------------
 @implementation PBPoint_Response
 
-@synthesize points;
+@synthesize point;
 
 -(NSString *)description
 {
     // create string to hold all players line-by-line
     NSMutableString *lines = [NSMutableString stringWithString:@"Point : {"];
     
-    for(PBPoint *point in self.points)
+    for(PBPoint *p in self.point)
     {
         // get description line from each point
-        NSString *pointLine = [point description];
+        NSString *pointLine = [p description];
         // append \r
         NSString *pointLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", pointLine];
         
@@ -388,14 +392,94 @@
         NSDictionary *response = [jsonResponse objectForKey:@"response"];
         NSAssert(response != nil, @"response must not be nil");
         
-        c.parseLevelJsonResponse = response;
+        // get 'point'
+        NSDictionary *point = [response objectForKey:@"point"];
+        NSAssert(point != nil, @"point must not be nil");
+        
+        c.parseLevelJsonResponse = point;
     }
     
     // crate a temporary array to hold all points
     NSMutableArray *tempPoints = [NSMutableArray array];
     
-    // get 'points'
-    NSArray *points = [c.parseLevelJsonResponse objectForKey:@"point"];
+    // convert 'point' json to array
+    NSArray *points = (NSArray*)c.parseLevelJsonResponse;
+    for(NSDictionary *point in points)
+    {
+        // create a point object
+        PBPoint *pObj = [PBPoint parseFromDictionary:point startFromFinalLevel:YES];
+        
+        // add it into temp array
+        [tempPoints addObject:pObj];
+    }
+    
+    // set to NSArray
+    c.point = [NSArray arrayWithArray:tempPoints];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Points
+///--------------------------------------
+@implementation PBPoints_Response
+
+@synthesize points;
+
+-(NSString *)description
+{
+    // create string to hold all players line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Points : {"];
+    
+    for(PBPoint *point in self.points)
+    {
+        // get description line from each point
+        NSString *pointLine = [point description];
+        // append \r
+        NSString *pointLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", pointLine];
+        
+        // append to result 'lines'
+        [lines appendString:pointLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPoints_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBPoints_Response *c = [[PBPoints_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'points'
+        NSDictionary *points = [response objectForKey:@"points"];
+        NSAssert(points != nil, @"points must not be nil");
+        
+        c.parseLevelJsonResponse = points;
+    }
+    
+    // crate a temporary array to hold all points
+    NSMutableArray *tempPoints = [NSMutableArray array];
+    
+    // convert 'points' to array
+    NSArray *points = (NSArray*)c.parseLevelJsonResponse;
     for(NSDictionary *point in points)
     {
         // create a point object

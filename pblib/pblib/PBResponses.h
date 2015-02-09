@@ -22,7 +22,9 @@ typedef enum
     responseType_player,
     responseType_playerList,
     responseType_point,
-    responseType_playerBadge
+    responseType_points,
+    responseType_playerBadge,
+    responseType_playerDetailPublic
 }pbResponseType;
 
 ///--------------------------------------
@@ -99,6 +101,7 @@ typedef enum
 @property (nonatomic) float percentOfLevel;
 @property (strong, nonatomic) NSString *levelTitle;
 @property (strong, nonatomic) NSString *levelImage;
+@property (strong, nonatomic) NSArray *badges;
 
 +(PBPlayerDetailPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -122,9 +125,20 @@ typedef enum
 ///--------------------------------------
 @interface PBPoint_Response : PBBase_Response
 
-@property (strong, nonatomic) NSArray* points;
+@property (strong, nonatomic) NSArray* point;
 
 +(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Points
+///--------------------------------------
+@interface PBPoints_Response : PBBase_Response
+
+@property (strong, nonatomic) NSArray* points;
+
++(PBPoints_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

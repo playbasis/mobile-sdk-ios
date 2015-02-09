@@ -1066,19 +1066,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)points:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)points:(NSString *)playerId withDelegate:(id<PBPoints_ResponseHandler>)delegate
 {
     return [self pointsInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)points:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)points:(NSString *)playerId withBlock:(PBPoints_ResponseBlock)block
 {
     return [self pointsInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)pointsAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)pointsAsync:(NSString *)playerId withDelegate:(id<PBPoints_ResponseHandler>)delegate
 {
     return [self pointsInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)pointsAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)pointsAsync:(NSString *)playerId withBlock:(PBPoints_ResponseBlock)block
 {
     return [self pointsInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1086,7 +1086,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/points%@", playerId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_points andResponse:response];
 }
 
 -(PBRequest *)point:(NSString *)playerId forPoint:(NSString *)pointName withDelegate:(id<PBPoint_ResponseHandler>)delegate
