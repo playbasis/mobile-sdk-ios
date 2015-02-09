@@ -29,7 +29,8 @@ typedef enum
     responseType_playerDetailedPublic,
     responseType_playerDetailed,
     responseType_pointHistory,
-    responseType_actionTime
+    responseType_actionTime,
+    responseType_lastAction
 }pbResponseType;
 
 ///--------------------------------------
@@ -262,6 +263,19 @@ typedef enum
 @property (strong, nonatomic) NSDate *time;
 
 +(PBActionTime_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// LastAction
+///--------------------------------------
+@interface PBLastAction_Response : PBBase_Response
+
+@property (strong, nonatomic) NSString *actionId;
+@property (strong, nonatomic) NSString *actionName;
+@property (strong, nonatomic) NSDate *time;
+
++(PBLastAction_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

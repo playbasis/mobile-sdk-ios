@@ -140,4 +140,13 @@ typedef void (^PBPointHistory_ResponseBlock)(PBPointHistory_Response * pointHist
 
 typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, NSURL *url, NSError *error);
 
+///----------------
+/// LastAction
+///----------------
+@protocol PBLastAction_ResponseHandler <NSObject>
+-(void)processResponseWithLastAction:(PBLastAction_Response*)lastAction withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBLastAction_ResponseBlock)(PBLastAction_Response * lastAction, NSURL *url, NSError *error);
+
 #endif

@@ -526,6 +526,32 @@
             
             break;
         }
+        case responseType_lastAction:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithLastAction:withURL:error:)])
+                {
+                    id<PBLastAction_ResponseHandler> sd = (id<PBLastAction_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBLastAction_Response *response = [PBLastAction_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithLastAction:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBLastAction_Response *response = [PBLastAction_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBLastAction_ResponseBlock sb = (PBLastAction_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

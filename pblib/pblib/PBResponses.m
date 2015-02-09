@@ -1051,3 +1051,60 @@
 }
 
 @end
+
+///--------------------------------------
+/// LastAction
+///--------------------------------------
+@implementation PBLastAction_Response
+
+@synthesize actionId;
+@synthesize actionName;
+@synthesize time;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Last Action : {\r\taction_id : %@\r\taction_name : %@\r\ttime : %@\r\t}", self.actionId, self.actionName, self.time];
+    
+    return descriptionString;
+}
+
++(PBLastAction_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBLastAction_Response *c = [[PBLastAction_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'action'
+        NSDictionary *action = [response objectForKey:@"action"];
+        NSAssert(action != nil, @"action must not be nil");
+        
+        c.parseLevelJsonResponse = action;
+    }
+    
+    // parse
+    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    
+    return c;
+}
+
+@end
