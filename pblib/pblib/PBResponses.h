@@ -95,21 +95,6 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// PlayerDetailedPublic
-///--------------------------------------
-@interface PBPlayerDetailedPublic_Response : PBBase_Response
-
-@property (strong, nonatomic) PBPlayerPublic_Response *playerPublic;
-@property (nonatomic) float percentOfLevel;
-@property (strong, nonatomic) NSString *levelTitle;
-@property (strong, nonatomic) NSString *levelImage;
-@property (strong, nonatomic) NSArray *badges;
-
-+(PBPlayerDetailedPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
-
-@end
-
-///--------------------------------------
 /// Point - No Response
 ///--------------------------------------
 @interface PBPoint : PBBase_Response
@@ -200,6 +185,22 @@ typedef enum
 @property (strong, nonatomic) NSArray *playerBadges;
 
 +(PBPlayerBadges_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PlayerDetailedPublic
+///--------------------------------------
+@interface PBPlayerDetailedPublic_Response : PBBase_Response
+
+@property (strong, nonatomic) PBPlayerPublic_Response *playerPublic;
+@property (nonatomic) float percentOfLevel;
+@property (strong, nonatomic) NSString *levelTitle;
+@property (strong, nonatomic) NSString *levelImage;
+@property (strong, nonatomic) PBPlayerBadges_Response *badges;
+@property (strong, nonatomic) PBPoints_Response *points;
+
++(PBPlayerDetailedPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

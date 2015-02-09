@@ -314,6 +314,21 @@
                 
                 break;
             }
+            case responseType_playerDetailedPublic:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerDetailedPublic:withURL:error:)])
+                {
+                    id<PBPlayerDetailedPublic_ResponseHandler> sd = (id<PBPlayerDetailedPublic_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerDetailedPublic_Response *response = [PBPlayerDetailedPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithPlayerDetailedPublic:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
         }
     }
     // if response via block
@@ -414,6 +429,16 @@
                 PBPlayerBadges_Response *response = [PBPlayerBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayerBadges_ResponseBlock sb = (PBPlayerBadges_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_playerDetailedPublic:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerDetailedPublic_Response *response = [PBPlayerDetailedPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerDetailedPublic_ResponseBlock sb = (PBPlayerDetailedPublic_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
                 
                 break;

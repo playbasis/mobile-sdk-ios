@@ -60,15 +60,6 @@ typedef void (^PBPlayer_ResponseBlock)(PBPlayer_Response * player, NSURL *url, N
 typedef void (^PBPlayerList_ResponseBlock)(PBPlayerList_Response * playerList, NSURL *url, NSError *error);
 
 ///----------------
-/// PlayerDetailedPublic
-///----------------
-@protocol PBPlayerDetailedPublic_ResponseHandler <NSObject>
--(void)processResponseWithPlayerDetailedPublic:(PBPlayerDetailedPublic_Response*)playerList withURL:(NSURL *)url error:(NSError*)error;
-@end
-
-typedef void (^PBPlayerDetailedPublic_ResponseBlock)(PBPlayerDetailedPublic_Response * playerList, NSURL *url, NSError *error);
-
-///----------------
 /// Point
 ///----------------
 @protocol PBPoint_ResponseHandler <NSObject>
@@ -112,5 +103,14 @@ typedef void (^PBBadges_ResponseBlock)(PBBadges_Response * badges, NSURL *url, N
 @end
 
 typedef void (^PBPlayerBadges_ResponseBlock)(PBPlayerBadges_Response * badges, NSURL *url, NSError *error);
+
+///----------------
+/// PlayerDetailedPublic
+///----------------
+@protocol PBPlayerDetailedPublic_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerDetailedPublic:(PBPlayerDetailedPublic_Response*)playerDetailedPublic withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerDetailedPublic_ResponseBlock)(PBPlayerDetailedPublic_Response * playerDetailedPublic, NSURL *url, NSError *error);
 
 #endif

@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] badgesWithBlock:^(PBBadges_Response *badges, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] playerDetailPublic:USER withBlock:^(PBPlayerDetailedPublic_Response *playerDetailedPublic, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"Badges response = %@", badges);
+                    NSLog(@"Player detailed public = %@", playerDetailedPublic);
                 }
             }];
         }
