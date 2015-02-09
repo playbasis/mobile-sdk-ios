@@ -41,9 +41,6 @@ typedef enum
 @property (strong, nonatomic) NSString *token;
 @property (strong, nonatomic) NSDate *dateExpire;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBAuth_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -64,9 +61,6 @@ typedef enum
 @property (strong, nonatomic) NSDate *lastLogout;
 @property (strong, nonatomic) NSString* clPlayerId;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -80,9 +74,6 @@ typedef enum
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *phoneNumber;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBPlayer_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -94,9 +85,6 @@ typedef enum
 
 @property (strong, nonatomic) NSArray *players;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -111,9 +99,6 @@ typedef enum
 @property (strong, nonatomic) NSString *levelTitle;
 @property (strong, nonatomic) NSString *levelImage;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBPlayerDetailPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -127,9 +112,6 @@ typedef enum
 @property (strong, nonatomic) NSString *rewardName;
 @property (nonatomic) NSUInteger value;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBPoint*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -141,9 +123,6 @@ typedef enum
 
 @property (strong, nonatomic) NSArray* points;
 
-/**
- Parse json-response data into NSDictionary.
- */
 +(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
