@@ -186,7 +186,7 @@
                     id<PBAuth_ResponseHandler> sd = (id<PBAuth_ResponseHandler>)responseDelegate;
                     
                     // parse data (get nil if jsonResponse is nil)
-                    PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse];
+                    PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
                     // execute
                     [sd processResponseWithAuth:response withURL:[urlRequest URL] error:error];
@@ -201,7 +201,7 @@
                     id<PBPlayerPublic_ResponseHandler> sd = (id<PBPlayerPublic_ResponseHandler>)responseDelegate;
                     
                     // parse data (get nil if jsonResponse is nil)
-                    PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse];
+                    PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
                     // execute
                     [sd processResponseWithPlayerPublic:response withURL:[urlRequest URL] error:error];
@@ -216,7 +216,7 @@
                     id<PBPlayer_ResponseHandler> sd = (id<PBPlayer_ResponseHandler>)responseDelegate;
                     
                     // parse data (get nil if jsonResponse is nil)
-                    PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse];
+                    PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
                     // execute
                     [sd processResponseWithPlayer:response withURL:[urlRequest URL] error:error];
@@ -231,7 +231,7 @@
                     id<PBPlayerList_ResponseHandler> sd = (id<PBPlayerList_ResponseHandler>)responseDelegate;
                     
                     // parse data (get nil if jsonResponse is nil)
-                    PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse];
+                    PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
                     // execute
                     [sd processResponseWithPlayerList:response withURL:[urlRequest URL] error:error];
@@ -246,7 +246,7 @@
                     id<PBPoint_ResponseHandler> sd = (id<PBPoint_ResponseHandler>)responseDelegate;
                     
                     // parse data (get nil if jsonResponse is nil)
-                    PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse];
+                    PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
                     // execute
                     [sd processResponseWithPoint:response withURL:[urlRequest URL] error:error];
@@ -269,7 +269,7 @@
             case responseType_auth:
             {
                 // parse data (get nil if jsonResponse is nil)
-                PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse];
+                PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBAuth_ResponseBlock sb = (PBAuth_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
@@ -279,7 +279,7 @@
             case responseType_playerPublic:
             {
                 // parse data (get nil if jsonResponse is nil)
-                PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse];
+                PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
@@ -289,7 +289,7 @@
             case responseType_player:
             {
                 // parse data (get nil if jsonResponse is nil)
-                PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse];
+                PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayer_ResponseBlock sb = (PBPlayer_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
@@ -299,7 +299,7 @@
             case responseType_playerList:
             {
                 // parse data (get nil if jsonResponse is nil)
-                PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse];
+                PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
@@ -309,7 +309,7 @@
             case responseType_point:
             {
                 // parse data (get nil if jsonResponse is nil)
-                PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse];
+                PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPoint_ResponseBlock sb = (PBPoint_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);

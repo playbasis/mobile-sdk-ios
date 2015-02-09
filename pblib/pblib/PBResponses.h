@@ -25,9 +25,18 @@ typedef enum
 }pbResponseType;
 
 ///--------------------------------------
+/// Base - Response
+/// Do not use this class directly.
+/// All response classes subclasses this class.
+///--------------------------------------
+@interface PBBase_Response : NSObject
+
+@end
+
+///--------------------------------------
 /// Auth
 ///--------------------------------------
-@interface PBAuth_Response : NSObject
+@interface PBAuth_Response : PBBase_Response
 
 @property (strong, nonatomic) NSString *token;
 @property (strong, nonatomic) NSDate *dateExpire;
@@ -35,13 +44,13 @@ typedef enum
 /**
  Parse json-response data into NSDictionary.
  */
-+(PBAuth_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
++(PBAuth_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 ///--------------------------------------
 /// Player Info - Public Data Only
 ///--------------------------------------
-@interface PBPlayerPublic_Response : NSObject
+@interface PBPlayerPublic_Response : PBBase_Response
 
 @property (strong, nonatomic) NSString *image;
 @property (strong, nonatomic) NSString *userName;
@@ -58,54 +67,44 @@ typedef enum
 /**
  Parse json-response data into NSDictionary.
  */
-+(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
++(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
 ///--------------------------------------
 /// Player Info - Included Private Data
 ///--------------------------------------
-@interface PBPlayer_Response : NSObject
+@interface PBPlayer_Response : PBBase_Response
 
-@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) PBPlayerPublic_Response *playerPublic;
 @property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *userName;
-@property (nonatomic) NSUInteger exp;
-@property (nonatomic) NSUInteger level;
 @property (strong, nonatomic) NSString *phoneNumber;
-@property (strong, nonatomic) NSString *firstName;
-@property (strong, nonatomic) NSString *lastName;
-@property (nonatomic) NSUInteger gender;
-@property (strong, nonatomic) NSDate *registered;
-@property (strong, nonatomic) NSDate *lastLogin;
-@property (strong, nonatomic) NSDate *lastLogout;
-@property (strong, nonatomic) NSString* clPlayerId;
 
 /**
  Parse json-response data into NSDictionary.
  */
-+(PBPlayer_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
++(PBPlayer_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
 ///--------------------------------------
 /// PlayerList
 ///--------------------------------------
-@interface PBPlayerList_Response : NSObject
+@interface PBPlayerList_Response : PBBase_Response
 
 @property (strong, nonatomic) NSArray *players;
 
 /**
  Parse json-response data into NSDictionary.
  */
-+(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
++(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
 ///--------------------------------------
 /// PlayerDetailPublic
 ///--------------------------------------
-@interface PBPlayerDetailPublic_Response : NSObject
+@interface PBPlayerDetailPublic_Response : PBBase_Response
 
 @property (strong, nonatomic) PBPlayerPublic_Response *playerPublic;
 @property (nonatomic) float percentOfLevel;
@@ -115,32 +114,37 @@ typedef enum
 /**
  Parse json-response data into NSDictionary.
  */
-+(PBPlayerDetailPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
++(PBPlayerDetailPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
 ///--------------------------------------
 /// Point - No Resposne
 ///--------------------------------------
-@interface PBPoint : NSObject
+@interface PBPoint : PBBase_Response
 
 @property (strong, nonatomic) NSString *rewardId;
 @property (strong, nonatomic) NSString *rewardName;
 @property (nonatomic) NSUInteger value;
+
+/**
+ Parse json-response data into NSDictionary.
+ */
++(PBPoint*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
 ///--------------------------------------
 /// Point
 ///--------------------------------------
-@interface PBPoint_Response : NSObject
+@interface PBPoint_Response : PBBase_Response
 
 @property (strong, nonatomic) NSArray* points;
 
 /**
  Parse json-response data into NSDictionary.
  */
-+(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
++(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
