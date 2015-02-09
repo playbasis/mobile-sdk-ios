@@ -1233,19 +1233,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBPlayerBadge_ResponseHandler>)delegate
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBPlayerBadge_ResponseBlock)block
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerBadge_ResponseHandler>)delegate
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBPlayerBadge_ResponseBlock)block
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1253,7 +1253,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge%@", playerId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerBadge andResponse:response];
 }
 
 -(PBRequest *)rank:(NSString *)rankedBy withLimit:(unsigned int)limit andDelegate:(id<PBResponseHandler>)delegate

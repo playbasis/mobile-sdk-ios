@@ -68,5 +68,14 @@ typedef void (^PBPlayerList_ResponseBlock)(PBPlayerList_Response * playerList, N
 
 typedef void (^PBPoint_ResponseBlock)(PBPoint_Response * point, NSURL *url, NSError *error);
 
+///----------------
+/// Badge
+///----------------
+@protocol PBPlayerBadge_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerBadge:(PBPlayerBadge_Response*)badge withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerBadge_ResponseBlock)(PBPlayerBadge_Response * badge, NSURL *url, NSError *error);
+
 
 #endif

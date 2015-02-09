@@ -21,7 +21,8 @@ typedef enum
     responseType_playerPublic,
     responseType_player,
     responseType_playerList,
-    responseType_point
+    responseType_point,
+    responseType_playerBadge
 }pbResponseType;
 
 ///--------------------------------------
@@ -104,7 +105,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// Point - No Resposne
+/// Point - No Response
 ///--------------------------------------
 @interface PBPoint : PBBase_Response
 
@@ -124,6 +125,35 @@ typedef enum
 @property (strong, nonatomic) NSArray* points;
 
 +(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PlayerBadge - No Response
+///--------------------------------------
+@interface PBPlayerBadge : PBBase_Response
+
+@property (strong, nonatomic) NSString *badgeId;
+@property (nonatomic) BOOL redeemed;
+@property (nonatomic) BOOL claimed;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *description_;
+@property (nonatomic) NSUInteger amount;
+@property (strong, nonatomic) NSString *hint;
+
++(PBPlayerBadge*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PlayerBadge
+///--------------------------------------
+@interface PBPlayerBadge_Response : PBBase_Response
+
+@property (strong, nonatomic) NSArray *badges;
+
++(PBPlayerBadge_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
