@@ -164,22 +164,33 @@
 
 -(void)responseFromJSONResponse:(NSDictionary *)_jsonResponse error:(NSError*)error
 {
-    // if response via delegate
-    if(responseDelegate)
+    // if both response objects are nil, then return immediately
+    if(!responseDelegate && !responseBlock)
+        return;
+    
+    switch(responseType)
     {
-        switch(responseType)
+        case responseType_normal:
         {
-            case responseType_normal:
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponse:withURL:error:)])
                 {
                     // generic case
                     [responseDelegate processResponse:_jsonResponse withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_auth:
+            else if(responseBlock)
+            {
+                // execute block call
+                responseBlock(jsonResponse, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_auth:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithAuth:withURL:error:)])
                 {
@@ -191,10 +202,21 @@
                     // execute
                     [sd processResponseWithAuth:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_playerPublic:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBAuth_ResponseBlock sb = (PBAuth_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_playerPublic:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerPublic:withURL:error:)])
                 {
@@ -206,10 +228,21 @@
                     // execute
                     [sd processResponseWithPlayerPublic:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_player:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_player:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayer:withURL:error:)])
                 {
@@ -221,10 +254,21 @@
                     // execute
                     [sd processResponseWithPlayer:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_playerList:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayer_ResponseBlock sb = (PBPlayer_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_playerList:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerList:withURL:error:)])
                 {
@@ -236,10 +280,21 @@
                     // execute
                     [sd processResponseWithPlayerList:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_point:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_point:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPoint:withURL:error:)])
                 {
@@ -251,10 +306,21 @@
                     // execute
                     [sd processResponseWithPoint:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_points:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPoint_ResponseBlock sb = (PBPoint_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_points:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPoints:withURL:error:)])
                 {
@@ -266,10 +332,21 @@
                     // execute
                     [sd processResponseWithPoints:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_badge:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPoints_Response *response = [PBPoints_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPoints_ResponseBlock sb = (PBPoints_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_badge:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithBadge:withURL:error:)])
                 {
@@ -281,10 +358,21 @@
                     // execute
                     [sd processResponseWithBadge:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_badges:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBBadge_Response *response = [PBBadge_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBBadge_ResponseBlock sb = (PBBadge_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_badges:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithBadges:withURL:error:)])
                 {
@@ -296,10 +384,21 @@
                     // execute
                     [sd processResponseWithBadges:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_playerBadges:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBBadges_Response *response = [PBBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBBadges_ResponseBlock sb = (PBBadges_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_playerBadges:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerBadge:withURL:error:)])
                 {
@@ -311,10 +410,21 @@
                     // execute
                     [sd processResponseWithPlayerBadges:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-            case responseType_playerDetailedPublic:
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerBadges_Response *response = [PBPlayerBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerBadges_ResponseBlock sb = (PBPlayerBadges_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_playerDetailedPublic:
+        {
+            if(responseDelegate)
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerDetailedPublic:withURL:error:)])
                 {
@@ -326,123 +436,17 @@
                     // execute
                     [sd processResponseWithPlayerDetailedPublic:response withURL:[urlRequest URL] error:error];
                 }
-                
-                break;
             }
-        }
-    }
-    // if response via block
-    else if(responseBlock)
-    {
-        switch(responseType)
-        {
-            case responseType_normal:
-            {
-                // execute block call
-                responseBlock(jsonResponse, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_auth:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBAuth_Response *response = [PBAuth_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBAuth_ResponseBlock sb = (PBAuth_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_playerPublic:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBPlayerPublic_Response *response = [PBPlayerPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBPlayerPublic_ResponseBlock sb = (PBPlayerPublic_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_player:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBPlayer_Response *response = [PBPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBPlayer_ResponseBlock sb = (PBPlayer_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_playerList:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_point:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBPoint_ResponseBlock sb = (PBPoint_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_points:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBPoints_Response *response = [PBPoints_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBPoints_ResponseBlock sb = (PBPoints_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_badge:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBBadge_Response *response = [PBBadge_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBBadge_ResponseBlock sb = (PBBadge_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_badges:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBBadges_Response *response = [PBBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBBadges_ResponseBlock sb = (PBBadges_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_playerBadges:
-            {
-                // parse data (get nil if jsonResponse is nil)
-                PBPlayerBadges_Response *response = [PBPlayerBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
-                
-                PBPlayerBadges_ResponseBlock sb = (PBPlayerBadges_ResponseBlock)responseBlock;
-                sb(response, [urlRequest URL], error);
-                
-                break;
-            }
-            case responseType_playerDetailedPublic:
+            else if(responseBlock)
             {
                 // parse data (get nil if jsonResponse is nil)
                 PBPlayerDetailedPublic_Response *response = [PBPlayerDetailedPublic_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayerDetailedPublic_ResponseBlock sb = (PBPlayerDetailedPublic_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
-                
-                break;
             }
+            
+            break;
         }
     }
 }
