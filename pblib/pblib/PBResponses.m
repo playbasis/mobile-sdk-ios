@@ -864,3 +864,133 @@
 }
 
 @end
+
+///--------------------------------------
+/// PointHistory
+///--------------------------------------
+@implementation PBPointHistory
+
+@synthesize message;
+@synthesize rewardId;
+@synthesize rewardName;
+@synthesize value;
+@synthesize dateAdded;
+@synthesize actionName;
+@synthesize stringFilter;
+@synthesize actionIcon;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"PointHistory (single) : {\r\tmessage : %@\r\treward_id : %@\r\treward_name : %@\r\tvalue : %lu\r\tdate_added : %@\r\taction_name : %@\r\tstring_filter : %@\r\taction_icon : %@\r\t}", self.message, self.rewardId, self.rewardName, (unsigned long)self.value, self.dateAdded, self.actionName, self.stringFilter, self.actionIcon];
+    
+    return descriptionString;
+}
+
++(PBPointHistory *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result response
+    PBPointHistory *c = [[PBPointHistory alloc] init];
+    
+    // ignore json level flag, because it doesn't appear anywhere singlely
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    c.message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    c.value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    
+    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c.stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
+    c.actionIcon = [c.parseLevelJsonResponse objectForKey:@"action_icon"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PointHistory
+///--------------------------------------
+@implementation PBPointHistory_Response
+
+@synthesize pointHistory;
+
+-(NSString *)description
+{
+    // create string to hold all point-history line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Point History : {"];
+    
+    for(PBPointHistory *pointHistory in self.pointHistory)
+    {
+        // get description line from each player-badge
+        NSString *pointHistoryLine = [pointHistory description];
+        // append \r
+        NSString *pointHistoryLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", pointHistoryLine];
+        
+        // append to result 'lines'
+        [lines appendString:pointHistoryLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPointHistory *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result response
+    PBPointHistory_Response *c = [[PBPointHistory_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'points'
+        NSDictionary *points = [response objectForKey:@"points"];
+        NSAssert(points != nil, @"points must not be nil");
+        
+        c.parseLevelJsonResponse = points;
+    }
+    
+    // convert points into array
+    NSArray *phArray = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all of point history elements
+    NSMutableArray *tempPhArray = [NSMutableArray array];
+    
+    for(NSDictionary *ph in phArray)
+    {
+        // get point history
+        PBPointHistory *pointHistory = [PBPointHistory parseFromDictionary:ph startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempPhArray addObject:pointHistory];
+    }
+    
+    // set back to result response
+    c.pointHistory = [NSArray arrayWithArray:tempPhArray];
+    
+    return c;
+}
+
+@end

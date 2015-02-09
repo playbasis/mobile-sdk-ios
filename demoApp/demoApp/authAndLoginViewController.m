@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] playerDetail:USER withBlock:^(PBPlayerDetailed_Response *playerDetailed, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] pointHistory:USER forPoint:@"point" offset:0 withLimit:5 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"Player detailed = %@", playerDetailed);
+                    NSLog(@"Point History response = %@", pointHistory);
                 }
             }];
         }

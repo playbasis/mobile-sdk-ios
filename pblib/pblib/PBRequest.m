@@ -471,6 +471,33 @@
                 PBPlayerDetailed_ResponseBlock sb = (PBPlayerDetailed_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
             }
+            
+            break;
+        }
+        case responseType_pointHistory:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPointHistory:withURL:error:)])
+                {
+                    id<PBPointHistory_ResponseHandler> sd = (id<PBPointHistory_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPointHistory_Response *response = [PBPointHistory_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithPointHistory:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPointHistory_Response *response = [PBPointHistory_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPointHistory_ResponseBlock sb = (PBPointHistory_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
             break;
         }
     }

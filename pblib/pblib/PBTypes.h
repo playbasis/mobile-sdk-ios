@@ -122,4 +122,13 @@ typedef void (^PBPlayerDetailedPublic_ResponseBlock)(PBPlayerDetailedPublic_Resp
 
 typedef void (^PBPlayerDetailed_ResponseBlock)(PBPlayerDetailed_Response * playerDetailed, NSURL *url, NSError *error);
 
+///----------------
+/// PointHistory
+///----------------
+@protocol PBPointHistory_ResponseHandler <NSObject>
+-(void)processResponseWithPointHistory:(PBPointHistory_Response*)pointHistory withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPointHistory_ResponseBlock)(PBPointHistory_Response * pointHistory, NSURL *url, NSError *error);
+
 #endif
