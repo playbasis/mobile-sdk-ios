@@ -60,13 +60,13 @@ typedef void (^PBPlayer_ResponseBlock)(PBPlayer_Response * player, NSURL *url, N
 typedef void (^PBPlayerList_ResponseBlock)(PBPlayerList_Response * playerList, NSURL *url, NSError *error);
 
 ///----------------
-/// PlayerDetailPublic
+/// PlayerDetailedPublic
 ///----------------
-@protocol PBPlayerDetailPublic_ResponseHandler <NSObject>
--(void)processResponseWithPlayerList:(PBPlayerList_Response*)playerList withURL:(NSURL *)url error:(NSError*)error;
+@protocol PBPlayerDetailedPublic_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerDetailedPublic:(PBPlayerDetailedPublic_Response*)playerList withURL:(NSURL *)url error:(NSError*)error;
 @end
 
-typedef void (^PBPlayerDetailPublic_ResponseBlock)(PBPlayerList_Response * playerList, NSURL *url, NSError *error);
+typedef void (^PBPlayerDetailedPublic_ResponseBlock)(PBPlayerDetailedPublic_Response * playerList, NSURL *url, NSError *error);
 
 ///----------------
 /// Point
@@ -89,11 +89,28 @@ typedef void (^PBPoints_ResponseBlock)(PBPoints_Response * points, NSURL *url, N
 ///----------------
 /// Badge
 ///----------------
-@protocol PBPlayerBadge_ResponseHandler <NSObject>
--(void)processResponseWithPlayerBadge:(PBPlayerBadge_Response*)badge withURL:(NSURL *)url error:(NSError*)error;
+@protocol PBBadge_ResponseHandler <NSObject>
+-(void)processResponseWithBadge:(PBBadge_Response*)badge withURL:(NSURL *)url error:(NSError*)error;
 @end
 
-typedef void (^PBPlayerBadge_ResponseBlock)(PBPlayerBadge_Response * badge, NSURL *url, NSError *error);
+typedef void (^PBBadge_ResponseBlock)(PBBadge_Response * badge, NSURL *url, NSError *error);
 
+///----------------
+/// Badges
+///----------------
+@protocol PBBadges_ResponseHandler <NSObject>
+-(void)processResponseWithBadges:(PBBadges_Response*)badges withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBBadges_ResponseBlock)(PBBadges_Response * badges, NSURL *url, NSError *error);
+
+///----------------
+/// PlayerBadge
+///----------------
+@protocol PBPlayerBadges_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerBadges:(PBPlayerBadges_Response*)badges withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerBadges_ResponseBlock)(PBPlayerBadges_Response * badges, NSURL *url, NSError *error);
 
 #endif

@@ -1233,19 +1233,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBPlayerBadge_ResponseHandler>)delegate
+-(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBPlayerBadges_ResponseHandler>)delegate
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBPlayerBadge_ResponseBlock)block
+-(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBPlayerBadges_ResponseBlock)block
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerBadge_ResponseHandler>)delegate
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerBadges_ResponseHandler>)delegate
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBPlayerBadge_ResponseBlock)block
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBPlayerBadges_ResponseBlock)block
 {
     return [self badgeOwnedInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1253,7 +1253,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge%@", playerId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerBadge andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerBadges andResponse:response];
 }
 
 -(PBRequest *)rank:(NSString *)rankedBy withLimit:(unsigned int)limit andDelegate:(id<PBResponseHandler>)delegate
@@ -1467,19 +1467,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)badge:(NSString *)badgeId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)badge:(NSString *)badgeId withDelegate:(id<PBBadge_ResponseHandler>)delegate
 {
     return [self badgeInternalBase:badgeId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badge:(NSString *)badgeId withBlock:(PBResponseBlock)block
+-(PBRequest *)badge:(NSString *)badgeId withBlock:(PBBadge_ResponseBlock)block
 {
     return [self badgeInternalBase:badgeId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)badgeAsync:(NSString *)badgeId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)badgeAsync:(NSString *)badgeId withDelegate:(id<PBBadge_ResponseHandler>)delegate
 {
     return [self badgeInternalBase:badgeId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgeAsync:(NSString *)badgeId withBlock:(PBResponseBlock)block
+-(PBRequest *)badgeAsync:(NSString *)badgeId withBlock:(PBBadge_ResponseBlock)block
 {
     return [self badgeInternalBase:badgeId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1487,30 +1487,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Badge/%@%@", badgeId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_badge andResponse:response];
 }
 
--(PBRequest *)badgesWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)badgesWithDelegate:(id<PBBadges_ResponseHandler>)delegate
 {
     return [self badgesInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgesWithBlock:(PBResponseBlock)block
+-(PBRequest *)badgesWithBlock:(PBBadges_ResponseBlock)block
 {
     return [self badgesInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)badgesAsyncWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)badgesAsyncWithDelegate:(id<PBBadges_ResponseHandler>)delegate
 {
     return [self badgesInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)badgesAsyncWithBlock:(PBResponseBlock)block
+-(PBRequest *)badgesAsyncWithBlock:(PBBadges_ResponseBlock)block
 {
     return [self badgesInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)badgesInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Badge%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Badges%@", apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_badges andResponse:response];
 }
 
 -(PBRequest *)goods:(NSString *)goodId withDelegate:(id<PBResponseHandler>)delegate

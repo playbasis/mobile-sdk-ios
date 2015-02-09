@@ -225,10 +225,10 @@
 /**
  Return information about all badges that player has earned.
  */
--(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBPlayerBadge_ResponseHandler>)delegate;
--(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBPlayerBadge_ResponseBlock)block;
--(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerBadge_ResponseHandler>)delegate;
--(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBPlayerBadge_ResponseBlock)block;
+-(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBPlayerBadges_ResponseHandler>)delegate;
+-(PBRequest *)badgeOwned:(NSString *)playerId withBlock:(PBPlayerBadges_ResponseBlock)block;
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerBadges_ResponseHandler>)delegate;
+-(PBRequest *)badgeOwnedAsync:(NSString *)playerId withBlock:(PBPlayerBadges_ResponseBlock)block;
 
 /**
  Returns list of players sorted by the specified point type.
@@ -305,18 +305,18 @@
 /**
  Return information of specified badge.
  */
--(PBRequest *)badge:(NSString *)badgeId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)badge:(NSString *)badgeId withBlock:(PBResponseBlock)block;
--(PBRequest *)badgeAsync:(NSString *)badgeId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)badgeAsync:(NSString *)badgeId withBlock:(PBResponseBlock)block;
+-(PBRequest *)badge:(NSString *)badgeId withDelegate:(id<PBBadge_ResponseHandler>)delegate;
+-(PBRequest *)badge:(NSString *)badgeId withBlock:(PBBadge_ResponseBlock)block;
+-(PBRequest *)badgeAsync:(NSString *)badgeId withDelegate:(id<PBBadge_ResponseHandler>)delegate;
+-(PBRequest *)badgeAsync:(NSString *)badgeId withBlock:(PBBadge_ResponseBlock)block;
 
 /**
  Return information about all badges of the current site.
  */
--(PBRequest *)badgesWithDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)badgesWithBlock:(PBResponseBlock)block;
--(PBRequest *)badgesAsyncWithDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)badgesAsyncWithBlock:(PBResponseBlock)block;
+-(PBRequest *)badgesWithDelegate:(id<PBBadges_ResponseHandler>)delegate;
+-(PBRequest *)badgesWithBlock:(PBBadges_ResponseBlock)block;
+-(PBRequest *)badgesAsyncWithDelegate:(id<PBBadges_ResponseHandler>)delegate;
+-(PBRequest *)badgesAsyncWithBlock:(PBBadges_ResponseBlock)block;
 
 /**
  Return information about goods for the specified id.

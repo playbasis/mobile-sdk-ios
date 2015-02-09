@@ -269,17 +269,47 @@
                 
                 break;
             }
-            case responseType_playerBadge:
+            case responseType_badge:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithBadge:withURL:error:)])
+                {
+                    id<PBBadge_ResponseHandler> sd = (id<PBBadge_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBBadge_Response *response = [PBBadge_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithBadge:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
+            case responseType_badges:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithBadges:withURL:error:)])
+                {
+                    id<PBBadges_ResponseHandler> sd = (id<PBBadges_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBBadges_Response *response = [PBBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithBadges:response withURL:[urlRequest URL] error:error];
+                }
+                
+                break;
+            }
+            case responseType_playerBadges:
             {
                 if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerBadge:withURL:error:)])
                 {
-                    id<PBPlayerBadge_ResponseHandler> sd = (id<PBPlayerBadge_ResponseHandler>)responseDelegate;
+                    id<PBPlayerBadges_ResponseHandler> sd = (id<PBPlayerBadges_ResponseHandler>)responseDelegate;
                     
                     // parse data (get nil if jsonResponse is nil)
-                    PBPlayerBadge_Response *response = [PBPlayerBadge_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    PBPlayerBadges_Response *response = [PBPlayerBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
                     // execute
-                    [sd processResponseWithPlayerBadge:response withURL:[urlRequest URL] error:error];
+                    [sd processResponseWithPlayerBadges:response withURL:[urlRequest URL] error:error];
                 }
                 
                 break;
@@ -358,12 +388,32 @@
                 
                 break;
             }
-            case responseType_playerBadge:
+            case responseType_badge:
             {
                 // parse data (get nil if jsonResponse is nil)
-                PBPlayerBadge_Response *response = [PBPlayerBadge_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                PBBadge_Response *response = [PBBadge_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
-                PBPlayerBadge_ResponseBlock sb = (PBPlayerBadge_ResponseBlock)responseBlock;
+                PBBadge_ResponseBlock sb = (PBBadge_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_badges:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBBadges_Response *response = [PBBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBBadges_ResponseBlock sb = (PBBadges_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_playerBadges:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerBadges_Response *response = [PBPlayerBadges_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerBadges_ResponseBlock sb = (PBPlayerBadges_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
                 
                 break;

@@ -286,9 +286,9 @@
 @end
 
 ///--------------------------------------
-/// PlayerDetailPublic
+/// PlayerDetailedPublic
 ///--------------------------------------
-@implementation PBPlayerDetailPublic_Response
+@implementation PBPlayerDetailedPublic_Response
 
 @synthesize playerPublic;
 @synthesize percentOfLevel;
@@ -298,10 +298,10 @@
 
 -(NSString *)description
 {
-    
+    //NSString *descriptionString = [NSString stringWithFormat:@"Player Detailed Public : {\r\t%@\r\tpercent_of_level : %.2f\r\tlevel_title : %@\r\tlevel_image : %@\r\t%@", self.playerPublic, self.percentOfLevel, self.levelTitle, self.levelImage, ];
 }
 
-+(PBPlayerDetailPublic_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
++(PBPlayerDetailedPublic_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
     
 }
@@ -498,6 +498,145 @@
 @end
 
 ///--------------------------------------
+/// Badge
+///--------------------------------------
+@implementation PBBadge_Response
+
+@synthesize badgeId;
+@synthesize image;
+@synthesize sortOrder;
+@synthesize name;
+@synthesize description_;
+@synthesize hint;
+@synthesize sponsor;
+@synthesize claim;
+@synthesize redeem;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\tclaim : %@\r\tredeem : %@\r\t}", self.badgeId, self.image, self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO", self.claim ? @"YES" : @"NO", self.redeem ? @"YES" : @"NO"];
+    
+    return descriptionString;
+}
+
++(PBBadge_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBBadge_Response *c = [[PBBadge_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'badge'
+        NSDictionary *badge = [response objectForKey:@"badge"];
+        NSAssert(badge != nil, @"badge must not be nil");
+        
+        c.parseLevelJsonResponse = badge;
+    }
+    
+    c.badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c.sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
+    c.claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
+    c.redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Badges
+///--------------------------------------
+@implementation PBBadges_Response
+
+@synthesize badges;
+
+-(NSString *)description
+{
+    // create string to hold all badges line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Badges : {"];
+    
+    for(PBBadge_Response *badge in self.badges)
+    {
+        // get description line from each player-badge
+        NSString *badgeLine = [badge description];
+        // append \r
+        NSString *badgeLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", badgeLine];
+        
+        // append to result 'lines'
+        [lines appendString:badgeLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBBadges_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result response
+    PBBadges_Response *c = [[PBBadges_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'badges'
+        NSDictionary *badges = [response objectForKey:@"badges"];
+        NSAssert(badges != nil, @"badges must not be nil");
+        
+        c.parseLevelJsonResponse = badges;
+    }
+    
+    // convert 'badges' into array
+    NSArray *badgeArray = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temporary array to hold badges
+    NSMutableArray *tempBadges = [NSMutableArray array];
+    
+    for(NSDictionary *badge in badgeArray)
+    {
+        // get badge
+        PBBadge_Response *b = [PBBadge_Response parseFromDictionary:badge startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempBadges addObject:b];
+    }
+    
+    // set back to itself
+    c.badges = [NSArray arrayWithArray:tempBadges];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// PBPlayerBadge - No Response
 ///--------------------------------------
 @implementation PBPlayerBadge
@@ -513,7 +652,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\tredeemed : %@\r\tclaimed : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tamount : %lu\r\thint : %@\r\t}", self.badgeId, self.redeemed ? @"YES" : @"NO", self.claimed ? @"YES" : @"NO", self.image, self.name, self.description_, (unsigned long)self.amount, self.hint];
+    NSString *descriptionString = [NSString stringWithFormat:@"Player Badge : {\r\tbadge_id : %@\r\tredeemed : %@\r\tclaimed : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tamount : %lu\r\thint : %@\r\t}", self.badgeId, self.redeemed ? @"YES" : @"NO", self.claimed ? @"YES" : @"NO", self.image, self.name, self.description_, (unsigned long)self.amount, self.hint];
     
     return descriptionString;
 }
@@ -546,16 +685,16 @@
 ///--------------------------------------
 /// PlayerBadge
 ///--------------------------------------
-@implementation PBPlayerBadge_Response
+@implementation PBPlayerBadges_Response
 
-@synthesize badges;
+@synthesize playerBadges;
 
 -(NSString *)description
 {
     // create string to hold all players line-by-line
-    NSMutableString *lines = [NSMutableString stringWithString:@"Badges : {"];
+    NSMutableString *lines = [NSMutableString stringWithString:@"Player Badges : {"];
     
-    for(PBPlayerBadge *badge in self.badges)
+    for(PBPlayerBadge *badge in self.playerBadges)
     {
         // get description line from each player-badge
         NSString *pbadgeLine = [badge description];
@@ -572,13 +711,13 @@
     return [NSString stringWithString:lines];
 }
 
-+(PBPlayerBadge_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
++(PBPlayerBadges_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
     if(jsonResponse == nil)
         return nil;
     
     // create a result
-    PBPlayerBadge_Response *c = [[PBPlayerBadge_Response alloc] init];
+    PBPlayerBadges_Response *c = [[PBPlayerBadges_Response alloc] init];
     
     if(startFromFinalLevel)
     {
@@ -607,8 +746,8 @@
         [tempBadges addObject:pb];
     }
     
-    // set back badges
-    c.badges = [NSArray arrayWithArray:tempBadges];
+    // set back player-badges
+    c.playerBadges = [NSArray arrayWithArray:tempBadges];
     
     return c;
 }
