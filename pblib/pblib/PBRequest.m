@@ -448,6 +448,31 @@
             
             break;
         }
+        case responseType_playerDetailed:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPlayerDetailed:withURL:error:)])
+                {
+                    id<PBPlayerDetailed_ResponseHandler> sd = (id<PBPlayerDetailed_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerDetailed_Response *response = [PBPlayerDetailed_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithPlayerDetailed:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerDetailed_Response *response = [PBPlayerDetailed_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerDetailed_ResponseBlock sb = (PBPlayerDetailed_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            break;
+        }
     }
 }
 

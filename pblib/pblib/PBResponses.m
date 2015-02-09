@@ -797,3 +797,70 @@
 }
 
 @end
+
+///--------------------------------------
+/// PlayerDetailed
+///--------------------------------------
+@implementation PBPlayerDetailed_Response
+
+@synthesize player;
+@synthesize percentOfLevel;
+@synthesize levelTitle;
+@synthesize levelImage;
+@synthesize badges;
+@synthesize points;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Player Detailed : {\r\t%@\r\tpercent_of_level : %.2f\r\tlevel_title : %@\r\tlevel_image : %@\r\t%@\r\t%@\r\t}", self.player, self.percentOfLevel, self.levelTitle, self.levelImage, self.badges, self.points];
+    
+    return descriptionString;
+}
+
++(PBPlayerDetailed_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result response
+    PBPlayerDetailed_Response *c = [[PBPlayerDetailed_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'player'
+        NSDictionary *player = [response objectForKey:@"player"];
+        NSAssert(player != nil, @"player must not be nil");
+        
+        c.parseLevelJsonResponse = player;
+    }
+    
+    // get player's information
+    c.player = [PBPlayer_Response parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    // get other fields of data
+    c.percentOfLevel = [[c.parseLevelJsonResponse objectForKey:@"percent_of_level"] floatValue];
+    c.levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
+    c.levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
+    
+    // get 'badges'
+    NSDictionary *badgesJson = [c.parseLevelJsonResponse objectForKey:@"badges"];
+    // get badges
+    c.badges = [PBPlayerBadges_Response parseFromDictionary:badgesJson startFromFinalLevel:YES];
+    
+    // get 'points'
+    NSDictionary *pointsJson = [c.parseLevelJsonResponse objectForKey:@"points"];
+    // get points
+    c.points = [PBPoints_Response parseFromDictionary:pointsJson startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end

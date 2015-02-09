@@ -116,10 +116,10 @@
 /**
  Get player's detailed information both private and public one including points and badges.
  */
--(PBRequest *)playerDetail:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerDetail:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)playerDetailAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)playerDetailAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)playerDetail:(NSString *)playerId withDelegate:(id<PBPlayerDetailed_ResponseHandler>)delegate;
+-(PBRequest *)playerDetail:(NSString *)playerId withBlock:(PBPlayerDetailed_ResponseBlock)block;
+-(PBRequest *)playerDetailAsync:(NSString *)playerId withDelegate:(id<PBPlayerDetailed_ResponseHandler>)delegate;
+-(PBRequest *)playerDetailAsync:(NSString *)playerId withBlock:(PBPlayerDetailed_ResponseBlock)block;
 
 /**
  Register from the client side as a Playbasis player.

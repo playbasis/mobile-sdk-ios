@@ -113,4 +113,13 @@ typedef void (^PBPlayerBadges_ResponseBlock)(PBPlayerBadges_Response * badges, N
 
 typedef void (^PBPlayerDetailedPublic_ResponseBlock)(PBPlayerDetailedPublic_Response * playerDetailedPublic, NSURL *url, NSError *error);
 
+///----------------
+/// PlayerDetailed
+///----------------
+@protocol PBPlayerDetailed_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerDetailed:(PBPlayerDetailed_Response*)playerDetailed withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerDetailed_ResponseBlock)(PBPlayerDetailed_Response * playerDetailed, NSURL *url, NSError *error);
+
 #endif
