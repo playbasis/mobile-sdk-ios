@@ -28,7 +28,8 @@ typedef enum
     responseType_playerBadges,
     responseType_playerDetailedPublic,
     responseType_playerDetailed,
-    responseType_pointHistory
+    responseType_pointHistory,
+    responseType_actionTime
 }pbResponseType;
 
 ///--------------------------------------
@@ -223,7 +224,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// PointHistory - No response
+/// PointHistory - No Response
 ///--------------------------------------
 @interface PBPointHistory : PBBase_Response
 
@@ -248,6 +249,19 @@ typedef enum
 @property (strong, nonatomic) NSArray *pointHistory;
 
 +(PBPointHistory_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ActionTime
+///--------------------------------------
+@interface PBActionTime_Response : PBBase_Response
+
+@property (strong, nonatomic) NSString *actionId;
+@property (strong, nonatomic) NSString *actionName;
+@property (strong, nonatomic) NSDate *time;
+
++(PBActionTime_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

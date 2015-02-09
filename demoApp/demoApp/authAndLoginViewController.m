@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] pointHistory:USER forPoint:@"point" offset:0 withLimit:5 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] actionTime:USER forAction:@"like" withBlock:^(PBActionTime_Response *actionTime, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"Point History response = %@", pointHistory);
+                    NSLog(@"Action Time of like = %@", actionTime);
                 }
             }];
         }

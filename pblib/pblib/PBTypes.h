@@ -131,4 +131,13 @@ typedef void (^PBPlayerDetailed_ResponseBlock)(PBPlayerDetailed_Response * playe
 
 typedef void (^PBPointHistory_ResponseBlock)(PBPointHistory_Response * pointHistory, NSURL *url, NSError *error);
 
+///----------------
+/// ActionTime
+///----------------
+@protocol PBActionTime_ResponseHandler <NSObject>
+-(void)processResponseWithActionTime:(PBActionTime_Response*)actionTime withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, NSURL *url, NSError *error);
+
 #endif
