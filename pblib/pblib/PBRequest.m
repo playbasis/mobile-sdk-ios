@@ -552,6 +552,32 @@
             
             break;
         }
+        case responseType_actionCount:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithActionCount:withURL:error:)])
+                {
+                    id<PBActionCount_ResponseHandler> sd = (id<PBActionCount_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBActionCount_Response *response = [PBActionCount_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithActionCount:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBActionCount_Response *response = [PBActionCount_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBActionCount_ResponseBlock sb = (PBActionCount_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

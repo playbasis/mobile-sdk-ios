@@ -149,4 +149,13 @@ typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, N
 
 typedef void (^PBLastAction_ResponseBlock)(PBLastAction_Response * lastAction, NSURL *url, NSError *error);
 
+///----------------
+/// ActionCount
+///----------------
+@protocol PBActionCount_ResponseHandler <NSObject>
+-(void)processResponseWithActionCount:(PBActionCount_Response*)actionCount withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBActionCount_ResponseBlock)(PBActionCount_Response * actionCount, NSURL *url, NSError *error);
+
 #endif

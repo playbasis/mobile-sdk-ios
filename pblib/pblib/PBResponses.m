@@ -1108,3 +1108,54 @@
 }
 
 @end
+
+///--------------------------------------
+/// ActionCount
+///--------------------------------------
+@implementation PBActionCount_Response
+
+@synthesize actionId;
+@synthesize actionName;
+@synthesize count;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Action Count : {\r\taction_id : %@\r\taction_name : %@\r\tcount : %lu\r\t}", self.actionId, self.actionName, self.count];
+    
+    return descriptionString;
+}
+
++(PBActionCount_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBActionCount_Response *c = [[PBActionCount_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'action'
+        NSDictionary *action = [response objectForKey:@"action"];
+        NSAssert(action != nil, @"action must not be nil");
+        
+        c.parseLevelJsonResponse = action;
+    }
+    
+    // parse
+    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c.count = [[c.parseLevelJsonResponse objectForKey:@"count"] unsignedIntegerValue];
+    
+    return c;
+}
+
+@end

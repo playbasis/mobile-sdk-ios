@@ -1210,19 +1210,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
 }
 
--(PBRequest *)actionPerformedCount:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)actionPerformedCount:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBActionCount_ResponseHandler>)delegate
 {
     return [self actionPerformedCountInternalBase:playerId forAction:actionName blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)actionPerformedCount:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBResponseBlock)block
+-(PBRequest *)actionPerformedCount:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBActionCount_ResponseBlock)block
 {
     return [self actionPerformedCountInternalBase:playerId forAction:actionName blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)actionPerformedCountAsync:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)actionPerformedCountAsync:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBActionCount_ResponseHandler>)delegate
 {
     return [self actionPerformedCountInternalBase:playerId forAction:actionName blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)actionPerformedCountAsync:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBResponseBlock)block
+-(PBRequest *)actionPerformedCountAsync:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBActionCount_ResponseBlock)block
 {
     return [self actionPerformedCountInternalBase:playerId forAction:actionName blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1230,7 +1230,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/count%@", playerId, actionName, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionCount andResponse:response];
 }
 
 -(PBRequest *)badgeOwned:(NSString *)playerId withDelegate:(id<PBPlayerBadges_ResponseHandler>)delegate
