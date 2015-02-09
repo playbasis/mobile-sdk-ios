@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] playerList:@"1502292073facebook,100007385221353facebook,16254950twitter" withBlock:^(PBPlayerList_Response *playerList, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] point:USER forPoint:@"point" withBlock:^(PBPoint_Response *point, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"PlayerList response = %@", playerList);
+                    NSLog(@"Point response = %@", point);
                 }
             }];
         }

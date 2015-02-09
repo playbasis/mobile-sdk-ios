@@ -239,6 +239,19 @@
                 
                 break;
             }
+            case responseType_point:
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithPoint:withURL:error:)])
+                {
+                    id<PBPoint_ResponseHandler> sd = (id<PBPoint_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse];
+                    
+                    // execute
+                    [sd processResponseWithPoint:response withURL:[urlRequest URL] error:error];
+                }
+            }
         }
     }
     // if response via block
@@ -289,6 +302,16 @@
                 PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:_jsonResponse];
                 
                 PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+                
+                break;
+            }
+            case responseType_point:
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPoint_Response *response = [PBPoint_Response parseFromDictionary:_jsonResponse];
+                
+                PBPoint_ResponseBlock sb = (PBPoint_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
                 
                 break;

@@ -9,6 +9,7 @@
 #import "PBResponses.h"
 #import "JSONKit.h"
 
+
 ///--------------------------------------
 /// Auth
 ///--------------------------------------
@@ -19,7 +20,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Auth : {\r   token : %@\r   date_expire : %@\r}", self.token, self.dateExpire];
+    NSString *descriptionString = [NSString stringWithFormat:@"Auth : {\r   token : %@\r   date_expire : %@\r   }", self.token, self.dateExpire];
     return descriptionString;
 }
 
@@ -66,7 +67,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Player's Public Information : {\r   image : %@\r   userName : %@\r   exp : %u\r   level : %u\r   first_name : %@\r   last_name : %@\r   gender : %u\r   registered : %@\r   last_login : %@\r   last_logout : %@\r   cl_player_id : %@\r}", self.image, self.userName, (unsigned int)self.exp, (unsigned int)self.level, self.firstName, self.lastName, (unsigned int)self.gender, self.registered, self.lastLogin, self.lastLogout, self.clPlayerId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Player's Public Information : {\r   image : %@\r   userName : %@\r   exp : %u\r   level : %u\r   first_name : %@\r   last_name : %@\r   gender : %u\r   registered : %@\r   last_login : %@\r   last_logout : %@\r   cl_player_id : %@\r   }", self.image, self.userName, (unsigned int)self.exp, (unsigned int)self.level, self.firstName, self.lastName, (unsigned int)self.gender, self.registered, self.lastLogin, self.lastLogout, self.clPlayerId];
     return descriptionString;
 }
 
@@ -129,7 +130,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Player Information : {\r   image : %@\r   email : %@\r   userName : %@\r   exp : %u\r   level : %u\r   phone_number : %@\r   first_name : %@\r   last_name : %@\r   gender : %u\r   registered : %@\r   last_login : %@\r   last_logout : %@\r   cl_player_id : %@\r}", self.image, self.email, self.userName, (unsigned int)self.exp, (unsigned int)self.level, self.phoneNumber, self.firstName, self.lastName, (unsigned int)self.gender, self.registered, self.lastLogin, self.lastLogout, self.clPlayerId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Player Information : {\r   image : %@\r   email : %@\r   userName : %@\r   exp : %u\r   level : %u\r   phone_number : %@\r   first_name : %@\r   last_name : %@\r   gender : %u\r   registered : %@\r   last_login : %@\r   last_logout : %@\r   cl_player_id : %@\r   }", self.image, self.email, self.userName, (unsigned int)self.exp, (unsigned int)self.level, self.phoneNumber, self.firstName, self.lastName, (unsigned int)self.gender, self.registered, self.lastLogin, self.lastLogout, self.clPlayerId];
     return descriptionString;
 }
 
@@ -254,6 +255,109 @@
     playerList.players = [NSArray arrayWithArray:playerArray];
     
     return playerList;
+}
+
+@end
+
+///--------------------------------------
+/// PlayerDetailPublic
+///--------------------------------------
+@implementation PBPlayerDetailPublic_Response
+
+@synthesize playerPublic;
+
+-(NSString *)description
+{
+    
+}
+
++(PBPlayerList_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse
+{
+    
+}
+
+@end
+
+///--------------------------------------
+/// Point - No Resposne
+///--------------------------------------
+@implementation PBPoint
+
+@synthesize rewardId;
+@synthesize rewardName;
+@synthesize value;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Point : {\r   reward_id : %@\r   reward_name : %@\r   value : %u\r   }", self.rewardId, self.rewardName, (unsigned int)self.value];
+    
+    return descriptionString;
+}
+
+@end
+
+///--------------------------------------
+/// Point
+///--------------------------------------
+@implementation PBPoint_Response
+
+@synthesize points;
+
+-(NSString *)description
+{
+    // create string to hold all players line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Point : {\r   "];
+    
+    for(PBPoint *point in self.points)
+    {
+        // get description line from each point
+        NSString *pointLine = [point description];
+        // append \r
+        NSString *pointLineWithCR = [NSString stringWithFormat:@"%@\r", pointLine];
+        
+        // append to result 'lines'
+        [lines appendString:pointLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPoint_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // get 'response'
+    NSDictionary *response = [jsonResponse objectForKey:@"response"];
+    NSAssert(response != nil, @"response must not be nil");
+    
+    // crate a temporary array to hold all points
+    NSMutableArray *tempPoints = [NSMutableArray array];
+    
+    // get 'points'
+    NSArray *points = [response objectForKey:@"point"];
+    for(NSDictionary *point in points)
+    {
+        // create a point object
+        PBPoint *pObj = [[PBPoint alloc] init];
+        pObj.rewardId = [point objectForKey:@"reward_id"];
+        pObj.value = [[point objectForKey:@"value"] unsignedIntegerValue];
+        pObj.rewardName = [point objectForKey:@"reward_name"];
+        
+        // add it into temp array
+        [tempPoints addObject:pObj];
+    }
+    
+    // create a result response
+    PBPoint_Response *result = [[PBPoint_Response alloc] init];
+    
+    // set to NSArray
+    result.points = [NSArray arrayWithArray:tempPoints];
+    
+    return result;
 }
 
 @end

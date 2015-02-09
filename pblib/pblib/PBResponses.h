@@ -20,7 +20,8 @@ typedef enum
     responseType_auth,
     responseType_playerPublic,
     responseType_player,
-    responseType_playerList
+    responseType_playerList,
+    responseType_point
 }pbResponseType;
 
 ///--------------------------------------
@@ -98,6 +99,48 @@ typedef enum
  Parse json-response data into NSDictionary.
  */
 +(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
+
+@end
+
+///--------------------------------------
+/// PlayerDetailPublic
+///--------------------------------------
+@interface PBPlayerDetailPublic_Response : NSObject
+
+@property (strong, nonatomic) PBPlayerPublic_Response *playerPublic;
+@property (nonatomic) float percentOfLevel;
+@property (strong, nonatomic) NSString *levelTitle;
+@property (strong, nonatomic) NSString *levelImage;
+
+/**
+ Parse json-response data into NSDictionary.
+ */
++(PBPlayerDetailPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
+
+@end
+
+///--------------------------------------
+/// Point - No Resposne
+///--------------------------------------
+@interface PBPoint : NSObject
+
+@property (strong, nonatomic) NSString *rewardId;
+@property (strong, nonatomic) NSString *rewardName;
+@property (nonatomic) NSUInteger value;
+
+@end
+
+///--------------------------------------
+/// Point
+///--------------------------------------
+@interface PBPoint_Response : NSObject
+
+@property (strong, nonatomic) NSArray* points;
+
+/**
+ Parse json-response data into NSDictionary.
+ */
++(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse;
 
 @end
 
