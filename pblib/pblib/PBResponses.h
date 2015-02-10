@@ -33,7 +33,8 @@ typedef enum
     responseType_lastAction,
     responseType_actionCount,
     responseType_level,
-    responseType_levels
+    responseType_levels,
+    responseType_rank
 }pbResponseType;
 
 ///--------------------------------------
@@ -318,6 +319,31 @@ typedef enum
 @property (strong, nonatomic) NSArray *levels;
 
 +(PBLevels_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Rank - No Response
+///--------------------------------------
+@interface PBRank : PBBase_Response
+
+@property (strong, nonatomic) NSString *pbPlayerId;
+@property (strong, nonatomic) NSString *playerId;
+@property (strong, nonatomic) NSString *pointType;
+@property (nonatomic) NSUInteger pointValue;
+
++(PBRank*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Rank (only particular point type)
+///--------------------------------------
+@interface PBRank_Response : PBBase_Response
+
+@property (strong, nonatomic) NSArray *ranks;
+
++(PBRank_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
