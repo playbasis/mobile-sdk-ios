@@ -329,10 +329,10 @@
 /**
  Return information about all available goods on the current site.
  */
--(PBRequest *)goodsListWithDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)goodsListWithBlock:(PBResponseBlock)block;
--(PBRequest *)goodsListAsyncWithDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)goodsListAsyncWithBlock:(PBResponseBlock)block;
+-(PBRequest *)goodsListWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+-(PBRequest *)goodsListWithBlock:(PBGoodsListInfo_ResponseBlock)block;
+-(PBRequest *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+-(PBRequest *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block;
 
 /**
  Return the name of actions that can trigger game's rules within a client's website.

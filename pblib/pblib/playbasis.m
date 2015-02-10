@@ -1536,19 +1536,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsInfo andResponse:response];
 }
 
--(PBRequest *)goodsListWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)goodsListWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate
 {
     return [self goodsListInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)goodsListWithBlock:(PBResponseBlock)block
+-(PBRequest *)goodsListWithBlock:(PBGoodsListInfo_ResponseBlock)block
 {
     return [self goodsListInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)goodsListAsyncWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate
 {
     return [self goodsListInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)goodsListAsyncWithBlock:(PBResponseBlock)block
+-(PBRequest *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block
 {
     return [self goodsListInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1556,7 +1556,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Goods%@", apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsListInfo andResponse:response];
 }
 
 -(PBRequest *)actionConfigWithDelegate:(id<PBResponseHandler>)delegate

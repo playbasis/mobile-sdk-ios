@@ -1693,7 +1693,11 @@
     
     // parse
     c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
-    c.quantity = [[c.parseLevelJsonResponse objectForKey:@"quantity"] unsignedIntegerValue];
+    id q = [c.parseLevelJsonResponse objectForKey:@"quantity"];
+    if([q respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.quantity = [q unsignedIntegerValue];
+    }
     
     c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
     c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
@@ -1769,6 +1773,83 @@
         c.perUser = [perUser unsignedIntegerValue];
     }
     c.isGroup = [[c.parseLevelJsonResponse objectForKey:@"is_group"] boolValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Goods List Info
+///--------------------------------------
+@implementation PBGoodsListInfo_Response
+
+@synthesize goodsList;
+
+-(NSString *)description
+{
+    // create string to hold all goods line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Goods List : {"];
+    
+    for(PBGoods *goods in self.goodsList)
+    {
+        // get description line from each player-badge
+        NSString *goodsLine = [goods description];
+        // append \r
+        NSString *goodsLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", goodsLine];
+        
+        // append to result 'lines'
+        [lines appendString:goodsLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBGoodsListInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBGoodsListInfo_Response *c = [[PBGoodsListInfo_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'goods_list'
+        NSDictionary *goods_list = [response objectForKey:@"goods_list"];
+        NSAssert(goods_list != nil, @"goods_list must not be nil");
+        
+        c.parseLevelJsonResponse = goods_list;
+    }
+    
+    // convert from goods_list into array
+    NSArray *goodsListJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all goods
+    NSMutableArray *tempGoodsList = [NSMutableArray array];
+    
+    for(NSDictionary *goodsJson in goodsListJson)
+    {
+        // get goods
+        PBGoods *goods = [PBGoods parseFromDictionary:goodsJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempGoodsList addObject:goods];
+    }
+    
+    // set back to response
+    c.goodsList = [NSArray arrayWithArray:tempGoodsList];
     
     return c;
 }

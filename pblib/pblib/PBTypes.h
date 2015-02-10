@@ -203,4 +203,13 @@ typedef void (^PBRanks_ResponseBlock)(PBRanks_Response * ranks, NSURL *url, NSEr
 
 typedef void (^PBGoodsInfo_ResponseBlock)(PBGoodsInfo_Response * goodsInfo, NSURL *url, NSError *error);
 
+///----------------
+/// GoodsList
+///----------------
+@protocol PBGoodsListInfo_ResponseHandler <NSObject>
+-(void)processResponseWithGoodsListInfo:(PBGoodsListInfo_Response*)goodsListInfo withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBGoodsListInfo_ResponseBlock)(PBGoodsListInfo_Response * goodsListInfo, NSURL *url, NSError *error);
+
 #endif

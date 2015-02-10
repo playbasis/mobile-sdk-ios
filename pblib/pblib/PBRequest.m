@@ -708,6 +708,32 @@
             
             break;
         }
+        case responseType_goodsListInfo:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithGoodsListInfo:withURL:error:)])
+                {
+                    id<PBGoodsListInfo_ResponseHandler> sd = (id<PBGoodsListInfo_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBGoodsListInfo_Response *response = [PBGoodsListInfo_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithGoodsListInfo:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBGoodsListInfo_Response *response = [PBGoodsListInfo_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBGoodsListInfo_ResponseBlock sb = (PBGoodsListInfo_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 
