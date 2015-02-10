@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] goodsListWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] goodsGroupAvailableForPlayer:USER group:@"test" amount:1 withBlock:^(PBGoodsGroupAvailable_Response *goodsGroupAvailable, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"%@", goodsListInfo);
+                    NSLog(@"%@", goodsGroupAvailable);
                 }
             }];
         }

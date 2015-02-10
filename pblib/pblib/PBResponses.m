@@ -1855,3 +1855,48 @@
 }
 
 @end
+
+///--------------------------------------
+/// Goods Group Available
+///--------------------------------------
+@implementation PBGoodsGroupAvailable_Response
+
+@synthesize available;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods Group Available : %lu", (unsigned long)self.available];
+    
+    return descriptionString;
+}
+
++(PBGoodsGroupAvailable_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBGoodsGroupAvailable_Response *c = [[PBGoodsGroupAvailable_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // convert from json into unsigned integer
+    NSUInteger goodsGroupAvailable = [((id)c.parseLevelJsonResponse) unsignedIntegerValue];
+    
+    c.available = goodsGroupAvailable;
+    
+    return c;
+}
+
+@end

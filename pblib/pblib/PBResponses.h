@@ -37,7 +37,8 @@ typedef enum
     responseType_rank,
     responseType_ranks,
     responseType_goodsInfo,
-    responseType_goodsListInfo
+    responseType_goodsListInfo,
+    responseType_goodsGroupAvailable
 }pbResponseType;
 
 ///--------------------------------------
@@ -448,6 +449,17 @@ typedef enum
 @property (strong, nonatomic) NSArray *goodsList;
 
 +(PBGoodsListInfo_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Goods Group Available
+///--------------------------------------
+@interface PBGoodsGroupAvailable_Response : PBBase_Response
+
+@property (nonatomic) NSUInteger available;
+
++(PBGoodsGroupAvailable_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

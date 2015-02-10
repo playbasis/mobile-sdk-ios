@@ -212,4 +212,13 @@ typedef void (^PBGoodsInfo_ResponseBlock)(PBGoodsInfo_Response * goodsInfo, NSUR
 
 typedef void (^PBGoodsListInfo_ResponseBlock)(PBGoodsListInfo_Response * goodsListInfo, NSURL *url, NSError *error);
 
+///----------------
+/// Goods Group Available
+///----------------
+@protocol PBGoodsGroupAvailable_ResponseHandler <NSObject>
+-(void)processResponseWithGoodsGroupAvailable:(PBGoodsGroupAvailable_Response*)goodsGroupAvailable withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBGoodsGroupAvailable_ResponseBlock)(PBGoodsGroupAvailable_Response * goodsGroupAvailable, NSURL *url, NSError *error);
+
 #endif
