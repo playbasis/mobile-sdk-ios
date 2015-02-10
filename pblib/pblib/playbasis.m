@@ -1279,19 +1279,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_rank andResponse:response];
 }
 
--(PBRequest *)ranks:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)ranks:(unsigned int)limit withDelegate:(id<PBRank_ResponseHandler>)delegate
 {
     return [self ranksInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)ranks:(unsigned int)limit withBlock:(PBResponseBlock)block
+-(PBRequest *)ranks:(unsigned int)limit withBlock:(PBRanks_ResponseBlock)block
 {
     return [self ranksInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)ranksAsync:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)ranksAsync:(unsigned int)limit withDelegate:(id<PBRank_ResponseHandler>)delegate
 {
     return [self ranksInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)ranksAsync:(unsigned int)limit withBlock:(PBResponseBlock)block
+-(PBRequest *)ranksAsync:(unsigned int)limit withBlock:(PBRanks_ResponseBlock)block
 {
     return [self ranksInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1299,7 +1299,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/ranks/%u%@", limit, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_ranks andResponse:response];
 }
 
 -(PBRequest *)level:(unsigned int)level withDelegate:(id<PBLevel_ResponseHandler>)delegate

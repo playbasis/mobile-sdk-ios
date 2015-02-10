@@ -656,6 +656,32 @@
             
             break;
         }
+        case responseType_ranks:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithRanks:withURL:error:)])
+                {
+                    id<PBRanks_ResponseHandler> sd = (id<PBRanks_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBRanks_Response *response = [PBRanks_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithRanks:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBRanks_Response *response = [PBRanks_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBRanks_ResponseBlock sb = (PBRanks_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

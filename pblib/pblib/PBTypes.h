@@ -185,4 +185,13 @@ typedef void (^PBLevels_ResponseBlock)(PBLevels_Response * levels, NSURL *url, N
 
 typedef void (^PBRank_ResponseBlock)(PBRank_Response * rank, NSURL *url, NSError *error);
 
+///----------------
+/// Ranks
+///----------------
+@protocol PBRanks_ResponseHandler <NSObject>
+-(void)processResponseWithRanks:(PBRanks_Response*)ranks withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBRanks_ResponseBlock)(PBRanks_Response * ranks, NSURL *url, NSError *error);
+
 #endif

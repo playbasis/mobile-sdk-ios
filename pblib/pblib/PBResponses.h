@@ -34,7 +34,8 @@ typedef enum
     responseType_actionCount,
     responseType_level,
     responseType_levels,
-    responseType_rank
+    responseType_rank,
+    responseType_ranks
 }pbResponseType;
 
 ///--------------------------------------
@@ -344,6 +345,26 @@ typedef enum
 @property (strong, nonatomic) NSArray *ranks;
 
 +(PBRank_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Rank (for all point types)
+///--------------------------------------
+@interface PBRanks_Response : PBBase_Response
+
+/**
+ Use this key to access ranks according to each point type.
+ */
+@property (strong, nonatomic) NSArray *rankByKeys;
+
+/**
+ Array contains ranks by each point type.
+ Use rankByKeys to access array according to each point type.
+ */
+@property (strong, nonatomic) NSDictionary *ranks;
+
++(PBRanks_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

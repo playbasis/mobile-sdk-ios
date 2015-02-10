@@ -1361,10 +1361,10 @@
     // create string to hold all rank line-by-line
     NSMutableString *lines = [NSMutableString stringWithString:@"Rank (single) : {"];
     
-    for(PBRank *Rank in self.ranks)
+    for(PBRank *rank in self.ranks)
     {
         // get description line from each player-badge
-        NSString *rankLine = [Rank description];
+        NSString *rankLine = [rank description];
         // append \r
         NSString *rankLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", rankLine];
         
@@ -1416,6 +1416,102 @@
     
     // set back to result response
     c.ranks = [NSArray arrayWithArray:tempRanks];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Rank (for all point types)
+///--------------------------------------
+@implementation PBRanks_Response
+
+@synthesize rankByKeys;
+@synthesize ranks;
+
+-(NSString *)description
+{
+    // create string to hold all rank line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Ranks by all point types : {"];
+    
+    for(NSString *rankByKey in self.rankByKeys)
+    {
+        // append lines with rank-by-key
+        [lines appendString:[NSString stringWithFormat:@"\r\tRank by %@\r\t", rankByKey]];
+        
+        // get ranks array from rankBy key
+        NSArray *rankBy = [ranks objectForKey:rankByKey];
+        
+        // iterate through the rankBy array for all ranks in that rankBy type
+        for(PBRank_Response *rank in rankBy)
+        {
+            // get description line from each player-badge
+            NSString *rankLine = [rank description];
+            // append \r
+            NSString *rankLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", rankLine];
+            
+            // append to result 'lines'
+            [lines appendString:rankLineWithCR];
+        }
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRanks_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result response
+    PBRanks_Response *c = [[PBRanks_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+
+    // get all keys from json response
+    NSArray *keys = [c.parseLevelJsonResponse allKeys];
+    // set rank-by-keys to result response
+    c.rankByKeys = keys;
+    
+    // create temp dictionary to hold for all array populated
+    NSMutableDictionary *tempRanksDict = [NSMutableDictionary dictionary];
+    
+    // iterate through all keys, and parse them for each rankBy type
+    for(NSString *rankByKey in keys)
+    {
+        // get array of that rank-by-key
+        NSDictionary *ranksJson = [c.parseLevelJsonResponse objectForKey:rankByKey];
+        
+        // temp array to hold all ranks for this rank-by-key
+        NSMutableArray *tempRanks = [NSMutableArray array];
+        
+        // get ranks object
+        PBRank_Response *rank = [PBRank_Response parseFromDictionary:ranksJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempRanks addObject:rank];
+        
+        // set back to result response
+        [tempRanksDict setValue:[NSArray arrayWithArray:tempRanks] forKey:rankByKey];
+    }
+    
+    // set back dictionary ranks to result response
+    c.ranks = [NSDictionary dictionaryWithDictionary:tempRanksDict];
     
     return c;
 }
