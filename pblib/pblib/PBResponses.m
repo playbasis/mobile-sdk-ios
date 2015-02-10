@@ -491,7 +491,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\tclaim : %@\r\tredeem : %@\r\t}", self.badgeId, self.image, self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO", self.claim ? @"YES" : @"NO", self.redeem ? @"YES" : @"NO"];
+    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\tclaim : %@\r\tredeem : %@\r\t}", self.badgeId, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO", self.claim ? @"YES" : @"NO", self.redeem ? @"YES" : @"NO"];
     
     return descriptionString;
 }
@@ -1120,7 +1120,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Action Count : {\r\taction_id : %@\r\taction_name : %@\r\tcount : %lu\r\t}", self.actionId, self.actionName, self.count];
+    NSString *descriptionString = [NSString stringWithFormat:@"Action Count : {\r\taction_id : %@\r\taction_name : %@\r\tcount : %lu\r\t}", self.actionId, self.actionName, (unsigned long)self.count];
     
     return descriptionString;
 }
@@ -1512,6 +1512,231 @@
     
     // set back dictionary ranks to result response
     c.ranks = [NSDictionary dictionaryWithDictionary:tempRanksDict];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Custom - No Response
+///--------------------------------------
+@implementation PBCustom
+
+@synthesize customId;
+@synthesize customName;
+@synthesize customValue;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Custom : {\r\tcustom_id : %@\r\tcustom_name : %@\r\tcustom_value : %lu\r\t}", self.customId, self.customName, (unsigned long)self.customValue];
+    
+    return descriptionString;
+}
+
++(PBCustom *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result response
+    PBCustom *c = [[PBCustom alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.customId = [c.parseLevelJsonResponse objectForKey:@"custom_id"];
+    c.customName = [c.parseLevelJsonResponse objectForKey:@"custom_name"];
+    c.customValue = [[c.parseLevelJsonResponse objectForKey:@"custom_value"] unsignedIntegerValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Custom - Array
+///--------------------------------------
+@implementation PBCustoms
+
+@synthesize customs;
+
+-(NSString *)description
+{
+    // create string to hold all custom line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Customs : {"];
+    
+    for(PBCustom *custom in self.customs)
+    {
+        // get description line from each player-badge
+        NSString *customLine = [custom description];
+        // append \r
+        NSString *customLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", customLine];
+        
+        // append to result 'lines'
+        [lines appendString:customLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBCustoms *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBCustoms *c = [[PBCustoms alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json data to array
+    NSArray *customsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all customs
+    NSMutableArray *tempCustoms = [NSMutableArray array];
+    
+    for(NSDictionary *customJson in customsJson)
+    {
+        // get custom
+        PBCustom *custom = [PBCustom parseFromDictionary:customJson startFromFinalLevel:YES];
+        
+        // add to array
+        [tempCustoms addObject:custom];
+    }
+    
+    // set back to result response
+    c.customs = [NSArray arrayWithArray:tempCustoms];
+    
+    // parse
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Redeem
+///--------------------------------------
+@implementation PBRedeem
+
+@synthesize pointValue;
+@synthesize customs;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Redeem : {\r\tpoint_value = %lu\r\t%@\r\t}", (unsigned long)self.pointValue, self.customs];
+    
+    return descriptionString;
+}
+
++(PBRedeem *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBRedeem *c = [[PBRedeem alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    // get 'point'
+    NSDictionary *pointJson = [c.parseLevelJsonResponse objectForKey:@"point"];
+    c.pointValue = [[pointJson objectForKey:@"point_value"] unsignedIntegerValue];
+    c.customs = [PBCustoms parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Goods Info
+///--------------------------------------
+@implementation PBGoodsInfo_Response
+
+@synthesize goodsId;
+@synthesize quantity;
+@synthesize perUser;
+@synthesize image;
+@synthesize sortOrder;
+@synthesize name;
+@synthesize description_;
+@synthesize redeem;
+@synthesize code;
+@synthesize sponsor;
+@synthesize dateStart;
+@synthesize dateExpire;
+@synthesize isGroup;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods Info : {\r\tgoods_id : %@\r\tquantity : %lu\r\tper_user : %lu\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\tredeem : %@\r\tcode : %@\r\tsponsor : %@\r\tdate_start : %@\r\tdate_expire : %@\r\tis_group : %@\r\t}", self.goodsId, (unsigned long)self.quantity, (unsigned long)self.perUser, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.redeem, self.code, self.sponsor ? @"YES" : @"NO", self.dateStart, self.dateExpire, self.isGroup ? @"YES" : @"NO"];
+    
+    return descriptionString;
+}
+
++(PBGoodsInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBGoodsInfo_Response *c = [[PBGoodsInfo_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'goods'
+        NSDictionary *goods = [response objectForKey:@"goods"];
+        NSAssert(goods != nil, @"goods must not be nil");
+        
+        c.parseLevelJsonResponse = goods;
+    }
+    
+    // parse
+    c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
+    c.quantity = [[c.parseLevelJsonResponse objectForKey:@"quantity"] unsignedIntegerValue];
+    
+    id perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
+    if([perUser respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.perUser = [perUser unsignedIntegerValue];
+    }
+    
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    
+    // populate redeem object
+    c.redeem = [PBRedeem parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"redeem"] startFromFinalLevel:YES];
+    
+    c.code = [c.parseLevelJsonResponse objectForKey:@"code"];
+    c.sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateStart = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_start"]];
+    c.dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
+    
+    c.isGroup = [[c.parseLevelJsonResponse objectForKey:@"is_group"] boolValue];
     
     return c;
 }

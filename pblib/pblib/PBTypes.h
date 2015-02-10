@@ -194,4 +194,13 @@ typedef void (^PBRank_ResponseBlock)(PBRank_Response * rank, NSURL *url, NSError
 
 typedef void (^PBRanks_ResponseBlock)(PBRanks_Response * ranks, NSURL *url, NSError *error);
 
+///----------------
+/// GoodsInfo
+///----------------
+@protocol PBGoodsInfo_ResponseHandler <NSObject>
+-(void)processResponseWithGoodsInfo:(PBGoodsInfo_Response*)goodsInfo withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBGoodsInfo_ResponseBlock)(PBGoodsInfo_Response * goodsInfo, NSURL *url, NSError *error);
+
 #endif

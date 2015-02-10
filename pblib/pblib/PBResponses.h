@@ -35,7 +35,8 @@ typedef enum
     responseType_level,
     responseType_levels,
     responseType_rank,
-    responseType_ranks
+    responseType_ranks,
+    responseType_goodsInfo
 }pbResponseType;
 
 ///--------------------------------------
@@ -365,6 +366,65 @@ typedef enum
 @property (strong, nonatomic) NSDictionary *ranks;
 
 +(PBRanks_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Custom - No Response
+///--------------------------------------
+@interface PBCustom : PBBase_Response
+
+@property (strong, nonatomic) NSString *customId;
+@property (strong, nonatomic) NSString *customName;
+@property (nonatomic) NSUInteger customValue;
+
++(PBCustom*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Custom - Array
+///--------------------------------------
+@interface PBCustoms : PBBase_Response
+
+@property (strong, nonatomic) NSArray *customs;
+
++(PBCustoms*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Redeem
+///--------------------------------------
+@interface PBRedeem : PBBase_Response
+
+@property (nonatomic) NSUInteger pointValue;
+@property (strong, nonatomic) PBCustoms *customs;
+
++(PBRedeem*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Goods Info
+///--------------------------------------
+@interface PBGoodsInfo_Response : PBBase_Response
+
+@property (strong, nonatomic) NSString *goodsId;
+@property (nonatomic) NSUInteger quantity;
+@property (nonatomic) NSUInteger perUser;
+@property (strong, nonatomic) NSString *image;
+@property (nonatomic) NSUInteger sortOrder;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) PBRedeem *redeem;
+@property (strong, nonatomic) NSString *code;
+@property (nonatomic) BOOL sponsor;
+@property (strong, nonatomic) NSDate *dateStart;
+@property (strong, nonatomic) NSDate *dateExpire;
+@property (nonatomic) BOOL isGroup;
+
++(PBGoodsInfo_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
