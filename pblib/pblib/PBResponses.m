@@ -1900,3 +1900,126 @@
 }
 
 @end
+
+///--------------------------------------
+/// Player Goods Owned - No Response
+///--------------------------------------
+@implementation PBPlayerGoodsOwned
+
+@synthesize goodsId;
+@synthesize image;
+@synthesize name;
+@synthesize description_;
+@synthesize amount;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Player Goods Owned : {\r\tgoods_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tamount : %lu\r\t}", self.goodsId, self.image, self.name, self.description_, (unsigned long)self.amount];
+    
+    return descriptionString;
+}
+
++(PBPlayerGoodsOwned *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBPlayerGoodsOwned *c = [[PBPlayerGoodsOwned alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    
+    id amount = [c.parseLevelJsonResponse objectForKey:@"amount"];
+    if([amount respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c.amount = [amount unsignedIntegerValue];
+    }
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Player Goods Owned
+///--------------------------------------
+@implementation PBPlayerGoodsOwned_Response
+
+@synthesize goodsOwneds;
+
+-(NSString *)description
+{
+    // create string to hold all goods line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Player Goods Owneds : {"];
+    
+    for(PBPlayerGoodsOwned *goodsOwned in self.goodsOwneds)
+    {
+        // get description line from each player-badge
+        NSString *goodsOwnedLine = [goodsOwned description];
+        // append \r
+        NSString *goodsOwnedLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", goodsOwnedLine];
+        
+        // append to result 'lines'
+        [lines appendString:goodsOwnedLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPlayerGoodsOwned_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBPlayerGoodsOwned_Response *c = [[PBPlayerGoodsOwned_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'goods'
+        NSDictionary *goods = [response objectForKey:@"goods"];
+        NSAssert(goods != nil, @"goods must not be nil");
+        
+        c.parseLevelJsonResponse = goods;
+    }
+    
+    // convert parse json into array
+    NSArray *goodsOwnedsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all goods-owned
+    NSMutableArray *tempGoodsOwneds = [NSMutableArray array];
+    
+    for(NSDictionary *goodsOwnedJson in goodsOwnedsJson)
+    {
+        // get goods-owned
+        PBPlayerGoodsOwned *goodsOwned = [PBPlayerGoodsOwned parseFromDictionary:goodsOwnedJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempGoodsOwneds addObject:goodsOwned];
+    }
+    
+    // set back to response
+    c.goodsOwneds = [NSArray arrayWithArray:tempGoodsOwneds];
+    
+    return c;
+}
+
+@end

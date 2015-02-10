@@ -123,6 +123,15 @@ typedef void (^PBPlayerDetailedPublic_ResponseBlock)(PBPlayerDetailedPublic_Resp
 typedef void (^PBPlayerDetailed_ResponseBlock)(PBPlayerDetailed_Response * playerDetailed, NSURL *url, NSError *error);
 
 ///----------------
+/// PlayerGoodsOwned
+///----------------
+@protocol PBPlayerGoodsOwned_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerGoodsOwned:(PBPlayerGoodsOwned_Response *)goodsOwneds withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerGoodsOwned_ResponseBlock)(PBPlayerGoodsOwned_Response * goodsOwneds, NSURL *url, NSError *error);
+
+///----------------
 /// PointHistory
 ///----------------
 @protocol PBPointHistory_ResponseHandler <NSObject>

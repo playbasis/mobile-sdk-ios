@@ -281,10 +281,10 @@
 /**
  Return information about all goods that player has redeemed.
  */
--(PBRequest *)goodsOwned:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)goodsOwned:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)goodsOwnedAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)goodsOwnedAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)goodsOwned:(NSString *)playerId withDelegate:(id<PBPlayerGoodsOwned_ResponseHandler>)delegate;
+-(PBRequest *)goodsOwned:(NSString *)playerId withBlock:(PBPlayerGoodsOwned_ResponseBlock)block;
+-(PBRequest *)goodsOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerGoodsOwned_ResponseHandler>)delegate;
+-(PBRequest *)goodsOwnedAsync:(NSString *)playerId withBlock:(PBPlayerGoodsOwned_ResponseBlock)block;
 
 /**
  Return quest information that player has joined.

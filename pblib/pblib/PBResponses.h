@@ -21,6 +21,7 @@ typedef enum
     responseType_playerPublic,
     responseType_player,
     responseType_playerList,
+    responseType_playerGoodsOwned,
     responseType_point,
     responseType_points,
     responseType_badge,
@@ -460,6 +461,32 @@ typedef enum
 @property (nonatomic) NSUInteger available;
 
 +(PBGoodsGroupAvailable_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Player Goods Owned - No Response
+///--------------------------------------
+@interface PBPlayerGoodsOwned : PBBase_Response
+
+@property (strong, nonatomic) NSString *goodsId;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *description_;
+@property (nonatomic) NSUInteger amount;
+
++(PBPlayerGoodsOwned*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Player Goods Owned
+///--------------------------------------
+@interface PBPlayerGoodsOwned_Response : PBBase_Response
+
+@property (strong, nonatomic) NSArray *goodsOwneds;
+
++(PBPlayerGoodsOwned_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

@@ -1401,19 +1401,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)goodsOwned:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)goodsOwned:(NSString *)playerId withDelegate:(id<PBPlayerGoodsOwned_ResponseHandler>)delegate
 {
     return [self goodsOwnedInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)goodsOwned:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)goodsOwned:(NSString *)playerId withBlock:(PBPlayerGoodsOwned_ResponseBlock)block
 {
     return [self goodsOwnedInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)goodsOwnedAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)goodsOwnedAsync:(NSString *)playerId withDelegate:(id<PBPlayerGoodsOwned_ResponseHandler>)delegate
 {
     return [self goodsOwnedInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)goodsOwnedAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)goodsOwnedAsync:(NSString *)playerId withBlock:(PBPlayerGoodsOwned_ResponseBlock)block
 {
     return [self goodsOwnedInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1421,7 +1421,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/goods%@", playerId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerGoodsOwned andResponse:response];
 }
 
 -(PBRequest *)questOfPlayer:(NSString *)playerId questId:(NSString *)questId andDelegate:(id<PBResponseHandler>)delegate
