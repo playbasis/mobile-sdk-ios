@@ -1325,19 +1325,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_level andResponse:response];
 }
 
--(PBRequest *)levelsWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)levelsWithDelegate:(id<PBLevels_ResponseHandler>)delegate
 {
     return [self levelsInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)levelsWithBlock:(PBResponseBlock)block
+-(PBRequest *)levelsWithBlock:(PBLevels_ResponseBlock)block
 {
     return [self levelsInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)levelsAsyncWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)levelsAsyncWithDelegate:(id<PBLevels_ResponseHandler>)delegate
 {
     return [self levelsInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)levelsAsyncWithBlock:(PBResponseBlock)block
+-(PBRequest *)levelsAsyncWithBlock:(PBLevels_ResponseBlock)block
 {
     return [self levelsInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1345,7 +1345,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/levels%@", apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_levels andResponse:response];
 }
 
 -(PBRequest *)claimBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate
@@ -2607,7 +2607,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // add PBRequest into operational queue
         [requestOptQueue enqueue:pbRequest];
         
-        NSLog(@"Queue size = %d", [requestOptQueue count]);
+        NSLog(@"Queue size = %lu", (unsigned long)[requestOptQueue count]);
     }
     
 #if __has_feature(objc_arc)
@@ -2700,7 +2700,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // add PBRequest into operational queue
         [requestOptQueue enqueue:pbRequest];
         
-        NSLog(@"Queue size = %d", [requestOptQueue count]);
+        NSLog(@"Queue size = %lu", (unsigned long)[requestOptQueue count]);
     }
     
 #if __has_feature(objc_arc)

@@ -167,4 +167,13 @@ typedef void (^PBActionCount_ResponseBlock)(PBActionCount_Response * actionCount
 
 typedef void (^PBLevel_ResponseBlock)(PBLevel_Response * level, NSURL *url, NSError *error);
 
+///----------------
+/// Levels
+///----------------
+@protocol PBLevels_ResponseHandler <NSObject>
+-(void)processResponseWithLevels:(PBLevels_Response*)levels withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBLevels_ResponseBlock)(PBLevels_Response * levels, NSURL *url, NSError *error);
+
 #endif

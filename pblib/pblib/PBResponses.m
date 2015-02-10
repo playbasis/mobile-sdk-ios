@@ -1203,8 +1203,88 @@
     c.levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
     c.level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
     c.minExp = [[c.parseLevelJsonResponse objectForKey:@"min_exp"] unsignedIntegerValue];
-    c.maxExp = [[c.parseLevelJsonResponse objectForKey:@"max_exp"] unsignedIntegerValue];
+    id obj = [c.parseLevelJsonResponse objectForKey:@"max_exp"];
+    
+    if([obj respondsToSelector:@selector(unsignedIntegerValue:)])
+       c.maxExp = [obj unsignedIntegerValue];
+    else
+       // TODO: Fix this later, as 'null' value returned can happen
+       c.maxExp = NSUIntegerMax;
+    
     c.levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Levels
+///--------------------------------------
+@implementation PBLevels_Response
+
+@synthesize levels;
+
+-(NSString *)description
+{
+    // create string to hold all level line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Level (single) : {"];
+    
+    for(PBLevel_Response *level in self.levels)
+    {
+        // get description line from each player-badge
+        NSString *levelLine = [level description];
+        // append \r
+        NSString *levelLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", levelLine];
+        
+        // append to result 'lines'
+        [lines appendString:levelLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBLevels_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBLevels_Response *c = [[PBLevels_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // convert parsing json into array
+    NSArray *levelArray = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all level
+    NSMutableArray *tempLevels = [NSMutableArray array];
+    
+    for(NSDictionary *levelJson in levelArray)
+    {
+        // get level
+        PBLevel_Response *level = [PBLevel_Response parseFromDictionary:levelJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempLevels addObject:level];
+    }
+    
+    // set back array to result response
+    c.levels = [NSArray arrayWithArray:tempLevels];
     
     return c;
 }
