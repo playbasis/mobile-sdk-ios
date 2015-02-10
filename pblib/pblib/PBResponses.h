@@ -406,13 +406,12 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// Goods Info
+/// Goods
 ///--------------------------------------
-@interface PBGoodsInfo_Response : PBBase_Response
+@interface PBGoods : PBBase_Response
 
 @property (strong, nonatomic) NSString *goodsId;
 @property (nonatomic) NSUInteger quantity;
-@property (nonatomic) NSUInteger perUser;
 @property (strong, nonatomic) NSString *image;
 @property (nonatomic) NSUInteger sortOrder;
 @property (strong, nonatomic) NSString *name;
@@ -422,6 +421,18 @@ typedef enum
 @property (nonatomic) BOOL sponsor;
 @property (strong, nonatomic) NSDate *dateStart;
 @property (strong, nonatomic) NSDate *dateExpire;
+
++(PBGoods*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Goods Info
+///--------------------------------------
+@interface PBGoodsInfo_Response : PBBase_Response
+
+@property (strong, nonatomic) PBGoods *goods;
+@property (nonatomic) NSUInteger perUser;
 @property (nonatomic) BOOL isGroup;
 
 +(PBGoodsInfo_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;

@@ -1657,13 +1657,12 @@
 @end
 
 ///--------------------------------------
-/// Goods Info
+/// Goods
 ///--------------------------------------
-@implementation PBGoodsInfo_Response
+@implementation PBGoods
 
 @synthesize goodsId;
 @synthesize quantity;
-@synthesize perUser;
 @synthesize image;
 @synthesize sortOrder;
 @synthesize name;
@@ -1673,11 +1672,65 @@
 @synthesize sponsor;
 @synthesize dateStart;
 @synthesize dateExpire;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods : {\r\tgoods_id : %@\r\tquantity : %lu\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\tredeem : %@\r\tcode : %@\r\tsponsor : %@\r\tdate_start : %@\r\tdate_expire : %@\r\t}", self.goodsId, (unsigned long)self.quantity, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.redeem, self.code, self.sponsor ? @"YES" : @"NO", self.dateStart, self.dateExpire];
+    
+    return descriptionString;
+}
+
++(PBGoods *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBGoods *c = [[PBGoods alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
+    c.quantity = [[c.parseLevelJsonResponse objectForKey:@"quantity"] unsignedIntegerValue];
+    
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    
+    // populate redeem object
+    c.redeem = [PBRedeem parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"redeem"] startFromFinalLevel:YES];
+    
+    c.code = [c.parseLevelJsonResponse objectForKey:@"code"];
+    c.sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateStart = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_start"]];
+    c.dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Goods Info
+///--------------------------------------
+@implementation PBGoodsInfo_Response
+
+@synthesize goods;
+@synthesize perUser;
 @synthesize isGroup;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Goods Info : {\r\tgoods_id : %@\r\tquantity : %lu\r\tper_user : %lu\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\tredeem : %@\r\tcode : %@\r\tsponsor : %@\r\tdate_start : %@\r\tdate_expire : %@\r\tis_group : %@\r\t}", self.goodsId, (unsigned long)self.quantity, (unsigned long)self.perUser, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.redeem, self.code, self.sponsor ? @"YES" : @"NO", self.dateStart, self.dateExpire, self.isGroup ? @"YES" : @"NO"];
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods Info : {\r\t%@\r\t per_user : %lu\r\tis_group : %@\r\t}", self.goods, (unsigned long)self.perUser, self.isGroup ? @"YES" : @"NO"];
     
     return descriptionString;
 }
@@ -1708,34 +1761,13 @@
     }
     
     // parse
-    c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
-    c.quantity = [[c.parseLevelJsonResponse objectForKey:@"quantity"] unsignedIntegerValue];
+    c.goods = [PBGoods parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     id perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
     if([perUser respondsToSelector:@selector(unsignedIntegerValue:)])
     {
         c.perUser = [perUser unsignedIntegerValue];
     }
-    
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    
-    // populate redeem object
-    c.redeem = [PBRedeem parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"redeem"] startFromFinalLevel:YES];
-    
-    c.code = [c.parseLevelJsonResponse objectForKey:@"code"];
-    c.sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
-    
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c.dateStart = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_start"]];
-    c.dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
-    
     c.isGroup = [[c.parseLevelJsonResponse objectForKey:@"is_group"] boolValue];
     
     return c;
