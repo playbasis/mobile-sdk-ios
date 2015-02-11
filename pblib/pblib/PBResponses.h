@@ -44,7 +44,8 @@ typedef enum
     responseType_questListOfPlayer,
     responseType_questRewardHistoryOfPlayer,
     responseType_questList,
-    responseType_questInfo
+    responseType_questInfo,
+    responseType_actionConfig,
 }pbResponseType;
 
 ///--------------------------------------
@@ -860,6 +861,62 @@ typedef enum
 @property (strong, nonatomic) PBQuestBasicArray *list;
 
 +(PBQuestList_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Config
+///--------------------------------------
+@interface PBConfig : PBBase_Response
+
+@property (strong, nonatomic) NSString *url;
+
++(PBConfig *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ConfigArray
+///--------------------------------------
+@interface PBConfigArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *configs;
+
++(PBConfigArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ActionConfig
+///--------------------------------------
+@interface PBActionConfig : PBBase_Response
+
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) PBConfigArray *configs;
+
++(PBActionConfig *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ActionConfigArray
+///--------------------------------------
+@interface PBActionConfigArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *actionConfigs;
+
++(PBActionConfigArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ActionConfig - Response
+///--------------------------------------
+@interface PBActionConfig_Response : PBBase_Response
+
+@property (strong, nonatomic) PBActionConfigArray *list;
+
++(PBActionConfig_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

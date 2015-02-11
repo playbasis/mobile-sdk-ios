@@ -150,6 +150,15 @@ typedef void (^PBPointHistory_ResponseBlock)(PBPointHistory_Response * pointHist
 typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, NSURL *url, NSError *error);
 
 ///----------------
+/// ActionConfig
+///----------------
+@protocol PBActionConfig_ResponseHandler <NSObject>
+-(void)processResponseWithActionConfig:(PBActionConfig_Response*)actionConfigs withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBActionConfig_ResponseBlock)(PBActionConfig_Response * actionConfigs, NSURL *url, NSError *error);
+
+///----------------
 /// LastAction
 ///----------------
 @protocol PBLastAction_ResponseHandler <NSObject>

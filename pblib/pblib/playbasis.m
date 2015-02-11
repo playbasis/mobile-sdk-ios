@@ -1611,19 +1611,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsGroupAvailable andResponse:response];
 }
 
--(PBRequest *)actionConfigWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)actionConfigWithDelegate:(id<PBActionConfig_ResponseHandler>)delegate
 {
     return [self actionConfigInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)actionConfigWithBlock:(PBResponseBlock)block
+-(PBRequest *)actionConfigWithBlock:(PBActionConfig_ResponseBlock)block
 {
     return [self actionConfigInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)actionConfigAsyncWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)actionConfigAsyncWithDelegate:(id<PBActionConfig_ResponseHandler>)delegate
 {
     return [self actionConfigInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)actionConfigAsyncWithBlock:(PBResponseBlock)block
+-(PBRequest *)actionConfigAsyncWithBlock:(PBActionConfig_ResponseBlock)block
 {
     return [self actionConfigInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1631,7 +1631,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Engine/actionConfig%@", apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionConfig andResponse:response];
 }
 
 //

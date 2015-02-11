@@ -3468,3 +3468,241 @@
 
 @end
 
+///--------------------------------------
+/// Config
+///--------------------------------------
+@implementation PBConfig
+
+@synthesize url;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Config : {\r\turl : %@\r\t}", self.url];
+    
+    return descriptionString;
+}
+
++(PBConfig *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBConfig *c = [[PBConfig alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.url = [c.parseLevelJsonResponse objectForKey:@"url"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// ConfigArray
+///--------------------------------------
+@implementation PBConfigArray
+
+@synthesize configs;
+
+-(NSString *)description
+{
+    // create string to hold all config line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Configs : {"];
+    
+    for(PBConfig *item in self.configs)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBConfigArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBConfigArray *c = [[PBConfigArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json input into array
+    NSArray *configsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *configJson in configsJson)
+    {
+        // get config object
+        PBConfig *config = [PBConfig parseFromDictionary:configJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:config];
+    }
+    
+    // set back to result
+    c.configs = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// ActionConfig
+///--------------------------------------
+@implementation PBActionConfig
+
+@synthesize name;
+@synthesize configs;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"ActionConfig : {\r\tname : %@\r\t%@\r\t}", self.name, self.configs];
+    
+    return descriptionString;
+}
+
++(PBActionConfig *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBActionConfig *c = [[PBActionConfig alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.configs = [PBConfigArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"config"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// ActionConfigArray
+///--------------------------------------
+@implementation PBActionConfigArray
+
+@synthesize actionConfigs;
+
+-(NSString *)description
+{
+    // create string to hold all action-config line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"ActionConfigs : {"];
+    
+    for(PBActionConfig *item in self.actionConfigs)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBActionConfigArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBActionConfigArray *c = [[PBActionConfigArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // get all keys
+    // due to unique format structure of json-response
+    NSArray *keys = [c.parseLevelJsonResponse allKeys];
+    
+    // temp array
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSString *key in keys)
+    {
+        // get json for this key
+        NSDictionary *actionConfigJson = [c.parseLevelJsonResponse objectForKey:key];
+        
+        // get action config object
+        PBActionConfig *actionConfig = [PBActionConfig parseFromDictionary:actionConfigJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:actionConfig];
+    }
+    
+    // set back to result object
+    c.actionConfigs = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// ActionConfig - Response
+///--------------------------------------
+@implementation PBActionConfig_Response
+
+@synthesize list;
+
+-(NSString *)description
+{
+    return [self.list description];
+}
+
++(PBActionConfig_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBActionConfig_Response *c = [[PBActionConfig_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    c.list = [PBActionConfigArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
