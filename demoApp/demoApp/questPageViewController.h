@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "playbasis.h"
 
 @interface questPageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
     NSUInteger currentPageIndex;
+    PBQuestListOfPlayer_Response *questList_;
 }
 
 @property (strong, nonatomic) NSMutableArray *pageAllQuestIds;
@@ -18,6 +20,5 @@
 @property (strong, atomic) NSMutableArray *pageAllImages;
 @property (strong, nonatomic) NSMutableArray *pageAllQuestDescriptions;
 @property (strong, nonatomic) NSMutableArray *pageAllQuestRewards;
-@property (strong, nonatomic) NSMutableArray *pageQuestJoinedStatuses;
 
 @end

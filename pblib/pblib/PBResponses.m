@@ -2023,3 +2023,771 @@
 }
 
 @end
+
+///--------------------------------------
+/// Reward
+///--------------------------------------
+@implementation PBReward
+
+@synthesize rewardValue;
+@synthesize rewardType;
+@synthesize rewardId;
+@synthesize rewardName;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Reward : {\r\treward_value : %@\r\treward_type : %@\r\treward_id : %@\r\treward_data.name : %@\r\t}", self.rewardValue, self.rewardType, self.rewardId, self.rewardName];
+    
+    return descriptionString;
+}
+
++(PBReward *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBReward *c = [[PBReward alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.rewardValue = [c.parseLevelJsonResponse objectForKey:@"reward_value"];
+    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    
+    NSDictionary *rewardData = [c.parseLevelJsonResponse objectForKey:@"reward_data"];
+    c.rewardName = [rewardData objectForKey:@"name"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Reward Array
+///--------------------------------------
+@implementation PBRewardArray
+
+@synthesize rewards;
+
+-(NSString *)description
+{
+    // create string to hold all goods line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Rewards : {"];
+    
+    for(PBReward *reward in self.rewards)
+    {
+        // get description line from each player-badge
+        NSString *rewardLine = [reward description];
+        // append \r
+        NSString *rewardLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", rewardLine];
+        
+        // append to result 'lines'
+        [lines appendString:rewardLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRewardArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBRewardArray *c = [[PBRewardArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *rewardsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *rewardJson in rewardsJson)
+    {
+        // get reward object
+        PBReward *reward = [PBReward parseFromDictionary:rewardJson startFromFinalLevel:YES];
+        
+        [tempArray addObject:reward];
+    }
+    
+    // set back to result object
+    c.rewards = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Incomplete
+///--------------------------------------
+@implementation PBIncomplete
+
+@synthesize incompletionId;
+@synthesize incompletionType;
+@synthesize incompletionValue;
+@synthesize incompletionElementId;
+@synthesize incompletionFilter;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Incomplete : {\r\tincompletion_id : %@\r\tincompletion_type : %@\r\tincompletion_value : %lu\r\tincompletion_element_id : %@\r\tincompletion_filter : %@\r\t", self.incompletionId, self.incompletionType, (unsigned long)self.incompletionValue, self.incompletionElementId, self.incompletionFilter];
+    
+    return descriptionString;
+}
+
++(PBIncomplete *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBIncomplete *c = [[PBIncomplete alloc] init];
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.incompletionId = [c.parseLevelJsonResponse objectForKey:@"incompletion_id"];
+    c.incompletionType = [c.parseLevelJsonResponse objectForKey:@"incompletion_type"];
+    
+    id incompletionValue = [c.parseLevelJsonResponse objectForKey:@"incompletion_value"];
+    if([incompletionValue respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.incompletionValue = [incompletionValue unsignedIntegerValue];
+    }
+    
+    c.incompletionElementId = [c.parseLevelJsonResponse objectForKey:@"incompletion_element_id"];
+    c.incompletionFilter = [c.parseLevelJsonResponse objectForKey:@"incompletion_filter"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// IncompleteArray
+///--------------------------------------
+@implementation PBIncompleteArray
+
+@synthesize incompletions;
+
+-(NSString *)description
+{
+    // create string to hold all incompletion line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Incompletions : {"];
+    
+    for(PBIncomplete *item in self.incompletions)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBIncompleteArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBIncompleteArray *c = [[PBIncompleteArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *incompletionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *incompleteJson in incompletionsJson)
+    {
+        // get incomplete object
+        PBIncomplete *incomplete = [PBIncomplete parseFromDictionary:incompleteJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:incomplete];
+    }
+    
+    // set back to result object
+    c.incompletions = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// CompletionData
+///--------------------------------------
+@implementation PBCompletionData
+
+@synthesize actionId;
+@synthesize name;
+@synthesize description_;
+@synthesize icon;
+@synthesize color;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Completion Data : {\r\taction_id : %@\r\tname : %@\r\tdescription : %@\r\ticon : %@\r\tcolor : %@\r\t}", self.actionId, self.name, self.description_, self.icon, self.color];
+    
+    return descriptionString;
+}
+
++(PBCompletionData *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBCompletionData *c = [[PBCompletionData alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.icon = [c.parseLevelJsonResponse objectForKey:@"icon"];
+    c.color = [c.parseLevelJsonResponse objectForKey:@"color"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Completion
+///--------------------------------------
+@implementation PBCompletion
+
+@synthesize completionFilter;
+@synthesize completionValue;
+@synthesize completionId;
+@synthesize completionType;
+@synthesize completionElementId;
+@synthesize completionTitle;
+@synthesize completionData;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Completion : {\r\tcompletion_filter : %@\r\tcompletion_value : %@\r\tcompletion_id : %@\r\tcompletion_type : %@\r\tcompletion_element_id : %@\r\tcompletion_title : %@\r\t%@\r\t}", self.completionFilter, self.completionValue, self.completionId, self.completionType, self.completionElementId, self.completionTitle, self.completionData];
+    
+    return descriptionString;
+}
+
++(PBCompletion *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBCompletion *c = [[PBCompletion alloc] init];
+    
+    // ignore the parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.completionFilter = [c.parseLevelJsonResponse objectForKey:@"completion_filter"];
+    c.completionValue = [c.parseLevelJsonResponse objectForKey:@"completion_value"];
+    c.completionId = [c.parseLevelJsonResponse objectForKey:@"completion_id"];
+    c.completionType = [c.parseLevelJsonResponse objectForKey:@"completion_type"];
+    c.completionElementId = [c.parseLevelJsonResponse objectForKey:@"completion_element_id"];
+    
+    c.completionData = [PBCompletionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion_data"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// CompletionArray
+///--------------------------------------
+@implementation PBCompletionArray
+
+@synthesize completions;
+
+-(NSString *)description
+{
+    // create string to hold all completion line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Completions : {"];
+    
+    for(PBCompletion *item in self.completions)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBCompletionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBCompletionArray *c = [[PBCompletionArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *completionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *completionJson in completionsJson)
+    {
+        // get completion object
+        PBCompletion *completion = [PBCompletion parseFromDictionary:completionJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:completion];
+    }
+    
+    // set back to result object
+    c.completions = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Pending
+///--------------------------------------
+@implementation PBPending
+
+@synthesize eventType;
+@synthesize message;
+@synthesize incomplete;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Pending : {\r\teventType : %@\r\tmessage : %@\r\t%@\r\t}", self.eventType, self.message, self.incomplete];
+    
+    return descriptionString;
+}
+
++(PBPending *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBPending *c = [[PBPending alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c.message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    
+    c.incomplete = [PBIncomplete parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"incomplete"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PendingArray
+///--------------------------------------
+@implementation PBPendingArray
+
+@synthesize pendings;
+
+-(NSString *)description
+{
+    // create string to hold all pending line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Pendings : {"];
+    
+    for(PBPending *item in self.pendings)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPendingArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBPendingArray *c = [[PBPendingArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *pendingsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *pendingJson in pendingsJson)
+    {
+        // get pending object
+        PBPending *pending = [PBPending parseFromDictionary:pendingJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:pending];
+    }
+    
+    // set back to result object
+    c.pendings = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Mission
+///--------------------------------------
+@implementation PBMission
+
+@synthesize missionName;
+@synthesize missionNumber;
+@synthesize description_;
+@synthesize hint;
+@synthesize image;
+@synthesize completions;
+@synthesize rewards;
+@synthesize missionId;
+@synthesize dateModified;
+@synthesize status;
+@synthesize pendings;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Mission : {\r\tmission_name : %@\r\tmission_number : %lu\r\tdescription : %@\r\thint : %@\r\timage : %@\r\t%@\r\t%@\r\tmission_id : %@\r\tdate_modified : %@\r\tstatus : %@\r\t%@\r\t}", self.missionName, (unsigned long)self.missionNumber, self.description_, self.hint, self.image, self.completions, self.rewards, self.missionId, self.dateModified, self.status, self.pendings];
+    
+    return descriptionString;
+}
+
++(PBMission *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBMission *c = [[PBMission alloc] init];
+    
+    // ignore parse level.
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.missionName = [c.parseLevelJsonResponse objectForKey:@"mission_name"];
+    c.missionNumber = [c.parseLevelJsonResponse objectForKey:@"mission_number"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.completions = [PBCompletionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion"] startFromFinalLevel:YES];
+    c.rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c.missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
+    
+    // parse date field
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    
+    // parse normal fields
+    c.status = [c.parseLevelJsonResponse objectForKey:@"status"];
+    
+    c.pendings = [PBPendingArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"pending"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// MissionArray
+///--------------------------------------
+@implementation PBMissionArray
+
+@synthesize missions;
+
+-(NSString *)description
+{
+    // create string to hold all mission line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Missions : {"];
+    
+    for(PBMission *item in self.missions)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBMissionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBMissionArray *c = [[PBMissionArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *missionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *missionJson in missionsJson)
+    {
+        // get mission
+        PBMission *mission = [PBMission parseFromDictionary:missionJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:mission];
+    }
+    
+    // set back to result object
+    c.missions = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Quest
+///--------------------------------------
+@implementation PBQuest
+
+@synthesize questName;
+@synthesize description_;
+@synthesize hint;
+@synthesize image;
+@synthesize missionOrder;
+@synthesize status;
+@synthesize sortOrder;
+@synthesize rewards;
+@synthesize missions;
+@synthesize dateAdded;
+@synthesize clientId;
+@synthesize siteId;
+@synthesize dateModified;
+@synthesize questId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tdate_modified : %@\r\tquest_id : %@\r\t}", self.questName, self.description_, self.hint, self.image, self.missionOrder ? @"YES" : @"NO", self.status, (unsigned long)self.sortOrder, self.rewards, self.missions, self.dateAdded, self.clientId, self.siteId, self.dateModified, self.questId];
+    
+    return descriptionString;
+}
+
++(PBQuest *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBQuest *c = [[PBQuest alloc] init];
+    
+    // ignroe parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.missionOrder = [[c.parseLevelJsonResponse objectForKey:@"mission_order"] boolValue];
+    
+    c.status = [c.parseLevelJsonResponse objectForKey:@"status"];
+    id sortOrder = [c.parseLevelJsonResponse objectForKey:@"sort_order"];
+    if([sortOrder respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.sortOrder = [sortOrder unsignedIntegerValue];
+    }
+    
+    c.rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c.missions = [PBMissionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
+    
+    // parse date field
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c.clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
+    c.siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestArray
+///--------------------------------------
+@implementation PBQuestArray
+
+@synthesize quests;
+
+-(NSString *)description
+{
+    // create string to hold all mission line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Quests : {"];
+    
+    for(PBQuest *item in self.quests)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuestArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBQuestArray *c = [[PBQuestArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *questsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *questJson in questsJson)
+    {
+        // get quest object
+        PBQuest *quest = [PBQuest parseFromDictionary:questJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:quest];
+    }
+    
+    // set back to result object
+    c.quests = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestListOfPlayer
+///--------------------------------------
+@implementation PBQuestListOfPlayer_Response
+
+@synthesize questList;
+
+-(NSString *)description
+{
+    return [self.questList description];
+}
+
++(PBQuestListOfPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBQuestListOfPlayer_Response *c = [[PBQuestListOfPlayer_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'quests'
+        NSDictionary *quests = [response objectForKey:@"quests"];
+        NSAssert(quests != nil, @"quests must not be nil");
+        
+        c.parseLevelJsonResponse = quests;
+    }
+    
+    // parse data
+    c.questList = [PBQuestArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+

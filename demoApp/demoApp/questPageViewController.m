@@ -30,7 +30,6 @@
     _pageAllImages = [NSMutableArray array];
     _pageAllQuestDescriptions = [NSMutableArray array];
     _pageAllQuestRewards = [NSMutableArray array];
-    _pageQuestJoinedStatuses = [NSMutableArray array];
     
     // load all quests available to player
     [[Playbasis sharedPB] questsAvailable:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
@@ -126,41 +125,12 @@
         }
     }];
     
-    // add "NotJoined" string to statuses array, we will replace it properly later
-    for(int i=0; i<[_pageAllQuestIds count]; i++)
-    {
-        [_pageQuestJoinedStatuses addObject:@"NotJoined"];
-    }
-    
     // load quest complete from player
-    [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"Quest list of player = %@", [jsonResponse description]);
-            
-            // get 'response'
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            // get 'quests'
-            NSArray *quests = [response objectForKey:@"quests"];
-            if([quests count] > 0)
-            {
-                for(NSDictionary *quest in quests)
-                {
-                    // get 'quest_id'
-                    NSString *questId = [quest objectForKey:@"quest_id"];
-                    
-                    // get 'status'
-                    NSString *status = [quest objectForKey:@"status"];
-                    
-                    // find an index to replace the content to correct position in quest-statuses
-                    NSUInteger index = [_pageAllQuestIds indexOfObject:questId];
-                    if(index != NSNotFound)
-                    {
-                        // cache to array at a proper index
-                        [_pageQuestJoinedStatuses replaceObjectAtIndex:index withObject:status];
-                    }
-                }
-            }
+            // save the result
+            questList_ = questList;
             
             NSLog(@"Complete loading all quests information.");
             
@@ -217,6 +187,9 @@
         return nil;
     }
     
+    // get quest at the specified index
+    PBQuest *quest = [questList_.questList.quests objectAtIndex:index];
+    
     // create a new view controller and pass suitable data
     questDemoViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"questContentViewController"];
     contentViewController.pageIndex = index;
@@ -227,7 +200,7 @@
     contentViewController.questImage = [_pageAllImages objectAtIndex:index];
     contentViewController.questDescription = [_pageAllQuestDescriptions objectAtIndex:index];
     contentViewController.questRewards = [_pageAllQuestRewards objectAtIndex:index];
-    contentViewController.questStatus = [_pageQuestJoinedStatuses objectAtIndex:index];
+    contentViewController.questStatus = quest.status;
     
     return contentViewController;
 }

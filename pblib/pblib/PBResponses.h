@@ -39,7 +39,8 @@ typedef enum
     responseType_ranks,
     responseType_goodsInfo,
     responseType_goodsListInfo,
-    responseType_goodsGroupAvailable
+    responseType_goodsGroupAvailable,
+    responseType_questListOfPlayer
 }pbResponseType;
 
 ///--------------------------------------
@@ -487,6 +488,202 @@ typedef enum
 @property (strong, nonatomic) NSArray *goodsOwneds;
 
 +(PBPlayerGoodsOwned_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Reward
+///--------------------------------------
+@interface PBReward : PBBase_Response
+
+@property (strong, nonatomic) NSString *rewardValue;
+@property (strong, nonatomic) NSString *rewardType;
+@property (strong, nonatomic) NSString *rewardId;
+@property (strong, nonatomic) NSString *rewardName;
+
++(PBReward *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RewardArray
+///--------------------------------------
+@interface PBRewardArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *rewards;
+
++(PBRewardArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Incomplete
+///--------------------------------------
+@interface PBIncomplete : PBBase_Response
+
+@property (strong, nonatomic) NSString *incompletionId;
+@property (strong, nonatomic) NSString *incompletionType;
+@property (nonatomic) NSUInteger incompletionValue;
+@property (strong, nonatomic) NSString *incompletionElementId;
+@property (strong, nonatomic) NSString *incompletionFilter;
+
++(PBIncomplete *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// IncompleteArray
+///--------------------------------------
+@interface PBIncompleteArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *incompletions;
+
++(PBIncompleteArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// CompletionData
+///--------------------------------------
+@interface PBCompletionData : PBBase_Response
+
+@property (strong, nonatomic) NSString *actionId;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *icon;
+@property (strong, nonatomic) NSString *color;
+
++(PBCompletionData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Completion
+///--------------------------------------
+@interface PBCompletion : PBBase_Response
+
+@property (strong, nonatomic) NSString *completionFilter;
+@property (strong, nonatomic) NSString *completionValue;
+@property (strong, nonatomic) NSString *completionId;
+@property (strong, nonatomic) NSString *completionType;
+@property (strong, nonatomic) NSString *completionElementId;
+@property (strong, nonatomic) NSString *completionTitle;
+@property (strong, nonatomic) PBCompletionData *completionData;
+
++(PBCompletion *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// CompletionArray
+///--------------------------------------
+@interface PBCompletionArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *completions;
+
++(PBCompletionArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Pending
+///--------------------------------------
+@interface PBPending : PBBase_Response
+
+@property (strong, nonatomic) NSString *eventType;
+@property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) PBIncomplete *incomplete;
+
++(PBPending *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PendingArray
+///--------------------------------------
+@interface PBPendingArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *pendings;
+
++(PBPendingArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Mission
+///--------------------------------------
+@interface PBMission : PBBase_Response
+
+@property (strong, nonatomic) NSString *missionName;
+@property (strong, nonatomic) NSString *missionNumber;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) PBCompletionArray *completions;
+@property (strong, nonatomic) PBRewardArray *rewards;
+@property (strong, nonatomic) NSString *missionId;
+@property (strong, nonatomic) NSDate *dateModified;
+@property (strong, nonatomic) NSString *status;
+@property (strong, nonatomic) PBPendingArray *pendings;
+
++(PBMission *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// MissionArray
+///--------------------------------------
+@interface PBMissionArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *missions;
+
++(PBMissionArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Quest
+///--------------------------------------
+@interface PBQuest : PBBase_Response
+
+@property (strong, nonatomic) NSString *questName;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic) NSString *image;
+@property (nonatomic) BOOL missionOrder;
+@property (strong, nonatomic) NSString *status;
+@property (nonatomic) NSUInteger sortOrder;
+@property (strong, nonatomic) PBRewardArray *rewards;
+@property (strong, nonatomic) PBMissionArray *missions;
+@property (strong, nonatomic) NSDate *dateAdded;
+@property (strong, nonatomic) NSString *clientId;
+@property (strong, nonatomic) NSString *siteId;
+@property (strong, nonatomic) NSDate *dateModified;
+@property (strong, nonatomic) NSString *questId;
+
++(PBQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestArray
+///--------------------------------------
+@interface PBQuestArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *quests;
+
++(PBQuestArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestListOfPlayer
+///--------------------------------------
+@interface PBQuestListOfPlayer_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuestArray *questList;
+
++(PBQuestListOfPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

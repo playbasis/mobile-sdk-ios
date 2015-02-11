@@ -786,6 +786,32 @@
             
             break;
         }
+        case responseType_questListOfPlayer:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuestListOfPlayer:withURL:error:)])
+                {
+                    id<PBQuestListOfPlayer_ResponseHandler> sd = (id<PBQuestListOfPlayer_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuestListOfPlayer_Response *response = [PBQuestListOfPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuestListOfPlayer:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuestListOfPlayer_Response *response = [PBQuestListOfPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuestListOfPlayer_ResponseBlock sb = (PBQuestListOfPlayer_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

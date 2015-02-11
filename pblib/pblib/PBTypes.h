@@ -230,4 +230,13 @@ typedef void (^PBGoodsListInfo_ResponseBlock)(PBGoodsListInfo_Response * goodsLi
 
 typedef void (^PBGoodsGroupAvailable_ResponseBlock)(PBGoodsGroupAvailable_Response * goodsGroupAvailable, NSURL *url, NSError *error);
 
+///----------------
+/// QuestListOfPlayer
+///----------------
+@protocol PBQuestListOfPlayer_ResponseHandler <NSObject>
+-(void)processResponseWithQuestListOfPlayer:(PBQuestListOfPlayer_Response*)questList withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestListOfPlayer_ResponseBlock)(PBQuestListOfPlayer_Response * questList, NSURL *url, NSError *error);
+
 #endif
