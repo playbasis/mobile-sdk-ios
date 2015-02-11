@@ -32,10 +32,10 @@
     }
     
     // load the set questId from previous view controller
-    [[Playbasis sharedPB] questOfPlayer:USER questId:_questId andBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] questOfPlayer:USER questId:_questId andBlock:^(PBQuestOfPlayer_Response *quest, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"Quest from %@ = %@", [url path], [jsonResponse description]);
+            NSLog(@"%@", quest);
         }
     }];
 }

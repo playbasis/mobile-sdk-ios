@@ -40,6 +40,7 @@ typedef enum
     responseType_goodsInfo,
     responseType_goodsListInfo,
     responseType_goodsGroupAvailable,
+    responseType_questOfPlayer,
     responseType_questListOfPlayer
 }pbResponseType;
 
@@ -673,6 +674,17 @@ typedef enum
 @property (strong, nonatomic) NSArray *quests;
 
 +(PBQuestArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestOfPlayer
+///--------------------------------------
+@interface PBQuestOfPlayer_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuest *quest;
+
++(PBQuestOfPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

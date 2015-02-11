@@ -231,12 +231,21 @@ typedef void (^PBGoodsListInfo_ResponseBlock)(PBGoodsListInfo_Response * goodsLi
 typedef void (^PBGoodsGroupAvailable_ResponseBlock)(PBGoodsGroupAvailable_Response * goodsGroupAvailable, NSURL *url, NSError *error);
 
 ///----------------
+/// QuestOfPlayer
+///----------------
+@protocol PBQuestOfPlayer_ResponseHandler <NSObject>
+-(void)processResponseWithQuestOfPlayer:(PBQuestOfPlayer_Response*)questList withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestOfPlayer_ResponseBlock)(PBQuestOfPlayer_Response * questList, NSURL *url, NSError *error);
+
+///----------------
 /// QuestListOfPlayer
 ///----------------
 @protocol PBQuestListOfPlayer_ResponseHandler <NSObject>
--(void)processResponseWithQuestListOfPlayer:(PBQuestListOfPlayer_Response*)questList withURL:(NSURL *)url error:(NSError*)error;
+-(void)processResponseWithQuestListOfPlayer:(PBQuestListOfPlayer_Response*)quest withURL:(NSURL *)url error:(NSError*)error;
 @end
 
-typedef void (^PBQuestListOfPlayer_ResponseBlock)(PBQuestListOfPlayer_Response * questList, NSURL *url, NSError *error);
+typedef void (^PBQuestListOfPlayer_ResponseBlock)(PBQuestListOfPlayer_Response * quest, NSURL *url, NSError *error);
 
 #endif

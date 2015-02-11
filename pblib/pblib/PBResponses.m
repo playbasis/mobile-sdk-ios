@@ -2747,6 +2747,51 @@
 @end
 
 ///--------------------------------------
+/// QuestOfPlayer
+///--------------------------------------
+@implementation PBQuestOfPlayer_Response
+
+@synthesize quest;
+
+-(NSString *)description
+{
+    return [self.quest description];
+}
+
++(PBQuestOfPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBQuestOfPlayer_Response *c = [[PBQuestOfPlayer_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'quest'
+        NSDictionary *quest = [response objectForKey:@"quest"];
+        NSAssert(quest != nil, @"quest must not be nil");
+        
+        c.parseLevelJsonResponse = quest;
+    }
+    
+    // parse data
+    c.quest = [PBQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// QuestListOfPlayer
 ///--------------------------------------
 @implementation PBQuestListOfPlayer_Response
