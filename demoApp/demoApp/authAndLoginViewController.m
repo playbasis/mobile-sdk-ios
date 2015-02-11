@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] questListWithBlock:^(PBQuestList_Response *questList, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] questWithQuestId:@"542e73969980404e338b457f" withBlock:^(PBQuestInfo_Response *questInfo, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"%@", questList);
+                    NSLog(@"%@", questInfo);
                 }
             }];
         }

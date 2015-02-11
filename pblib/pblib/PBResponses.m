@@ -2876,6 +2876,147 @@
 @end
 
 ///--------------------------------------
+/// ConditionData
+///--------------------------------------
+@implementation PBConditionData
+
+@synthesize questName;
+@synthesize description_;
+@synthesize hint;
+@synthesize image;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"ConditionData : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\t}", self.questName, self.description_, self.hint, self.image];
+    
+    return descriptionString;
+}
+
++(PBConditionData *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBConditionData *c = [[PBConditionData alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Condition
+///--------------------------------------
+@implementation PBCondition
+
+@synthesize conditionId;
+@synthesize conditionType;
+@synthesize conditionValue;
+@synthesize conditionData;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Condition : {\r\tcondition_id : %@\r\tcondition_type : %@\r\tcondition_value : %@\r\t%@\r\t}", self.conditionId, self.conditionType, self.conditionValue, self.conditionData];
+    
+    return descriptionString;
+}
+
++(PBCondition *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBCondition *c = [[PBCondition alloc] init];
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.conditionId = [c.parseLevelJsonResponse objectForKey:@"condition_id"];
+    c.conditionType = [c.parseLevelJsonResponse objectForKey:@"condition_type"];
+    c.conditionValue = [c.parseLevelJsonResponse objectForKey:@"condition_value"];
+    c.conditionData = [PBConditionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition_data"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// ConditionArray
+///--------------------------------------
+@implementation PBConditionArray
+
+@synthesize conditions;
+
+-(NSString *)description
+{
+    // create string to hold all condition line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Conditions : {"];
+    
+    for(PBCondition *item in self.conditions)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBConditionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBConditionArray *c = [[PBConditionArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *conditionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *conditionJson in conditionsJson)
+    {
+        // get condition object
+        PBCondition *condition = [PBCondition parseFromDictionary:conditionJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:condition];
+    }
+    
+    // set back to result object
+    c.conditions = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// QuestBasic
 ///--------------------------------------
 @implementation PBQuestBasic
@@ -2940,6 +3081,55 @@
     c.clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
     c.siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
     c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Quest Info
+///--------------------------------------
+@implementation PBQuestInfo_Response
+
+@synthesize questBasic;
+@synthesize conditions;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest Info : {\r\t%@\r\t%@\r\t}", self.questBasic, self.conditions];
+    
+    return descriptionString;
+}
+
++(PBQuestInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBQuestInfo_Response *c = [[PBQuestInfo_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'quest'
+        NSDictionary *quest = [response objectForKey:@"quest"];
+        NSAssert(quest != nil, @"quest must not be nil");
+        
+        c.parseLevelJsonResponse = quest;
+    }
+    
+    // parse
+    c.questBasic = [PBQuestBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c.conditions = [PBConditionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition"] startFromFinalLevel:YES];
     
     return c;
 }

@@ -43,7 +43,8 @@ typedef enum
     responseType_questOfPlayer,
     responseType_questListOfPlayer,
     responseType_questRewardHistoryOfPlayer,
-    responseType_questList
+    responseType_questList,
+    responseType_questInfo
 }pbResponseType;
 
 ///--------------------------------------
@@ -709,6 +710,45 @@ typedef enum
 @end
 
 ///--------------------------------------
+/// ConditionData
+///--------------------------------------
+@interface PBConditionData : PBBase_Response
+
+@property (strong, nonatomic) NSString *questName;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic) NSString *image;
+
++(PBConditionData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Condition
+///--------------------------------------
+@interface PBCondition : PBBase_Response
+
+@property (strong, nonatomic) NSString *conditionId;
+@property (strong, nonatomic) NSString *conditionType;
+@property (strong, nonatomic) NSString *conditionValue;
+@property (strong, nonatomic) PBConditionData *conditionData;
+
++(PBCondition *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ConditionArray
+///--------------------------------------
+@interface PBConditionArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *conditions;
+
++(PBConditionArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
 /// QuestBasic
 ///--------------------------------------
 @interface PBQuestBasic : PBBase_Response
@@ -729,6 +769,18 @@ typedef enum
 @property (strong, nonatomic) NSString *questId;
 
 +(PBQuestBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Quest Info
+///--------------------------------------
+@interface PBQuestInfo_Response : PBQuestBasic
+
+@property (strong, nonatomic) PBQuestBasic *questBasic;
+@property (strong, nonatomic) PBConditionArray *conditions;
+
++(PBQuestInfo_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
