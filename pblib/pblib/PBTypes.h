@@ -257,4 +257,13 @@ typedef void (^PBQuestListOfPlayer_ResponseBlock)(PBQuestListOfPlayer_Response *
 
 typedef void (^PBQuestRewardHistoryOfPlayer_ResponseBlock)(PBQuestRewardHistoryOfPlayer_Response * rewards, NSURL *url, NSError *error);
 
+///----------------
+/// QuestList
+///----------------
+@protocol PBQuestList_ResponseHandler <NSObject>
+-(void)processResponseWithQuestList:(PBQuestList_Response*)questList withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestList_ResponseBlock)(PBQuestList_Response * questList, NSURL *url, NSError *error);
+
 #endif

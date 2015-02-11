@@ -377,10 +377,10 @@
 /**
  Return information about all quests in current site.
  */
--(PBRequest *)questListWithDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)questListWithBlock:(PBResponseBlock)block;
--(PBRequest *)questListWithDelegateAsync:(id<PBResponseHandler>)delegate;
--(PBRequest *)questListWithBlockAsync:(PBResponseBlock)block;
+-(PBRequest *)questListWithDelegate:(id<PBQuestList_ResponseHandler>)delegate;
+-(PBRequest *)questListWithBlock:(PBQuestList_ResponseBlock)block;
+-(PBRequest *)questListWithDelegateAsync:(id<PBQuestList_ResponseHandler>)delegate;
+-(PBRequest *)questListWithBlockAsync:(PBQuestList_ResponseBlock)block;
 
 /**
  Return information about quest with the specified id.

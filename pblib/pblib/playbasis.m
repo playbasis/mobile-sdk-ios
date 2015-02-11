@@ -1752,19 +1752,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return [self callAsync:@"Engine/rule" withData:data syncURLRequest:syncUrl andBlock:block];
 }
 
--(PBRequest *)questListWithDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)questListWithDelegate:(id<PBQuestList_ResponseHandler>)delegate
 {
     return [self questListInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)questListWithBlock:(PBResponseBlock)block
+-(PBRequest *)questListWithBlock:(PBQuestList_ResponseBlock)block
 {
     return [self questListInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)questListWithDelegateAsync:(id<PBResponseHandler>)delegate
+-(PBRequest *)questListWithDelegateAsync:(id<PBQuestList_ResponseHandler>)delegate
 {
     return [self questListInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)questListWithBlockAsync:(PBResponseBlock)block
+-(PBRequest *)questListWithBlockAsync:(PBQuestList_ResponseBlock)block
 {
     return [self questListInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1772,7 +1772,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questList andResponse:response];
 }
 
 -(PBRequest *)quest:(NSString *)questId withDelegate:(id<PBResponseHandler>)delegate

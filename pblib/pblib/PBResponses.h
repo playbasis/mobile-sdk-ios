@@ -42,7 +42,8 @@ typedef enum
     responseType_goodsGroupAvailable,
     responseType_questOfPlayer,
     responseType_questListOfPlayer,
-    responseType_questRewardHistoryOfPlayer
+    responseType_questRewardHistoryOfPlayer,
+    responseType_questList
 }pbResponseType;
 
 ///--------------------------------------
@@ -654,9 +655,9 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// Mission
+/// MissionBasic
 ///--------------------------------------
-@interface PBMission : PBBase_Response
+@interface PBMissionBasic : PBBase_Response
 
 @property (strong, nonatomic) NSString *missionName;
 @property (strong, nonatomic) NSString *missionNumber;
@@ -666,6 +667,28 @@ typedef enum
 @property (strong, nonatomic) PBCompletionArray *completions;
 @property (strong, nonatomic) PBRewardArray *rewards;
 @property (strong, nonatomic) NSString *missionId;
+
++(PBMissionBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// MissionBasicArray
+///--------------------------------------
+@interface PBMissionBasicArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *missionBasics;
+
++(PBMissionBasicArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Mission
+///--------------------------------------
+@interface PBMission : PBBase_Response
+
+@property (strong, nonatomic) PBMissionBasic *missionBasic;
 @property (strong, nonatomic) NSDate *dateModified;
 @property (strong, nonatomic) NSString *status;
 @property (strong, nonatomic) PBPendingArray *pendings;
@@ -682,6 +705,30 @@ typedef enum
 @property (strong, nonatomic) NSArray *missions;
 
 +(PBMissionArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestBasic
+///--------------------------------------
+@interface PBQuestBasic : PBBase_Response
+
+@property (strong, nonatomic) NSString *questName;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic) NSString *image;
+@property (nonatomic) BOOL missionOrder;
+@property (nonatomic) BOOL status;
+@property (nonatomic) NSUInteger sortOrder;
+@property (strong, nonatomic) PBRewardArray *rewards;
+@property (strong, nonatomic) PBMissionBasicArray *missionBasics;
+@property (strong, nonatomic) NSDate *dateAdded;
+@property (strong, nonatomic) NSString *clientId;
+@property (strong, nonatomic) NSString *siteId;
+@property (strong, nonatomic) NSDate *dateModified;
+@property (strong, nonatomic) NSString *questId;
+
++(PBQuestBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
@@ -706,6 +753,17 @@ typedef enum
 @property (strong, nonatomic) NSString *questId;
 
 +(PBQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestBasicArray
+///--------------------------------------
+@interface PBQuestBasicArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *questBasics;
+
++(PBQuestBasicArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
@@ -739,6 +797,17 @@ typedef enum
 @property (strong, nonatomic) PBQuestArray *questList;
 
 +(PBQuestListOfPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestListOfPlayer
+///--------------------------------------
+@interface PBQuestList_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuestBasicArray *list;
+
++(PBQuestList_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] questRewardHistoryOfPlayer:USER offset:0 limit:1 withBlock:^(PBQuestRewardHistoryOfPlayer_Response *rewards, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] questListWithBlock:^(PBQuestList_Response *questList, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"%@", rewards);
+                    NSLog(@"%@", questList);
                 }
             }];
         }
