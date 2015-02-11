@@ -41,7 +41,8 @@ typedef enum
     responseType_goodsListInfo,
     responseType_goodsGroupAvailable,
     responseType_questOfPlayer,
-    responseType_questListOfPlayer
+    responseType_questListOfPlayer,
+    responseType_questRewardHistoryOfPlayer
 }pbResponseType;
 
 ///--------------------------------------
@@ -503,6 +504,48 @@ typedef enum
 @property (strong, nonatomic) NSString *rewardName;
 
 +(PBReward *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestReward
+///--------------------------------------
+@interface PBQuestReward : PBBase_Response
+
+@property (strong, nonatomic) NSString *questId;
+@property (strong, nonatomic) NSString *missionId;
+@property (strong, nonatomic) NSString *rewardValue;
+@property (strong, nonatomic) NSString *rewardType;
+@property (strong, nonatomic) NSString *rewardId;
+@property (strong, nonatomic) NSString *rewardName;
+@property (strong, nonatomic) NSDate *dateAdded;
+@property (strong, nonatomic) NSDate *dateModified;
+@property (strong, nonatomic) NSString *questName;
+@property (strong, nonatomic) NSString *type;
+
++(PBQuestReward *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestRewardArray
+///--------------------------------------
+@interface PBQuestRewardArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *questRewards;
+
++(PBQuestRewardArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestRewardHistoryOfPlayer
+///--------------------------------------
+@interface PBQuestRewardHistoryOfPlayer_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuestRewardArray *list;
+
++(PBQuestRewardHistoryOfPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

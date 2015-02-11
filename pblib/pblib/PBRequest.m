@@ -838,6 +838,32 @@
             
             break;
         }
+        case responseType_questRewardHistoryOfPlayer:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuestRewardHistoryOfPlayer:withURL:error:)])
+                {
+                    id<PBQuestRewardHistoryOfPlayer_ResponseHandler> sd = (id<PBQuestRewardHistoryOfPlayer_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuestRewardHistoryOfPlayer_Response *response = [PBQuestRewardHistoryOfPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuestRewardHistoryOfPlayer:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuestRewardHistoryOfPlayer_Response *response = [PBQuestRewardHistoryOfPlayer_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuestRewardHistoryOfPlayer_ResponseBlock sb = (PBQuestRewardHistoryOfPlayer_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

@@ -2066,6 +2066,173 @@
 @end
 
 ///--------------------------------------
+/// QuestReward
+///--------------------------------------
+@implementation PBQuestReward
+
+@synthesize questId;
+@synthesize missionId;
+@synthesize rewardValue;
+@synthesize rewardType;
+@synthesize rewardId;
+@synthesize rewardName;
+@synthesize dateAdded;
+@synthesize dateModified;
+@synthesize questName;
+@synthesize type;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest Reward : {\r\tquest_id : %@\r\tmission_id : %@\r\treward_value : %@\r\treward_type : %@\r\treward_id : %@\r\treward_name : %@\r\tdate_added : %@\r\tdate_modified : %@\r\tquest_name : %@\r\ttype : %@\r\t}", self.questId, self.missionId, self.rewardValue, self.rewardType, self.rewardId, self.rewardName, self.dateAdded, self.dateModified, self.questName, self.type];
+    
+    return descriptionString;
+}
+
++(PBQuestReward *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBQuestReward *c = [[PBQuestReward alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c.missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
+    c.rewardValue = [c.parseLevelJsonResponse objectForKey:@"reward_value"];
+    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    
+    // parse date field
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    
+    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c.type = [c.parseLevelJsonResponse objectForKey:@"type"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestRewardArray
+///--------------------------------------
+@implementation PBQuestRewardArray
+
+@synthesize questRewards;
+
+-(NSString *)description
+{
+    // create string to hold all quest-reward line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Quest Reward : {"];
+    
+    for(PBQuestReward *item in self.questRewards)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuestRewardArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBQuestRewardArray *c = [[PBQuestRewardArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json to array
+    NSArray *questRewardsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // create a temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *questRewardJson in questRewardsJson)
+    {
+        // get quest reward object
+        PBQuestReward *questReward = [PBQuestReward parseFromDictionary:questRewardJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:questReward];
+    }
+    
+    // set back to response object
+    c.questRewards = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestRewardHistoryOfPlayer
+///--------------------------------------
+@implementation PBQuestRewardHistoryOfPlayer_Response
+
+@synthesize list;
+
+-(NSString *)description
+{
+    return [self.list description];
+}
+
++(PBQuestRewardHistoryOfPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBQuestRewardHistoryOfPlayer_Response *c = [[PBQuestRewardHistoryOfPlayer_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'rewards'
+        NSDictionary *rewards = [response objectForKey:@"rewards"];
+        NSAssert(rewards != nil, @"rewards must not be nil");
+        
+        c.parseLevelJsonResponse = rewards;
+    }
+    
+    // parse
+    c.list = [PBQuestRewardArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Reward Array
 ///--------------------------------------
 @implementation PBRewardArray
