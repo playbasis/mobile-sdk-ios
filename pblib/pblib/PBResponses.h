@@ -48,7 +48,8 @@ typedef enum
     responseType_actionConfig,
     responseType_recentPoint,
     responseType_missionInfo,
-    responseType_questListAvailableForPlayer
+    responseType_questListAvailableForPlayer,
+    responseType_questAvailableForPlayer
 }pbResponseType;
 
 ///--------------------------------------
@@ -985,6 +986,19 @@ typedef enum
 @property (strong, nonatomic) PBQuestBasicArray *list;
 
 +(PBQuestListAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestAvailableForPlayer
+///--------------------------------------
+@interface PBQuestAvailableForPlayer_Response : PBBase_Response
+
+@property (strong, nonatomic) NSString *eventType;
+@property (strong, nonatomic) NSString *eventMessage;
+@property (nonatomic) BOOL eventStatus;
+
++(PBQuestAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

@@ -311,4 +311,13 @@ typedef void (^PBMissionInfo_ResponseBlock)(PBMissionInfo_Response * missionInfo
 
 typedef void (^PBQuestListAvailableForPlayer_ResponseBlock)(PBQuestListAvailableForPlayer_Response * list, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// QuestAvailableForPlayer
+///--------------------------------------
+@protocol PBQuestAvailableForPlayer_ResponseHandler <NSObject>
+-(void)processResponseWithQuestAvailableForPlayer:(PBQuestAvailableForPlayer_Response*)available withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestAvailableForPlayer_ResponseBlock)(PBQuestAvailableForPlayer_Response * available, NSURL *url, NSError *error);
+
 #endif

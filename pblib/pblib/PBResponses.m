@@ -3968,3 +3968,50 @@
 }
 
 @end
+
+///--------------------------------------
+/// QuestAvailableForPlayer
+///--------------------------------------
+@implementation PBQuestAvailableForPlayer_Response
+
+@synthesize eventType;
+@synthesize eventMessage;
+@synthesize eventStatus;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest available to player : {\r\tevent_type : %@\r\tevent_message : %@\r\tevent_status : %@\r\t}", self.eventType, self.eventMessage, self.eventStatus ? @"YES" : @"NO"];
+    
+    return descriptionString;
+}
+
++(PBQuestAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBQuestAvailableForPlayer_Response *c = [[PBQuestAvailableForPlayer_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // parse
+    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c.eventMessage = [c.parseLevelJsonResponse objectForKey:@"event_message"];
+    c.eventStatus = [[c.parseLevelJsonResponse objectForKey:@"event_status"] boolValue];
+    
+    return c;
+}
+
+@end
