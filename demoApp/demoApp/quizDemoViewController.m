@@ -162,11 +162,9 @@
     // rank players by their quiz's score for a given quiz
     if(quizId != nil)
     {
-        [[Playbasis sharedPB] quizScoreRank:quizId limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(!error)
-            {
-                NSLog(@"response from url %@", [url path]);
-                NSLog(@"response data = %@", [jsonResponse description]);
+        [[Playbasis sharedPB] quizScoreRank:quizId limit:1 withBlock:^(PBPlayersQuizRank_Response *playersQuizRank, NSURL *url, NSError *error) {
+            if(!error){
+                NSLog(@"%@", playersQuizRank);
             }
         }];
     }

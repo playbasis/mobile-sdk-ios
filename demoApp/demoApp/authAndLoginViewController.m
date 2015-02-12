@@ -112,10 +112,9 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] quizQuestion:@"54649c1e5fb29c181fdb125e" forPlayer:USER withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"%@", question);
+            [[Playbasis sharedPB] quizScoreRank:@"54649c1e5fb29c181fdb125e" limit:20 withBlock:^(PBPlayersQuizRank_Response *playersQuizRank, NSURL *url, NSError *error) {
+                if(!error){
+                    NSLog(@"%@", playersQuizRank);
                 }
             }];
         }

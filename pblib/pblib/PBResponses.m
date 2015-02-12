@@ -1239,7 +1239,7 @@
     c.minExp = [[c.parseLevelJsonResponse objectForKey:@"min_exp"] unsignedIntegerValue];
     id obj = [c.parseLevelJsonResponse objectForKey:@"max_exp"];
     
-    if([obj respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([obj respondsToSelector:@selector(unsignedIntegerValue)])
        c.maxExp = [obj unsignedIntegerValue];
     else
        // TODO: Fix this later, as 'null' value returned can happen
@@ -1728,7 +1728,7 @@
     // parse
     c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
     id q = [c.parseLevelJsonResponse objectForKey:@"quantity"];
-    if([q respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([q respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.quantity = [q unsignedIntegerValue];
     }
@@ -1802,7 +1802,7 @@
     c.goods = [PBGoods parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     id perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
-    if([perUser respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([perUser respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.perUser = [perUser unsignedIntegerValue];
     }
@@ -2362,7 +2362,7 @@
     c.incompletionType = [c.parseLevelJsonResponse objectForKey:@"incompletion_type"];
     
     id incompletionValue = [c.parseLevelJsonResponse objectForKey:@"incompletion_value"];
-    if([incompletionValue respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([incompletionValue respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.incompletionValue = [incompletionValue unsignedIntegerValue];
     }
@@ -3097,7 +3097,7 @@
     
     c.status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
     id sortOrder = [c.parseLevelJsonResponse objectForKey:@"sort_order"];
-    if([sortOrder respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([sortOrder respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.sortOrder = [sortOrder unsignedIntegerValue];
     }
@@ -3217,7 +3217,7 @@
     
     c.status = [c.parseLevelJsonResponse objectForKey:@"status"];
     id sortOrder = [c.parseLevelJsonResponse objectForKey:@"sort_order"];
-    if([sortOrder respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([sortOrder respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.sortOrder = [sortOrder unsignedIntegerValue];
     }
@@ -3778,7 +3778,7 @@
     c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
     c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
     id value = [c.parseLevelJsonResponse objectForKey:@"value"];
-    if([value respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([value respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.value = [value unsignedIntegerValue];
     }
@@ -4342,20 +4342,20 @@
     c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rewards"];
     c.rewards = [c.parseLevelJsonResponse objectForKey:@"rewards"];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
-    if([score respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.score = [score unsignedIntegerValue];
     }
     c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
-    if([totalScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalScore = [totalScore unsignedIntegerValue];
     }
     
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
-    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
@@ -4395,7 +4395,7 @@
     
     // parse
     id value = [c.parseLevelJsonResponse objectForKey:@"value"];
-    if([value respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([value respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.value = [value unsignedIntegerValue];
     }
@@ -4403,7 +4403,7 @@
     c.grade = [PBGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
     
     id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"value"];
-    if([totalCompletedQuestion respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalCompletedQuestion respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalCompletedQuestion = [totalCompletedQuestion unsignedIntegerValue];
     }
@@ -4682,13 +4682,13 @@
     
     c.deleted = [[c.parseLevelJsonResponse objectForKey:@"deleted"] boolValue];
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
-    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
     
     id totalQuestions = [c.parseLevelJsonResponse objectForKey:@"total_questions"];
-    if([totalQuestions respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalQuestions respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalQuestions = [totalQuestions unsignedIntegerValue];
     }
@@ -5030,13 +5030,13 @@
     c.questionImage = [c.parseLevelJsonResponse objectForKey:@"question_image"];
     c.options = [PBQuestionOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
     id index = [c.parseLevelJsonResponse objectForKey:@"index"];
-    if([index respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([index respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.index = [index unsignedIntegerValue];
     }
     
     id total = [c.parseLevelJsonResponse objectForKey:@"total"];
-    if([total respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([total respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.total = [total unsignedIntegerValue];
     }
@@ -5239,7 +5239,7 @@
     c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
     c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
-    if([score respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.score = [score unsignedIntegerValue];
     }
@@ -5247,13 +5247,13 @@
     c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
-    if([totalScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalScore = [totalScore unsignedIntegerValue];
     }
     
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
-    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
@@ -5298,7 +5298,7 @@
     // parse
     c.options = [PBQuestionAnsweredOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
-    if([score respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.score = [score unsignedIntegerValue];
     }
@@ -5306,13 +5306,13 @@
     c.explanation = [c.parseLevelJsonResponse objectForKey:@"explanation"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
-    if([totalScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalScore = [totalScore unsignedIntegerValue];
     }
     
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
-    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
@@ -5370,3 +5370,151 @@
 
 @end
 
+///--------------------------------------
+/// PlayerQuizRank
+///--------------------------------------
+@implementation PBPlayerQuizRank
+
+@synthesize pbPlayerId;
+@synthesize playerId;
+@synthesize score;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Player's Quiz Rank : {\r\tpb_player_id : %@\r\tplayer_id : %@\r\tscore : %lu\r\t}", self.pbPlayerId, self.playerId, (unsigned long)self.score];
+    
+    return descriptionString;
+}
+
++(PBPlayerQuizRank *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBPlayerQuizRank *c = [[PBPlayerQuizRank alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.pbPlayerId = [c.parseLevelJsonResponse objectForKey:@"pb_player_id"];
+    c.playerId = [c.parseLevelJsonResponse objectForKey:@"player_id"];
+    id score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    if([score respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c.score = [score unsignedIntegerValue];
+    }
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PlayerQuizRankArray
+///--------------------------------------
+@implementation PBPlayerQuizRankArray
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all player-quiz-rank line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Player's Quiz Rank Array : {"];
+    
+    for(PBPlayerQuizRank *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBPlayerQuizRankArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result objct
+    PBPlayerQuizRankArray *c = [[PBPlayerQuizRankArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *pqrsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *pqrJson in pqrsJson)
+    {
+        // get player-quiz-rank object
+        PBPlayerQuizRank *pqr = [PBPlayerQuizRank parseFromDictionary:pqrJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:pqr];
+    }
+    
+    // set back to result object
+    c.list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PlayersQuizRank - Response
+///--------------------------------------
+@implementation PBPlayersQuizRank_Response
+
+@synthesize playersQuizRank;
+
+-(NSString *)description
+{
+    return [self.playersQuizRank description];
+}
+
++(PBPlayersQuizRank_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create response
+    PBPlayersQuizRank_Response *c = [[PBPlayersQuizRank_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.playersQuizRank = [PBPlayerQuizRankArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end

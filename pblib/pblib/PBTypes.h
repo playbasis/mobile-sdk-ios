@@ -374,4 +374,13 @@ typedef void (^PBQuestion_ResponseBlock)(PBQuestion_Response * question, NSURL *
 
 typedef void (^PBQuestionAnswered_ResponseBlock)(PBQuestionAnswered_Response * questionAnswered, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// PlayersQuizRank
+///--------------------------------------
+@protocol PBPlayersQuizRank_ResponseHandler <NSObject>
+-(void)processResponseWithPlayersQuizRank:(PBPlayersQuizRank_Response*)playersQuizRank withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayersQuizRank_ResponseBlock)(PBPlayersQuizRank_Response * playersQuizRank, NSURL *url, NSError *error);
+
 #endif

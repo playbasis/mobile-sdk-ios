@@ -55,7 +55,8 @@ typedef enum
     responseType_quizRandom,
     responseType_quizDoneListByPlayer,
     responseType_questionFromQuiz,
-    responseType_questionAnswered
+    responseType_questionAnswered,
+    responseType_playersQuizRank
 }pbResponseType;
 
 ///--------------------------------------
@@ -1355,6 +1356,41 @@ typedef enum
 @property (strong, nonatomic) PBQuestionAnswered *result;
 
 +(PBQuestionAnswered_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PlayerQuizRank
+///--------------------------------------
+@interface PBPlayerQuizRank : PBBase_Response
+
+@property (strong, nonatomic) NSString *pbPlayerId;
+@property (strong, nonatomic) NSString *playerId;
+@property (nonatomic) NSUInteger score;
+
++(PBPlayerQuizRank *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PlayerQuizRankArray
+///--------------------------------------
+@interface PBPlayerQuizRankArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBPlayerQuizRankArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PlayersQuizRank - Response
+///--------------------------------------
+@interface PBPlayersQuizRank_Response : PBBase_Response
+
+@property (strong, nonatomic) PBPlayerQuizRankArray *playersQuizRank;
+
++(PBPlayersQuizRank_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
