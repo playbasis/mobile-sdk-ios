@@ -293,4 +293,13 @@ typedef void (^PBQuestInfo_ResponseBlock)(PBQuestInfo_Response * questInfo, NSUR
 
 typedef void (^PBRecentPoint_ResponseBlock)(PBRecentPointArray_Response * recentPoints, NSURL *url, NSError *error);
 
+///----------------
+/// Mission Info
+///----------------
+@protocol PBMissionInfo_ResponseHandler <NSObject>
+-(void)processResponseWithMissionInfo:(PBMissionInfo_Response*)missionInfo withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBMissionInfo_ResponseBlock)(PBMissionInfo_Response * missionInfo, NSURL *url, NSError *error);
+
 #endif

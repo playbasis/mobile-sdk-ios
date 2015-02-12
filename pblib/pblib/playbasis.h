@@ -393,10 +393,10 @@
 /**
  Return information about mission with the specified id.
  */
--(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withBlock:(PBResponseBlock)block;
--(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withBlock:(PBResponseBlock)block;
+-(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBMissionInfo_ResponseHandler>)delegate;
+-(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withBlock:(PBMissionInfo_ResponseBlock)block;
+-(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBMissionInfo_ResponseHandler>)delegate;
+-(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withBlock:(PBMissionInfo_ResponseBlock)block;
 
 -(PBRequest *)questAvailableForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)questAvailableForPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;

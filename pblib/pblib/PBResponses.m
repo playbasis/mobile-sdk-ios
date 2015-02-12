@@ -3877,3 +3877,48 @@
 }
 
 @end
+
+///--------------------------------------
+/// MissionInfo
+///--------------------------------------
+@implementation PBMissionInfo_Response
+
+@synthesize missionBasic;
+@synthesize questId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Mission Info : {\r\t%@\r\tquest_id : %@\r\t}", self.missionBasic, self.questId];
+    
+    return descriptionString;
+}
+
++(PBMissionInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBMissionInfo_Response *c = [[PBMissionInfo_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    c.missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end

@@ -1798,27 +1798,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questInfo andResponse:response];
 }
 
--(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBMissionInfo_ResponseHandler>)delegate
 {
     return [self missionInternalBase:questId mission:missionId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withBlock:(PBResponseBlock)block
+-(PBRequest *)mission:(NSString *)questId mission:(NSString *)missionId withBlock:(PBMissionInfo_ResponseBlock)block
 {
     return [self missionInternalBase:questId mission:missionId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBMissionInfo_ResponseHandler>)delegate
 {
     return [self missionInternalBase:questId mission:missionId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withBlock:(PBResponseBlock)block
+-(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withBlock:(PBMissionInfo_ResponseBlock)block
 {
     return [self missionInternalBase:questId mission:missionId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequest *)missionInternalBase:(NSString *)questId mission:(NSString *)missionId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quest/%@/misson/%@%@", questId, missionId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/mission/%@%@", questId, missionId, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_missionInfo andResponse:response];
 }
 
 -(PBRequest *)questAvailableForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
