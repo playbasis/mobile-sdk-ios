@@ -140,11 +140,10 @@
     // get a question from quiz for player
     if(quizId != nil)
     {
-        [[Playbasis sharedPB] quizQuestion:quizId forPlayer:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] quizQuestion:quizId forPlayer:USER withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"response from url %@", [url path]);
-                NSLog(@"response data = %@", [jsonResponse description]);
+                NSLog(@"%@", question);
             }
         }];
     }

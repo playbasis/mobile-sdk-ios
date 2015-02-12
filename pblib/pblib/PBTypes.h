@@ -356,4 +356,13 @@ typedef void (^PBQuizRandom_ResponseBlock)(PBQuizRandom_Response * quizRandom, N
 
 typedef void (^PBQuizDoneList_ResponseBlock)(PBQuizDoneList_Response * quizDoneList, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// QuestionFromQuiz
+///--------------------------------------
+@protocol PBQuestion_ResponseHandler <NSObject>
+-(void)processResponseWithQuestion:(PBQuestion_Response*)question withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestion_ResponseBlock)(PBQuestion_Response * question, NSURL *url, NSError *error);
+
 #endif

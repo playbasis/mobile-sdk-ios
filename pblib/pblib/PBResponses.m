@@ -4895,3 +4895,200 @@
 }
 
 @end
+
+///--------------------------------------
+/// QuestionOption
+///--------------------------------------
+@implementation PBQuestionOption
+
+@synthesize option;
+@synthesize optionImage;
+@synthesize optionId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Qustion Option : {\r\toption : %@\r\toption_image : %@\r\toption_id : %@\r\t}", self.option, self.optionImage, self.optionId];
+    
+    return descriptionString;
+}
+
++(PBQuestionOption *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuestionOption *c = [[PBQuestionOption alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.option = [c.parseLevelJsonResponse objectForKey:@"option"];
+    c.optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
+    c.optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestionOptionArray
+///--------------------------------------
+@implementation PBQuestionOptionArray
+
+@synthesize options;
+
+-(NSString *)description
+{
+    // create string to hold all quiz-basic line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Question Option Array : {"];
+    
+    for(PBQuestionOption *item in self.options)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuestionOptionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result option
+    PBQuestionOptionArray *c = [[PBQuestionOptionArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *optionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *optionJson in optionsJson)
+    {
+        // get option object
+        PBQuestionOption *option = [PBQuestionOption parseFromDictionary:optionJson startFromFinalLevel:YES];
+        
+        [tempArray addObject:option];
+    }
+    
+    // set back to result object
+    c.options = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Question
+///--------------------------------------
+@implementation PBQuestion
+
+@synthesize question;
+@synthesize questionImage;
+@synthesize options;
+@synthesize index;
+@synthesize total;
+@synthesize questionId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Question : {\r\tquestion : %@\r\tquestion_image : %@\r\t%@\r\tindex : %lu\r\ttotal : %lu\r\tquestion_id : %@\r\t}", self.question, self.questionImage, self.options, (unsigned long)self.index, (unsigned long)self.total, self.questionId];
+    
+    return descriptionString;
+}
+
++(PBQuestion *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuestion *c = [[PBQuestion alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.question = [c.parseLevelJsonResponse objectForKey:@"question"];
+    c.questionImage = [c.parseLevelJsonResponse objectForKey:@"question_image"];
+    c.options = [c.parseLevelJsonResponse objectForKey:@"options"];
+    id index = [c.parseLevelJsonResponse objectForKey:@"index"];
+    if([index respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.index = [index unsignedIntegerValue];
+    }
+    
+    id total = [c.parseLevelJsonResponse objectForKey:@"total"];
+    if([total respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.total = [total unsignedIntegerValue];
+    }
+    
+    c.questionId = [c.parseLevelJsonResponse objectForKey:@"question_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Question - Response
+///--------------------------------------
+@implementation PBQuestion_Response
+
+@synthesize question;
+
+-(NSString *)description
+{
+    return [self.question description];
+}
+
++(PBQuestion_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create response
+    PBQuestion_Response *c = [[PBQuestion_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.question = [PBQuestion parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end

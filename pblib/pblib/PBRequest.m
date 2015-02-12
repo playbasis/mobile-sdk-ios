@@ -1150,6 +1150,32 @@
             
             break;
         }
+        case responseType_questionFromQuiz:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuestion:withURL:error:)])
+                {
+                    id<PBQuestion_ResponseHandler> sd = (id<PBQuestion_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuestion_Response *response = [PBQuestion_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuestion:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuestion_Response *response = [PBQuestion_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuestion_ResponseBlock sb = (PBQuestion_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

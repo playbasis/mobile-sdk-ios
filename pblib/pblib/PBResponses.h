@@ -53,7 +53,8 @@ typedef enum
     responseType_activeQuizList,
     responseType_quizDetail,
     responseType_quizRandom,
-    responseType_quizDoneListByPlayer
+    responseType_quizDoneListByPlayer,
+    responseType_questionFromQuiz
 }pbResponseType;
 
 ///--------------------------------------
@@ -1227,6 +1228,57 @@ typedef enum
 @property (strong, nonatomic) PBQuizBasic *randomQuiz;
 
 +(PBQuizRandom_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestionOption
+///--------------------------------------
+@interface PBQuestionOption : PBBase_Response
+
+@property (strong, nonatomic) NSString *option;
+@property (strong, nonatomic) NSString *optionImage;
+@property (strong, nonatomic) NSString *optionId;
+
++(PBQuestionOption *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuestionOptionArray
+///--------------------------------------
+@interface PBQuestionOptionArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *options;
+
++(PBQuestionOptionArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Question
+///--------------------------------------
+@interface PBQuestion : PBBase_Response
+
+@property (strong, nonatomic) NSString *question;
+@property (strong, nonatomic) NSString *questionImage;
+@property (strong, nonatomic) PBQuestionOptionArray *options;
+@property (nonatomic) NSUInteger index;
+@property (nonatomic) NSUInteger total;
+@property (strong, nonatomic) NSString *questionId;
+
++(PBQuestion *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Question - Response
+///--------------------------------------
+@interface PBQuestion_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuestion *question;
+
++(PBQuestion_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
