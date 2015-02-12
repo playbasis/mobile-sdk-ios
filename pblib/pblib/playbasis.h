@@ -398,10 +398,13 @@
 -(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withDelegate:(id<PBMissionInfo_ResponseHandler>)delegate;
 -(PBRequest *)missionAsync:(NSString *)questId mission:(NSString *)missionId withBlock:(PBMissionInfo_ResponseBlock)block;
 
--(PBRequest *)questAvailableForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)questAvailableForPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)questAvailableForPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)questAvailableForPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+/**
+ Return information about all of the quests available for the player.
+ */
+-(PBRequest *)questListAvailableForPlayer:(NSString *)playerId withDelegate:(id<PBQuestListAvailableForPlayer_ResponseHandler>)delegate;
+-(PBRequest *)questListAvailableForPlayer:(NSString *)playerId withBlock:(PBQuestListAvailableForPlayer_ResponseBlock)block;
+-(PBRequest *)questListAvailableForPlayerAsync:(NSString *)playerId withDelegate:(id<PBQuestListAvailableForPlayer_ResponseHandler>)delegate;
+-(PBRequest *)questListAvailableForPlayerAsync:(NSString *)playerId withBlock:(PBQuestListAvailableForPlayer_ResponseBlock)block;
 
 /**
  Return information whether the quest is ready for the player.
@@ -410,14 +413,6 @@
 -(PBRequest *)questAvailable:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequest *)questAvailableAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)questAvailableAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
-
-/**
- Return information about all of the quests available for the player.
- */
--(PBRequest *)questsAvailable:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)questsAvailable:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)questsAvailableAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)questsAvailableAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Player joins a quest.

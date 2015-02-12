@@ -12,13 +12,11 @@
 @interface questPageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
     NSUInteger currentPageIndex;
+    PBQuestListAvailableForPlayer_Response *questListAvailable_;
     PBQuestListOfPlayer_Response *questList_;
 }
 
-@property (strong, nonatomic) NSMutableArray *pageAllQuestIds;
-@property (strong, nonatomic) NSMutableArray *pageAllQuestNames;
-@property (strong, atomic) NSMutableArray *pageAllImages;
-@property (strong, nonatomic) NSMutableArray *pageAllQuestDescriptions;
-@property (strong, nonatomic) NSMutableArray *pageAllQuestRewards;
+@property (strong, nonatomic) NSMutableDictionary *loadedImagesForAllQuests;
+@property (strong, nonatomic) NSMutableArray *allRewardsLinesForAllQuests;
 
 @end

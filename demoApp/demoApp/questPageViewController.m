@@ -25,102 +25,69 @@
     self.delegate = self;
     
     // initialize all empty arrays
-    _pageAllQuestIds = [NSMutableArray array];
-    _pageAllQuestNames = [NSMutableArray array];
-    _pageAllImages = [NSMutableArray array];
-    _pageAllQuestDescriptions = [NSMutableArray array];
-    _pageAllQuestRewards = [NSMutableArray array];
+    _loadedImagesForAllQuests = [NSMutableDictionary dictionary];
+    _allRewardsLinesForAllQuests = [NSMutableArray array];
     
     // load all quests available to player
-    [[Playbasis sharedPB] questsAvailable:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"Response quests availalbe = %@", [jsonResponse description]);
+            // save the response
+            questListAvailable_ = list;
             
-            // get 'response'
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            // get 'quests'
-            NSArray *quests = [response objectForKey:@"quests"];
-            if([quests count] > 0)
+            // async load all image from the quest-list
+            for(PBQuestBasic *q in questListAvailable_.list.questBasics)
             {
-                // set the amount needed to add to images array as it needs to do async downloading thus having to know the size prior to the task
-                for(int i=0; i < [quests count]; i++)
-                {
-                    // add dummy object here, we will modify it later
-                    [_pageAllImages addObject:[[NSObject alloc] init]];
-                }
-                
-                for(int i=0; i < [quests count]; i++)
-                {
-                    // get the current quest
-                    NSDictionary *quest = quests[i];
+                // load and cache images (async)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     
-                    // cache quest id
-                    [_pageAllQuestIds addObject:[quest objectForKey:@"quest_id"]];
-                    
-                    // cache quest name
-                    [_pageAllQuestNames addObject:[quest objectForKey:@"quest_name"]];
-                    
-                    // load and cache images (async)
                     // get question's image url
-                    NSString *imageUrl = [quest objectForKey:@"image"];
+                    NSString *imageUrl = q.image;
                     
                     // async loading image
                     // load and cache image from above url
                     NSURL *url = [NSURL URLWithString:imageUrl];
                     NSData *imageData = [NSData dataWithContentsOfURL:url];
                     
-                    // replace to 'toSaveIndex' index
-                    [self.pageAllImages replaceObjectAtIndex:i withObject:[[UIImage alloc] initWithData:imageData]];
+                    [self.loadedImagesForAllQuests setValue:[[UIImage alloc] initWithData:imageData] forKey:q.questId];
                     
-                    // cache quest description
-                    [_pageAllQuestDescriptions addObject:[quest objectForKey:@"description"]];
+                });
+                
+                if([q.rewards.rewards count] > 0)
+                {
+                    NSMutableString *rewardsLines = [NSMutableString string];
                     
-                    // cache quest rewards
-                    NSArray *rewards = [quest objectForKey:@"rewards"];
-                    if([rewards count] > 0)
+                    for(PBReward *reward in q.rewards.rewards)
                     {
-                        NSMutableString *rewardsLines = [NSMutableString string];
+                        NSString *rewardValue = reward.rewardValue;
                         
-                        for(NSDictionary *reward in rewards)
+                        if(reward.rewardName != nil)
                         {
-                            NSInteger rewardValue = [[reward objectForKey:@"reward_value"] integerValue];
+                            // form the line
+                            NSString *line = [NSString stringWithFormat:@"%@: %@", reward.rewardName, rewardValue];
                             
-                            NSDictionary *rewardData = [reward objectForKey:@"reward_data"];
-                            if(rewardData != nil)
-                            {
-                                NSString *rewardName = [rewardData objectForKey:@"name"];
-                                
-                                // form the line
-                                NSString *line = [NSString stringWithFormat:@"%@: %u", rewardName, rewardValue];
-                                
-                                // append to the result string
-                                if([rewardsLines length] == 0)
-                                    rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                                else
-                                    rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                            }
+                            // append to the result string
+                            if([rewardsLines length] == 0)
+                                rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
                             else
-                            {
-                                // form the line (without reward name)
-                                NSString *line = [NSString stringWithFormat:@"Unknown type: %u", rewardValue];
-                                
-                                // append to the result string
-                                if([rewardsLines length] == 0)
-                                    rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                                else
-                                    rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                            }
+                                rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
                         }
-                        
-                        // add to array
-                        [_pageAllQuestRewards addObject:rewardsLines];
+                        else
+                        {
+                            // form the line (without reward name)
+                            NSString *line = [NSString stringWithFormat:@"Unknown type: %@", rewardValue];
+                            
+                            // append to the result string
+                            if([rewardsLines length] == 0)
+                                rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
+                            else
+                                rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
+                        }
                     }
+                    
+                    // add to array
+                    [_allRewardsLinesForAllQuests addObject:rewardsLines];
                 }
-            }
-            else
-            {
-                NSLog(@"There's no any quests left");
             }
         }
     }];
@@ -173,7 +140,7 @@
     }
     
     index++;
-    if(index == [_pageAllQuestIds count])
+    if(index == [questListAvailable_.list.questBasics count])
     {
         return nil;
     }
@@ -182,7 +149,7 @@
 
 - (questDemoViewController*)viewControllerAtIndex:(NSUInteger)index
 {
-    if(([_pageAllQuestIds count] == 0) || (index >= [_pageAllQuestIds count]))
+    if(([questListAvailable_.list.questBasics count] == 0) || (index >= [questListAvailable_.list.questBasics count]))
     {
         return nil;
     }
@@ -190,16 +157,19 @@
     // get quest at the specified index
     PBQuest *quest = [questList_.questList.quests objectAtIndex:index];
     
+    // get quest basic
+    PBQuestBasic *questBasic = [questListAvailable_.list.questBasics objectAtIndex:index];
+    
     // create a new view controller and pass suitable data
     questDemoViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"questContentViewController"];
     contentViewController.pageIndex = index;
     
     // set text string to be loaded into ui when the view controller is loaded
-    contentViewController.questId = [_pageAllQuestIds objectAtIndex:index];
-    contentViewController.questName = [_pageAllQuestNames objectAtIndex:index];
-    contentViewController.questImage = [_pageAllImages objectAtIndex:index];
-    contentViewController.questDescription = [_pageAllQuestDescriptions objectAtIndex:index];
-    contentViewController.questRewards = [_pageAllQuestRewards objectAtIndex:index];
+    contentViewController.questId = questBasic.questId;
+    contentViewController.questName = questBasic.questName;
+    contentViewController.questImage = [_loadedImagesForAllQuests objectForKey:questBasic.questId];
+    contentViewController.questDescription = questBasic.description_;
+    contentViewController.questRewards = [_allRewardsLinesForAllQuests objectAtIndex:index];
     contentViewController.questStatus = quest.status;
     
     return contentViewController;
@@ -207,7 +177,7 @@
 
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
-    return [_pageAllQuestIds count];
+    return [questListAvailable_.list.questBasics count];
 }
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController

@@ -302,4 +302,13 @@ typedef void (^PBRecentPoint_ResponseBlock)(PBRecentPointArray_Response * recent
 
 typedef void (^PBMissionInfo_ResponseBlock)(PBMissionInfo_Response * missionInfo, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// QuestListAvailableForPlayer
+///--------------------------------------
+@protocol PBQuestListAvailableForPlayer_ResponseHandler <NSObject>
+-(void)processResponseWithQuestListAvailableForPlayer:(PBQuestListAvailableForPlayer_Response*)list withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestListAvailableForPlayer_ResponseBlock)(PBQuestListAvailableForPlayer_Response * list, NSURL *url, NSError *error);
+
 #endif

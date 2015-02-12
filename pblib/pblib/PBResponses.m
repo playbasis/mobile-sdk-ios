@@ -2515,6 +2515,7 @@
     c.completionId = [c.parseLevelJsonResponse objectForKey:@"completion_id"];
     c.completionType = [c.parseLevelJsonResponse objectForKey:@"completion_type"];
     c.completionElementId = [c.parseLevelJsonResponse objectForKey:@"completion_element_id"];
+    c.completionTitle = [c.parseLevelJsonResponse objectForKey:@"completion_title"];
     
     c.completionData = [PBCompletionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion_data"] startFromFinalLevel:YES];
     
@@ -3917,6 +3918,51 @@
     
     c.missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestListAvailableForPlayer
+///--------------------------------------
+@implementation PBQuestListAvailableForPlayer_Response
+
+@synthesize list;
+
+-(NSString *)description
+{
+    return [self.list description];
+}
+
++(PBQuestListAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBQuestListAvailableForPlayer_Response *c = [[PBQuestListAvailableForPlayer_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'quests'
+        NSDictionary *quests = [response objectForKey:@"quests"];
+        NSAssert(quests != nil, @"quests must not be nil");
+        
+        c.parseLevelJsonResponse = quests;
+    }
+    
+    // parse
+    c.list = [PBQuestBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
