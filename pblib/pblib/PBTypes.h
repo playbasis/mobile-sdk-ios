@@ -284,4 +284,13 @@ typedef void (^PBQuestList_ResponseBlock)(PBQuestList_Response * questList, NSUR
 
 typedef void (^PBQuestInfo_ResponseBlock)(PBQuestInfo_Response * questInfo, NSURL *url, NSError *error);
 
+///----------------
+/// Recent point
+///----------------
+@protocol PBRecentPoint_ResponseHandler <NSObject>
+-(void)processResponseWithRecentPoint:(PBRecentPointArray_Response*)recentPoints withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBRecentPoint_ResponseBlock)(PBRecentPointArray_Response * recentPoints, NSURL *url, NSError *error);
+
 #endif

@@ -80,9 +80,9 @@
 @end
 
 ///--------------------------------------
-/// PlayerPublic
+/// Player Info Basic
 ///--------------------------------------
-@implementation PBPlayerPublic_Response
+@implementation PBPlayerBasic : PBBase_Response
 
 @synthesize image;
 @synthesize userName;
@@ -91,14 +91,54 @@
 @synthesize firstName;
 @synthesize lastName;
 @synthesize gender;
-@synthesize registered;
-@synthesize lastLogin;
-@synthesize lastLogout;
 @synthesize clPlayerId;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Player's Public Information : {\r\timage : %@\r\tuserName : %@\r\texp : %lu\r\tlevel : %lu\r\tfirst_name : %@\r\tlast_name : %@\r\tgender : %lu\r\tregistered : %@\r\tlast_login : %@\r\tlast_logout : %@\r\tcl_player_id : %@\r\t}", self.image, self.userName, (unsigned long)self.exp, (unsigned long)self.level, self.firstName, self.lastName, (unsigned long)self.gender, self.registered, self.lastLogin, self.lastLogout, self.clPlayerId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Player's Public Information : {\r\timage : %@\r\tuserName : %@\r\texp : %lu\r\tlevel : %lu\r\tfirst_name : %@\r\tlast_name : %@\r\tgender : %lu\r\tcl_player_id : %@\r\t}", self.image, self.userName, (unsigned long)self.exp, (unsigned long)self.level, self.firstName, self.lastName, (unsigned long)self.gender, self.clPlayerId];
+    
+    return descriptionString;
+}
+
++(PBPlayerBasic*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBPlayerBasic *c = [[PBPlayerBasic alloc] init];
+    
+    // ignore start level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.userName = [c.parseLevelJsonResponse objectForKey:@"username"];
+    c.exp = [[c.parseLevelJsonResponse objectForKey:@"exp"] unsignedIntegerValue];
+    c.level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
+    c.firstName = [c.parseLevelJsonResponse objectForKey:@"first_name"];
+    c.lastName = [c.parseLevelJsonResponse objectForKey:@"last_name"];
+    c.gender = [[c.parseLevelJsonResponse objectForKey:@"gender"] unsignedIntegerValue];
+    c.clPlayerId = [c.parseLevelJsonResponse objectForKey:@"cl_player_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PlayerPublic
+///--------------------------------------
+@implementation PBPlayerPublic_Response
+
+@synthesize playerBasic;
+@synthesize registered;
+@synthesize lastLogin;
+@synthesize lastLogout;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Player's Public Information : {\r\t%@\r\tregistered : %@\r\tlast_login : %@\r\tlast_logout : %@\r\t}", self.playerBasic, self.registered, self.lastLogin, self.lastLogout];
     return descriptionString;
 }
 
@@ -127,13 +167,8 @@
         c.parseLevelJsonResponse = player;
     }
     
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.userName = [c.parseLevelJsonResponse objectForKey:@"username"];
-    c.exp = [[c.parseLevelJsonResponse objectForKey:@"exp"] unsignedIntegerValue];
-    c.level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
-    c.firstName = [c.parseLevelJsonResponse objectForKey:@"first_name"];
-    c.lastName = [c.parseLevelJsonResponse objectForKey:@"last_name"];
-    c.gender = [[c.parseLevelJsonResponse objectForKey:@"gender"] unsignedIntegerValue];
+    // parse player's basic information
+    c.playerBasic = [PBPlayerBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -143,8 +178,6 @@
     c.registered = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"registered"]];
     c.lastLogin = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_login"]];
     c.lastLogout = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_logout"]];
-    
-    c.clPlayerId = [c.parseLevelJsonResponse objectForKey:@"cl_player_id"];
     
     return c;
 }
@@ -162,7 +195,8 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Player Information : {\r\timage : %@\r\temail : %@\r\tuserName : %@\r\texp : %u\r\tlevel : %u\r\tphone_number : %@\r\tfirst_name : %@\r\tlast_name : %@\r\tgender : %u\r\tregistered : %@\r\tlast_login : %@\r\tlast_logout : %@\r\tcl_player_id : %@\r\t}", self.playerPublic.image, self.email, self.playerPublic.userName, (unsigned int)self.playerPublic.exp, (unsigned int)self.playerPublic.level, self.phoneNumber, self.playerPublic.firstName, self.playerPublic.lastName, (unsigned int)self.playerPublic.gender, self.playerPublic.registered, self.playerPublic.lastLogin, self.playerPublic.lastLogout, self.playerPublic.clPlayerId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Player : {\r\t%@\r\temail : %@\r\tphoneNumber : %@\r\t}", self.playerPublic, self.email, self.phoneNumber];
+    
     return descriptionString;
 }
 
@@ -3706,3 +3740,140 @@
 
 @end
 
+///--------------------------------------
+/// Recent Point
+///--------------------------------------
+@implementation PBRecentPoint
+
+@synthesize message;
+@synthesize rewardId;
+@synthesize rewardName;
+@synthesize value;
+@synthesize dateAdded;
+@synthesize playerBasic;
+@synthesize actionName;
+@synthesize stringFilter;
+@synthesize actionIcon;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Recent point : {\r\tmessage : %@\r\treward_id : %@\r\treward_name : %@\r\tvalue = %lu\r\tdate_added : %@\r\t%@\r\taction_name : %@\r\tstring_filter : %@\r\taction_icon : %@\r\t}", self.message, self.rewardId, self.rewardName, (unsigned long)self.value, self.dateAdded, self.playerBasic, self.actionName, self.stringFilter, self.actionIcon];
+    
+    return descriptionString;
+}
+
++(PBRecentPoint *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBRecentPoint *c = [[PBRecentPoint alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    c.message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    id value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    if([value respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.value = [value unsignedIntegerValue];
+    }
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    
+    // parse playerbasic
+    c.playerBasic = [PBPlayerBasic parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"player"] startFromFinalLevel:YES];
+    
+    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c.stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
+    c.actionIcon = [c.parseLevelJsonResponse objectForKey:@"action_icon"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Recent Point Array
+///--------------------------------------
+@implementation PBRecentPointArray_Response
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all action-config line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Recent Points : {"];
+    
+    for(PBRecentPoint *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRecentPointArray_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBRecentPointArray_Response *c = [[PBRecentPointArray_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'points'
+        NSDictionary *points = [response objectForKey:@"points"];
+        NSAssert(points != nil, @"points must not be nil");
+        
+        c.parseLevelJsonResponse = points;
+    }
+    
+    // convert json into array
+    NSArray *pointsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *pointJson in pointsJson)
+    {
+        // get point
+        PBRecentPoint *point = [PBRecentPoint parseFromDictionary:pointJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:point];
+    }
+    
+    // set back to response
+    c.list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end

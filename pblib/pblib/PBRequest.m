@@ -942,6 +942,32 @@
             
             break;
         }
+        case responseType_recentPoint:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithRecentPoint:withURL:error:)])
+                {
+                    id<PBRecentPoint_ResponseHandler> sd = (id<PBRecentPoint_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBRecentPointArray_Response *response = [PBRecentPointArray_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithRecentPoint:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBRecentPointArray_Response *response = [PBRecentPointArray_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBRecentPoint_ResponseBlock sb = (PBRecentPoint_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

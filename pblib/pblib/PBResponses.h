@@ -46,6 +46,7 @@ typedef enum
     responseType_questList,
     responseType_questInfo,
     responseType_actionConfig,
+    responseType_recentPoint
 }pbResponseType;
 
 ///--------------------------------------
@@ -68,10 +69,11 @@ typedef enum
 +(PBAuth_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
+
 ///--------------------------------------
-/// Player Info - Public Data Only
+/// Player Info Basic
 ///--------------------------------------
-@interface PBPlayerPublic_Response : PBBase_Response
+@interface PBPlayerBasic : PBBase_Response
 
 @property (strong, nonatomic) NSString *image;
 @property (strong, nonatomic) NSString *userName;
@@ -80,10 +82,21 @@ typedef enum
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
 @property (nonatomic) NSUInteger gender;
+@property (strong, nonatomic) NSString* clPlayerId;
+
++(PBPlayerBasic*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Player Info - Public Data Only
+///--------------------------------------
+@interface PBPlayerPublic_Response : PBBase_Response
+
+@property (strong, nonatomic) PBPlayerBasic *playerBasic;
 @property (strong, nonatomic) NSDate *registered;
 @property (strong, nonatomic) NSDate *lastLogin;
 @property (strong, nonatomic) NSDate *lastLogout;
-@property (strong, nonatomic) NSString* clPlayerId;
 
 +(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -917,6 +930,36 @@ typedef enum
 @property (strong, nonatomic) PBActionConfigArray *list;
 
 +(PBActionConfig_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Recent Point
+///--------------------------------------
+@interface PBRecentPoint : PBBase_Response
+
+@property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) NSString *rewardId;
+@property (strong, nonatomic) NSString *rewardName;
+@property (nonatomic) NSUInteger value;
+@property (strong, nonatomic) NSDate *dateAdded;
+@property (strong, nonatomic) PBPlayerBasic *playerBasic;
+@property (strong, nonatomic) NSString *actionName;
+@property (strong, nonatomic) NSString *stringFilter;
+@property (strong, nonatomic) NSString *actionIcon;
+
++(PBRecentPoint *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Recent Point Array
+///--------------------------------------
+@interface PBRecentPointArray_Response : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBRecentPointArray_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

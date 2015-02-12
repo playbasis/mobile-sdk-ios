@@ -112,10 +112,10 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] actionConfigWithBlock:^(PBActionConfig_Response *actionConfigs, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] recentPoint:0 limit:10 withBlock:^(PBRecentPointArray_Response *recentPoints, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"%@", actionConfigs);
+                    NSLog(@"%@", recentPoints);
                 }
             }];
         }
