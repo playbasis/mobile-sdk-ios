@@ -45,7 +45,7 @@
 
 +(PBAuth_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -102,7 +102,7 @@
 
 +(PBPlayerBasic*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -144,7 +144,7 @@
 
 +(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -202,7 +202,7 @@
 
 +(PBPlayer_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -272,7 +272,7 @@
 
 +(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result playerList object
@@ -337,7 +337,7 @@
 
 +(PBPoint*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -387,7 +387,7 @@
 
 +(PBPoint_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -463,7 +463,7 @@
 
 +(PBPoints_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -532,7 +532,7 @@
 
 +(PBBadge_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -601,7 +601,7 @@
 
 +(PBBadges_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -670,7 +670,7 @@
 
 +(PBPlayerBadge *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -724,7 +724,7 @@
 
 +(PBPlayerBadges_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result
@@ -786,7 +786,7 @@
 
 +(PBPlayerDetailedPublic_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -853,7 +853,7 @@
 
 +(PBPlayerDetailed_Response*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -922,7 +922,7 @@
 
 +(PBPointHistory *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -983,7 +983,7 @@
 
 +(PBPointHistory_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -1047,7 +1047,7 @@
 
 +(PBActionTime_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1104,7 +1104,7 @@
 
 +(PBLastAction_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1161,7 +1161,7 @@
 
 +(PBActionCount_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1214,7 +1214,7 @@
 
 +(PBLevel_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1283,7 +1283,7 @@
 
 +(PBLevels_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1344,7 +1344,7 @@
 
 +(PBRank *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -1414,7 +1414,7 @@
 
 +(PBRank_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -1498,7 +1498,7 @@
 
 +(PBRanks_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -1570,7 +1570,7 @@
 
 +(PBCustom *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result response
@@ -1620,7 +1620,7 @@
 
 +(PBCustoms *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1670,7 +1670,7 @@
 
 +(PBRedeem *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1716,7 +1716,7 @@
 
 +(PBGoods *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1775,7 +1775,7 @@
 
 +(PBGoodsInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1844,7 +1844,7 @@
 
 +(PBGoodsListInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1906,7 +1906,7 @@
 
 +(PBGoodsGroupAvailable_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -1955,7 +1955,7 @@
 
 +(PBPlayerGoodsOwned *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -2012,7 +2012,7 @@
 
 +(PBPlayerGoodsOwned_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -2077,7 +2077,7 @@
 
 +(PBReward *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2124,7 +2124,7 @@
 
 +(PBQuestReward *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2189,7 +2189,7 @@
 
 +(PBQuestRewardArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2235,7 +2235,7 @@
 
 +(PBQuestRewardHistoryOfPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -2297,7 +2297,7 @@
 
 +(PBRewardArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2348,7 +2348,7 @@
 
 +(PBIncomplete *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2406,7 +2406,7 @@
 
 +(PBIncompleteArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2458,7 +2458,7 @@
 
 +(PBCompletionData *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2500,7 +2500,7 @@
 
 +(PBCompletion *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2555,7 +2555,7 @@
 
 +(PBCompletionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2605,7 +2605,7 @@
 
 +(PBPending *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2656,7 +2656,7 @@
 
 +(PBPendingArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2711,7 +2711,7 @@
 
 +(PBMissionBasic *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2766,7 +2766,7 @@
 
 +(PBMissionBasicArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2817,7 +2817,7 @@
 
 +(PBMission *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -2878,7 +2878,7 @@
 
 +(PBMissionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2929,7 +2929,7 @@
 
 +(PBConditionData *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -2968,7 +2968,7 @@
 
 +(PBCondition *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3019,7 +3019,7 @@
 
 +(PBConditionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -3080,7 +3080,7 @@
 
 +(PBQuestBasic *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3139,7 +3139,7 @@
 
 +(PBQuestInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -3200,7 +3200,7 @@
 
 +(PBQuest *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3273,7 +3273,7 @@
 
 +(PBQuestBasicArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -3336,7 +3336,7 @@
 
 +(PBQuestArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -3382,7 +3382,7 @@
 
 +(PBQuestOfPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -3427,7 +3427,7 @@
 
 +(PBQuestListOfPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3472,7 +3472,7 @@
 
 +(PBQuestList_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3519,7 +3519,7 @@
 
 +(PBConfig *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3567,7 +3567,7 @@
 
 +(PBConfigArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3616,7 +3616,7 @@
 
 +(PBActionConfig *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3665,7 +3665,7 @@
 
 +(PBActionConfigArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3715,7 +3715,7 @@
 
 +(PBActionConfig_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -3765,7 +3765,7 @@
 
 +(PBRecentPoint *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -3833,7 +3833,7 @@
 
 +(PBRecentPointArray_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -3897,7 +3897,7 @@
 +(PBMissionInfo_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -3938,7 +3938,7 @@
 
 +(PBQuestListAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -3987,7 +3987,7 @@
 
 +(PBQuestAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -4033,7 +4033,7 @@
 
 +(PBGradeRewardCustom *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4082,7 +4082,7 @@
 
 +(PBGradeRewardCustomArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4132,7 +4132,7 @@
 
 +(PBGradeRewards *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4173,7 +4173,7 @@
 
 +(PBGrade *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4226,7 +4226,7 @@
 }
 +(PBGradeArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4267,18 +4267,19 @@
 @synthesize image;
 @synthesize weight;
 @synthesize description_;
+@synthesize descriptionImage;
 @synthesize quizId;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %@\r\tdescription : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.quizId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %@\r\tdescription : %@\r\tdescription_image : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.descriptionImage, self.quizId];
     
     return descriptionString;
 }
 
 +(PBQuizBasic *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4292,6 +4293,7 @@
     c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
     c.weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
     c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
     c.quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
     
     return c;
@@ -4308,7 +4310,6 @@
 @synthesize dateStart;
 @synthesize dateExpire;
 @synthesize status;
-@synthesize descriptionImage;
 @synthesize grades;
 @synthesize deleted;
 @synthesize totalMaxScore;
@@ -4316,14 +4317,14 @@
 
 - (NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quiz : {\r\t%@\r\tdate_start : %@\r\tdate_expire : %@\r\tstatus : %@\r\tdescription_image : %@\r\tgrades : %@\r\tdeleted : %@\r\ttotal_max_score : %lu\r\ttotal_questions : %lu\r\t}", self.basic, self.dateStart, self.dateExpire, self.status ? @"YES" : @"NO", self.descriptionImage, self.grades, self.deleted ? @"YES" : @"NO", (unsigned long)self.totalMaxScore,  (unsigned long)self.totalQuestions];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz : {\r\t%@\r\tdate_start : %@\r\tdate_expire : %@\r\tstatus : %@\r\tgrades : %@\r\tdeleted : %@\r\ttotal_max_score : %lu\r\ttotal_questions : %lu\r\t}", self.basic, self.dateStart, self.dateExpire, self.status ? @"YES" : @"NO", self.grades, self.deleted ? @"YES" : @"NO", (unsigned long)self.totalMaxScore,  (unsigned long)self.totalQuestions];
     
     return descriptionString;
 }
 
 +(PBQuiz *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result object
@@ -4349,7 +4350,6 @@
         c.dateExpire = [dateFormatter dateFromString:dateExpire];
     
     c.status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
-    c.descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
     
     c.grades = [PBGradeArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grades"] startFromFinalLevel:YES];
     
@@ -4402,7 +4402,7 @@
 
 +(PBQuizBasicArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create result object
@@ -4448,7 +4448,7 @@
 
 +(PBActiveQuizList_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a response
@@ -4493,7 +4493,7 @@
 
 +(PBQuizDetail_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    if(jsonResponse == nil)
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
         return nil;
     
     // create a result response
@@ -4518,6 +4518,51 @@
     
     // parse
     c.quiz = [PBQuiz parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuizRandom - Response
+///--------------------------------------
+@implementation PBQuizRandom_Response
+
+@synthesize randomQuiz;
+
+-(NSString *)description
+{
+    return [self.randomQuiz description];
+}
+
++(PBQuizRandom_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a response
+    PBQuizRandom_Response *c = [[PBQuizRandom_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.randomQuiz = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }

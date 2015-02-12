@@ -1098,6 +1098,32 @@
             
             break;
         }
+        case responseType_quizRandom:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuizRandom:withURL:error:)])
+                {
+                    id<PBQuizRandom_ResponseHandler> sd = (id<PBQuizRandom_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuizRandom_Response *response = [PBQuizRandom_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuizRandom:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuizRandom_Response *response = [PBQuizRandom_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuizRandom_ResponseBlock sb = (PBQuizRandom_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

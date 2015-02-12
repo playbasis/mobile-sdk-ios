@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "playbasis.h"
 
 @interface quizDemoViewController : UIViewController
 {
-    NSDictionary *quizJsonResponse;
+    PBQuizRandom_Response *quizResponse;
     UIImage *cachedQuizImage;
 }
 

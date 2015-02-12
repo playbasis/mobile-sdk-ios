@@ -513,10 +513,10 @@
 /**
  Get a random of quiz from available quizzes of player.
  */
--(PBRequest *)quizRandom:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)quizRandom:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)quizRandomAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)quizRandomAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizRandom:(NSString *)playerId withDelegate:(id<PBQuizRandom_ResponseHandler>)delegate;
+-(PBRequest *)quizRandom:(NSString *)playerId withBlock:(PBQuizRandom_ResponseBlock)block;
+-(PBRequest *)quizRandomAsync:(NSString *)playerId withDelegate:(id<PBQuizRandom_ResponseHandler>)delegate;
+-(PBRequest *)quizRandomAsync:(NSString *)playerId withBlock:(PBQuizRandom_ResponseBlock)block;
 
 /**
  Get recent quizzes done by player.

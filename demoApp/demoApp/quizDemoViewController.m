@@ -7,7 +7,6 @@
 //
 
 #import "quizDemoViewController.h"
-#import "playbasis.h"
 #import "demoAppSettings.h"
 #import "quizScreenViewController.h"
 
@@ -31,25 +30,17 @@
 
 -(void)loadQuizAsync
 {
-    // load information in async as we need UI to still be in updating
-    [[Playbasis sharedPB] quizRandomAsync:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizRandomAsync:USER withBlock:^(PBQuizRandom_Response *quizRandom, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"response from url %@", [url path]);
-            NSLog(@"response data = %@", [jsonResponse description]);
-            
-            // get json-response, and save it internally for use later when
-            // we trainsition into another UIViewController
-            NSDictionary *rootResponse = [jsonResponse objectForKey:@"response"];
-            quizJsonResponse = [rootResponse objectForKey:@"result"];
-            
-            NSLog(@"quizJsonResponse = %@", [quizJsonResponse description]);
-            
-            // only if 'quizJsonResponse' is NSDictionary type
-            if(quizJsonResponse != nil && [quizJsonResponse isKindOfClass:[NSDictionary class]])
+            // if there's quiz to be taken
+            if(quizRandom.randomQuiz != nil)
             {
+                // save response
+                quizResponse = quizRandom;
+                
                 // get quiz's image url
-                NSString *quizImageUrl = [quizJsonResponse objectForKey:@"image"];
+                NSString *quizImageUrl = quizRandom.randomQuiz.image;
                 // load and cache image from above url
                 NSURL *url = [NSURL URLWithString:quizImageUrl];
                 NSData *imageData = [NSData dataWithContentsOfURL:url];
@@ -122,11 +113,10 @@
     }
     
     // get random quiz from available list of quiz
-    [[Playbasis sharedPB] quizRandom:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizRandom:USER withBlock:^(PBQuizRandom_Response *quizRandom, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"response from url %@", [url path]);
-            NSLog(@"response data = %@", [jsonResponse description]);
+            NSLog(@"%@", quizRandom);
         }
     }];
     
@@ -202,10 +192,10 @@
         quizScreenViewController *quizScreen = [segue destinationViewController];
         
         // set all loaded information to target screen
-        quizScreen.quizId = [quizJsonResponse objectForKey:@"quiz_id"];
-        quizScreen.quizName = [quizJsonResponse objectForKey:@"name"];
+        quizScreen.quizId = quizResponse.randomQuiz.quizId;
+        quizScreen.quizName = quizResponse.randomQuiz.name;
         quizScreen.quizImage = cachedQuizImage;
-        quizScreen.quizDescription = [quizJsonResponse objectForKey:@"description"];
+        quizScreen.quizDescription = quizResponse.randomQuiz.description_;
     }
 }
 

@@ -51,7 +51,8 @@ typedef enum
     responseType_questListAvailableForPlayer,
     responseType_questAvailableForPlayer,
     responseType_activeQuizList,
-    responseType_quizDetail
+    responseType_quizDetail,
+    responseType_quizRandom
 }pbResponseType;
 
 ///--------------------------------------
@@ -1077,6 +1078,7 @@ typedef enum
 @property (strong, nonatomic) NSString *image;
 @property (strong, nonatomic) NSString *weight;
 @property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *descriptionImage;
 @property (strong, nonatomic) NSString *quizId;
 
 +(PBQuizBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
@@ -1092,7 +1094,6 @@ typedef enum
 @property (strong, nonatomic) NSDate *dateStart;
 @property (strong, nonatomic) NSDate *dateExpire;
 @property (nonatomic) BOOL status;
-@property (strong, nonatomic) NSString *descriptionImage;
 @property (strong, nonatomic) PBGradeArray *grades;
 @property (nonatomic) BOOL deleted;
 @property (nonatomic) NSUInteger totalMaxScore;
@@ -1132,6 +1133,17 @@ typedef enum
 @property (strong, nonatomic) PBQuiz *quiz;
 
 +(PBQuizDetail_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizRandom - Response
+///--------------------------------------
+@interface PBQuizRandom_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuizBasic *randomQuiz;
+
++(PBQuizRandom_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
