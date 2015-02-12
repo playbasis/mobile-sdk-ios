@@ -4017,6 +4017,248 @@
 @end
 
 ///--------------------------------------
+/// GradeRewardCustom
+///--------------------------------------
+@implementation PBGradeRewardCustom
+
+@synthesize customId;
+@synthesize customValue;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Grade Reward Custom : {\r\tcustom_id : %@\r\tcustom_value : %@\r\t}", self.customId, self.customValue];
+    
+    return descriptionString;
+}
+
++(PBGradeRewardCustom *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBGradeRewardCustom *c = [[PBGradeRewardCustom alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.customId = [c.parseLevelJsonResponse objectForKey:@"custom_id"];
+    c.customValue = [c.parseLevelJsonResponse objectForKey:@"custom_value"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// GradeRewardCustomArray
+///--------------------------------------
+@implementation PBGradeRewardCustomArray
+
+@synthesize gradeRewardCustoms;
+
+-(NSString *)description
+{
+    // create string to hold all grade-reward-custom line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Grade Reward Custom Array : {"];
+    
+    for(PBGradeRewardCustom *item in self.gradeRewardCustoms)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBGradeRewardCustomArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBGradeRewardCustomArray *c = [[PBGradeRewardCustomArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *grcsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *grcJson in grcsJson)
+    {
+        // get grade reward custom object
+        PBGradeRewardCustom *grc = [PBGradeRewardCustom parseFromDictionary:grcJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:grc];
+    }
+    
+    // set back array to result object
+    c.gradeRewardCustoms = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// GradeRewards
+///--------------------------------------
+@implementation PBGradeRewards
+
+@synthesize expValue;
+@synthesize pointValue;
+@synthesize customList;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Grade Rewards : {\r\texp_value : %@\r\tpoint_value : %@\r\t%@\r\t}", self.expValue, self.pointValue, self.customList];
+    
+    return descriptionString;
+}
+
++(PBGradeRewards *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBGradeRewards *c = [[PBGradeRewards alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.expValue = [[c.parseLevelJsonResponse objectForKey:@"exp"] objectForKey:@"exp_value"];
+    c.pointValue = [[c.parseLevelJsonResponse objectForKey:@"point"] objectForKey:@"point_value"];
+    c.customList = [PBGradeRewardCustomArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES
+                    ];
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Grade
+///--------------------------------------
+@implementation PBGrade
+
+@synthesize gradeId;
+@synthesize start;
+@synthesize end;
+@synthesize grade;
+@synthesize rank;
+@synthesize rankImage;
+@synthesize rewards;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Grade : {\r\tgrade_id : %@\r\tstart : %@\r\tend : %@\r\tgrade : %@\r\trank : %@\r\trank_image : %@\r\t%@\r\t}", self.gradeId, self.start, self.end, self.grade, self.rank, self.rankImage, self.rewards];
+    
+    return descriptionString;
+}
+
++(PBGrade *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBGrade *c = [[PBGrade alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
+    c.start = [c.parseLevelJsonResponse objectForKey:@"start"];
+    c.end = [c.parseLevelJsonResponse objectForKey:@"end"];
+    c.grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
+    c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
+    c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
+    c.rewards = [PBGradeRewards parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// GradeArray
+///--------------------------------------
+@implementation PBGradeArray
+
+@synthesize grades;
+
+-(NSString *)description
+{
+    // create string to hold all grade line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Grade Array : {"];
+    
+    for(PBGrade *item in self.grades)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
++(PBGradeArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBGradeArray *c = [[PBGradeArray alloc] init];
+    
+    // ignroe parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *gradesJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *gradeJson in gradesJson)
+    {
+        // get grade object
+        PBGrade *grade = [PBGrade parseFromDictionary:gradeJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:grade];
+    }
+    
+    // set back to result object
+    c.grades = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// QuizBasic
 ///--------------------------------------
 @implementation PBQuizBasic
@@ -4051,6 +4293,78 @@
     c.weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
     c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     c.quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Quiz
+///--------------------------------------
+@implementation PBQuiz
+
+@synthesize basic;
+@synthesize dateStart;
+@synthesize dateExpire;
+@synthesize status;
+@synthesize descriptionImage;
+@synthesize grades;
+@synthesize deleted;
+@synthesize totalMaxScore;
+@synthesize totalQuestions;
+
+- (NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz : {\r\t%@\r\tdate_start : %@\r\tdate_expire : %@\r\tstatus : %@\r\tdescription_image : %@\r\tgrades : %@\r\tdeleted : %@\r\ttotal_max_score : %lu\r\ttotal_questions : %lu\r\t}", self.basic, self.dateStart, self.dateExpire, self.status ? @"YES" : @"NO", self.descriptionImage, self.grades, self.deleted ? @"YES" : @"NO", (unsigned long)self.totalMaxScore,  (unsigned long)self.totalQuestions];
+    
+    return descriptionString;
+}
+
++(PBQuiz *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBQuiz *c = [[PBQuiz alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.basic = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    id dateStart = [c.parseLevelJsonResponse objectForKey:@"date_start"];
+    if(dateStart != [NSNull null])
+        c.dateStart = [dateFormatter dateFromString:dateStart];
+    
+    id dateExpire = [c.parseLevelJsonResponse objectForKey:@"date_expire"];
+    if(dateExpire != [NSNull null])
+        c.dateExpire = [dateFormatter dateFromString:dateExpire];
+    
+    c.status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
+    c.descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
+    
+    c.grades = [PBGradeArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grades"] startFromFinalLevel:YES];
+    
+    c.deleted = [[c.parseLevelJsonResponse objectForKey:@"deleted"] boolValue];
+    id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+    }
+    
+    id totalQuestions = [c.parseLevelJsonResponse objectForKey:@"total_questions"];
+    if([totalQuestions respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalQuestions = [totalQuestions unsignedIntegerValue];
+    }
     
     return c;
 }
@@ -4159,6 +4473,51 @@
     
     // parse
     c.list = [PBQuizBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuizDetail - Response
+///--------------------------------------
+@implementation PBQuizDetail_Response
+
+@synthesize quiz;
+
+-(NSString *)description
+{
+    return [self.quiz description];
+}
+
++(PBQuizDetail_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result response
+    PBQuizDetail_Response *c = [[PBQuizDetail_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.quiz = [PBQuiz parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }

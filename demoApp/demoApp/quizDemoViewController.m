@@ -102,11 +102,10 @@
     // get detail of a quiz (without player-id)
     if(quizId != nil)
     {
-        [[Playbasis sharedPB] quizDetail:quizId withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] quizDetail:quizId withBlock:^(PBQuizDetail_Response *quizDetail, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"response from url %@", [url path]);
-                NSLog(@"response data = %@", [jsonResponse description]);
+                NSLog(@"%@", quizDetail);
             }
         }];
     }
@@ -114,11 +113,10 @@
     // get detail of a quiz
     if(quizId != nil)
     {
-        [[Playbasis sharedPB] quizDetail:quizId forPlayer:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] quizDetail:quizId forPlayer:USER withBlock:^(PBQuizDetail_Response *quizDetail, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"response from url %@", [url path]);
-                NSLog(@"response data = %@", [jsonResponse description]);
+                NSLog(@"%@", quizDetail);
             }
         }];
     }

@@ -50,7 +50,8 @@ typedef enum
     responseType_missionInfo,
     responseType_questListAvailableForPlayer,
     responseType_questAvailableForPlayer,
-    responseType_activeQuizList
+    responseType_activeQuizList,
+    responseType_quizDetail
 }pbResponseType;
 
 ///--------------------------------------
@@ -1004,6 +1005,70 @@ typedef enum
 @end
 
 ///--------------------------------------
+/// GradeRewardCustom
+///--------------------------------------
+@interface PBGradeRewardCustom : PBBase_Response
+
+@property (strong, nonatomic) NSString *customId;
+@property (strong, nonatomic) NSString *customValue;
+
++(PBGradeRewardCustom *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// GradeRewardCustomArray
+///--------------------------------------
+@interface PBGradeRewardCustomArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *gradeRewardCustoms;
+
++(PBGradeRewardCustomArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// GradeRewards
+///--------------------------------------
+@interface PBGradeRewards : PBBase_Response
+
+@property (strong, nonatomic) NSString *expValue;
+@property (strong, nonatomic) NSString *pointValue;
+@property (strong, nonatomic) PBGradeRewardCustomArray *customList;
+
++(PBGradeRewards *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Grade
+///--------------------------------------
+@interface PBGrade : PBBase_Response
+
+@property (strong, nonatomic) NSString *gradeId;
+@property (strong, nonatomic) NSString *start;
+@property (strong, nonatomic) NSString *end;
+@property (strong, nonatomic) NSString *grade;
+@property (strong, nonatomic) NSString *rank;
+@property (strong, nonatomic) NSString *rankImage;
+@property (strong, nonatomic) PBGradeRewards *rewards;
+
++(PBGrade *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// GradeArray
+///--------------------------------------
+@interface PBGradeArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *grades;
+
++(PBGradeArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
 /// QuizBasic
 ///--------------------------------------
 @interface PBQuizBasic : PBBase_Response
@@ -1015,6 +1080,25 @@ typedef enum
 @property (strong, nonatomic) NSString *quizId;
 
 +(PBQuizBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Quiz
+///--------------------------------------
+@interface PBQuiz : PBBase_Response
+
+@property (strong, nonatomic) PBQuizBasic *basic;
+@property (strong, nonatomic) NSDate *dateStart;
+@property (strong, nonatomic) NSDate *dateExpire;
+@property (nonatomic) BOOL status;
+@property (strong, nonatomic) NSString *descriptionImage;
+@property (strong, nonatomic) PBGradeArray *grades;
+@property (nonatomic) BOOL deleted;
+@property (nonatomic) NSUInteger totalMaxScore;
+@property (nonatomic) NSUInteger totalQuestions;
+
++(PBQuiz *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
@@ -1037,6 +1121,17 @@ typedef enum
 @property (strong, nonatomic) PBQuizBasicArray *list;
 
 +(PBActiveQuizList_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizDetail - Response
+///--------------------------------------
+@interface PBQuizDetail_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuiz *quiz;
+
++(PBQuizDetail_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

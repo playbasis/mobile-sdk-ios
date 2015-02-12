@@ -329,4 +329,13 @@ typedef void (^PBQuestAvailableForPlayer_ResponseBlock)(PBQuestAvailableForPlaye
 
 typedef void (^PBActiveQuizList_ResponseBlock)(PBActiveQuizList_Response * activeQuizList, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// QuizDetail
+///--------------------------------------
+@protocol PBQuizDetail_ResponseHandler <NSObject>
+-(void)processResponseWithQuizDetail:(PBQuizDetail_Response*)quizDetail withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuizDetail_ResponseBlock)(PBQuizDetail_Response * quizDetail, NSURL *url, NSError *error);
+
 #endif

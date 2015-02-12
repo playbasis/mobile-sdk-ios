@@ -1072,6 +1072,32 @@
             
             break;
         }
+        case responseType_quizDetail:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuizDetail:withURL:error:)])
+                {
+                    id<PBQuizDetail_ResponseHandler> sd = (id<PBQuizDetail_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuizDetail_Response *response = [PBQuizDetail_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuizDetail:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuizDetail_Response *response = [PBQuizDetail_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuizDetail_ResponseBlock sb = (PBQuizDetail_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 
