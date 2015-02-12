@@ -1124,6 +1124,32 @@
             
             break;
         }
+        case responseType_quizDoneListByPlayer:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuizDoneList:withURL:error:)])
+                {
+                    id<PBQuizDoneList_ResponseHandler> sd = (id<PBQuizDoneList_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuizDoneList_Response *response = [PBQuizDoneList_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuizDoneList:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuizDoneList_Response *response = [PBQuizDoneList_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuizDoneList_ResponseBlock sb = (PBQuizDoneList_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

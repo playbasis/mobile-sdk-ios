@@ -121,11 +121,10 @@
     }];
     
     // get recent quiz done by the player
-    [[Playbasis sharedPB] quizDone:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizDone:USER limit:5 withBlock:^(PBQuizDoneList_Response *quizDoneList, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"response from url %@", [url path]);
-            NSLog(@"response data = %@", [jsonResponse description]);
+            NSLog(@"%@", quizDoneList);
         }
     }];
     

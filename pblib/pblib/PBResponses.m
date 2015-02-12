@@ -4197,6 +4197,333 @@
 @end
 
 ///--------------------------------------
+/// GradeDoneReward
+///--------------------------------------
+@implementation PBGradeDoneReward
+
+@synthesize eventType;
+@synthesize rewardType;
+@synthesize rewardId;
+@synthesize value;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Grade Done : {\r\tevent_type : %@\r\treward_type : %@\r\treward_id : %@\r\tvalue : %@\r\t}", self.eventType, self.rewardType, self.rewardId, self.value];
+    
+    return descriptionString;
+}
+
++(PBGradeDoneReward *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBGradeDoneReward *c = [[PBGradeDoneReward alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c.value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// GradeDoneRewardArray
+///--------------------------------------
+@implementation PBGradeDoneRewardArray
+
+@synthesize gradeDoneRewards;
+
+-(NSString *)description
+{
+    // create string to hold all gradedone-reward line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"GradeDone Reward : {"];
+    
+    for(PBGradeDoneReward *item in self.gradeDoneRewards)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBGradeDoneRewardArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBGradeDoneRewardArray *c = [[PBGradeDoneRewardArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *gradeDonesJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *gradeDoneJson in gradeDonesJson)
+    {
+        // get gradedone-reward object
+        PBGradeDoneReward *gdr = [PBGradeDoneReward parseFromDictionary:gradeDoneJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:gdr];
+    }
+    
+    // set back to result object
+    c.gradeDoneRewards = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// GradeDone
+///--------------------------------------
+@implementation PBGradeDone
+
+@synthesize gradeId;
+@synthesize start;
+@synthesize end;
+@synthesize grade;
+@synthesize rank;
+@synthesize rankImage;
+@synthesize rewards;
+@synthesize score;
+@synthesize maxScore;
+@synthesize totalScore;
+@synthesize totalMaxScore;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"GradeDone : {\r\tgrade_id : %@\r\tstart : %@\r\tend : %@\r\tgrade : %@\r\trank : %@\r\trank_image : %@\r\t%@\r\tscore : %lu\r\tmax_score : %@\r\ttotal_score : %lu\r\ttotal_max_score : %lu\r\t}", self.gradeId, self.start, self.end, self.grade, self.rank, self.rankImage, self.rewards, (unsigned long)self.score, self.maxScore, (unsigned long)self.totalScore, (unsigned long)self.totalMaxScore];
+    
+    return descriptionString;
+}
+
++(PBGradeDone *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBGradeDone *c = [[PBGradeDone alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
+    c.start = [c.parseLevelJsonResponse objectForKey:@"start"];
+    c.end = [c.parseLevelJsonResponse objectForKey:@"end"];
+    c.grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
+    c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
+    c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rewards"];
+    c.rewards = [c.parseLevelJsonResponse objectForKey:@"rewards"];
+    id score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    if([score respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.score = [score unsignedIntegerValue];
+    }
+    c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    
+    id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalScore = [totalScore unsignedIntegerValue];
+    }
+    
+    id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+    }
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuizDone
+///--------------------------------------
+@implementation PBQuizDone
+
+@synthesize value;
+@synthesize grade;
+@synthesize totalCompletedQuestion;
+@synthesize quizId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"QuizDone : {\r\tvalue : %lu\r\t%@total_completed_questions : %lu\r\tquiz_id : %@\r\t}", (unsigned long)self.value, self.grade, (unsigned long)self.totalCompletedQuestion, self.quizId];
+    
+    return descriptionString;
+}
+
++(PBQuizDone *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizDone *c = [[PBQuizDone alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    id value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    if([value respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.value = [value unsignedIntegerValue];
+    }
+    
+    c.grade = [PBGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
+    
+    id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"value"];
+    if([totalCompletedQuestion respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalCompletedQuestion = [totalCompletedQuestion unsignedIntegerValue];
+    }
+    
+    c.quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuizDoneArray
+///--------------------------------------
+@implementation PBQuizDoneArray
+
+@synthesize quizDones;
+
+-(NSString *)description
+{
+    // create string to hold all quizdone line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Quiz done : {"];
+    
+    for(PBQuizDone *item in self.quizDones)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuizDoneArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizDoneArray *c = [[PBQuizDoneArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *quizDonesJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *quizDoneJson in quizDonesJson)
+    {
+        // get quizdone json
+        PBQuizDone *quizDone = [PBQuizDone parseFromDictionary:quizDoneJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:quizDone];
+    }
+    
+    // set back to result object
+    c.quizDones = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuizDoneList - Response
+///--------------------------------------
+@implementation PBQuizDoneList_Response
+
+@synthesize list;
+
+-(NSString *)description
+{
+    return [self.list description];
+}
+
++(PBQuizDoneList_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a response
+    PBQuizDoneList_Response *c = [[PBQuizDoneList_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.list = [PBQuizDoneArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// GradeArray
 ///--------------------------------------
 @implementation PBGradeArray

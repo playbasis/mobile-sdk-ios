@@ -52,7 +52,8 @@ typedef enum
     responseType_questAvailableForPlayer,
     responseType_activeQuizList,
     responseType_quizDetail,
-    responseType_quizRandom
+    responseType_quizRandom,
+    responseType_quizDoneListByPlayer
 }pbResponseType;
 
 ///--------------------------------------
@@ -1055,6 +1056,88 @@ typedef enum
 @property (strong, nonatomic) PBGradeRewards *rewards;
 
 +(PBGrade *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// GradeDoneReward
+///--------------------------------------
+@interface PBGradeDoneReward : PBBase_Response
+
+@property (strong, nonatomic) NSString *eventType;
+@property (strong, nonatomic) NSString *rewardType;
+@property (strong, nonatomic) NSString *rewardId;
+@property (strong, nonatomic) NSString *value;
+
++(PBGradeDoneReward *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// GradeDoneRewardArray
+///--------------------------------------
+@interface PBGradeDoneRewardArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *gradeDoneRewards;
+
++(PBGradeDoneRewardArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// GradeDone
+///--------------------------------------
+@interface PBGradeDone : PBBase_Response
+
+@property (strong, nonatomic) NSString *gradeId;
+@property (strong, nonatomic) NSString *start;
+@property (strong, nonatomic) NSString *end;
+@property (strong, nonatomic) NSString *grade;
+@property (strong, nonatomic) NSString *rank;
+@property (strong, nonatomic) NSString *rankImage;
+@property (strong, nonatomic) PBGradeDoneRewardArray *rewards;
+@property (nonatomic) NSUInteger score;
+@property (strong, nonatomic) NSString *maxScore;
+@property (nonatomic) NSUInteger totalScore;
+@property (nonatomic) NSUInteger totalMaxScore;
+
++(PBGradeDone *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizDone
+///--------------------------------------
+@interface PBQuizDone : PBBase_Response
+
+@property (nonatomic) NSUInteger value;
+@property (strong, nonatomic) PBGradeDone *grade;
+@property (nonatomic) NSUInteger totalCompletedQuestion;
+@property (strong, nonatomic) NSString *quizId;
+
++(PBQuizDone *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizDoneArray
+///--------------------------------------
+@interface PBQuizDoneArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *quizDones;
+
++(PBQuizDoneArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizDoneList - Response
+///--------------------------------------
+@interface PBQuizDoneList_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuizDoneArray *list;
+
++(PBQuizDoneList_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
