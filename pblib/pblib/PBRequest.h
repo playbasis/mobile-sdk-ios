@@ -27,25 +27,23 @@ PBRequestState;
     NSURLRequest *urlRequest;
     NSMutableData *receivedData;
     NSDictionary *jsonResponse;
-    PBRequestState state;
-    BOOL isBlockingCall;
     
     pbResponseType responseType;
     
     // either one or another
     id<PBResponseHandler> responseDelegate;
-    PBResponseBlock responseBlock;
+    id responseBlock;
 }
 
 @property PBRequestState state;
 @property (nonatomic, readonly) BOOL isBlockingCall;
+@property (nonatomic, readonly) BOOL isSyncURLRequest;
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate;
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block;
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
 -(void)dealloc;
--(PBRequestState)getRequestState;
 -(NSDictionary *)getResponse;
 
 /**

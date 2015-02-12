@@ -16,8 +16,9 @@
 
 @synthesize state;
 @synthesize isBlockingCall;
+@synthesize isSyncURLRequest;
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate
 {
     if(!(self = [super init]))
         return nil;
@@ -33,6 +34,7 @@
     
     // save blocking call flag
     isBlockingCall = blockingCall;
+    isSyncURLRequest = syncUrl;
     
     responseType = _responseType;
     
@@ -45,7 +47,7 @@
     return self;
 }
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block
 {
     if(!(self = [super init]))
         return nil;
@@ -61,6 +63,7 @@
     
     // save blocking call flag
     isBlockingCall = blockingCall;
+    isSyncURLRequest = syncUrl;
     
     responseType = _responseType;
     
@@ -86,6 +89,7 @@
     jsonResponse = [decoder decodeObjectForKey:@"jsonResponse"];
     state = [decoder decodeIntForKey:@"state"];
     isBlockingCall = [decoder decodeBoolForKey:@"isBlockingCall"];
+    isSyncURLRequest = [decoder decodeBoolForKey:@"isSyncURLRequest"];
     
     // for delegate and block, we don't serialize it as those objects might not be available
     // after queue loaded all requests from file
@@ -101,6 +105,7 @@
     [encoder encodeObject:jsonResponse forKey:@"jsonResponse"];
     [encoder encodeInt:state forKey:@"state"];
     [encoder encodeBool:isBlockingCall forKey:@"isBlockingCall"];
+    [encoder encodeBool:isSyncURLRequest forKey:@"isSyncURLRequest"];
     
     // for delegate and block, we don't serialize it as those objects might not be available
     // after queue loaded all requests from file
@@ -117,14 +122,59 @@
 #endif
 }
 
--(PBRequestState)getRequestState
-{
-    return state;
-}
-
 -(NSDictionary *)getResponse
 {
     return jsonResponse;
+}
+
+-(void)responseAsyncURLRequestFromStringResponse:(NSString *)strResponse error:(NSError*)error
+{
+    // if there's not set responseBlock then return immediately
+    if(!responseBlock)
+        return;
+    
+    // for async url request
+    // success message contains only "OK", otherwise regards it as failure
+    if(strResponse != nil && [strResponse isEqualToString:@"OK"] && error == nil)
+    {
+        PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
+        
+        // convert back into dictionary object, and send into response
+        sb([PBResultStatus_Response resultStatusWithSuccess], [urlRequest URL], nil);
+    }
+    else
+    {
+        // if there's connection error, then use its object to send to back to response
+        if(error)
+        {
+            PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
+            
+            // response with fail
+            sb(nil, [urlRequest URL], error);
+        }
+        else
+        {
+            // create an error message directly from the response back
+            NSString *errorMessage = strResponse != nil && ![strResponse isEqualToString:@""] ? strResponse : @"There's error from async url request.";
+            
+            // create an userInfo for NSError
+            NSDictionary *userInfo = @{
+                                       NSLocalizedDescriptionKey: NSLocalizedString([NSString stringWithString:errorMessage], nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString([NSString stringWithString:errorMessage], nil)
+                                       };
+            
+            // fix at specific value, because the response might not have any value
+            NSInteger nserrorErrorCode = 99;
+            
+            // create an NSError
+            NSError *userError = [NSError errorWithDomain:[[urlRequest URL] path]  code:nserrorErrorCode userInfo:userInfo];
+            
+            PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
+            
+            // response with fail
+            sb(nil, [urlRequest URL], userError);
+        }
+    }
 }
 
 -(void)responseFromJSONResponse:(NSDictionary *)_jsonResponse
@@ -164,10 +214,6 @@
 
 -(void)responseFromJSONResponse:(NSDictionary *)_jsonResponse error:(NSError*)error
 {
-    // if both response objects are nil, then return immediately
-    if(!responseDelegate && !responseBlock)
-        return;
-    
     switch(responseType)
     {
         case responseType_normal:
@@ -182,8 +228,10 @@
             }
             else if(responseBlock)
             {
+                PBResponseBlock sb = (PBResponseBlock)responseBlock;
+                
                 // execute block call
-                responseBlock(jsonResponse, [urlRequest URL], error);
+                sb(jsonResponse, [urlRequest URL], error);
             }
             
             break;
@@ -1196,7 +1244,7 @@
                 // parse data (get nil if jsonResponse is nil)
                 PBQuestionAnswered_Response *response = [PBQuestionAnswered_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
-                PBQuestion_ResponseBlock sb = (PBQuestion_ResponseBlock)responseBlock;
+                PBQuestionAnswered_ResponseBlock sb = (PBQuestionAnswered_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
             }
             
@@ -1243,6 +1291,13 @@
         
         NSData* responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&httpResponse error:&error];
         
+        // if both response objects are nil, then return immediately
+        if(!responseDelegate && !responseBlock)
+            return;
+        
+        // ignore checking to send back response to async url request
+        // async url request will be response back via block only
+        
         // if all okay
         if(error == nil)
         {
@@ -1266,22 +1321,46 @@
     {
         [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             
-            // if data received
-            if(error == nil)
+            // if both response objects are nil, then return immediately
+            if(!responseDelegate && !responseBlock)
+                return;
+            
+            if(isSyncURLRequest)
             {
-                // convert response data to string
-                NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                // parse string into json
-                jsonResponse = [response objectFromJSONString];
-                
-                // response according to the type of response
-                [self responseFromJSONResponse:jsonResponse];
+                // if data received
+                if(error == nil)
+                {
+                    // convert response data to string
+                    NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    // parse string into json
+                    jsonResponse = [responseString objectFromJSONString];
+                    
+                    // response according to the type of response
+                    [self responseFromJSONResponse:jsonResponse];
+                }
+                // otherwise, there's an error
+                else
+                {
+                    // response fail
+                    [self responseFromJSONResponse:nil error:error];
+                }
             }
-            // otherwise, there's an error
             else
             {
-                // respnose fail
-                [self responseFromJSONResponse:nil error:error];
+                if(error == nil)
+                {
+                    // convert data into string
+                    NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    
+                    // response to async url request
+                    [self responseAsyncURLRequestFromStringResponse:responseString error:nil];
+                }
+                // otherwise, there's an error
+                else
+                {
+                    // response fail
+                    [self responseAsyncURLRequestFromStringResponse:nil error:error];
+                }
             }
         }];
     }

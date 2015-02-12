@@ -24,6 +24,11 @@
 typedef void (^PBResponseBlock)(id jsonResponse, NSURL* url, NSError *error);
 
 ///----------------
+/// Async URL Response
+///----------------
+typedef void (^PBAsyncURLRequestResponseBlock)(PBResultStatus_Response* status, NSURL* url, NSError *error);
+
+///----------------
 /// Auth
 ///----------------
 @protocol PBAuth_ResponseHandler <NSObject>

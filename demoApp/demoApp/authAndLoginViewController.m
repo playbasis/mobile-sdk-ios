@@ -84,27 +84,23 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             // test callling login via block
             NSLog(@"Calling login via block");
             
-            // update activity label that we will log in user
-            self.activityLabel.text = [NSString stringWithFormat:@"Logging in user '%@'", USER];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // update activity label that we will log in user
+                self.activityLabel.text = [NSString stringWithFormat:@"Logging in user '%@'", USER];
+            });
             
-            [[Playbasis sharedPB] login:USER syncUrl:YES withBlock:^(id jsonResponse, NSURL* url, NSError *error) {
-                if(error)
+            // login via non-blocking call, and with async url request
+            [[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+                if(!error)
                 {
-                    NSLog(@"failed login, error = %@", [error localizedDescription]);
-                    
-                    // update activity label that we failed in loggin in user
-                    // tell user to try again
-                    self.activityLabel.text = @"Loggin in user failed.";
+                    if(status.success)
+                        NSLog(@"OK");
+                    else
+                        NSLog(@"Failed");
                 }
                 else
                 {
-                    NSLog(@"[Blocking call via block] block triggered from URL: %@", [url path]);
-                    NSLog(@"%@", [jsonResponse description]);
-                    
-                    // done logging in user, then we transition to mainmenu screen
-                    //
-                    // give it a very short time to let user see process on screen that we're logging in user before actual logging in process is carried out
-                    [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];
+                    NSLog(@"%@", [error description]);
                 }
             }];
             
@@ -112,11 +108,14 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] quizScoreRank:@"54649c1e5fb29c181fdb125e" limit:20 withBlock:^(PBPlayersQuizRank_Response *playersQuizRank, NSURL *url, NSError *error) {
+            /*[[Playbasis sharedPB] quizScoreRankAsync:@"54649c1e5fb29c181fdb125e" limit:20 withBlock:^(PBPlayersQuizRank_Response *playersQuizRank, NSURL *url, NSError *error) {
                 if(!error){
                     NSLog(@"%@", playersQuizRank);
                 }
-            }];
+            }];*/
+            
+            // delay a short time to let user see the update on screen, then transition into mainmenu screen
+            [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];
         }
     }
 }

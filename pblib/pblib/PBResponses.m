@@ -5279,7 +5279,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Qusetion Answered : {%@\r\t\r\tscore : %@\r\tmax_score : %@\r\texplanation : %@\r\ttotal_score : %lu\r\ttotal_max_score : %@\r\t%@\r\t%@\r\t}", self.options, (unsigned long)self.score, self.maxScore, self.explanation, self.totalScore, self.totalMaxScore, self.grade, self.rewards];
+    NSString *descriptionString = [NSString stringWithFormat:@"Qusetion Answered : {%@\r\t\r\tscore : %lu\r\tmax_score : %@\r\texplanation : %@\r\ttotal_score : %lu\r\ttotal_max_score : %lu\r\t%@\r\t%@\r\t}", self.options, (unsigned long)self.score, self.maxScore, self.explanation, (unsigned long)self.totalScore, (unsigned long)self.totalMaxScore, self.grade, self.rewards];
     
     return descriptionString;
 }
@@ -5513,6 +5513,33 @@
     
     // parse
     c.playersQuizRank = [PBPlayerQuizRankArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PlayersQuizRank - Response
+///--------------------------------------
+@implementation PBResultStatus_Response
+
+@synthesize success;
+
++(PBResultStatus_Response *)resultStatusWithSuccess
+{
+    // create result status object with success
+    PBResultStatus_Response *c = [[PBResultStatus_Response alloc] init];
+    c.success = YES;
+    
+    return c;
+}
+
++(PBResultStatus_Response *)resultStatusWithFailure
+{
+    // create result status object with success
+    PBResultStatus_Response *c = [[PBResultStatus_Response alloc] init];
+    c.success = NO;
     
     return c;
 }

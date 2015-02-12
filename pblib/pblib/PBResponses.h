@@ -1394,4 +1394,18 @@ typedef enum
 
 @end
 
+///--------------------------------------
+/// PlayersQuizRank - Response
+/// Note: This is used by any request that needs only a result
+/// status to indicate whether the resonse is success or not
+///--------------------------------------
+@interface PBResultStatus_Response : PBBase_Response
+
+@property (nonatomic) BOOL success;
+
++(PBResultStatus_Response *)resultStatusWithSuccess;
++(PBResultStatus_Response *)resultStatusWithFailure;
+
+@end
+
 #endif

@@ -197,9 +197,6 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - quest
 -(PBRequest *)questWithQuestIdInternalBase:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
-// - questsAvailable
--(PBRequest *)questsAvailableInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
-
 // - joinQuest
 -(PBRequest *)joinQuestInternalBase:(NSString *)questId player:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -995,22 +992,18 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
+-(PBRequest *)loginAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
+{
+    return [self loginInternalBase:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)login:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
     return [self loginInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate;
-{
-    return [self loginInternalBase:playerId blockingCall:YES syncUrl:syncUrl useDelegate:YES withResponse:delegate];
 }
 
 -(PBRequest *)login:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
     return [self loginInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequest *)login:(NSString *)playerId syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block
-{
-    return [self loginInternalBase:playerId blockingCall:YES syncUrl:syncUrl useDelegate:NO withResponse:block];
 }
 -(PBRequest *)loginAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
@@ -2615,12 +2608,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     PBRequest* pbRequest = nil;
     if(useDelegate)
     {
-        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType andDelegate:response];
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall syncUrl:syncURLRequest responseType:responseType andDelegate:response];
     }
     // create PBRequest with block callback
     else
     {
-        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType andBlock:response];
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall syncUrl:syncURLRequest responseType:responseType andBlock:response];
     }
     
     // if network is reachable then dispatch it immediately
@@ -2708,12 +2701,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     PBRequest* pbRequest = nil;
     if(useDelegate)
     {
-        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType_normal andDelegate:response];
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall syncUrl:syncURLRequest responseType:responseType_normal andDelegate:response];
     }
     // create PBRequest with block callback
     else
     {
-        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall responseType:responseType_normal andBlock:response];
+        pbRequest = [[PBRequest alloc] initWithURLRequest:request blockingCall:blockingCall syncUrl:syncURLRequest responseType:responseType_normal andBlock:response];
     }
     
     // if network is reachable then dispatch it immediately
