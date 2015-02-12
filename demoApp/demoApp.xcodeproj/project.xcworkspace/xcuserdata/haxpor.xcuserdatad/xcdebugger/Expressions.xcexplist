@@ -10,5 +10,24 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[questionScreenViewController tableView:numberOfRowsInSection:]:questionScreenViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(PBQuestionOption*)[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__58-[questionScreenViewController loadNextQuestionAsyncFrom:]_block_invoke:questionScreenViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(PBQuestionOption*)[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[questionScreenViewController viewDidLoad]:questionScreenViewController.m">
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

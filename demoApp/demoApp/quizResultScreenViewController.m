@@ -15,7 +15,7 @@
 
 @implementation quizResultScreenViewController
 
-@synthesize jsonResponse;
+@synthesize questionAnswered_response;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,53 +25,44 @@
     self.expRewardLabel.hidden = true;
     self.pointRewardLabel.hidden = true;
     
-    // get all the required information
-    // note: retrieve information from 'jsonResponse'
-    NSDictionary *response = [jsonResponse objectForKey:@"response"];
-    NSDictionary *result = [response objectForKey:@"result"];
-    NSDictionary *gradeJsonResponse = [result objectForKey:@"grade"];
+    PBQuestionAnswered *result = questionAnswered_response.result;
     
-    rRankImageUrl = [gradeJsonResponse objectForKey:@"rank_image"];
-    rRankName = [gradeJsonResponse objectForKey:@"rank"];
-    rTotalScore = [(NSString*)[gradeJsonResponse objectForKey:@"total_score"] integerValue];
-    rTotalMaxScore = [(NSString*)[gradeJsonResponse objectForKey:@"total_max_score"] integerValue];
+    NSString *rExpReward, *rPointReward;
     
     // get rewards
-    NSArray *rewards = [result objectForKey:@"rewards"];
-    for(NSDictionary *json in rewards)
+    for(PBGradeDoneReward *reward in result.rewards.gradeDoneRewards)
     {
         // check type
-        NSString *rewardType = [json objectForKey:@"reward_type"];
-        if([rewardType isEqualToString:@"exp"])
+        if([reward.rewardType isEqualToString:@"exp"])
         {
-            rExpReward = [(NSString*)[json objectForKey:@"value"] integerValue];
+            rExpReward = reward.value;
         }
-        else if([rewardType isEqualToString:@"point"])
+        else if([reward.rewardType isEqualToString:@"point"])
         {
-            rPointReward = [(NSString*)[json objectForKey:@"value"] integerValue];
+            rPointReward = reward.value;
         }
     }
     
     // immediately do async loading of rank image
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // load and cache image from above url
-        NSURL *url = [NSURL URLWithString:rRankImageUrl];
+        NSURL *url = [NSURL URLWithString:result.grade.rankImage];
         NSData *imageData = [NSData dataWithContentsOfURL:url];
         
         // update ui
         dispatch_async(dispatch_get_main_queue(), ^{
             self.rankImageView.image = [[UIImage alloc] initWithData:imageData];
-            self.rankNameLabel.text = rRankName;
-            self.scoreOutOfLabel.text = [NSString stringWithFormat:@"Got %d out of %d", rTotalScore, rTotalMaxScore];
+            self.rankNameLabel.text = result.grade.rank;
+            self.scoreOutOfLabel.text = [NSString stringWithFormat:@"Got %lu out of %lu", (unsigned long)result.totalScore, (unsigned long)result.totalMaxScore];
             
-            if(rExpReward != 0)
+            if(rExpReward != nil)
             {
-                self.expRewardLabel.text = [NSString stringWithFormat:@"Got %d exp", rExpReward];
+                self.expRewardLabel.text = [NSString stringWithFormat:@"Got %@ exp", rExpReward];
                 self.expRewardLabel.hidden = false;
             }
-            if(rPointReward != 0)
+            if(rPointReward != nil)
             {
-                self.pointRewardLabel.text = [NSString stringWithFormat:@"Got %d point", rPointReward];
+                self.pointRewardLabel.text = [NSString stringWithFormat:@"Got %@ point", rPointReward];
                 self.pointRewardLabel.hidden = false;
             }
         });

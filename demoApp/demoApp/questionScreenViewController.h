@@ -7,20 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "playbasis.h"
 
 @interface questionScreenViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
+    PBQuestion_Response *question_response;
+    PBQuestionAnswered_Response *questionAnsweredResult_response;
+    
     // this will be set by prior view controller
     NSString *quizId;
     
-    // this will be set via loading a next question
-    NSString *questionId;
-    NSMutableArray* optionsTexts;
-    NSMutableArray* optionsIds;
-    NSMutableArray* optionsUIImages;
-    
     // result jsonResponse
-    NSDictionary* resultJsonResponse;
+    PBQuestionAnswered_Response* questionAnswered_response;
 }
 
 @property (nonatomic, strong) NSString *quizId;

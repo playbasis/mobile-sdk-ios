@@ -1176,6 +1176,32 @@
             
             break;
         }
+        case responseType_questionAnswered:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithQuestionAnswered:withURL:error:)])
+                {
+                    id<PBQuestionAnswered_ResponseHandler> sd = (id<PBQuestionAnswered_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBQuestionAnswered_Response *response = [PBQuestionAnswered_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithQuestionAnswered:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBQuestionAnswered_Response *response = [PBQuestionAnswered_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBQuestion_ResponseBlock sb = (PBQuestion_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
     }
 }
 

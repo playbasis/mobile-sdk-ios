@@ -365,4 +365,13 @@ typedef void (^PBQuizDoneList_ResponseBlock)(PBQuizDoneList_Response * quizDoneL
 
 typedef void (^PBQuestion_ResponseBlock)(PBQuestion_Response * question, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// QuestionAnswered
+///--------------------------------------
+@protocol PBQuestionAnswered_ResponseHandler <NSObject>
+-(void)processResponseWithQuestionAnswered:(PBQuestionAnswered_Response*)questionAnswered withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuestionAnswered_ResponseBlock)(PBQuestionAnswered_Response * questionAnswered, NSURL *url, NSError *error);
+
 #endif

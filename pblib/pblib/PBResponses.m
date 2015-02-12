@@ -5028,7 +5028,7 @@
     // parse
     c.question = [c.parseLevelJsonResponse objectForKey:@"question"];
     c.questionImage = [c.parseLevelJsonResponse objectForKey:@"question_image"];
-    c.options = [c.parseLevelJsonResponse objectForKey:@"options"];
+    c.options = [PBQuestionOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
     id index = [c.parseLevelJsonResponse objectForKey:@"index"];
     if([index respondsToSelector:@selector(unsignedIntegerValue:)])
     {
@@ -5092,3 +5092,281 @@
 }
 
 @end
+
+///--------------------------------------
+/// QuestionAnsweredOption
+///--------------------------------------
+@implementation PBQuestionAnsweredOption
+
+@synthesize option;
+@synthesize score;
+@synthesize explanation;
+@synthesize optionImage;
+@synthesize optionId;
+
+-(NSString *)description
+{
+    NSString *descriptionString  = [NSString stringWithFormat:@"Answered Option : {\r\toption : %@\r\tscore : %@\r\texplanation : %@\r\toption_image : %@\r\toption_id : %@\r\t", self.option, self.score, self.explanation, self.optionImage, self.optionId];
+    
+    return descriptionString;
+}
+
++(PBQuestionAnsweredOption *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuestionAnsweredOption *c = [[PBQuestionAnsweredOption alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.option = [c.parseLevelJsonResponse objectForKey:@"option"];
+    c.score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    c.explanation = [c.parseLevelJsonResponse objectForKey:@"explanantion"];
+    c.optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
+    c.optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestionAnsweredOptionArray
+///--------------------------------------
+@implementation PBQuestionAnsweredOptionArray
+
+@synthesize answeredOptions;
+
+-(NSString *)description
+{
+    // create string to hold all answered-option-array line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Answered Option Array : {"];
+    
+    for(PBQuestionAnsweredOption *item in self.answeredOptions)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuestionAnsweredOptionArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuestionAnsweredOptionArray *c = [[PBQuestionAnsweredOptionArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *answeredOptionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *answeredOptionJson in answeredOptionsJson)
+    {
+        // get answered option object
+        PBQuestionAnsweredOption *answeredOption = [PBQuestionAnsweredOption parseFromDictionary:answeredOptionJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:answeredOption];
+    }
+    
+    // set back to result object
+    c.answeredOptions = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestionAnsweredGradeDone
+///--------------------------------------
+@implementation PBQuestionAnsweredGradeDone
+
+@synthesize gradeId;
+@synthesize start;
+@synthesize end;
+@synthesize grade;
+@synthesize rank;
+@synthesize rankImage;
+@synthesize score;
+@synthesize maxScore;
+@synthesize totalScore;
+@synthesize totalMaxScore;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Answerd Option Grade Done : {\r\tgrade_id : %@\r\tstart : %@\r\tend : %@\r\tgrade : %@\r\trank : %@\r\trank_image : %@\r\tscore : %lu\r\tmax_score : %@\r\ttotal_score : %lu\r\ttotal_max_score : %lu\r\t}", self.gradeId, self.start, self.end, self.grade, self.rank, self.rankImage, (unsigned long)self.score, self.maxScore, (unsigned long)self.totalScore, (unsigned long)self.totalMaxScore];
+    
+    return descriptionString;
+}
+
++(PBQuestionAnsweredGradeDone*)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuestionAnsweredGradeDone *c = [[PBQuestionAnsweredGradeDone alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
+    c.start = [c.parseLevelJsonResponse objectForKey:@"start"];
+    c.end = [c.parseLevelJsonResponse objectForKey:@"end"];
+    c.grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
+    c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
+    c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
+    id score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    if([score respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.score = [score unsignedIntegerValue];
+    }
+    
+    c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    
+    id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalScore = [totalScore unsignedIntegerValue];
+    }
+    
+    id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+    }
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestionAnswered
+///--------------------------------------
+@implementation PBQuestionAnswered
+
+@synthesize options;
+@synthesize score;
+@synthesize maxScore;
+@synthesize explanation;
+@synthesize totalScore;
+@synthesize totalMaxScore;
+@synthesize grade;
+@synthesize rewards;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Qusetion Answered : {%@\r\t\r\tscore : %@\r\tmax_score : %@\r\texplanation : %@\r\ttotal_score : %lu\r\ttotal_max_score : %@\r\t%@\r\t%@\r\t}", self.options, (unsigned long)self.score, self.maxScore, self.explanation, self.totalScore, self.totalMaxScore, self.grade, self.rewards];
+    
+    return descriptionString;
+}
+
++(PBQuestionAnswered *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuestionAnswered *c = [[PBQuestionAnswered alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.options = [PBQuestionAnsweredOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
+    id score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    if([score respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.score = [score unsignedIntegerValue];
+    }
+    c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    c.explanation = [c.parseLevelJsonResponse objectForKey:@"explanation"];
+    
+    id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalScore = [totalScore unsignedIntegerValue];
+    }
+    
+    id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
+    if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue:)])
+    {
+        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+    }
+    
+    c.grade = [PBQuestionAnsweredGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
+    c.rewards = [PBGradeDoneRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuestionAnswered - Response
+///--------------------------------------
+@implementation PBQuestionAnswered_Response
+
+@synthesize result;
+
+-(NSString *)description
+{
+    return [self.result description];
+}
+
++(PBQuestionAnswered_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBQuestionAnswered_Response *c = [[PBQuestionAnswered_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.result = [PBQuestionAnswered parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+

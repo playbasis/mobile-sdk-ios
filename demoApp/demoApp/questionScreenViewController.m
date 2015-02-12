@@ -8,7 +8,6 @@
 
 #import "questionScreenViewController.h"
 #import "demoAppSettings.h"
-#import "playbasis.h"
 #import "quizResultScreenViewController.h"
 
 @interface questionScreenViewController ()
@@ -28,14 +27,6 @@
     self.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.questionTextLabel.hidden = true;
     
-    // create an empty text
-    // this will be loaded later
-    optionsTexts = [NSMutableArray array];
-    optionsIds = [NSMutableArray array];
-    
-    // create an empty uiimage
-    optionsUIImages = [NSMutableArray array];
-    
     [self loadNextQuestionAsyncFrom:self.quizId];
 }
 
@@ -46,12 +37,6 @@
 
 - (void)loadNextQuestionAsyncFrom:(NSString *)qId
 {
-    // clear all loaded variables first
-    questionId = nil;
-    [optionsTexts removeAllObjects];
-    [optionsIds removeAllObjects];
-    [optionsUIImages removeAllObjects];
-    
     // reset set content in ui
     self.questionImage.image = nil;
     self.questionTextLabel.text = @"";
@@ -60,35 +45,22 @@
     [self.tableView reloadData];
     
     // begin requesting to load a next question
-    [[Playbasis sharedPB] quizQuestionAsync:qId forPlayer:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizQuestionAsync:qId forPlayer:USER withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"response from url %@", [url path]);
-            NSLog(@"response data = %@", [jsonResponse description]);
-            
-            // get 'response'
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            // get 'result'
-            NSDictionary *result = [response objectForKey:@"result"];
-            
-            // get question id
-            questionId = [result objectForKey:@"question_id"];
-            // get question text
-            NSString *questionText = [result objectForKey:@"question"];
+            // save response
+            question_response = question;
             
             // update ui question text
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.questionTextLabel.text = questionText;
+                self.questionTextLabel.text = question.question.question;
                 self.questionTextLabel.hidden = false;
             });
-            
-            // get question's image url
-            NSString *questionImageUrl = [result objectForKey:@"question_image"];
             
             // async loading image
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 // load and cache image from above url
-                NSURL *url = [NSURL URLWithString:questionImageUrl];
+                NSURL *url = [NSURL URLWithString:question.question.questionImage];
                 NSData *imageData = [NSData dataWithContentsOfURL:url];
                 
                 // update ui question image
@@ -96,23 +68,6 @@
                     self.questionImage.image = [[UIImage alloc] initWithData:imageData];
                 });
             });
-            
-            // set number of answers
-            NSArray *options = [result objectForKey:@"options"];
-            
-            // load all answers' text
-            for(NSDictionary *json in options)
-            {
-                // get option text
-                NSString *optionText = [json objectForKey:@"option"];
-                [optionsTexts addObject:optionText];
-                
-                // get option id
-                NSString *optionId = [json objectForKey:@"option_id"];
-                [optionsIds addObject:optionId];
-            }
-            
-            // (optional) load all answers' image
             
             // after all loaded, then reload it
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -136,36 +91,31 @@
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
     NSLog(@"selected index row: %d", [selectedIndexPath row]);
     
+    // get question-option id from selection
+    PBQuestionOption *option = [question_response.question.options.options objectAtIndex: [selectedIndexPath row]];
+    
     // answer with the selected index row fetching option-id from 'optionsIds'
-    [[Playbasis sharedPB] quizAnswer:self.quizId optionId:[optionsIds objectAtIndex:[selectedIndexPath row]] forPlayer:USER ofQuestionId:questionId withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizAnswer:self.quizId optionId:option.optionId forPlayer:USER ofQuestionId:question_response.question.questionId withBlock:^(PBQuestionAnswered_Response *questionAnswered, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"response from url %@", [url path]);
-            NSLog(@"response data = %@", [jsonResponse description]);
-            
-            // get 'response'
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            // get 'result'
-            NSDictionary *result = [response objectForKey:@"result"];
-            // get 'rewards'
-            NSArray *rewards = [result objectForKey:@"rewards"];
-            
-            // check for rewards, if any then it means user finishes the quiz
-            if([rewards count] > 0)
+            if(questionAnswered.result.rewards != nil)
             {
-                NSLog(@"No more questions.");
-                
-                // save this json response to send to result screen
-                resultJsonResponse = [jsonResponse copy];
-                
-                // finish the quiz now, then transition into result screen
-                [self transitionToResultScreen];
-            }
-            // otherwise reload this screen again for a next question
-            else
-            {
-                // load next question
-                [self loadNextQuestionAsyncFrom:self.quizId];
+                if([questionAnswered.result.rewards.gradeDoneRewards count] > 0)
+                {
+                    NSLog(@"No more question.");
+                    
+                    // save this response
+                    questionAnsweredResult_response = questionAnswered;
+                    
+                    // finish the quiz now, then transition into result screen
+                    [self transitionToResultScreen];
+                }
+                // otherwise reload this screen again for a next question
+                else
+                {
+                    // load next question
+                    [self loadNextQuestionAsyncFrom:self.quizId];
+                }
             }
         }
     }];
@@ -173,7 +123,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [optionsTexts count];
+    if(question_response != nil)
+        return [question_response.question.options.options count];
+    else
+        return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,8 +139,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
+    // get option
+    PBQuestionOption *option = [question_response.question.options.options objectAtIndex:indexPath.row];
+    
     // set answer text
-    cell.textLabel.text = [optionsTexts objectAtIndex:indexPath.row];
+    cell.textLabel.text = option.option;
     cell.textLabel.adjustsFontSizeToFitWidth = true;
     cell.textLabel.numberOfLines = 0;
     
@@ -205,7 +161,7 @@
     if([[segue identifier] isEqualToString:@"showQuizResultScreen"])
     {
         quizResultScreenViewController *quizResult = [segue destinationViewController];
-        quizResult.jsonResponse = resultJsonResponse;
+        quizResult.questionAnswered_response = questionAnsweredResult_response;
     }
 }
 

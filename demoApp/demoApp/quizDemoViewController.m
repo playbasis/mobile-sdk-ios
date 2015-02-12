@@ -151,11 +151,10 @@
     // answer a question
     if(quizId != nil && false)
     {
-        [[Playbasis sharedPB] quizAnswer:quizId optionId:@"812410f259f23cf5ca2f138b" forPlayer:USER ofQuestionId:@"70067216bb3119080f5063ac" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] quizAnswer:quizId optionId:@"812410f259f23cf5ca2f138b" forPlayer:USER ofQuestionId:@"70067216bb3119080f5063ac" withBlock:^(PBQuestionAnswered_Response *questionAnswered, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"response from url %@", [url path]);
-                NSLog(@"response data = %@", [jsonResponse description]);
+                NSLog(@"%@", questionAnswered);
             }
         }];
     }

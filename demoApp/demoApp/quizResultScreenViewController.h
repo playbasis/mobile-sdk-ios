@@ -7,23 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "playbasis.h"
 
 @interface quizResultScreenViewController : UIViewController
-{
-    // jsonResponse from the prior ui view controller
-    // use this to set corresponding information to UI
-    NSDictionary *jsonResponse;
-    
-    // internal info that will be refered to later internally to update ui
-    NSString *rRankImageUrl;
-    NSString *rRankName;
-    NSInteger rTotalScore;
-    NSInteger rTotalMaxScore;
-    NSInteger rExpReward;
-    NSInteger rPointReward;
-}
 
-@property (atomic, strong) NSDictionary* jsonResponse;
+@property (atomic, strong) PBQuestionAnswered_Response* questionAnswered_response;
 @property (weak, nonatomic) IBOutlet UIImageView *rankImageView;
 @property (weak, nonatomic) IBOutlet UILabel *rankNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreOutOfLabel;
