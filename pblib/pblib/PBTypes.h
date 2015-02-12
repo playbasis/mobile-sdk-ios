@@ -320,4 +320,13 @@ typedef void (^PBQuestListAvailableForPlayer_ResponseBlock)(PBQuestListAvailable
 
 typedef void (^PBQuestAvailableForPlayer_ResponseBlock)(PBQuestAvailableForPlayer_Response * available, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// ActiveQuizList
+///--------------------------------------
+@protocol PBActiveQuizList_ResponseHandler <NSObject>
+-(void)processResponseWithActiveQuizList:(PBActiveQuizList_Response*)activeQuizList withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBActiveQuizList_ResponseBlock)(PBActiveQuizList_Response * activeQuizList, NSURL *url, NSError *error);
+
 #endif

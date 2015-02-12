@@ -4015,3 +4015,152 @@
 }
 
 @end
+
+///--------------------------------------
+/// QuizBasic
+///--------------------------------------
+@implementation PBQuizBasic
+
+@synthesize name;
+@synthesize image;
+@synthesize weight;
+@synthesize description_;
+@synthesize quizId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %@\r\tdescription : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.quizId];
+    
+    return descriptionString;
+}
+
++(PBQuizBasic *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a result object
+    PBQuizBasic *c = [[PBQuizBasic alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// QuizBasicArray
+///--------------------------------------
+@implementation PBQuizBasicArray
+
+@synthesize quizBasics;
+
+-(NSString *)description
+{
+    // create string to hold all quiz-basic line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Quiz Basic Array : {"];
+    
+    for(PBQuizBasic *item in self.quizBasics)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuizBasicArray *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create result object
+    PBQuizBasicArray *c = [[PBQuizBasicArray alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *quizBasicsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *quizBasicJson in quizBasicsJson)
+    {
+        // get quiz basic object
+        PBQuizBasic *quizBasic = [PBQuizBasic parseFromDictionary:quizBasicJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:quizBasic];
+    }
+    
+    // set back to result object
+    c.quizBasics = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// ActiveQuizList
+///--------------------------------------
+@implementation PBActiveQuizList_Response
+
+@synthesize list;
+
+-(NSString *)description
+{
+    return [self.list description];
+}
+
++(PBActiveQuizList_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil)
+        return nil;
+    
+    // create a response
+    PBActiveQuizList_Response *c = [[PBActiveQuizList_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c.list = [PBQuizBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end

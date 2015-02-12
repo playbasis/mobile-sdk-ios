@@ -49,7 +49,8 @@ typedef enum
     responseType_recentPoint,
     responseType_missionInfo,
     responseType_questListAvailableForPlayer,
-    responseType_questAvailableForPlayer
+    responseType_questAvailableForPlayer,
+    responseType_activeQuizList
 }pbResponseType;
 
 ///--------------------------------------
@@ -999,6 +1000,43 @@ typedef enum
 @property (nonatomic) BOOL eventStatus;
 
 +(PBQuestAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizBasic
+///--------------------------------------
+@interface PBQuizBasic : PBBase_Response
+
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *weight;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *quizId;
+
++(PBQuizBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// QuizBasicArray
+///--------------------------------------
+@interface PBQuizBasicArray : PBBase_Response
+
+@property (strong, nonatomic) NSArray *quizBasics;
+
++(PBQuizBasicArray *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// ActiveQuizList
+///--------------------------------------
+@interface PBActiveQuizList_Response : PBBase_Response
+
+@property (strong, nonatomic) PBQuizBasicArray *list;
+
++(PBActiveQuizList_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

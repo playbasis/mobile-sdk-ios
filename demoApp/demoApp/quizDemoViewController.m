@@ -82,31 +82,20 @@
     
     // TEST API Calls
     // get available list of quiz
-    [[Playbasis sharedPB] quizList:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizList:USER withBlock:^(PBActiveQuizList_Response *activeQuizList, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"response from url %@", [url path]);
-            NSLog(@"response data = %@", [jsonResponse description]);
+            NSLog(@"%@", activeQuizList);
             
-            // get response
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            if(response != nil)
+            if([activeQuizList.list.quizBasics count] > 0)
             {
-                // get array of quizzes
-                NSArray *quizzes = (NSArray*)[response objectForKey:@"result"];
+                // get the first quiz-id
+                PBQuizBasic *firstQuiz = [activeQuizList.list.quizBasics objectAtIndex:0];
                 
-                // check if there's at least 1 quiz for us to get
-                if([quizzes count] >= 1)
-                {
-                    // get first quiz
-                    NSDictionary *quiz = (NSDictionary*)quizzes[0];
-                    
-                    // get quizId
-                    quizId = (NSString*)[quiz objectForKey:@"quiz_id"];
-                    
-                    NSLog(@"Got quizId = %@", quizId);
-                }
+                // set quiz-id
+                quizId = firstQuiz.quizId;
             }
+            
         }
     }];
     
