@@ -155,7 +155,7 @@
         else
         {
             // create an error message directly from the response back
-            NSString *errorMessage = strResponse != nil && ![strResponse isEqualToString:@""] ? strResponse : @"There's error from async url request.";
+            NSString *errorMessage = strResponse != nil && ![strResponse isEqualToString:@""] ? strResponse : [NSString stringWithFormat:@"There's error from async url request %@", [urlRequest URL]];
             
             // create an userInfo for NSError
             NSDictionary *userInfo = @{

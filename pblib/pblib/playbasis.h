@@ -22,12 +22,14 @@
 @interface Playbasis : NSObject
 {
     NSString *token;
+    NSString *_apiKey;
     NSString *apiKeyParam;
     id<PBAuth_ResponseHandler> authDelegate;
     NSMutableArray *requestOptQueue;
 }
 
 @property (nonatomic, readonly) NSString* token;
+@property (nonatomic, readonly) NSString* apiKey;
 
 /**
  Utility method to register device for push notification.
@@ -128,6 +130,7 @@
 -(PBRequest *)registerUser:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...;
 -(PBRequest *)registerUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...;
 -(PBRequest *)registerUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...;
+-(PBRequest *)registerUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...;
 
 /**
  Update player information.

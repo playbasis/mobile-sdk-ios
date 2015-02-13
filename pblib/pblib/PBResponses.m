@@ -5526,6 +5526,13 @@
 
 @synthesize success;
 
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Result Status Response : {\r\tstatus = %@\r\t}", self.success ? @"YES" : @"NO"];
+    
+    return descriptionString;
+}
+
 +(PBResultStatus_Response *)resultStatusWithSuccess
 {
     // create result status object with success

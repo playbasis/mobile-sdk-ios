@@ -93,10 +93,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             [[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    if(status.success)
-                        NSLog(@"OK");
-                    else
-                        NSLog(@"Failed");
+                    NSLog(@"Login : %@", status);
                 }
                 else
                 {
@@ -111,9 +108,16 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             [[Playbasis sharedPB] updateUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"%@", status);
+                    NSLog(@"Update user : %@", status);
                 }
-            } :@"email=wasin@haxpor.org", @"last_name=google", nil];
+            } :@"email=test@haxpor.org", @"last_name=google", nil];
+            
+            /*[[Playbasis sharedPB] registerUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"Register user : %@", status);
+                }
+            } :@"wasinthonkaew" :@"wasin@haxpor.org" :@"http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png", nil];*/
             
             // delay a short time to let user see the update on screen, then transition into mainmenu screen
             [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];

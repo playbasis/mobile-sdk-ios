@@ -403,6 +403,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 static NSString *sDeviceTokenRetrievalKey = nil;
 
 @synthesize token;
+@synthesize apiKey = _apiKey;
 
 +(void)registerDeviceForPushNotification
 {
@@ -465,6 +466,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     
     token = [decoder decodeObjectForKey:@"token"];
+    _apiKey = [decoder decodeObjectForKey:@"apiKey"];
     apiKeyParam = [decoder decodeObjectForKey:@"apiKeyParam"];
     authDelegate = [decoder decodeObjectForKey:@"authDelegate"];
     requestOptQueue = [decoder decodeObjectForKey:@"requestOptQueue"];
@@ -475,6 +477,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:token forKey:@"token"];
+    [encoder encodeObject:_apiKey forKey:@"apiKey"];
     [encoder encodeObject:apiKeyParam forKey:@"apiKeyParam"];
     [encoder encodeObject:authDelegate forKey:@"authDelegate"];
     [encoder encodeObject:requestOptQueue forKey:@"requestOptQueue"];
@@ -629,6 +632,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequest *)authInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
+    // save apikey
+    _apiKey = apiKey;
+    
     // note: the final response is via PBAuthDelegate either by delegate or block
     // in this case, it's by delegate
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
@@ -663,6 +669,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequest *)renewInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
+    // save apikey
+    _apiKey = apiKey;
+    
     apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     
     // check whether it uses delegate to response back
@@ -882,6 +891,48 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
+-(PBRequest *)registerUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/register", playerId];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
+    
+    id optionalData;
+    va_list argumentList;
+    va_start(argumentList, imageUrl);
+    while ((optionalData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", optionalData];
+    }
+    va_end(argumentList);
+    
+    // create json data object
+    // we will set object for each field in the loop
+    NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+    [dictData setValue:_apiKey forKey:@"api_key"];
+    
+    // split all params from data
+    NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
+    for(NSString *lineWithEqualSign in linesWithEqualSign)
+    {
+        NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+        
+        // set into dict
+        [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+    }
+    
+    // package into format
+    NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+    [dictWholeData setObject:method forKey:@"endpoint"];
+    [dictWholeData setObject:dictData forKey:@"data"];
+    [dictWholeData setObject:@"nil" forKey:@"channel"];
+    
+    // get json string
+    NSString *dataFinal = [dictWholeData JSONString];
+    NSLog(@"jsonString = %@", dataFinal);
+    
+    return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
+}
 
 // @param	...[vararg]		Key-value for data to be updated.
 //                          The following keys are supported:
@@ -1006,7 +1057,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // create json data object
     // we will set object for each field in the loop
     NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-    [dictData setValue:token forKey:@"token"];
+    [dictData setValue:_apiKey forKey:@"api_key"];
     
     // split all params from data
     NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
@@ -1028,7 +1079,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *dataFinal = [dictWholeData JSONString];
     NSLog(@"jsonString = %@", dataFinal);
     
-    return [self callAsync:method withData:dataFinal syncURLRequest:YES andBlock:block];
+    return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
 }
 
 -(PBRequest *)deleteUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
@@ -1082,14 +1133,26 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
     
-    NSString *data = nil;
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
     
     if(syncUrl)
-        data = [NSString stringWithFormat:@"token=%@", token];
+    {
+        // do nothing here
+    }
     else
     {
         NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        [dictData setObject:token forKey:@"token"];
+        [dictData setValue:_apiKey forKey:@"api_key"];
+        
+        // split all params from data
+        NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
+        for(NSString *lineWithEqualSign in linesWithEqualSign)
+        {
+            NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+            
+            // set into dict
+            [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+        }
         
         NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
         [dictWholeData setObject:method forKey:@"endpoint"];
