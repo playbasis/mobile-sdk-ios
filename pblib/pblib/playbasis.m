@@ -1730,11 +1730,21 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)goodsGroupAvailableAsyncForPlayer_:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
+{
+    return [self goodsGroupAvailableInternalBase:playerId group:group amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)goodsGroupAvailableInternalBase:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Redeem/goodsGroup%@&player_id=%@&group=%@&amount=%u", apiKeyParam, playerId, group, amount];
+    NSString *data = nil;
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsGroupAvailable andResponse:response];
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_goodsGroupAvailable andResponse:response];
 }
 
 -(PBRequest *)actionConfigWithDelegate:(id<PBActionConfig_ResponseHandler>)delegate
@@ -2090,11 +2100,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self joinQuestInternalBase:questId player:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)joinQuestAsync_:(NSString *)questId player:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self joinQuestInternalBase:questId player:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
 -(PBRequest *)joinQuestInternalBase:(NSString *)questId player:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/join%@", questId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", token, playerId];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -2115,11 +2134,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self cancelQuestInternalBase:questId player:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)cancelQuestAsync_:(NSString *)questId player:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self cancelQuestInternalBase:questId player:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)cancelQuestInternalBase:(NSString *)questId player:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/cancel%@", questId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id%@", token, playerId];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -2140,6 +2168,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
@@ -2148,6 +2180,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id%@&amount=%u", token, goodsId, playerId, amount];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -2214,11 +2251,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self sendEmailInternalBase:playerId subject:subject message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)sendEmailAsync_:(NSString *)playerId subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self sendEmailInternalBase:playerId subject:subject message:message blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)sendEmailInternalBase:(NSString *)playerId subject:(NSString *)subject message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Email/send%@",apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@", token, playerId, subject, message];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -2475,11 +2521,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self quizAnswerInternalBase:quizId optionId:optionId forPlayer:playerId ofQuestionId:questionId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)quizAnswerAsync_:(NSString *)quizId optionId:(NSString *)optionId forPlayer:(NSString *)playerId ofQuestionId:(NSString *)questionId withBlock:(PBQuestionAnswered_ResponseBlock)block
+{
+    return [self quizAnswerInternalBase:quizId optionId:optionId forPlayer:playerId ofQuestionId:questionId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)quizAnswerInternalBase:(NSString *)quizId optionId:(NSString *)optionId forPlayer:(NSString *)playerId ofQuestionId:(NSString *)questionId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quiz/%@/answer%@", quizId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&question_id=%@&option_id=%@", token, playerId, questionId, optionId];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_questionAnswered andResponse:response];
 }
@@ -2523,11 +2578,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self smsInternalBase:playerId message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)smsAsync_:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self smsInternalBase:playerId message:message blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)smsInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token , @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Sms/send%@", apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -2573,11 +2637,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self smsCouponInternalBase:playerId ref:refId message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)smsCouponAsync_:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self smsCouponInternalBase:playerId ref:refId message:message blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)smsCouponInternalBase:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Sms/goods%@", apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
