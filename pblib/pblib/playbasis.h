@@ -148,6 +148,7 @@
 -(PBRequest *)deleteUser:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequest *)deleteUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)deleteUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)deleteUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Tell Playbasis system that player has logged in.

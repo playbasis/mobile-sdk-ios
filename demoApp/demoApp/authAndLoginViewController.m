@@ -90,7 +90,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             });
             
             // login via non-blocking call, and with async url request
-            /*[[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"Login : %@", status);
@@ -99,18 +99,18 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 {
                     NSLog(@"%@", [error description]);
                 }
-            }];*/
+            }];
             
             // via delegate
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            [[Playbasis sharedPB] updateUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+            /*[[Playbasis sharedPB] updateUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"Update user : %@", status);
                 }
-            } :@"email=wasin3@haxpor.org", @"last_name=google2", nil];
+            } :@"email=wasin3@haxpor.org", @"last_name=google2", nil];*/
             
             /*[[Playbasis sharedPB] registerUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)

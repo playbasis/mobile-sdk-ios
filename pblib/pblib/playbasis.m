@@ -55,6 +55,11 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data responseType:(pbResponseType) responseType andResponse:(id)response;
 
 /**
+ Return json-data string used to send via async url request.
+ */
+-(NSString *)formAsyncUrlRequestJsonDataStringFromData:(NSString *)dataString method:(NSString *)method;
+
+/**
  @abstract Send http request via synchronized blocking call with delegate.
  
  @param syncURLRequest Whether or not to use sync-url request.
@@ -609,6 +614,35 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
 }
 
+-(NSString *)formAsyncUrlRequestJsonDataStringFromData:(NSString *)dataString method:(NSString*)method
+{
+    // create json data object
+    // we will set object for each field in the loop
+    NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+    
+    // split all params from data
+    NSArray *linesWithEqualSign = [dataString componentsSeparatedByString:@"&"];
+    for(NSString *lineWithEqualSign in linesWithEqualSign)
+    {
+        NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+        
+        // set into dict
+        [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+    }
+    
+    // package into format
+    NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+    [dictWholeData setObject:method forKey:@"endpoint"];
+    [dictWholeData setObject:dictData forKey:@"data"];
+    [dictWholeData setObject:@"nil" forKey:@"channel"];
+    
+    // get json string
+    NSString *dataFinal = [dictWholeData JSONString];
+    NSLog(@"jsonString = %@", dataFinal);
+    
+    return dataFinal;
+}
+
 -(const NSMutableArray *)getRequestOperationalQueue
 {
     return requestOptQueue;
@@ -1098,11 +1132,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)deleteUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
+{
+    return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/delete%@", playerId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
 
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -1135,32 +1178,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
     
-    if(syncUrl)
+    if(!syncUrl)
     {
-        // do nothing here
-    }
-    else
-    {
-        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        
-        // split all params from data
-        NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
-        for(NSString *lineWithEqualSign in linesWithEqualSign)
-        {
-            NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
-            
-            // set into dict
-            [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
-        }
-        
-        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
-        [dictWholeData setObject:method forKey:@"endpoint"];
-        [dictWholeData setObject:dictData forKey:@"data"];
-        [dictWholeData setObject:@"nil" forKey:@"channel"];
-        
-        // get json string
-        data = [dictWholeData JSONString];
-        NSLog(@"jsonString = %@", data);
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
