@@ -96,7 +96,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
  Internal working method to send request to process an action through all game's rules defined for client's website.
  This method return result via block.
  */
--(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block withParams:(va_list)params;
+-(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params;
 
 /*
  All internal base methods for API calls are listed here.
@@ -894,7 +894,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequest *)registerUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
 {
     NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/register", playerId];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
     
     id optionalData;
@@ -909,7 +909,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // create json data object
     // we will set object for each field in the loop
     NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-    [dictData setValue:_apiKey forKey:@"api_key"];
     
     // split all params from data
     NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
@@ -1036,7 +1035,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequest *)updateUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)firstArg, ...
 {
     NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/update%@", playerId, apiKeyParam];
     
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
     
@@ -1057,7 +1056,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // create json data object
     // we will set object for each field in the loop
     NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-    [dictData setValue:_apiKey forKey:@"api_key"];
     
     // split all params from data
     NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
@@ -1131,7 +1129,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequest *)loginInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/login", playerId];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/login%@", playerId, apiKeyParam];
     
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
     
@@ -1142,7 +1140,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     else
     {
         NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        [dictData setValue:_apiKey forKey:@"api_key"];
         
         // split all params from data
         NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
@@ -1766,7 +1763,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     {
         // create json data object
         NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        //[dictData setObject:apiKey forKey:@"api_key"];
         
         // package into format
         NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
@@ -1863,10 +1859,21 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     va_end(argumentList);
 }
+-(PBRequest *)ruleAsync_:(NSString *)playerId forAction:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:NO withBlock:block withParams:argumentList];
+    
+    va_end(argumentList);
+}
 
 -(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
+    
+    NSString *method = [NSString stringWithFormat:@"Engine/rule%@", apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
     
     id optionalData;
@@ -1875,16 +1882,49 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [data appendFormat:@"&%@", optionalData];
     }
     
-    // call to a proper type of call
-    if(blockingCall)
-        return [self call:@"Engine/rule" withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    if(syncUrl)
+    {
+        // call to a proper type of call
+        if(blockingCall)
+            return [self call:method withData:data syncURLRequest:syncUrl andDelegate:delegate];
+        else
+            return [self callAsync:method withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    }
     else
-        return [self callAsync:@"Engine/rule" withData:data syncURLRequest:syncUrl andDelegate:delegate];
+    {
+        // create json data object
+        // we will set object for each field in the loop
+        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+        
+        // split all params from data
+        NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
+        for(NSString *lineWithEqualSign in linesWithEqualSign)
+        {
+            NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+            
+            // set into dict
+            [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+        }
+        
+        // package into format
+        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+        [dictWholeData setObject:method forKey:@"endpoint"];
+        [dictWholeData setObject:dictData forKey:@"data"];
+        [dictWholeData setObject:@"nil" forKey:@"channel"];
+        
+        // get json string
+        NSString *dataFinal = [dictWholeData JSONString];
+        NSLog(@"jsonString = %@", dataFinal);
+        
+        return [self callAsync:method withData:dataFinal syncURLRequest:NO andDelegate:delegate];
+    }
 }
 
--(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block withParams:(va_list)params
+-(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
+    
+    NSString *method = [NSString stringWithFormat:@"Engine/rule%@", apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
     
     id optionalData;
@@ -1893,11 +1933,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [data appendFormat:@"&%@", optionalData];
     }
     
-    // call to a proper type of call
-    if(blockingCall)
-        return [self call:@"Engine/rule" withData:data syncURLRequest:syncUrl andBlock:block];
+    if(syncUrl)
+    {
+        // call to a proper type of call
+        if(blockingCall)
+            return [self call:method withData:data syncURLRequest:syncUrl andBlock:block];
+        else
+            return [self callAsync:method withData:data syncURLRequest:syncUrl andBlock:block];
+    }
     else
-        return [self callAsync:@"Engine/rule" withData:data syncURLRequest:syncUrl andBlock:block];
+    {
+        // create json data object
+        // we will set object for each field in the loop
+        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+        
+        // split all params from data
+        NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
+        for(NSString *lineWithEqualSign in linesWithEqualSign)
+        {
+            NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+            
+            // set into dict
+            [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+        }
+        
+        // package into format
+        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+        [dictWholeData setObject:method forKey:@"endpoint"];
+        [dictWholeData setObject:dictData forKey:@"data"];
+        [dictWholeData setObject:@"nil" forKey:@"channel"];
+        
+        // get json string
+        NSString *dataFinal = [dictWholeData JSONString];
+        NSLog(@"jsonString = %@", dataFinal);
+        
+        return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
+    }
 }
 
 -(PBRequest *)questListWithDelegate:(id<PBQuestList_ResponseHandler>)delegate

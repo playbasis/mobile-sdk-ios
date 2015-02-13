@@ -90,7 +90,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             });
             
             // login via non-blocking call, and with async url request
-            [[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+            /*[[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"Login : %@", status);
@@ -99,7 +99,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 {
                     NSLog(@"%@", [error description]);
                 }
-            }];
+            }];*/
             
             // via delegate
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
@@ -110,14 +110,19 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 {
                     NSLog(@"Update user : %@", status);
                 }
-            } :@"email=test@haxpor.org", @"last_name=google", nil];
+            } :@"email=wasin3@haxpor.org", @"last_name=google2", nil];
             
             /*[[Playbasis sharedPB] registerUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"Register user : %@", status);
                 }
-            } :@"wasinthonkaew" :@"wasin@haxpor.org" :@"http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png", nil];*/
+            } :@"wasint" :@"wasin@haxpor.org" :@"http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png", nil];*/
+            
+            /*[[Playbasis sharedPB] ruleAsync_:USER forAction:@"login" withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+                if(!error)
+                    NSLog(@"%@", status);
+            }, nil];*/
             
             // delay a short time to let user see the update on screen, then transition into mainmenu screen
             [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];
