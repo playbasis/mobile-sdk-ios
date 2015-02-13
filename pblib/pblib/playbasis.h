@@ -486,6 +486,15 @@
 -(PBRequest *)recentPointByNameAsync:(NSString *)pointName offset:(unsigned int)offset limit:(unsigned int)limit withBlock:(PBResponseBlock)block;
 
 /**
+ Reset point for all players.
+ */
+-(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withBlock:(PBResponseBlock)block;
+-(PBRequest *)resetPointForAllPlayersForPointAsync:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)resetPointForAllPlayersForPointAsync:(NSString *)pointName withBlock:(PBResponseBlock)block;
+-(PBRequest *)resetPointForAllPlayersForPointAsync_:(NSString *)pointName withBlock:(PBAsyncURLRequestResponseBlock)block;
+
+/**
  Send Email to a player.
  */
 -(PBRequest *)sendEmail:(NSString *)playerId subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate;
