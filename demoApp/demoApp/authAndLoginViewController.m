@@ -124,10 +124,17 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                     NSLog(@"%@", status);
             }, nil];*/
             
-            [[Playbasis sharedPB] track:@"tssfs" forAction:@"like" withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+            /*[[Playbasis sharedPB] track:USER forAction:@"like" withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"%@", status);
+                }
+            }];*/
+            
+            [[Playbasis sharedPB] do:USER action:@"like" withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"%@", jsonResponse);
                 }
             }];
             

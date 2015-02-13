@@ -667,5 +667,8 @@
  Execute action for player.
  */
 -(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
+-(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
 
 @end

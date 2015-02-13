@@ -307,6 +307,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - track
 -(PBRequest *)trackInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - do
+-(PBRequest *)doInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 @end
 
 //
@@ -2923,7 +2926,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 NSLog(@"Player doesn't exist");
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"User doesn't exist"
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"track(), User doesn't exist"
                                                                     message:@"User must register first"
                                                                    delegate:nil
                                                           cancelButtonTitle:@"OK"
@@ -2947,6 +2950,70 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             }
         }];
     });
+    
+    return nil;
+}
+
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self doInternalBase:playerId forAction:action blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block
+{
+    return [self doInternalBase:playerId forAction:action blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self doInternalBase:playerId forAction:action blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block
+{
+    return [self doInternalBase:playerId forAction:action blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)doInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    // check if user exists in the system or not
+    [self player:playerId withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
+        // user doesn't exist
+        if(player == nil && error != nil && error.code == 200)
+        {
+            NSLog(@"Player doesn't exist");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"do(), User doesn't exist"
+                                                                message:@"User must register first"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            });
+        }
+        // player exists
+        else if(player != nil && error == nil)
+        {
+            NSLog(@"Player exists as following info: %@", player);
+            
+            if(blockingCall)
+            {
+                if(useDelegate)
+                    [self rule:playerId forAction:action withDelegate:response, nil];
+                else
+                    [self rule:playerId forAction:action withBlock:response, nil];
+            }
+            else
+            {
+                if(useDelegate)
+                    [self ruleAsync:playerId forAction:action withBlock:response, nil];
+                else
+                    [self ruleAsync:playerId forAction:action withBlock:response, nil];
+            }
+        }
+        // error
+        else
+        {
+            NSLog(@"Error occurs: %@", error);
+        }
+    }];
     
     return nil;
 }
