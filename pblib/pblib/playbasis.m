@@ -3291,6 +3291,13 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             NSLog(@"Network is reachable via WWAN");
             break;
     }
+    
+    // create a passing data with dictionary
+    NSNumber *data = [NSNumber numberWithInt:networkStatus];
+    NSDictionary *passingData = [NSDictionary dictionaryWithObject:data forKey:@"data"];
+    
+    // notify listeners about this events
+    [[NSNotificationCenter defaultCenter] postNotificationName:pbNetworkStatusChangedNotification object:nil userInfo:passingData];
 }
 
 -(void)onApplicationDidFinishLaunching:(NSNotification *)notif

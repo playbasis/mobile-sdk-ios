@@ -10,6 +10,7 @@
 		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
+		1EB83E211A8E271600442B51 /* PBTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB83E201A8E271600442B51 /* PBTypes.m */; };
 		1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequest.m */; };
 		1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
 		2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
@@ -35,6 +36,7 @@
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1EB83E201A8E271600442B51 /* PBTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTypes.m; sourceTree = "<group>"; };
 		1EDC5FD71A701D9700991CEB /* PBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequest.h; sourceTree = "<group>"; };
 		1EDC5FD81A701D9700991CEB /* PBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequest.m; sourceTree = "<group>"; };
 		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
@@ -119,8 +121,9 @@
 				1EDC5FD81A701D9700991CEB /* PBRequest.m */,
 				1EDC5FDA1A7022EA00991CEB /* PBTypes.h */,
 				1E2074291A84B069002D77A1 /* PBResponses.h */,
-				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
 				1E20742A1A84B329002D77A1 /* PBResponses.m */,
+				1EB83E201A8E271600442B51 /* PBTypes.m */,
+				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
 			);
 			path = pblib;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EB83E211A8E271600442B51 /* PBTypes.m in Sources */,
 				1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
 				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,

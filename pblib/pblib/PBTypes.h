@@ -11,6 +11,11 @@
 
 #import "PBResponses.h"
 
+///----------------
+/// Notification string
+///----------------
+extern NSString *pbNetworkStatusChangedNotification;
+
 ///---------------------------------------------
 /// @name Delegates and Block Response Handlers
 ///---------------------------------------------
