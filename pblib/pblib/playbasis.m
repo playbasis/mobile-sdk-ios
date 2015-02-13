@@ -942,29 +942,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     va_end(argumentList);
     
-    // create json data object
-    // we will set object for each field in the loop
-    NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-    
-    // split all params from data
-    NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
-    for(NSString *lineWithEqualSign in linesWithEqualSign)
-    {
-        NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
-        
-        // set into dict
-        [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
-    }
-    
-    // package into format
-    NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
-    [dictWholeData setObject:method forKey:@"endpoint"];
-    [dictWholeData setObject:dictData forKey:@"data"];
-    [dictWholeData setObject:@"nil" forKey:@"channel"];
-    
-    // get json string
-    NSString *dataFinal = [dictWholeData JSONString];
-    NSLog(@"jsonString = %@", dataFinal);
+    // form async url request data
+    NSString *dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     
     return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
 }
@@ -1089,29 +1068,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     va_end(argumentList);
     
-    // create json data object
-    // we will set object for each field in the loop
-    NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-    
-    // split all params from data
-    NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
-    for(NSString *lineWithEqualSign in linesWithEqualSign)
-    {
-        NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
-        
-        // set into dict
-        [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
-    }
-    
-    // package into format
-    NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
-    [dictWholeData setObject:method forKey:@"endpoint"];
-    [dictWholeData setObject:dictData forKey:@"data"];
-    [dictWholeData setObject:@"nil" forKey:@"channel"];
-    
-    // get json string
-    NSString *dataFinal = [dictWholeData JSONString];
-    NSLog(@"jsonString = %@", dataFinal);
+    // form async url request data
+    NSString *dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     
     return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
 }
@@ -1965,29 +1923,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     else
     {
-        // create json data object
-        // we will set object for each field in the loop
-        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        
-        // split all params from data
-        NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
-        for(NSString *lineWithEqualSign in linesWithEqualSign)
-        {
-            NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
-            
-            // set into dict
-            [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
-        }
-        
-        // package into format
-        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
-        [dictWholeData setObject:method forKey:@"endpoint"];
-        [dictWholeData setObject:dictData forKey:@"data"];
-        [dictWholeData setObject:@"nil" forKey:@"channel"];
-        
-        // get json string
-        NSString *dataFinal = [dictWholeData JSONString];
-        NSLog(@"jsonString = %@", dataFinal);
+        // form async url request data
+        NSString *dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
         
         return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
     }
