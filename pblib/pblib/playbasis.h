@@ -167,6 +167,7 @@
 -(PBRequest *)logout:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequest *)logoutAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)logoutAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)logoutAsync_:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Returns information about all point-based rewards that a player currently have.
@@ -272,6 +273,7 @@
 -(PBRequest *)claimBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
 -(PBRequest *)claimBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)claimBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
+-(PBRequest *)claimBadgeAsync_:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
 
 /**
  Redeem a badge that player has claimed.
@@ -280,6 +282,7 @@
 -(PBRequest *)redeemBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
 -(PBRequest *)redeemBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)redeemBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
+-(PBRequest *)redeemBadgeAsync_:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
 
 /**
  Return information about all goods that player has redeemed.

@@ -1160,11 +1160,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self logoutInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)logoutAsync_:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self logoutInternalBase:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)logoutInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/logout%@", playerId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -1467,11 +1476,21 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self claimBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)claimBadgeAsync_:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
+{
+    return [self claimBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)claimBadgeInternalBase:(NSString *)playerId withBadgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/claim%@", playerId, badgeId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    
+    if(!syncUrl)
+    {
+        // form async url request data
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -1492,11 +1511,21 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)redeemBadgeAsync_:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
+{
+    return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)redeemBadgeInternalBase:(NSString *)playerId withBadgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/redeem%@", playerId, badgeId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    
+    if(!syncUrl)
+    {
+        // form async url request data
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
