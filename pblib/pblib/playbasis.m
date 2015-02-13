@@ -304,6 +304,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - questList
 -(PBRequest *)questListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - track
+-(PBRequest *)trackInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 @end
 
 //
@@ -2900,34 +2903,39 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block
 {
-    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
-    
-    // use the async-url request and non-blocking call
-    return [self ruleAsync:playerId forAction:action syncUrl:NO withDelegate:delegate, nil];
+    // it's always async url request, thus non-blocking call
+    return [self trackInternalBase:playerId forAction:action blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
-
--(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block
+-(PBRequest *)trackInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
+    // begin entire sequence in async way
+    // as track is in async way
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // the sequence should be in sequencial thus we use blocking call
+        
+        // check if user exists in the system or not
+        [self player:playerId withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
+            // user doesn't exist
+            if(player == nil && error != nil && error.code == 200)
+            {
+                NSLog(@"Player doesn't exist");
+            }
+            // player exists
+            else if(player != nil && error == nil)
+            {
+                NSLog(@"Player exists as following info: %@", player);
+            }
+            // error
+            else
+            {
+                NSLog(@"Error occurs: %@", error);
+            }
+        }];
+    });
     
-    // use the async-url request and non-blocking call
-    return [self ruleAsync:playerId forAction:action syncUrl:NO withBlock:block, nil];
-}
-
--(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
-{
-    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
-    
-    return [self rule:playerId forAction:action withDelegate:delegate, nil];
-}
-
--(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block
-{
-    // TODO: Add checking if playerId exists in the system, then register it properly with information that still needed to gather
-    
-    return [self rule:playerId forAction:action withBlock:block, nil];
+    return nil;
 }
 
 -(PBRequest *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate

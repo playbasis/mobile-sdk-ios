@@ -124,6 +124,13 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                     NSLog(@"%@", status);
             }, nil];*/
             
+            [[Playbasis sharedPB] track:@"test" forAction:@"like" withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"%@", status);
+                }
+            }];
+            
             // delay a short time to let user see the update on screen, then transition into mainmenu screen
             [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];
         }
