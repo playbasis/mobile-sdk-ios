@@ -2921,11 +2921,24 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             if(player == nil && error != nil && error.code == 200)
             {
                 NSLog(@"Player doesn't exist");
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"User doesn't exist"
+                                                                    message:@"User must register first"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                });
             }
             // player exists
             else if(player != nil && error == nil)
             {
                 NSLog(@"Player exists as following info: %@", player);
+                
+                // now it's time to track
+                // response back to the root response
+                [self ruleAsync_:playerId forAction:action withBlock:response, nil];
             }
             // error
             else
