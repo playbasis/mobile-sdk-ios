@@ -150,7 +150,7 @@
             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
             
             // response with fail
-            sb(nil, [urlRequest URL], error);
+            sb([PBResultStatus_Response resultStatusWithFailure], [urlRequest URL], error);
         }
         else
         {
@@ -172,7 +172,7 @@
             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
             
             // response with fail
-            sb(nil, [urlRequest URL], userError);
+            sb([PBResultStatus_Response resultStatusWithFailure], [urlRequest URL], userError);
         }
     }
 }

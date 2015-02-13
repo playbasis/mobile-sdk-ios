@@ -136,6 +136,7 @@
 -(PBRequest *)updateUser:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)firstArg ,...;
 -(PBRequest *)updateUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)firstArg ,...;
 -(PBRequest *)updateUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)firstArg ,...;
+-(PBRequest *)updateUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)firstArg ,...;
 
 /**
  Permanently delete user from Playbasis's database.
@@ -356,6 +357,7 @@
 -(PBRequest *)actionConfigWithBlock:(PBActionConfig_ResponseBlock)block;
 -(PBRequest *)actionConfigAsyncWithDelegate:(id<PBActionConfig_ResponseHandler>)delegate;
 -(PBRequest *)actionConfigAsyncWithBlock:(PBActionConfig_ResponseBlock)block;
+-(PBRequest *)actionConfigAsyncWithBlock_:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Process an action through all the game's rules defined for client's website.

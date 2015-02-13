@@ -903,6 +903,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    
+    // append firstArg first, but check against nil
+    if(firstArg != nil)
+        [data appendFormat:@"&%@", firstArg];
 
     id updateData;
     va_list argumentList;
@@ -921,6 +925,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
     
+    // append firstArg first, but check against nil
+    if(firstArg != nil)
+        [data appendFormat:@"&%@", firstArg];
+    
     id updateData;
     va_list argumentList;
     va_start(argumentList, firstArg);
@@ -937,6 +945,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    
+    // append firstArg first, but check against nil
+    if(firstArg != nil)
+        [data appendFormat:@"&%@", firstArg];
     
     id updateData;
     va_list argumentList;
@@ -955,6 +967,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
     
+    // append firstArg first, but check against nil
+    if(firstArg != nil)
+        [data appendFormat:@"&%@", firstArg];
+    
     id updateData;
     va_list argumentList;
     va_start(argumentList, firstArg);
@@ -965,6 +981,54 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     va_end(argumentList);
     
     return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
+}
+-(PBRequest *)updateUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)firstArg, ...
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/update", playerId];
+    
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    
+    // append firstArg first, but check against nil
+    if(firstArg != nil)
+        [data appendFormat:@"&%@", firstArg];
+    
+    id updateData;
+    va_list argumentList;
+    va_start(argumentList, firstArg);
+    // this loop start next to firstArg
+    while ((updateData = va_arg(argumentList, NSString *)))
+    {
+        [data appendFormat:@"&%@", updateData];
+    }
+    va_end(argumentList);
+    
+    // create json data object
+    // we will set object for each field in the loop
+    NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+    [dictData setValue:token forKey:@"token"];
+    
+    // split all params from data
+    NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
+    for(NSString *lineWithEqualSign in linesWithEqualSign)
+    {
+        NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+        
+        // set into dict
+        [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+    }
+    
+    // package into format
+    NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+    [dictWholeData setObject:method forKey:@"endpoint"];
+    [dictWholeData setObject:dictData forKey:@"data"];
+    [dictWholeData setObject:@"nil" forKey:@"channel"];
+    
+    // get json string
+    NSString *dataFinal = [dictWholeData JSONString];
+    NSLog(@"jsonString = %@", dataFinal);
+    
+    return [self callAsync:method withData:dataFinal syncURLRequest:YES andBlock:block];
 }
 
 -(PBRequest *)deleteUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
@@ -1620,9 +1684,37 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self actionConfigInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
+-(PBRequest *)actionConfigAsyncWithBlock_:(PBAsyncURLRequestResponseBlock)block
+{
+    return [self actionConfigInternalBase:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
 -(PBRequest *)actionConfigInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Engine/actionConfig%@", apiKeyParam];
+    
+    NSString *data = nil;
+    
+    if(syncUrl)
+    {
+        // create data param string
+        // no data for sync url request
+    }
+    else
+    {
+        // create json data object
+        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+        //[dictData setObject:apiKey forKey:@"api_key"];
+        
+        // package into format
+        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+        [dictWholeData setObject:method forKey:@"endpoint"];
+        [dictWholeData setObject:dictData forKey:@"data"];
+        [dictWholeData setObject:@"nil" forKey:@"channel"];
+        
+        // get json string
+        data = [dictWholeData JSONString];
+        NSLog(@"jsonString = %@", data);
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionConfig andResponse:response];
 }

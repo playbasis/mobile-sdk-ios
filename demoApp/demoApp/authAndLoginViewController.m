@@ -108,11 +108,12 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
             
             // TODO: Test something it here
-            /*[[Playbasis sharedPB] quizScoreRankAsync:@"54649c1e5fb29c181fdb125e" limit:20 withBlock:^(PBPlayersQuizRank_Response *playersQuizRank, NSURL *url, NSError *error) {
-                if(!error){
-                    NSLog(@"%@", playersQuizRank);
+            [[Playbasis sharedPB] updateUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"%@", status);
                 }
-            }];*/
+            } :@"email=wasin@haxpor.org", @"last_name=google", nil];
             
             // delay a short time to let user see the update on screen, then transition into mainmenu screen
             [self performSelector:@selector(transitionToMainMenuScreen) withObject:self afterDelay:kWaitingTime];
