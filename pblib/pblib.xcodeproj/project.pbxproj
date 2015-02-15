@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
+		1E304A3D1A90B745006F0C7F /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A351A90B745006F0C7F /* RNCryptor.m */; };
+		1E304A3E1A90B745006F0C7F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A381A90B745006F0C7F /* RNCryptorEngine.m */; };
+		1E304A3F1A90B745006F0C7F /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A3A1A90B745006F0C7F /* RNDecryptor.m */; };
+		1E304A401A90B745006F0C7F /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A3C1A90B745006F0C7F /* RNEncryptor.m */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1EB83E211A8E271600442B51 /* PBTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB83E201A8E271600442B51 /* PBTypes.m */; };
@@ -37,6 +41,18 @@
 /* Begin PBXFileReference section */
 		1E2074291A84B069002D77A1 /* PBResponses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
 		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
+		1E304A331A90B745006F0C7F /* RNCryptor-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RNCryptor-Prefix.pch"; path = "RNCryptor/RNCryptor-Prefix.pch"; sourceTree = "<group>"; };
+		1E304A341A90B745006F0C7F /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCryptor.h; path = RNCryptor/RNCryptor.h; sourceTree = "<group>"; };
+		1E304A351A90B745006F0C7F /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCryptor.m; path = RNCryptor/RNCryptor.m; sourceTree = "<group>"; };
+		1E304A361A90B745006F0C7F /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RNCryptor+Private.h"; path = "RNCryptor/RNCryptor+Private.h"; sourceTree = "<group>"; };
+		1E304A371A90B745006F0C7F /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCryptorEngine.h; path = RNCryptor/RNCryptorEngine.h; sourceTree = "<group>"; };
+		1E304A381A90B745006F0C7F /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCryptorEngine.m; path = RNCryptor/RNCryptorEngine.m; sourceTree = "<group>"; };
+		1E304A391A90B745006F0C7F /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNDecryptor.h; path = RNCryptor/RNDecryptor.h; sourceTree = "<group>"; };
+		1E304A3A1A90B745006F0C7F /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNDecryptor.m; path = RNCryptor/RNDecryptor.m; sourceTree = "<group>"; };
+		1E304A3B1A90B745006F0C7F /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNEncryptor.h; path = RNCryptor/RNEncryptor.h; sourceTree = "<group>"; };
+		1E304A3C1A90B745006F0C7F /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNEncryptor.m; path = RNCryptor/RNEncryptor.m; sourceTree = "<group>"; };
+		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -84,6 +100,16 @@
 		1EA3AE191A717AE0008F17F3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				1E304A331A90B745006F0C7F /* RNCryptor-Prefix.pch */,
+				1E304A341A90B745006F0C7F /* RNCryptor.h */,
+				1E304A351A90B745006F0C7F /* RNCryptor.m */,
+				1E304A361A90B745006F0C7F /* RNCryptor+Private.h */,
+				1E304A371A90B745006F0C7F /* RNCryptorEngine.h */,
+				1E304A381A90B745006F0C7F /* RNCryptorEngine.m */,
+				1E304A391A90B745006F0C7F /* RNDecryptor.h */,
+				1E304A3A1A90B745006F0C7F /* RNDecryptor.m */,
+				1E304A3B1A90B745006F0C7F /* RNEncryptor.h */,
+				1E304A3C1A90B745006F0C7F /* RNEncryptor.m */,
 				1EA3AE1A1A717AE0008F17F3 /* Reachability */,
 			);
 			path = libs;
@@ -147,6 +173,8 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */,
+				1E304A411A90BC83006F0C7F /* Security.framework */,
 				1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */,
 				2C1C74F817461E1B005F3B57 /* Foundation.framework */,
 			);
@@ -278,8 +306,12 @@
 				1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */,
 				1EB83E211A8E271600442B51 /* PBTypes.m in Sources */,
 				1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
+				1E304A3E1A90B745006F0C7F /* RNCryptorEngine.m in Sources */,
 				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
+				1E304A3F1A90B745006F0C7F /* RNDecryptor.m in Sources */,
+				1E304A401A90B745006F0C7F /* RNEncryptor.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
+				1E304A3D1A90B745006F0C7F /* RNCryptor.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */,
 				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,
 				1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */,
@@ -452,6 +484,7 @@
 				1EC5B9071A8F3AAD0007C8A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C1C74F017461E1B005F3B57 /* Build configuration list for PBXProject "pblib" */ = {
 			isa = XCConfigurationList;

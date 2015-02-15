@@ -9,8 +9,11 @@
 //
 
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
 
 static NSString * const SAVEFILE_NAME = @"requests.pb";
+static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
 
 @implementation NSMutableArray (QueueAndSerializationAdditions) 
 
@@ -120,8 +123,19 @@ static NSString * const SAVEFILE_NAME = @"requests.pb";
         [requests addObject:[self objectAtIndex:i]];
     }
     
+    // save to data
+    NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:requests];
+    
+    // error for encryption
+    NSError *error;
+    
+    // encrypt data
+    NSData *encryptedData = [RNEncryptor encryptData:archiveData withSettings:kRNCryptorAES256Settings password:PASSWORD error:&error];
+    
+    NSAssert(error == nil, @"There's error regarding encrypting data");
+    
     // save to file
-    if([NSKeyedArchiver archiveRootObject:requests toFile:appFile])
+    if([encryptedData writeToFile:appFile atomically:YES])
     {
         // remove all objects in a queue
         // this is for consistency
@@ -154,8 +168,18 @@ static NSString * const SAVEFILE_NAME = @"requests.pb";
         return NO;
     }
     
+    // error of decrypting data
+    NSError *error;
+    
+    // read encrypted data
+    NSData *encryptedData = [NSData dataWithContentsOfFile:appFile];
+    // decrypt data
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:PASSWORD error:&error];
+    
+    NSAssert(error == nil, @"Decrypting data has an error");
+    
     // unarchive requests into array
-    NSMutableArray *requests = [NSKeyedUnarchiver unarchiveObjectWithFile:appFile];
+    NSMutableArray *requests = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
     
     /**
      add those loaded items into queue
@@ -170,8 +194,9 @@ static NSString * const SAVEFILE_NAME = @"requests.pb";
      */
     [self addObjectsFromArray:requests];
     
+    // reuse error object
+    error = nil;
     // now we're done, then we need to remove file
-    NSError *error;
     BOOL success = [fileManager removeItemAtPath:appFile error:&error];
     if(success)
     {

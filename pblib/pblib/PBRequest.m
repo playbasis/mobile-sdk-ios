@@ -87,6 +87,11 @@
     urlRequest = [decoder decodeObjectForKey:@"urlRequest"];
     receivedData = [decoder decodeObjectForKey:@"receivedData"];
     jsonResponse = [decoder decodeObjectForKey:@"jsonResponse"];
+    
+    // we need to wrap up integer value into object
+    NSNumber *responseTypeNumberObj = [decoder decodeObjectForKey:@"responseType"];
+    responseType = [responseTypeNumberObj integerValue];
+    
     state = [decoder decodeIntForKey:@"state"];
     isBlockingCall = [decoder decodeBoolForKey:@"isBlockingCall"];
     isSyncURLRequest = [decoder decodeBoolForKey:@"isSyncURLRequest"];
@@ -103,6 +108,7 @@
     [encoder encodeObject:urlRequest forKey:@"urlRequest"];
     [encoder encodeObject:receivedData forKey:@"receivedData"];
     [encoder encodeObject:jsonResponse forKey:@"jsonResponse"];
+    [encoder encodeObject:[NSNumber numberWithInt:responseType]  forKey:@"responseType"];
     [encoder encodeInt:state forKey:@"state"];
     [encoder encodeBool:isBlockingCall forKey:@"isBlockingCall"];
     [encoder encodeBool:isSyncURLRequest forKey:@"isSyncURLRequest"];

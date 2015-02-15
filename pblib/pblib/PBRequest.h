@@ -30,6 +30,7 @@ PBRequestState;
     
     pbResponseType responseType;
     
+    // the following data need not to be serialized
     // either one or another
     id<PBResponseHandler> responseDelegate;
     id responseBlock;
