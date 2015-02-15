@@ -1,12 +1,12 @@
 //
-//  playbasis.m
-//  playbasis
+//  Playbasis.m
+//  Playbasis
 //
 //  Created by Playbasis.
 //  Copyright (c) 2556 Playbasis. All rights reserved.
 //
 
-#import "playbasis.h"
+#import "Playbasis.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -305,7 +305,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)questListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - track
--(PBRequest *)trackInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(void)trackInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - do
 -(PBRequest *)doInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -464,7 +464,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+(id)sharedPB
++(Playbasis*)sharedPB
 {
     static Playbasis *sharedPlaybasis = nil;
     
@@ -2906,12 +2906,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
--(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block
+-(void)track:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController *)view withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     // it's always async url request, thus non-blocking call
-    return [self trackInternalBase:playerId forAction:action blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+    return [self trackInternalBase:playerId forAction:action fromView:view useDelegate:NO withResponse:block];
 }
--(PBRequest *)trackInternalBase:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(void)trackInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController *)view useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // begin entire sequence in async way
     // as track is in async way
@@ -2925,14 +2925,35 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             {
                 NSLog(@"Player doesn't exist");
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"track(), User doesn't exist"
-                                                                    message:@"User must register first"
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-                    [alert show];
-                });
+                // show registration form
+                if(view != nil)
+                {
+                    [self showRegistrationFormFromView:view intendedPlayerId:playerId withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+                        if(!error)
+                        {
+                            NSLog(@"Register successfully, then do rule().");
+                            // register successfully, then do the work
+                            // now it's time to track
+                            // response back to the root response
+                            [self ruleAsync_:playerId forAction:action withBlock:response, nil];
+                        }
+                        else
+                        {
+                            NSLog(@"Register failed, then send error back to response.");
+                            // if there's no view input, then directly send back response with error
+                            PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
+                            sb([PBResultStatus_Response resultStatusWithFailure], nil, error);
+                        }
+                    }];
+                }
+                // otherwise, response back with error
+                else
+                {
+                    NSLog(@"No view set, then send back with error to reponse.");
+                    // if there's no view input, then directly send back response with error
+                    PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
+                    sb([PBResultStatus_Response resultStatusWithFailure], nil, error);
+                }
             }
             // player exists
             else if(player != nil && error == nil)
@@ -2947,11 +2968,16 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             else
             {
                 NSLog(@"Error occurs: %@", error);
+                
+                // direct response back
+                if(response != nil)
+                {
+                    PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
+                    sb([PBResultStatus_Response resultStatusWithFailure], nil, error);
+                }
             }
         }];
     });
-    
-    return nil;
 }
 
 -(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate
@@ -3337,6 +3363,37 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // serialize and save all requests in queue
     [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
+}
+
+//--------------------------------------------------
+// UI
+//--------------------------------------------------
+-(void)showRegistrationFormFromView:(UIViewController *)view withBlock:(PBResponseBlock)block
+{
+    [self showRegistrationFormFromView:view intendedPlayerId:nil withBlock:block];
+}
+
+-(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    NSBundle *pbBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle]  URLForResource:@"pblibResource" withExtension:@"bundle"]];
+    
+    // get playbasis's storyboard
+    UIStoryboard *pbStoryboard = [UIStoryboard storyboardWithName:@"PBStoryboard" bundle:pbBundle];
+    
+    // get regis ui-view-controller
+    pbUserRegistrationFormViewController *regisForm = [pbStoryboard instantiateViewControllerWithIdentifier:@"registrationFormViewController"];
+    // set response back from registration process
+    regisForm.responseBlock = block;
+    // set intended player id to register
+    regisForm.intendedPlayerId = playerId;
+    
+    // set some style
+    regisForm.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    // show form
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [view presentViewController:regisForm animated:YES completion:nil];
+    });
 }
 
 @end

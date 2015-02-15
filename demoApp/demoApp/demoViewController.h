@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "playbasis.h"
+#import "Playbasis.h"
 
 @interface demoViewController : UIViewController <PBResponseHandler>
 

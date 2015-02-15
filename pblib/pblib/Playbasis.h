@@ -1,6 +1,6 @@
 //
-//  playbasis.h
-//  playbasis
+//  Playbasis.h
+//  Playbasis
 //
 //  Created by Playbasis.
 //  Copyright (c) 2556 Playbasisß. All rights reserved.
@@ -14,6 +14,11 @@
 #import "PBRequest.h"
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
 #import "PBResponses.h"
+
+/**
+ Inclusion for all UIs.
+ */
+#import "ui/PBUI.h"
 
 /**
  Playbasis
@@ -52,7 +57,7 @@
 /**
  Get the singleton instance of Playbasis.
  */
-+(id)sharedPB;
++(Playbasis*)sharedPB;
 
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
@@ -661,7 +666,7 @@
 /**
  Track player with an action.
  */
--(PBRequest *)track:(NSString *)playerId forAction:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block;
+-(void)track:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Execute action for player.
@@ -670,5 +675,11 @@
 -(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
 -(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
+
+//--------------------------------------------------
+// UI
+//--------------------------------------------------
+-(void)showRegistrationFormFromView:(UIViewController *)view withBlock:(PBResponseBlock)block;
+-(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 @end

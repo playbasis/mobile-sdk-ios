@@ -18,6 +18,7 @@
 		1E9AF5751A783EDE00A6E416 /* questionScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF5741A783EDE00A6E416 /* questionScreenViewController.m */; };
 		1E9AF5781A783EFF00A6E416 /* quizResultScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF5771A783EFF00A6E416 /* quizResultScreenViewController.m */; };
 		1EA3AE1F1A717EBB008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */; };
+		1EC5B90E1A8F3E0E0007C8A8 /* pblibResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */; };
 		2C1C75191749D7DB005F3B57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C75181749D7DB005F3B57 /* UIKit.framework */; };
 		2C1C751B1749D7DB005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C751A1749D7DB005F3B57 /* Foundation.framework */; };
 		2C1C751D1749D7DB005F3B57 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C751C1749D7DB005F3B57 /* CoreGraphics.framework */; };
@@ -33,6 +34,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1E304A2F1A905EFE006F0C7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EC5B9001A8F3AAD0007C8A8;
+			remoteInfo = pblibResource;
+		};
+		1EC5B90C1A8F3DE50007C8A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1EC5B9011A8F3AAD0007C8A8;
+			remoteInfo = pblibResource;
+		};
 		2C90D7E61749D9A00080C57D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
@@ -188,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				2C90D7E71749D9A00080C57D /* pblib.a */,
+				1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,6 +222,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1E304A301A905EFF006F0C7F /* PBXTargetDependency */,
 				2C90D7E91749DC830080C57D /* PBXTargetDependency */,
 			);
 			name = demoApp;
@@ -247,6 +264,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = pblibResource.bundle;
+			remoteRef = 1EC5B90C1A8F3DE50007C8A8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		2C90D7E71749D9A00080C57D /* pblib.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -261,6 +285,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC5B90E1A8F3E0E0007C8A8 /* pblibResource.bundle in Resources */,
 				2C1C75231749D7DB005F3B57 /* InfoPlist.strings in Resources */,
 				2C1C752B1749D7DB005F3B57 /* Default.png in Resources */,
 				2C1C752D1749D7DB005F3B57 /* Default@2x.png in Resources */,
@@ -295,6 +320,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1E304A301A905EFF006F0C7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = pblibResource;
+			targetProxy = 1E304A2F1A905EFE006F0C7F /* PBXContainerItemProxy */;
+		};
 		2C90D7E91749DC830080C57D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = pblib;
@@ -382,7 +412,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "demoApp/demoApp-Prefix.pch";
-				HEADER_SEARCH_PATHS = ../pblib/pblib;
+				HEADER_SEARCH_PATHS = (
+					../pblib/libs,
+					"../pblib/**",
+				);
 				INFOPLIST_FILE = "demoApp/demoApp-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -400,7 +433,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "demoApp/demoApp-Prefix.pch";
-				HEADER_SEARCH_PATHS = ../pblib/pblib;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				INFOPLIST_FILE = "demoApp/demoApp-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",

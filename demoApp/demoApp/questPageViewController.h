@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "playbasis.h"
+#import "Playbasis.h"
 
-@interface questPageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface questPageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate,
+    UIAlertViewDelegate>
 {
     NSUInteger currentPageIndex;
     PBQuestListAvailableForPlayer_Response *questListAvailable_;

@@ -101,43 +101,6 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 }
             }];
             
-            // via delegate
-            //[[Playbasis sharedPB] playerPublic:USER withDelegate:self];
-            
-            // TODO: Test something it here
-            /*[[Playbasis sharedPB] updateUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"Update user : %@", status);
-                }
-            } :@"email=wasin3@haxpor.org", @"last_name=google2", nil];*/
-            
-            /*[[Playbasis sharedPB] registerUserAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"Register user : %@", status);
-                }
-            } :@"wasint" :@"wasin@haxpor.org" :@"http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png", nil];*/
-            
-            /*[[Playbasis sharedPB] ruleAsync_:USER forAction:@"login" withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
-                if(!error)
-                    NSLog(@"%@", status);
-            }, nil];*/
-            
-            /*[[Playbasis sharedPB] track:USER forAction:@"like" withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"%@", status);
-                }
-            }];*/
-            
-            [[Playbasis sharedPB] do:USER action:@"like" withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"%@", jsonResponse);
-                }
-            }];
-            
             NSLog(@"Passed through this line");
             
             // delay a short time to let user see the update on screen, then transition into mainmenu screen

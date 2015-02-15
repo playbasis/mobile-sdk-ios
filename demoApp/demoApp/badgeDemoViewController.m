@@ -7,7 +7,7 @@
 //
 
 #import "badgeDemoViewController.h"
-#import "playbasis.h"
+#import "Playbasis.h"
 #import "demoAppSettings.h"
 
 @interface badgeDemoViewController ()

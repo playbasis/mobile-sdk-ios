@@ -7,7 +7,8 @@
 //
 
 #import "mainmenuViewController.h"
-#import "playbasis.h"
+#import "Playbasis.h"
+#import "demoAppSettings.h"
 
 @interface mainmenuViewController ()
 
@@ -21,6 +22,18 @@
     
     // listen to network status changed
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNetworkStatusChanged:) name:pbNetworkStatusChangedNotification object:nil];
+    
+    // track a specified user
+    [[Playbasis sharedPB] track:@"trackusertest" forAction:@"like" fromView:self withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"%@", status);
+        }
+        else
+        {
+            NSLog(@"%@, code = %u", error, error.code);
+        }
+    }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

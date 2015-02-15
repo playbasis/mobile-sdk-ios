@@ -8,7 +8,7 @@
 
 #import "questPageViewController.h"
 #import "questDemoViewController.h"
-#import "playbasis.h"
+#import "Playbasis.h"
 #import "demoAppSettings.h"
 
 @interface questPageViewController ()
@@ -101,13 +101,22 @@
             
             NSLog(@"Complete loading all quests information.");
             
-            // set the initial first view controller
-            questDemoViewController *viewController = [self viewControllerAtIndex:0];
-            NSArray *viewControllers = [NSArray arrayWithObject:viewController];
-            [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-            
-            // set the current page index for later use when we touch the button
-            currentPageIndex = 0;
+            if([questList_.questList.quests count] > 0)
+            {
+                // set the initial first view controller
+                questDemoViewController *viewController = [self viewControllerAtIndex:0];
+                NSArray *viewControllers = [NSArray arrayWithObject:viewController];
+                [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+                
+                // set the current page index for later use when we touch the button
+                currentPageIndex = 0;
+            }
+            else
+            {
+                // alert that's there no available quests
+                UIAlertView *popup = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There's no available quests" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [popup show];
+            }
         }
     }];
 }
@@ -115,6 +124,15 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        // go back
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController

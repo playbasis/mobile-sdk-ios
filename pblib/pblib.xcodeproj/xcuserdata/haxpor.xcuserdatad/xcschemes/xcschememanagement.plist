@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>pblibResource.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1EC5B9001A8F3AAD0007C8A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2C1C74F417461E1B005F3B57</key>
 		<dict>
 			<key>primary</key>
