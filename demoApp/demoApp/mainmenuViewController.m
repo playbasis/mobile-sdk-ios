@@ -24,7 +24,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNetworkStatusChanged:) name:pbNetworkStatusChangedNotification object:nil];
     
     // track a specified user
-    [[Playbasis sharedPB] track:@"trackusertest" forAction:@"like" fromView:self withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+    /*[[Playbasis sharedPB] track:@"trackusertest" forAction:@"like" fromView:self withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", status);
@@ -33,7 +33,21 @@
         {
             NSLog(@"%@, code = %u", error, error.code);
         }
+    }];*/
+    
+    // do a specified user for certain action
+    [[Playbasis sharedPB] doAsync:@"trackusertest2" forAction:@"like" fromView:self withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"%@", jsonResponse);
+        }
+        else
+        {
+            NSLog(@"%@, code = %u", error, error.code);
+        }
     }];
+    
+    NSLog(@"Passed through this line as it's async call");
 }
 
 -(void)viewWillDisappear:(BOOL)animated

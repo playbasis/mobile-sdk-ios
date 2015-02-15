@@ -669,12 +669,13 @@
 -(void)track:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
- Execute action for player.
+ Do player for a given action.
+ This is similar to track but will get payload back in response.
  */
--(PBRequest *)do:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)do:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
--(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)doAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block;
+-(void)do:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withDelegate:(id<PBResponseHandler>)delegate;
+-(void)do:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block;
+-(void)doAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withDelegate:(id<PBResponseHandler>)delegate;
+-(void)doAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block;
 
 //--------------------------------------------------
 // UI
