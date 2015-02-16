@@ -13,6 +13,8 @@
 		1E304A4D1A9139D5006F0C7F /* missionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A4C1A9139D5006F0C7F /* missionPageViewController.m */; };
 		1E304A521A915FBC006F0C7F /* complete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E304A501A915FBC006F0C7F /* complete.png */; };
 		1E304A531A915FBC006F0C7F /* notcomplete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E304A511A915FBC006F0C7F /* notcomplete.png */; };
+		1E304A571A918D8D006F0C7F /* rewardStorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */; };
+		1E304A5A1A918E07006F0C7F /* rewardItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A591A918E07006F0C7F /* rewardItemViewController.m */; };
 		1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */; };
 		1E9AF55D1A7746C200A6E416 /* mainmenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55C1A7746C200A6E416 /* mainmenuViewController.m */; };
 		1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */; };
@@ -78,6 +80,10 @@
 		1E304A4C1A9139D5006F0C7F /* missionPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = missionPageViewController.m; sourceTree = "<group>"; };
 		1E304A501A915FBC006F0C7F /* complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = complete.png; sourceTree = "<group>"; };
 		1E304A511A915FBC006F0C7F /* notcomplete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notcomplete.png; sourceTree = "<group>"; };
+		1E304A551A918D8D006F0C7F /* rewardStorePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rewardStorePageViewController.h; sourceTree = "<group>"; };
+		1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardStorePageViewController.m; sourceTree = "<group>"; };
+		1E304A581A918E07006F0C7F /* rewardItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rewardItemViewController.h; sourceTree = "<group>"; };
+		1E304A591A918E07006F0C7F /* rewardItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardItemViewController.m; sourceTree = "<group>"; };
 		1E83D4B71A7A1A8A00D2670C /* questDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questDemoViewController.h; sourceTree = "<group>"; };
 		1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questDemoViewController.m; sourceTree = "<group>"; };
 		1E9AF55B1A7746C200A6E416 /* mainmenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainmenuViewController.h; sourceTree = "<group>"; };
@@ -194,6 +200,10 @@
 				1E2074211A848141002D77A1 /* missionViewController.m */,
 				1E304A4B1A9139D5006F0C7F /* missionPageViewController.h */,
 				1E304A4C1A9139D5006F0C7F /* missionPageViewController.m */,
+				1E304A551A918D8D006F0C7F /* rewardStorePageViewController.h */,
+				1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */,
+				1E304A581A918E07006F0C7F /* rewardItemViewController.h */,
+				1E304A591A918E07006F0C7F /* rewardItemViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -326,9 +336,11 @@
 				1E9AF5781A783EFF00A6E416 /* quizResultScreenViewController.m in Sources */,
 				1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */,
 				1E20741F1A844757002D77A1 /* questPageViewController.m in Sources */,
+				1E304A5A1A918E07006F0C7F /* rewardItemViewController.m in Sources */,
 				1E304A4D1A9139D5006F0C7F /* missionPageViewController.m in Sources */,
 				1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */,
 				2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */,
+				1E304A571A918D8D006F0C7F /* rewardStorePageViewController.m in Sources */,
 				1E9AF5721A783EC900A6E416 /* quizScreenViewController.m in Sources */,
 				1E9AF5651A77681700A6E416 /* badgeDemoViewController.m in Sources */,
 				1E9AF56D1A77B66F00A6E416 /* quizDemoViewController.m in Sources */,
