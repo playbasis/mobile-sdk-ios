@@ -204,7 +204,8 @@
         if(!error)
         {
             // basic check
-            if([player.email isEqualToString:@""] ||
+            if(player.email == nil ||
+               [player.email isEqualToString:@""] ||
                [player.email isEqualToString:@"noreply@gmail.com"] ||
                [player.email isEqualToString:@"pb_app_auto_user@playbasis.com"])
             {
@@ -232,7 +233,8 @@
         if(!error)
         {
             // basic check
-            if([player.phoneNumber isEqualToString:@""])
+            if(player.phoneNumber == nil ||
+               [player.phoneNumber isEqualToString:@""])
             {
                 // show the form for user to re-enter the phone number
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Update your profile" message:@"Enter your phone number" delegate:self cancelButtonTitle:@"Submit" otherButtonTitles:nil];
