@@ -2269,7 +2269,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         amount = 1;
     }
     NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id%@&amount=%u", token, goodsId, playerId, amount];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&amount=%u", token, goodsId, playerId, amount];
     
     if(!syncUrl)
     {

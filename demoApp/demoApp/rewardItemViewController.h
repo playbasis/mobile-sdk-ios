@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Playbasis.h"
 
-@interface rewardItemViewController : UIViewController
+@interface rewardItemViewController : UIViewController<UIAlertViewDelegate>
 {
     PBGoodsInfo_Response *goodsInfo_;
 }
@@ -28,6 +28,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *expireLabel;
 @property (weak, nonatomic) IBOutlet UILabel *codeLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *redeemButton;
+- (IBAction)redeemGoods:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *sendCodeBySMSButton;
+@property (weak, nonatomic) IBOutlet UIButton *sendCodeByEmailButton;
+- (IBAction)sendCodeByEmail:(id)sender;
+- (IBAction)sendCodeBySMS:(id)sender;
 
 
 @end
