@@ -7,7 +7,7 @@
 //
 
 #import "questDemoViewController.h"
-#import "missionViewController.h"
+#import "missionPageViewController.h"
 #import "Playbasis.h"
 #import "demoAppSettings.h"
 
@@ -55,17 +55,23 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    if([[segue identifier] isEqualToString:@"showMissionInfoScreenViaJoin"])
+    if([[segue identifier] isEqualToString:@"showMissionPageViewControllerViaJoin"])
     {
-        missionViewController *missionView = [segue destinationViewController];
-        missionView.questId = _questId;
-        missionView.viaMethod = QUEST_JOIN;
+        // join the quest first
+        [[Playbasis sharedPB] joinQuest:_questId player:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Joined the quest = %@", [jsonResponse description]);
+            }
+        }];
+        
+        missionPageViewController *missionPageView = [segue destinationViewController];
+        missionPageView.questId = _questId;
     }
-    else if([[segue identifier] isEqualToString:@"showMissionInfoScreenViaContinue"])
+    else if([[segue identifier] isEqualToString:@"showMissionPageViewControllerViaContinue"])
     {
-        missionViewController *missionView = [segue destinationViewController];
-        missionView.questId = _questId;
-        missionView.viaMethod = QUEST_CONTINUE;
+        missionPageViewController *missionPageView = [segue destinationViewController];
+        missionPageView.questId = _questId;
     }
 }
 

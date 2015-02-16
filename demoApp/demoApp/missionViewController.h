@@ -7,16 +7,32 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Playbasis.h"
 
-typedef enum
-{
-    QUEST_JOIN,
-    QUEST_CONTINUE
-}questLoadViaMethod;
+typedef enum : NSInteger {
+    ACTION_COMPLETE,
+    ACTION_NOTCOMPLETE
+} tCellActionCompleted;
 
 @interface missionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+{
+    PBMission *_mission;
+}
 
-@property (strong, nonatomic) NSString* questId;
-@property (nonatomic) questLoadViaMethod viaMethod;
+// meta
+@property (nonatomic) NSUInteger pageIndex;
+@property (strong, nonatomic) NSString *questId;
+@property (strong, nonatomic) PBMission *mission;
+
+// container ui
+@property (weak, nonatomic) IBOutlet UILabel *missionNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *missionDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *missionImage;
+@property (weak, nonatomic) IBOutlet UILabel *missionRewardsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *doSelectedActionButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+- (IBAction)doSelectedAction:(id)sender;
 
 @end

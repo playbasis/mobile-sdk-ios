@@ -10,6 +10,9 @@
 		1E20741F1A844757002D77A1 /* questPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20741E1A844757002D77A1 /* questPageViewController.m */; };
 		1E2074221A848141002D77A1 /* missionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2074211A848141002D77A1 /* missionViewController.m */; };
 		1E304A481A90BCCF006F0C7F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E304A471A90BCCF006F0C7F /* Security.framework */; };
+		1E304A4D1A9139D5006F0C7F /* missionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A4C1A9139D5006F0C7F /* missionPageViewController.m */; };
+		1E304A521A915FBC006F0C7F /* complete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E304A501A915FBC006F0C7F /* complete.png */; };
+		1E304A531A915FBC006F0C7F /* notcomplete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E304A511A915FBC006F0C7F /* notcomplete.png */; };
 		1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */; };
 		1E9AF55D1A7746C200A6E416 /* mainmenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55C1A7746C200A6E416 /* mainmenuViewController.m */; };
 		1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */; };
@@ -71,6 +74,10 @@
 		1E2074201A848140002D77A1 /* missionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = missionViewController.h; sourceTree = "<group>"; };
 		1E2074211A848141002D77A1 /* missionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = missionViewController.m; sourceTree = "<group>"; };
 		1E304A471A90BCCF006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1E304A4B1A9139D5006F0C7F /* missionPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = missionPageViewController.h; sourceTree = "<group>"; };
+		1E304A4C1A9139D5006F0C7F /* missionPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = missionPageViewController.m; sourceTree = "<group>"; };
+		1E304A501A915FBC006F0C7F /* complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = complete.png; sourceTree = "<group>"; };
+		1E304A511A915FBC006F0C7F /* notcomplete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notcomplete.png; sourceTree = "<group>"; };
 		1E83D4B71A7A1A8A00D2670C /* questDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questDemoViewController.h; sourceTree = "<group>"; };
 		1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questDemoViewController.m; sourceTree = "<group>"; };
 		1E9AF55B1A7746C200A6E416 /* mainmenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainmenuViewController.h; sourceTree = "<group>"; };
@@ -185,6 +192,8 @@
 				1E20741E1A844757002D77A1 /* questPageViewController.m */,
 				1E2074201A848140002D77A1 /* missionViewController.h */,
 				1E2074211A848141002D77A1 /* missionViewController.m */,
+				1E304A4B1A9139D5006F0C7F /* missionPageViewController.h */,
+				1E304A4C1A9139D5006F0C7F /* missionPageViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -192,6 +201,8 @@
 		2C1C751F1749D7DB005F3B57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1E304A501A915FBC006F0C7F /* complete.png */,
+				1E304A511A915FBC006F0C7F /* notcomplete.png */,
 				2C1C75201749D7DB005F3B57 /* demoApp-Info.plist */,
 				2C1C75211749D7DB005F3B57 /* InfoPlist.strings */,
 				2C1C75241749D7DB005F3B57 /* main.m */,
@@ -291,7 +302,9 @@
 			files = (
 				1EC5B90E1A8F3E0E0007C8A8 /* pblibResource.bundle in Resources */,
 				2C1C75231749D7DB005F3B57 /* InfoPlist.strings in Resources */,
+				1E304A521A915FBC006F0C7F /* complete.png in Resources */,
 				2C1C752B1749D7DB005F3B57 /* Default.png in Resources */,
+				1E304A531A915FBC006F0C7F /* notcomplete.png in Resources */,
 				2C1C752D1749D7DB005F3B57 /* Default@2x.png in Resources */,
 				2C1C752F1749D7DB005F3B57 /* Default-568h@2x.png in Resources */,
 				2C1C75321749D7DB005F3B57 /* MainStoryboard.storyboard in Resources */,
@@ -313,6 +326,7 @@
 				1E9AF5781A783EFF00A6E416 /* quizResultScreenViewController.m in Sources */,
 				1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */,
 				1E20741F1A844757002D77A1 /* questPageViewController.m in Sources */,
+				1E304A4D1A9139D5006F0C7F /* missionPageViewController.m in Sources */,
 				1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */,
 				2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */,
 				1E9AF5721A783EC900A6E416 /* quizScreenViewController.m in Sources */,

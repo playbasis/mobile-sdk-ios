@@ -36,7 +36,7 @@
     }];*/
     
     // do a specified user for certain action
-    [[Playbasis sharedPB] doAsync:@"trackusertest2" forAction:@"like" fromView:self withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    /*[[Playbasis sharedPB] doAsync:@"trackusertest2" forAction:@"like" fromView:self withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", jsonResponse);
@@ -47,7 +47,7 @@
         }
     }];
     
-    NSLog(@"Passed through this line as it's async call");
+    NSLog(@"Passed through this line as it's async call");*/
 }
 
 -(void)viewWillDisappear:(BOOL)animated
