@@ -202,10 +202,10 @@
 /**
  Get the latest time for the specified action that player has performed.
  */
--(PBRequest *)actionTime:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBActionTime_ResponseHandler>)delegate;
--(PBRequest *)actionTime:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBActionTime_ResponseBlock)block;
--(PBRequest *)actionTimeAsync:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBActionTime_ResponseHandler>)delegate;
--(PBRequest *)actionTimeAsync:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBActionTime_ResponseBlock)block;
+-(PBRequest *)actionTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBActionTime_ResponseHandler>)delegate;
+-(PBRequest *)actionTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withBlock:(PBActionTime_ResponseBlock)block;
+-(PBRequest *)actionTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBActionTime_ResponseHandler>)delegate;
+-(PBRequest *)actionTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withBlock:(PBActionTime_ResponseBlock)block;
 
 /**
  Return the time and action that player has performed.
