@@ -93,15 +93,8 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 /**
  Internal working method to send request to process an action through all game's rules defined for client's website.
- This method return result via delegate.
  */
--(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params;
-
-/**
- Internal working method to send request to process an action through all game's rules defined for client's website.
- This method return result via block.
- */
--(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params;
+-(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params;
 
 /*
  All internal base methods for API calls are listed here.
@@ -1911,72 +1904,33 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     va_list argumentList;
     va_start(argumentList, delegate);
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES withDelegate:delegate withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
-{
-    va_list argumentList;
-    va_start(argumentList, delegate);
-    
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
-
-    va_end(argumentList);
-}
-
 -(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES withBlock:block withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
     
     va_end(argumentList);
 }
--(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
-{
-    va_list argumentList;
-    va_start(argumentList, block);
-    
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:syncUrl withBlock:block withParams:argumentList];
-    
-    va_end(argumentList);
-}
-
 -(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:YES withDelegate:delegate withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     
     va_end(argumentList);
 }
--(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
-{
-    va_list argumentList;
-    va_start(argumentList, delegate);
-    
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
-    
-    va_end(argumentList);
-}
-
 -(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:YES withBlock:block withParams:argumentList];
-    
-    va_end(argumentList);
-}
--(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
-{
-    va_list argumentList;
-    va_start(argumentList, block);
-    
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:syncUrl withBlock:block withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
     
     va_end(argumentList);
 }
@@ -1985,17 +1939,18 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     va_list argumentList;
     va_start(argumentList, block);
     
-    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:NO withBlock:block withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
     
     va_end(argumentList);
 }
 
--(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params
+-(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
     
     NSString *method = [NSString stringWithFormat:@"Engine/rule%@", apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
+    NSString *dataFinal = nil;
     
     if(params != nil)
     {
@@ -2006,75 +1961,20 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         }
     }
     
-    if(syncUrl)
+    if(!syncUrl)
     {
-        // call to a proper type of call
-        if(blockingCall)
-            return [self call:method withData:data syncURLRequest:syncUrl andDelegate:delegate];
-        else
-            return [self callAsync:method withData:data syncURLRequest:syncUrl andDelegate:delegate];
+        // convert back from mutable string
+        dataFinal = [NSString stringWithString:data];
+        // set back to final data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:dataFinal method:method];
     }
     else
     {
-        // create json data object
-        // we will set object for each field in the loop
-        NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
-        
-        // split all params from data
-        NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
-        for(NSString *lineWithEqualSign in linesWithEqualSign)
-        {
-            NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
-            
-            // set into dict
-            [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
-        }
-        
-        // package into format
-        NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
-        [dictWholeData setObject:method forKey:@"endpoint"];
-        [dictWholeData setObject:dictData forKey:@"data"];
-        [dictWholeData setObject:@"nil" forKey:@"channel"];
-        
-        // get json string
-        NSString *dataFinal = [dictWholeData JSONString];
-        NSLog(@"jsonString = %@", dataFinal);
-        
-        return [self callAsync:method withData:dataFinal syncURLRequest:NO andDelegate:delegate];
-    }
-}
-
--(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params
-{
-    NSAssert(token, @"access token is nil");
-    
-    NSString *method = [NSString stringWithFormat:@"Engine/rule%@", apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
-    
-    if(params != nil)
-    {
-        id optionalData;
-        while ((optionalData = va_arg(params, NSString *)))
-        {
-            [data appendFormat:@"&%@", optionalData];
-        }
+        // set data final to data
+        dataFinal = [NSString stringWithString:data];
     }
     
-    if(syncUrl)
-    {
-        // call to a proper type of call
-        if(blockingCall)
-            return [self call:method withData:data syncURLRequest:syncUrl andBlock:block];
-        else
-            return [self callAsync:method withData:data syncURLRequest:syncUrl andBlock:block];
-    }
-    else
-    {
-        // form async url request data
-        NSString *dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
-        
-        return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
-    }
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal andResponse:response];
 }
 
 -(PBRequest *)questListWithDelegate:(id<PBQuestList_ResponseHandler>)delegate
@@ -2992,8 +2892,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                             NSLog(@"Register successfully, then do rule().");
                             // register successfully, then do the work
                             // now it's time to track
-                            // response back to the root response
-                            [self ruleForPlayerAsync_:playerId action:action withBlock:response, nil];
+                            [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:NO useDelegate:useDelegate withResponse:response withParams:nil];
                         }
                         else
                         {
@@ -3020,7 +2919,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 
                 // now it's time to track
                 // response back to the root response
-                [self ruleForPlayerAsync_:playerId action:action withBlock:response, nil];
+                [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:NO useDelegate:useDelegate withResponse:response withParams:nil];
             }
             // error
             else
@@ -3072,21 +2971,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                         NSLog(@"Register successfully, then do rule().");
                         // register successfully, then do the work
                         // now it's time to track
-                        // response back to the root response
-                        if(useDelegate)
-                        {
-                            if(response)
-                            {
-                                [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withDelegate:response withParams:nil];
-                            }
-                        }
-                        else
-                        {
-                            if(response)
-                            {
-                                [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withBlock:response withParams:nil];
-                            }
-                        }
+                        [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response withParams:nil];
                     }
                     else
                     {
@@ -3139,20 +3024,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             
             // now it's time to track
             // response back to the root response
-            if(useDelegate)
-            {
-                if(response)
-                {
-                    [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withDelegate:response withParams:nil];
-                }
-            }
-            else
-            {
-                if(response)
-                {
-                    [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withBlock:response withParams:nil];
-                }
-            }
+            [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response withParams:nil];
         }
         // error
         else
