@@ -283,11 +283,11 @@
 /**
  Redeem a badge that player has claimed.
  */
--(PBRequest *)redeemBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)redeemBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
--(PBRequest *)redeemBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)redeemBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
--(PBRequest *)redeemBadgeAsync_:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
+-(PBRequest *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
+-(PBRequest *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
+-(PBRequest *)redeemBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block;
 
 /**
  Return information about all goods that player has redeemed.

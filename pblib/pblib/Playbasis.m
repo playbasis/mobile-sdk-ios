@@ -176,7 +176,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)claimBadgeForPlayerInternalBase:(NSString *)playerId badgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - redeemBadge
--(PBRequest *)redeemBadgeInternalBase:(NSString *)playerId withBadgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)redeemBadgeForPlayerInternalBase:(NSString *)playerId badgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - goodsOwned
 -(PBRequest *)goodsOwnedInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -1510,27 +1510,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)redeemBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self redeemBadgeForPlayerInternalBase:playerId badgeId:badgeId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemBadge:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
+-(PBRequest *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
 {
-    return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self redeemBadgeForPlayerInternalBase:playerId badgeId:badgeId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self redeemBadgeForPlayerInternalBase:playerId badgeId:badgeId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemBadgeAsync:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
+-(PBRequest *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
 {
-    return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self redeemBadgeForPlayerInternalBase:playerId badgeId:badgeId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemBadgeAsync_:(NSString *)playerId withBadgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
+-(PBRequest *)redeemBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResponseBlock)block
 {
-    return [self redeemBadgeInternalBase:playerId withBadgeId:badgeId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+    return [self redeemBadgeForPlayerInternalBase:playerId badgeId:badgeId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemBadgeInternalBase:(NSString *)playerId withBadgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)redeemBadgeForPlayerInternalBase:(NSString *)playerId badgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/redeem%@", playerId, badgeId, apiKeyParam];
