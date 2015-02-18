@@ -107,10 +107,10 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
  All internal base methods for API calls are listed here.
  */
 // - auth
--(PBRequest *)authInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)authWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - renew
--(PBRequest *)renewInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)renewWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - playerPublic
 -(PBRequest *)playerPublicInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -663,23 +663,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return requestOptQueue;
 }
 
--(PBRequest *)auth:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
+-(PBRequest *)auth:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
-    return [self authInternalBase:apiKey withApiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)auth:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
+-(PBRequest *)auth:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
 {
-    return [self authInternalBase:apiKey withApiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)authAsync:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
+-(PBRequest *)authAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
-    return [self authInternalBase:apiKey withApiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)authAsync:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
+-(PBRequest *)authAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
 {
-    return [self authInternalBase:apiKey withApiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)authInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)authWithApiKeyInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // save apikey
     _apiKey = apiKey;
@@ -701,23 +701,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:authDelegate];
 }
 
--(PBRequest *)renew:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self renewInternalBase:apiKey withApiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)renew:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andBlock:(PBResponseBlock)block
+-(PBRequest *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBResponseBlock)block
 {
-    return [self renewInternalBase:apiKey withApiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)renewAsync:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self renewInternalBase:apiKey withApiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)renewAsync:(NSString *)apiKey withApiSecret:(NSString *)apiSecret andBlock:(PBResponseBlock)block
+-(PBRequest *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBResponseBlock)block
 {
-    return [self renewInternalBase:apiKey withApiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)renewInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)renewWithApiKeyInternalBase:(NSString *)apiKey withApiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // save apikey
     _apiKey = apiKey;
