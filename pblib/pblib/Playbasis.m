@@ -266,7 +266,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)quizScoreRankInternalBase:(NSString *)quizId limit:(NSInteger)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - sms
--(PBRequest *)smsInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)sendSMSForPlayerInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - sms (with template-id)
 -(PBRequest *)smsInternalBase:(NSString *)playerId message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -2713,27 +2713,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playersQuizRank andResponse:response];
 }
 
--(PBRequest *)sms:(NSString *)playerId message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)sendSMSForPlayer:(NSString *)playerId message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self smsInternalBase:playerId message:message blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self sendSMSForPlayerInternalBase:playerId message:message blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)sms:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
+-(PBRequest *)sendSMSForPlayer:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
 {
-    return [self smsInternalBase:playerId message:message blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self sendSMSForPlayerInternalBase:playerId message:message blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)smsAsync:(NSString *)playerId message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)sendSMSForPlayerAsync:(NSString *)playerId message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self smsInternalBase:playerId message:message blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self sendSMSForPlayerInternalBase:playerId message:message blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)smsAsync:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
+-(PBRequest *)sendSMSForPlayerAsync:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
 {
-    return [self smsInternalBase:playerId message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self sendSMSForPlayerInternalBase:playerId message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)smsAsync_:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
+-(PBRequest *)sendSMSForPlayerAsync_:(NSString *)playerId message:(NSString *)message withBlock:(PBResponseBlock)block
 {
-    return [self smsInternalBase:playerId message:message blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+    return [self sendSMSForPlayerInternalBase:playerId message:message blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
--(PBRequest *)smsInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)sendSMSForPlayerInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token , @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Sms/send%@", apiKeyParam];

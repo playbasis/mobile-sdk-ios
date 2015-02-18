@@ -60,7 +60,7 @@
     NSString *message = [NSString stringWithFormat:@"Your reward code is: %@ Enjoy the privilege!", goodsInfo_.goods.code];
     
     // all is good then we send code via email
-    [[Playbasis sharedPB] sendEmail:USER subject:@"Redeem Complete!" message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] sendEmailForPlayer:USER subject:@"Redeem Complete!" message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"Sent email complete");
@@ -83,7 +83,7 @@
     NSString *message = [NSString stringWithFormat:@"Your reward code is: %@ Enjoy the privilege!", goodsInfo_.goods.code];
     
     // all is good then we send code via email
-    [[Playbasis sharedPB] sms:USER message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] sendSMSForPlayer:USER message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"Sent sms complete");
@@ -109,7 +109,7 @@
     });
     
     // redeem this goods
-    [[Playbasis sharedPB] redeemGoodsAsync:goodsInfo_.goods.goodsId player:USER amount:1 withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] redeemGoodsAsync:goodsInfo_.goods.goodsId forPlayer:USER amount:1 withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             // get 'response'

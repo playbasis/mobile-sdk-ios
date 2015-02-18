@@ -30,7 +30,7 @@
 
 -(void)loadQuizAsync
 {
-    [[Playbasis sharedPB] quizRandomAsync:USER withBlock:^(PBQuizRandom_Response *quizRandom, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizRandomForPlayerAsync:USER withBlock:^(PBQuizRandom_Response *quizRandom, NSURL *url, NSError *error) {
         if(!error)
         {
             // if there's quiz to be taken
@@ -73,7 +73,7 @@
     
     // TEST API Calls
     // get available list of quiz
-    [[Playbasis sharedPB] quizList:USER withBlock:^(PBActiveQuizList_Response *activeQuizList, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizListForPlayer:USER withBlock:^(PBActiveQuizList_Response *activeQuizList, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", activeQuizList);
@@ -113,7 +113,7 @@
     }
     
     // get random quiz from available list of quiz
-    [[Playbasis sharedPB] quizRandom:USER withBlock:^(PBQuizRandom_Response *quizRandom, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizRandomForPlayer:USER withBlock:^(PBQuizRandom_Response *quizRandom, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", quizRandom);
@@ -121,7 +121,7 @@
     }];
     
     // get recent quiz done by the player
-    [[Playbasis sharedPB] quizDone:USER limit:5 withBlock:^(PBQuizDoneList_Response *quizDoneList, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizDoneForPlayer:USER limit:5 withBlock:^(PBQuizDoneList_Response *quizDoneList, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", quizDoneList);
@@ -129,7 +129,7 @@
     }];
     
     // get pending quiz by player
-    [[Playbasis sharedPB] quizPending:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizPendingForPlayer:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"response from url %@", [url path]);
