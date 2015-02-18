@@ -210,18 +210,18 @@
 /**
  Return the time and action that player has performed.
  */
--(PBRequest *)actionLastPerformed:(NSString *)playerId withDelegate:(id<PBLastAction_ResponseHandler>)delegate;
--(PBRequest *)actionLastPerformed:(NSString *)playerId withBlock:(PBLastAction_ResponseBlock)block;
--(PBRequest *)actionLastPerformedAsync:(NSString *)playerId withDelegate:(id<PBLastAction_ResponseHandler>)delegate;
--(PBRequest *)actionLastPerformedAsync:(NSString *)playerId withBlock:(PBLastAction_ResponseBlock)block;
+-(PBRequest *)actionLastPerformedForPlayer:(NSString *)playerId withDelegate:(id<PBLastAction_ResponseHandler>)delegate;
+-(PBRequest *)actionLastPerformedForPlayer:(NSString *)playerId withBlock:(PBLastAction_ResponseBlock)block;
+-(PBRequest *)actionLastPerformedForPlayerAsync:(NSString *)playerId withDelegate:(id<PBLastAction_ResponseHandler>)delegate;
+-(PBRequest *)actionLastPerformedForPlayerAsync:(NSString *)playerId withBlock:(PBLastAction_ResponseBlock)block;
 
 /**
  Get the latest time of specified action that player has performed.
  */
--(PBRequest *)actionLastPerformedTime:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)actionLastPerformedTime:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBResponseBlock)block;
--(PBRequest *)actionLastPerformedTimeAsync:(NSString *)playerId forAction:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)actionLastPerformedTimeAsync:(NSString *)playerId forAction:(NSString *)actionName withBlock:(PBResponseBlock)block;
+-(PBRequest *)actionLastPerformedTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)actionLastPerformedTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withBlock:(PBResponseBlock)block;
+-(PBRequest *)actionLastPerformedTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)actionLastPerformedTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withBlock:(PBResponseBlock)block;
 
 /**
  Return the number of times that player has performed the specified action.
