@@ -308,7 +308,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(void)trackPlayerInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - do
--(void)doInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(void)doPlayerInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 @end
 
@@ -2986,23 +2986,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     });
 }
 
--(void)do:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withDelegate:(id<PBResponseHandler>)delegate
+-(void)doPlayer:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withDelegate:(id<PBResponseHandler>)delegate
 {
-    [self doInternalBase:playerId forAction:action fromView:view blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    [self doPlayerInternalBase:playerId forAction:action fromView:view blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(void)do:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block
+-(void)doPlayer:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block
 {
-    [self doInternalBase:playerId forAction:action fromView:view blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    [self doPlayerInternalBase:playerId forAction:action fromView:view blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(void)doAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withDelegate:(id<PBResponseHandler>)delegate
+-(void)doPlayerAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withDelegate:(id<PBResponseHandler>)delegate
 {
-    [self doInternalBase:playerId forAction:action fromView:view blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    [self doPlayerInternalBase:playerId forAction:action fromView:view blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(void)doAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block
+-(void)doPlayerAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block
 {
-    [self doInternalBase:playerId forAction:action fromView:view blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    [self doPlayerInternalBase:playerId forAction:action fromView:view blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(void)doInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(void)doPlayerInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // check if user exists in the system or not
     [self playerInternalBase:playerId blockingCall:blockingCall syncUrl:YES useDelegate:NO withResponse:^(PBPlayer_Response *player, NSURL *url, NSError *error) {

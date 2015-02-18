@@ -138,7 +138,7 @@
     // this is to show the first image as fast as possible
     [_cachedImages addObject:[UIImage imageWithData:imageData]];
     
-    NSLog(@"Complete loading image for %d", index);
+    NSLog(@"Complete loading image for %lu", (unsigned long)index);
 }
 
 /*
