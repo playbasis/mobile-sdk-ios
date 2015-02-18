@@ -95,13 +95,13 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
  Internal working method to send request to process an action through all game's rules defined for client's website.
  This method return result via delegate.
  */
--(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params;
+-(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params;
 
 /**
  Internal working method to send request to process an action through all game's rules defined for client's website.
  This method return result via block.
  */
--(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params;
+-(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params;
 
 /*
  All internal base methods for API calls are listed here.
@@ -1855,90 +1855,90 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- reward	name of the custom-point reward to give (for triggering rules with custom-point reward)
 // 							- quantity	amount of points to give (for triggering rules with custom-point reward)
 //
--(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
-    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:YES withDelegate:delegate withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES withDelegate:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
-{
-    va_list argumentList;
-    va_start(argumentList, delegate);
-    
-    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
-
-    va_end(argumentList);
-}
-
--(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block, ...
-{
-    va_list argumentList;
-    va_start(argumentList, block);
-    
-    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:YES withBlock:block withParams:argumentList];
-    
-    va_end(argumentList);
-}
--(PBRequest *)rule:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
-{
-    va_list argumentList;
-    va_start(argumentList, block);
-    
-    return [self ruleInternal:playerId forAction:action blockingCall:YES syncUrl:syncUrl withBlock:block withParams:argumentList];
-    
-    va_end(argumentList);
-}
-
--(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     
-    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:YES withDelegate:delegate withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
+
+    va_end(argumentList);
+}
+
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES withBlock:block withParams:argumentList];
     
     va_end(argumentList);
 }
--(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:syncUrl withBlock:block withParams:argumentList];
+    
+    va_end(argumentList);
+}
+
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     
-    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:YES withDelegate:delegate withParams:argumentList];
+    
+    va_end(argumentList);
+}
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:syncUrl withDelegate:delegate withParams:argumentList];
     
     va_end(argumentList);
 }
 
--(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action withBlock:(PBResponseBlock)block, ...
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     
-    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:YES withBlock:block withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:YES withBlock:block withParams:argumentList];
     
     va_end(argumentList);
 }
--(PBRequest *)ruleAsync:(NSString *)playerId forAction:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action syncUrl:(BOOL)syncUrl withBlock:(PBResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     
-    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:syncUrl withBlock:block withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:syncUrl withBlock:block withParams:argumentList];
     
     va_end(argumentList);
 }
--(PBRequest *)ruleAsync_:(NSString *)playerId forAction:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block, ...
+-(PBRequest *)ruleForPlayerAsync_:(NSString *)playerId action:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     
-    return [self ruleInternal:playerId forAction:action blockingCall:NO syncUrl:NO withBlock:block withParams:argumentList];
+    return [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:NO withBlock:block withParams:argumentList];
     
     va_end(argumentList);
 }
 
--(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params
+-(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withDelegate:(id<PBResponseHandler>)delegate withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
     
@@ -1992,7 +1992,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
 }
 
--(PBRequest *)ruleInternal:(NSString *)playerId forAction:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params
+-(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl withBlock:(id)block withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
     
@@ -2941,7 +2941,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                             // register successfully, then do the work
                             // now it's time to track
                             // response back to the root response
-                            [self ruleAsync_:playerId forAction:action withBlock:response, nil];
+                            [self ruleForPlayerAsync_:playerId action:action withBlock:response, nil];
                         }
                         else
                         {
@@ -2968,7 +2968,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 
                 // now it's time to track
                 // response back to the root response
-                [self ruleAsync_:playerId forAction:action withBlock:response, nil];
+                [self ruleForPlayerAsync_:playerId action:action withBlock:response, nil];
             }
             // error
             else
@@ -3025,14 +3025,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                         {
                             if(response)
                             {
-                                [self ruleInternal:playerId forAction:action blockingCall:blockingCall syncUrl:YES withDelegate:response withParams:nil];
+                                [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withDelegate:response withParams:nil];
                             }
                         }
                         else
                         {
                             if(response)
                             {
-                                [self ruleInternal:playerId forAction:action blockingCall:blockingCall syncUrl:YES withBlock:response withParams:nil];
+                                [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withBlock:response withParams:nil];
                             }
                         }
                     }
@@ -3091,14 +3091,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             {
                 if(response)
                 {
-                    [self ruleInternal:playerId forAction:action blockingCall:blockingCall syncUrl:YES withDelegate:response withParams:nil];
+                    [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withDelegate:response withParams:nil];
                 }
             }
             else
             {
                 if(response)
                 {
-                    [self ruleInternal:playerId forAction:action blockingCall:blockingCall syncUrl:YES withBlock:response withParams:nil];
+                    [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:YES withBlock:response withParams:nil];
                 }
             }
         }

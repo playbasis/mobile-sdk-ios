@@ -180,7 +180,7 @@
     });
     
     // do an action
-    [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] ruleForPlayerAsync:USER action:action withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"Did '%@'", action);

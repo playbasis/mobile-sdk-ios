@@ -85,7 +85,7 @@
         // note: this will let activity indicator to be updated in UI thread
         dispatch_queue_t gQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_async(gQueue, ^{
-            [[Playbasis sharedPB] rule:USER forAction:@"like" withDelegate:self, nil];
+            [[Playbasis sharedPB] ruleForPlayer:USER action:@"like" withDelegate:self, nil];
         });
     }
 }
@@ -134,7 +134,7 @@
         
         // test calling via non-blocking call
         NSLog(@"Non-blocking rule():like call 1");
-        [[Playbasis sharedPB] ruleAsync:USER forAction:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] ruleForPlayerAsync:USER action:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(error)
             {
                 NSLog(@"Failed rule():like - 1, error = %@", [error localizedDescription]);
