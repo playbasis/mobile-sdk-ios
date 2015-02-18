@@ -164,7 +164,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)rankByInternalBase:(NSString *)rankedBy withLimit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - ranks
--(PBRequest *)ranksInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)ranksWithLimitInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - level
 -(PBRequest *)levelInternalBase:(unsigned int)level blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -1406,23 +1406,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_rank andResponse:response];
 }
 
--(PBRequest *)ranks:(unsigned int)limit withDelegate:(id<PBRank_ResponseHandler>)delegate
+-(PBRequest *)ranksWithLimit:(unsigned int)limit withDelegate:(id<PBRank_ResponseHandler>)delegate
 {
-    return [self ranksInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self ranksWithLimitInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)ranks:(unsigned int)limit withBlock:(PBRanks_ResponseBlock)block
+-(PBRequest *)ranksWithLimit:(unsigned int)limit withBlock:(PBRanks_ResponseBlock)block
 {
-    return [self ranksInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self ranksWithLimitInternalBase:limit blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)ranksAsync:(unsigned int)limit withDelegate:(id<PBRank_ResponseHandler>)delegate
+-(PBRequest *)ranksWithLimitAsync:(unsigned int)limit withDelegate:(id<PBRank_ResponseHandler>)delegate
 {
-    return [self ranksInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self ranksWithLimitInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)ranksAsync:(unsigned int)limit withBlock:(PBRanks_ResponseBlock)block
+-(PBRequest *)ranksWithLimitAsync:(unsigned int)limit withBlock:(PBRanks_ResponseBlock)block
 {
-    return [self ranksInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self ranksWithLimitInternalBase:limit blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)ranksInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)ranksWithLimitInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Player/ranks/%u%@", limit, apiKeyParam];
     
