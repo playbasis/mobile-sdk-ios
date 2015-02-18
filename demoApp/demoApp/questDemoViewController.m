@@ -58,7 +58,7 @@
     if([[segue identifier] isEqualToString:@"showMissionPageViewControllerViaJoin"])
     {
         // join the quest first
-        [[Playbasis sharedPB] joinQuest:_questId player:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] joinQuest:_questId forPlayer:USER withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
             if(!error)
             {
                 NSLog(@"Joined the quest = %@", [jsonResponse description]);
