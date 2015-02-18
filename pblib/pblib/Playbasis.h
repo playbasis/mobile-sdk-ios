@@ -666,7 +666,7 @@
 /**
  Track player with an action.
  */
--(void)track:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBAsyncURLRequestResponseBlock)block;
+-(void)trackPlayer:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Do player for a given action.
