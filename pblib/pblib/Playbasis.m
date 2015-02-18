@@ -215,7 +215,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)cancelQuestInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - redeemGoods
--(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - recentPoint
 -(PBRequest *)recentPointInternalBase:(unsigned int)offset limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -2242,27 +2242,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)redeemGoods:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemGoods:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
 {
-    return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsAsync:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemGoodsAsync:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
 {
-    return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
 {
-    return [self redeemGoodsInternalBase:goodsId player:playerId amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId player:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     if(amount < 1){
