@@ -239,7 +239,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)sendEmailCouponForPlayerInternalBase:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - quizList
--(PBRequest *)quizListInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)quizListForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - quizDetail
 -(PBRequest *)quizDetailInternalBase:(NSString *)quizId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -2495,23 +2495,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)quizList:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
+-(PBRequest *)quizListForPlayer:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
 {
-    return [self quizListInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self quizListForPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)quizList:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block
+-(PBRequest *)quizListForPlayer:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block
 {
-    return [self quizListInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self quizListForPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)quizListAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
+-(PBRequest *)quizListForPlayerAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
 {
-    return [self quizListInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self quizListForPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)quizListAsync:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block
+-(PBRequest *)quizListForPlayerAsync:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block
 {
-    return [self quizListInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self quizListForPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)quizListInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)quizListForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Quiz/list%@&player_id=%@", apiKeyParam, playerId];
     
