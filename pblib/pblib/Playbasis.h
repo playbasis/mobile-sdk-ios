@@ -459,10 +459,10 @@
 /**
  Return information about quest with the specified id.
  */
--(PBRequest *)questWithQuestId:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate;
--(PBRequest *)questWithQuestId:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block;
--(PBRequest *)questWithQuestIdAsync:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate;
--(PBRequest *)questWithQuestIdAsync:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block;
+-(PBRequest *)quest:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate;
+-(PBRequest *)quest:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block;
+-(PBRequest *)questAsync:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate;
+-(PBRequest *)questAsync:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block;
 
 /**
  Return information about mission with the specified id.

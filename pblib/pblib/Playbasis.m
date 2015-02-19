@@ -223,7 +223,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)questAvailableInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - quest
--(PBRequest *)questWithQuestIdInternalBase:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)questInternalBase:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - joinQuest
 -(PBRequest *)joinQuestInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -2082,23 +2082,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questList andResponse:response];
 }
 
--(PBRequest *)questWithQuestId:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate
+-(PBRequest *)quest:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate
 {
-    return [self questWithQuestIdInternalBase:questId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self questInternalBase:questId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)questWithQuestId:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block
+-(PBRequest *)quest:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block
 {
-    return [self questWithQuestIdInternalBase:questId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self questInternalBase:questId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)questWithQuestIdAsync:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate
+-(PBRequest *)questAsync:(NSString *)questId withDelegate:(id<PBQuestInfo_ResponseHandler>)delegate
 {
-    return [self questWithQuestIdInternalBase:questId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self questInternalBase:questId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)questWithQuestIdAsync:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block
+-(PBRequest *)questAsync:(NSString *)questId withBlock:(PBQuestInfo_ResponseBlock)block
 {
-    return [self questWithQuestIdInternalBase:questId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self questInternalBase:questId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)questWithQuestIdInternalBase:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)questInternalBase:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, apiKeyParam];
     
