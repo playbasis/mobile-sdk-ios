@@ -1966,15 +1966,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return  [self goodsGroupAvailableInternalBase:playerId group:group blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)goodsGroupAvailableAsyncForPlayer:(NSString *)playerId group:(NSString *)group withDelegate:(id<PBGoodsGroupAvailable_ResponseHandler>)delegate
+-(PBRequest *)goodsGroupAvailableForPlayerAsync:(NSString *)playerId group:(NSString *)group withDelegate:(id<PBGoodsGroupAvailable_ResponseHandler>)delegate
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)goodsGroupAvailableAsyncForPlayer:(NSString *)playerId group:(NSString *)group withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
+-(PBRequest *)goodsGroupAvailableForPlayerAsync:(NSString *)playerId group:(NSString *)group withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)goodsGroupAvailableAsyncForPlayer_:(NSString *)playerId group:(NSString *)group withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
+-(PBRequest *)goodsGroupAvailableForPlayerAsync_:(NSString *)playerId group:(NSString *)group withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
@@ -1999,15 +1999,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group amount:amount blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)goodsGroupAvailableAsyncForPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withDelegate:(id<PBGoodsGroupAvailable_ResponseHandler>)delegate
+-(PBRequest *)goodsGroupAvailableForPlayerAsync:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withDelegate:(id<PBGoodsGroupAvailable_ResponseHandler>)delegate
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group amount:amount blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)goodsGroupAvailableAsyncForPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
+-(PBRequest *)goodsGroupAvailableForPlayerAsync:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)goodsGroupAvailableAsyncForPlayer_:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
+-(PBRequest *)goodsGroupAvailableForPlayerAsync_:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBGoodsGroupAvailable_ResponseBlock)block
 {
     return [self goodsGroupAvailableInternalBase:playerId group:group amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
