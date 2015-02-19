@@ -127,7 +127,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)updateUserForPlayerIdInternalBase:(NSString *)playerId firstArg:(NSString *)firstArg blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params;
 
 // - deleteUser
--(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequest *)deleteUserWithPlayerIdInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - login
 -(PBRequest *)loginInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -1049,27 +1049,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal andResponse:response];
 }
 
--(PBRequest *)deleteUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self deleteUserInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)deleteUser:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    return [self deleteUserInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)deleteUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)deleteUserWithPlayerIdAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)deleteUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)deleteUserWithPlayerIdAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
-    return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)deleteUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
+-(PBRequest *)deleteUserWithPlayerIdAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
 {
-    return [self deleteUserInternalBase:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+    return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
--(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequest *)deleteUserWithPlayerIdInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/delete%@", playerId, apiKeyParam];
