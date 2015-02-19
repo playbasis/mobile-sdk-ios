@@ -101,6 +101,14 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 }
             }];
             
+            [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:@"first_name=Wasin" andBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"Updated user successfully.");
+                    NSLog(@"%@", jsonResponse);
+                }
+            }, @"last_name=Thonkaew", nil];
+            
             NSLog(@"Passed through this line");
             
             // delay a short time to let user see the update on screen, then transition into mainmenu screen

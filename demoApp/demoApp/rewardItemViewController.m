@@ -161,16 +161,16 @@
         NSString *paramEmailUpdate = [NSString stringWithFormat:@"email=%@", email];
         
         // udpate user's profile
-        [[Playbasis sharedPB] updateUser:USER withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:paramEmailUpdate andBlock:^(id jsonResponse, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Updated user's email.");
+                NSLog(@"Updated users's email.");
                 NSLog(@"%@", jsonResponse);
                 
                 // send code by email
                 [self sendCodeByEmail_internal];
             }
-        } :paramEmailUpdate, nil];
+        }, nil];
     }
     // sms
     else if(alertView.tag == 2)
@@ -181,7 +181,7 @@
         NSString *paramPhonenumberUdpate = [NSString stringWithFormat:@"phone_number=%@", phoneNumber];
         
         // udpate user's profile
-        [[Playbasis sharedPB] updateUser:USER withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:paramPhonenumberUdpate andBlock:^(id jsonResponse, NSURL *url, NSError *error) {
             if(!error)
             {
                 NSLog(@"Updated user's phonenumber.");
@@ -190,7 +190,7 @@
                 // send code by sms
                 [self sendCodeBySMS_internal];
             }
-        } :paramPhonenumberUdpate, nil];
+        }, nil];
     }
 }
 
