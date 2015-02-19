@@ -73,7 +73,7 @@
     
     // TEST API Calls
     // get available list of quiz
-    [[Playbasis sharedPB] quizListForPlayer:USER withBlock:^(PBActiveQuizList_Response *activeQuizList, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizListOfPlayer:USER withBlock:^(PBActiveQuizList_Response *activeQuizList, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", activeQuizList);

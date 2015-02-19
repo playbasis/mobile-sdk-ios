@@ -588,10 +588,10 @@
 /**
  Return a list of active quizzes.
  */
--(PBRequest *)quizListForPlayer:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
--(PBRequest *)quizListForPlayer:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block;
--(PBRequest *)quizListForPlayerAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
--(PBRequest *)quizListForPlayerAsync:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block;
+-(PBRequest *)quizListOfPlayer:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
+-(PBRequest *)quizListOfPlayer:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block;
+-(PBRequest *)quizListOfPlayerAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
+-(PBRequest *)quizListOfPlayerAsync:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block;
 
 /**
  Get detail of a quiz.
