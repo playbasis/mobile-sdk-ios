@@ -90,7 +90,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             });
             
             // login via non-blocking call, and with async url request
-            [[Playbasis sharedPB] loginAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] loginPlayerAsync_:USER withBlock:^(PBResultStatus_Response *status, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"Login : %@", status);
