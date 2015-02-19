@@ -120,6 +120,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - playerDetail
 -(PBRequest *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - registerUser
+-(PBRequest *)registerUserWithPlayerIdInternalBase:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params;
+
 // - deleteUser
 -(PBRequest *)deleteUserInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -873,93 +876,71 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- gender		1=Male, 2=Female
 // 							- birth_date	format YYYY-MM-DD
 //
--(PBRequest *)registerUser:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+-(PBRequest *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResponseHandler>)delegate, ...
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
-    
-    id optionalData;
     va_list argumentList;
-    va_start(argumentList, imageUrl);
-    while ((optionalData = va_arg(argumentList, NSString *)))
-    {
-        [data appendFormat:@"&%@", optionalData];
-    }
+    va_start(argumentList, delegate);
+    return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
-    
-    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
--(PBRequest *)registerUser:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+-(PBRequest *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBResponseBlock)block, ...
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
-    
-    id optionalData;
     va_list argumentList;
-    va_start(argumentList, imageUrl);
-    while ((optionalData = va_arg(argumentList, NSString *)))
-    {
-        [data appendFormat:@"&%@", optionalData];
-    }
+    va_start(argumentList, block);
+    return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
     va_end(argumentList);
-    
-    return [self call:method withData:data syncURLRequest:YES andBlock:block];
 }
--(PBRequest *)registerUserAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+-(PBRequest *)registerUserWithPlayerIdAsync:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResponseHandler>)delegate, ...
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
-    
-    id optionalData;
     va_list argumentList;
-    va_start(argumentList, imageUrl);
-    while ((optionalData = va_arg(argumentList, NSString *)))
-    {
-        [data appendFormat:@"&%@", optionalData];
-    }
+    va_start(argumentList, delegate);
+    return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
-    
-    return [self callAsync:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
--(PBRequest *)registerUserAsync:(NSString *)playerId withBlock:(PBResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+-(PBRequest *)registerUserWithPlayerIdAsync:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBResponseBlock)block, ...
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
-    
-    id optionalData;
     va_list argumentList;
-    va_start(argumentList, imageUrl);
-    while ((optionalData = va_arg(argumentList, NSString *)))
-    {
-        [data appendFormat:@"&%@", optionalData];
-    }
+    va_start(argumentList, block);
+    return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
     va_end(argumentList);
-    
-    return [self callAsync:method withData:data syncURLRequest:YES andBlock:block];
 }
--(PBRequest *)registerUserAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block :(NSString *)username :(NSString *)email :(NSString *)imageUrl, ...
+-(PBRequest *)registerUserWithPlayerIdAsync_:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequest *)registerUserWithPlayerIdInternalBase:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
     
-    id optionalData;
-    va_list argumentList;
-    va_start(argumentList, imageUrl);
-    while ((optionalData = va_arg(argumentList, NSString *)))
+    // create data final that will be used at the end of the process
+    NSString *dataFinal = nil;
+    
+    if(params != nil)
     {
-        [data appendFormat:@"&%@", optionalData];
+        id optionalData;
+        while ((optionalData = va_arg(params, NSString *)))
+        {
+            [data appendFormat:@"&%@", optionalData];
+        }
     }
-    va_end(argumentList);
     
-    // form async url request data
-    NSString *dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    if(syncUrl)
+    {
+        // create a data final
+        dataFinal = [NSString stringWithString:data];
+    }
+    else
+    {
+        // form async url request data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
     
-    return [self callAsync:method withData:dataFinal syncURLRequest:NO andBlock:block];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal andResponse:response];
 }
 
 // @param	...[vararg]		Key-value for data to be updated.

@@ -74,14 +74,12 @@
        ![self.emailTextField.text isEqualToString:@""] &&
        ![self.usernameTextField.text isEqualToString:@""])
     {
-        [[Playbasis sharedPB] registerUser:self.usernameTextField.text withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
-            // relay the response back to whoever initiates to show registration form
+        [[Playbasis sharedPB] registerUserWithPlayerId:self.usernameTextField.text username:self.usernameTextField.text email:self.emailTextField.text imageUrl:@"https://www.pbapp.net/images/default_profile.jpg" andBlock:^(id jsonResponse, NSURL *url, NSError *error) {
             _responseBlock(jsonResponse, url, error);
             
             // dismiss this form and get back to normal flow
             [self dismissViewControllerAnimated:YES completion:nil];
-            
-        } :self.usernameTextField.text :self.emailTextField.text :@"https://www.pbapp.net/images/default_profile.jpg", [NSString stringWithFormat:@"first_name=%@", self.firstNameTextField.text], [NSString stringWithFormat:@"last_name=%@", self.lastNameTextField.text], nil];
+        }, [NSString stringWithFormat:@"first_name=%@", self.firstNameTextField.text], [NSString stringWithFormat:@"last_name=%@", self.lastNameTextField.text], nil];
     }
 }
 
