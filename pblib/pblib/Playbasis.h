@@ -628,10 +628,10 @@
 /**
  Get pending quizzes by player.
  */
--(PBRequest *)quizPendingForPlayer:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)quizPendingForPlayer:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
--(PBRequest *)quizPendingForPlayerAsync:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)quizPendingForPlayerAsync:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizPendingOfPlayer:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizPendingOfPlayer:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
+-(PBRequest *)quizPendingOfPlayerAsync:(NSString *)playerId limit:(NSInteger)limit withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)quizPendingOfPlayerAsync:(NSString *)playerId limit:(NSInteger)limit withBlock:(PBResponseBlock)block;
 
 /**
  Get a question from a quiz for player.

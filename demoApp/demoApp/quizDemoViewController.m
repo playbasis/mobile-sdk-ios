@@ -129,7 +129,7 @@
     }];
     
     // get pending quiz by player
-    [[Playbasis sharedPB] quizPendingForPlayer:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] quizPendingOfPlayer:USER limit:5 withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"response from url %@", [url path]);
