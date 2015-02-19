@@ -7,6 +7,7 @@
 //
 
 #import "demoAppDelegate.h"
+#import "demoAppSettings.h"
 #import "Playbasis.h"
 
 @implementation demoAppDelegate
@@ -57,6 +58,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // logout USER
+    [[Playbasis sharedPB] logoutPlayer:USER withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"Logged out USER successfully.");
+        }
+    }];
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

@@ -168,11 +168,11 @@
 /**
  Tell Playbasis system that player has logged out.
  */
--(PBRequest *)logout:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)logout:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)logoutAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)logoutAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)logoutAsync_:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)logoutPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)logoutPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)logoutPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)logoutPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)logoutPlayerAsync_:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
 /**
  Returns information about all point-based rewards that a player currently have.
