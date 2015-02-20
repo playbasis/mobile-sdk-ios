@@ -265,6 +265,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)sendEmailCouponForPlayerInternalBase:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - quizList
+-(PBRequest *)quizListWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - quizList (with optional parameter 'player_id'.
 -(PBRequest *)quizListOfPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - quizDetail
@@ -2627,6 +2630,29 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+}
+
+-(PBRequest *)quizListWithDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
+{
+    return [self quizListWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)quizListWithBlock:(PBActiveQuizList_ResponseBlock)block
+{
+    return [self quizListWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)quizListWithDelegateAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
+{
+    return [self quizListWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)quizListWithBlockAsync:(PBActiveQuizList_ResponseBlock)block
+{
+    return [self quizListWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)quizListWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/list%@", apiKeyParam];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_activeQuizList andResponse:response];
 }
 
 -(PBRequest *)quizListOfPlayer:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate

@@ -620,6 +620,14 @@
 /**
  Return a list of active quizzes.
  */
+-(PBRequest *)quizListWithDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
+-(PBRequest *)quizListWithBlock:(PBActiveQuizList_ResponseBlock)block;
+-(PBRequest *)quizListWithDelegateAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
+-(PBRequest *)quizListWithBlockAsync:(PBActiveQuizList_ResponseBlock)block;
+/**
+ Return a list of active quizzes.
+ With optional parameter 'playerId'.
+ */
 -(PBRequest *)quizListOfPlayer:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
 -(PBRequest *)quizListOfPlayer:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block;
 -(PBRequest *)quizListOfPlayerAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate;
