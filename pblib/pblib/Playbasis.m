@@ -1149,23 +1149,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_loginUser andResponse:response];
 }
 
--(PBRequest *)logoutPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequest *)logoutPlayer:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
 {
     return [self logoutPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)logoutPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)logoutPlayer:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block
 {
     return [self logoutPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)logoutPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)logoutPlayerAsync:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
 {
     return [self logoutPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)logoutPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)logoutPlayerAsync:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block
 {
     return [self logoutPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)logoutPlayerAsync_:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)logoutPlayerAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     return [self logoutPlayerInternalBase:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
@@ -1180,7 +1180,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_logoutUser andResponse:response];
 }
 
 -(PBRequest *)pointsOfPlayer:(NSString *)playerId withDelegate:(id<PBPoints_ResponseHandler>)delegate

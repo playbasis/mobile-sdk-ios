@@ -59,10 +59,14 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // logout USER
-    [[Playbasis sharedPB] logoutPlayer:USER withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] logoutPlayer:USER withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"Logged out USER successfully.");
+            NSLog(@"Logged out %@ successfully [%@].", USER, result);
+        }
+        else
+        {
+            NSLog(@"Failed to log out %@ [%@]", USER, error);
         }
     }];
 }

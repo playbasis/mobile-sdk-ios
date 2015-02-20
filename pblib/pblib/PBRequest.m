@@ -247,6 +247,7 @@
         case responseType_updateUser:
         case responseType_deleteUser:
         case responseType_loginUser:
+        case responseType_logoutUser:
         {
             if(responseDelegate)
             {
