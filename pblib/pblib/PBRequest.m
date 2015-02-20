@@ -245,6 +245,7 @@
             // handle all cases of response that need only result status
         case responseType_registerUser:
         case responseType_updateUser:
+        case responseType_deleteUser:
         {
             if(responseDelegate)
             {

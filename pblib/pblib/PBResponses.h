@@ -25,6 +25,7 @@ typedef enum
     responseType_playerGoodsOwned,
     responseType_registerUser,
     responseType_updateUser,
+    responseType_deleteUser,
     responseType_point,
     responseType_points,
     responseType_badge,

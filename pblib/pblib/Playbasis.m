@@ -1079,19 +1079,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_updateUser andResponse:response];
 }
 
--(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
 {
     return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block
 {
     return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)deleteUserWithPlayerIdAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)deleteUserWithPlayerIdAsync:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
 {
     return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)deleteUserWithPlayerIdAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)deleteUserWithPlayerIdAsync:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block
 {
     return [self deleteUserWithPlayerIdInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1110,7 +1110,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
 
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deleteUser andResponse:response];
 }
 
 -(PBRequest *)loginPlayerAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
