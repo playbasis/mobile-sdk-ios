@@ -40,7 +40,7 @@ typedef void (^PBAsyncURLRequestResponseBlock)(PBResultStatus_Response* status, 
 -(void)processResponseWithAuth:(PBAuth_Response*)auth withURL:(NSURL *)url error:(NSError*)error;
 @end
 
-typedef void (^PBAuth_ResponseBlock)(PBAuth_Response* jsonResponse, NSURL* url, NSError *error);
+typedef void (^PBAuth_ResponseBlock)(PBAuth_Response* auth, NSURL* url, NSError *error);
 
 ///----------------
 /// PlayerPublic
