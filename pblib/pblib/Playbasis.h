@@ -585,6 +585,7 @@
 
 /**
  Return recent activity points of all players.
+ With optional parameters 'offset', and 'limit'
  */
 -(PBRequest *)recentPointWithOffset:(unsigned int)offset limit:(unsigned int)limit withDelegate:(id<PBRecentPoint_ResponseHandler>)delegate;
 -(PBRequest *)recentPointWithOffset:(unsigned int)offset limit:(unsigned int)limit withBlock:(PBRecentPoint_ResponseBlock)block;
@@ -593,6 +594,7 @@
 
 /**
  Return recent activity points of point name of all players.
+ With all optional parameters.
  */
 -(PBRequest *)recentPointByName:(NSString *)pointName offset:(unsigned int)offset limit:(unsigned int)limit withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequest *)recentPointByName:(NSString *)pointName offset:(unsigned int)offset limit:(unsigned int)limit withBlock:(PBResponseBlock)block;
