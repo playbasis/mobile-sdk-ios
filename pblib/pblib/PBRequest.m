@@ -246,6 +246,7 @@
         case responseType_registerUser:
         case responseType_updateUser:
         case responseType_deleteUser:
+        case responseType_loginUser:
         {
             if(responseDelegate)
             {

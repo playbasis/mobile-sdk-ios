@@ -103,6 +103,12 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             
             // TODO: Add temporary testcase here ...
             // every testcase added here should be removed immediately after finish testing
+            [[Playbasis sharedPB] loginPlayer:USER withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+                if(!error)
+                    NSLog(@"%@", result);
+                else
+                    NSLog(@"%@", error);
+            }];
             
             NSLog(@"Passed through this line");
             

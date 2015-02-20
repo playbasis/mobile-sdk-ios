@@ -159,10 +159,10 @@
  Tell Playbasis system that player has logged in.
  It uses delegate callback.
  */
--(PBRequest *)loginPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)loginPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)loginPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)loginPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)loginPlayer:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequest *)loginPlayer:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequest *)loginPlayerAsync:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequest *)loginPlayerAsync:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block;
 -(PBRequest *)loginPlayerAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**

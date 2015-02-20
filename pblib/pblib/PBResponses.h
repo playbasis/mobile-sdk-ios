@@ -26,6 +26,7 @@ typedef enum
     responseType_registerUser,
     responseType_updateUser,
     responseType_deleteUser,
+    responseType_loginUser,
     responseType_point,
     responseType_points,
     responseType_badge,
