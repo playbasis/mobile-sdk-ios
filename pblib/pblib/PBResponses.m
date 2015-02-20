@@ -5520,7 +5520,7 @@
 @end
 
 ///--------------------------------------
-/// PlayersQuizRank - Response
+/// ResultStatus - Response
 ///--------------------------------------
 @implementation PBResultStatus_Response
 

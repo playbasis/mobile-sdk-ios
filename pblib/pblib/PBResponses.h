@@ -1395,7 +1395,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// PlayersQuizRank - Response
+/// ResultStatus - Response
 /// Note: This is used by any request that needs only a result
 /// status to indicate whether the resonse is success or not
 ///--------------------------------------
@@ -1403,6 +1403,8 @@ typedef enum
 
 @property (nonatomic) BOOL success;
 
+// either use one or another of the following static method to create
+// the proper result content for the response class
 +(PBResultStatus_Response *)resultStatusWithSuccess;
 +(PBResultStatus_Response *)resultStatusWithFailure;
 
