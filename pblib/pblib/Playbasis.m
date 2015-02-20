@@ -259,6 +259,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)recentPointByNameInternalBase:(NSString *)pointName offset:(unsigned int)offset limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - resetPoints
+-(PBRequest *)resetPointForAllPlayersWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - resetPoints (with optional parameter 'point_name'
 -(PBRequest *)resetPointForAllPlayersForPointInternalBase:(NSString *)pointName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - sendEmail
@@ -2577,6 +2580,40 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u&point_name=%@", apiKeyParam, offset, limit, pointName];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+}
+
+-(PBRequest *)resetPointForAllPlayersWithDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self resetPointForAllPlayersWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)resetPointForAllPlayersWithBlock:(PBResponseBlock)block
+{
+    return [self resetPointForAllPlayersWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)resetPointForAllPlayersWithDelegateAsync:(id<PBResponseHandler>)delegate
+{
+    return [self resetPointForAllPlayersWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)resetPointForAllPlayersWithBlockAsync:(PBResponseBlock)block
+{
+    return [self resetPointForAllPlayersWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)resetPointForAllPlayersWithBlockAsync_:(PBAsyncURLRequestResponseBlock)block
+{
+    return [self resetPointForAllPlayersWithBlockingCallInternalBase:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequest *)resetPointForAllPlayersWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Service/reset_point%@",apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 -(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate
