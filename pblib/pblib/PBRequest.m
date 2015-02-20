@@ -146,7 +146,7 @@
         PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
         
         // convert back into dictionary object, and send into response
-        sb([PBResultStatus_Response resultStatusWithSuccess], [urlRequest URL], nil);
+        sb([PBManualSetResultStatus_Response resultStatusWithSuccess], [urlRequest URL], nil);
     }
     else
     {
@@ -156,7 +156,7 @@
             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
             
             // response with fail
-            sb([PBResultStatus_Response resultStatusWithFailure], [urlRequest URL], error);
+            sb([PBManualSetResultStatus_Response resultStatusWithFailure], [urlRequest URL], error);
         }
         else
         {
@@ -178,7 +178,7 @@
             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
             
             // response with fail
-            sb([PBResultStatus_Response resultStatusWithFailure], [urlRequest URL], userError);
+            sb([PBManualSetResultStatus_Response resultStatusWithFailure], [urlRequest URL], userError);
         }
     }
 }
@@ -242,6 +242,34 @@
             
             break;
         }
+            // handle all cases of response that need only result status
+        case responseType_register:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithResultStatus:withURL:error:)])
+                {
+                    id<PBResultStatus_ResponseHandler> sd = (id<PBResultStatus_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBResultStatus_Response *response = [PBResultStatus_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithResultStatus:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBResultStatus_Response *response = [PBResultStatus_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBResultStatus_ResponseBlock sb = (PBResultStatus_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+            // auth:, and renew: are the same
         case responseType_auth:
         case responseType_renew:
         {

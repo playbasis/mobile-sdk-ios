@@ -23,6 +23,7 @@ typedef enum
     responseType_player,
     responseType_playerList,
     responseType_playerGoodsOwned,
+    responseType_register,
     responseType_point,
     responseType_points,
     responseType_badge,
@@ -1396,18 +1397,32 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// ResultStatus - Response
-/// Note: This is used by any request that needs only a result
-/// status to indicate whether the resonse is success or not
+/// ManualSetResultStatus - Response
+/// Note: This response is usually used by async url request
+/// as its response is not in json type, but just pure text.
+/// Thus it's manual to set the result upon reading those text.
 ///--------------------------------------
-@interface PBResultStatus_Response : PBBase_Response
+@interface PBManualSetResultStatus_Response : PBBase_Response
 
 @property (nonatomic) BOOL success;
 
 // either use one or another of the following static method to create
 // the proper result content for the response class
-+(PBResultStatus_Response *)resultStatusWithSuccess;
-+(PBResultStatus_Response *)resultStatusWithFailure;
++(PBManualSetResultStatus_Response *)resultStatusWithSuccess;
++(PBManualSetResultStatus_Response *)resultStatusWithFailure;
+
+@end
+
+///--------------------------------------
+/// ResultStatus - Response
+/// Note: Differnt from ManualSetResultStatus as this will be
+/// automatically parsed by internal system and set its result status.
+///--------------------------------------
+@interface PBResultStatus_Response : PBBase_Response
+
+@property (nonatomic) BOOL success;
+
++(PBResultStatus_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

@@ -924,28 +924,28 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- gender		1=Male, 2=Female
 // 							- birth_date	format YYYY-MM-DD
 //
--(PBRequest *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBResponseBlock)block, ...
+-(PBRequest *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBResultStatus_ResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)registerUserWithPlayerIdAsync:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)registerUserWithPlayerIdAsync:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     return [self registerUserWithPlayerIdInternalBase:playerId username:username email:email imageUrl:imageUrl blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)registerUserWithPlayerIdAsync:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBResponseBlock)block, ...
+-(PBRequest *)registerUserWithPlayerIdAsync:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andBlock:(PBResultStatus_ResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
@@ -988,7 +988,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_register andResponse:response];
 }
 
 // @param	...[vararg]		Key-value for data to be updated.
@@ -3335,7 +3335,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                             NSLog(@"Register failed, then send error back to response.");
 
                             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
-                            sb([PBResultStatus_Response resultStatusWithFailure], nil, error);
+                            sb([PBManualSetResultStatus_Response resultStatusWithFailure], nil, error);
                         }
                     }];
                 }
@@ -3345,7 +3345,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                     NSLog(@"No view set, then send back with error to reponse.");
                     // if there's no view input, then directly send back response with error
                     PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
-                    sb([PBResultStatus_Response resultStatusWithFailure], url, error);
+                    sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);
                 }
             }
             // player exists
@@ -3366,7 +3366,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 if(response != nil)
                 {
                     PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
-                    sb([PBResultStatus_Response resultStatusWithFailure], url, error);
+                    sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);
                 }
             }
         }];

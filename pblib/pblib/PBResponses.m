@@ -5520,6 +5520,40 @@
 @end
 
 ///--------------------------------------
+/// ManualSetResultStatus - Response
+///--------------------------------------
+@implementation PBManualSetResultStatus_Response
+
+@synthesize success;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Manual Set Result Status Response : {\r\tstatus = %@\r\t}", self.success ? @"YES" : @"NO"];
+    
+    return descriptionString;
+}
+
++(PBManualSetResultStatus_Response *)resultStatusWithSuccess
+{
+    // create result status object with success
+    PBManualSetResultStatus_Response *c = [[PBManualSetResultStatus_Response alloc] init];
+    c.success = YES;
+    
+    return c;
+}
+
++(PBManualSetResultStatus_Response *)resultStatusWithFailure
+{
+    // create result status object with success
+    PBManualSetResultStatus_Response *c = [[PBManualSetResultStatus_Response alloc] init];
+    c.success = NO;
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// ResultStatus - Response
 ///--------------------------------------
 @implementation PBResultStatus_Response
@@ -5533,22 +5567,22 @@
     return descriptionString;
 }
 
-+(PBResultStatus_Response *)resultStatusWithSuccess
++(PBResultStatus_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
-    // create result status object with success
-    PBResultStatus_Response *c = [[PBResultStatus_Response alloc] init];
-    c.success = YES;
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
     
-    return c;
-}
-
-+(PBResultStatus_Response *)resultStatusWithFailure
-{
-    // create result status object with success
+    // create response
     PBResultStatus_Response *c = [[PBResultStatus_Response alloc] init];
-    c.success = NO;
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.success = [[c.parseLevelJsonResponse objectForKey:@"success"] boolValue];
     
     return c;
 }
 
 @end
+
