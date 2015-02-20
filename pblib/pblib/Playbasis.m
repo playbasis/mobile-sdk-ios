@@ -241,6 +241,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 -(PBRequest *)cancelQuestInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - redeemGoods
+-(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - redeemGoods (with optional parameter 'amount')
 -(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - recentPoint
@@ -2370,6 +2373,41 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/cancel%@", questId, apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&player_id%@", token, playerId];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+}
+
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(token, @"access token is nil");
+    
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@", token, goodsId, playerId];
     
     if(!syncUrl)
     {
