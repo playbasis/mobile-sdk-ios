@@ -988,7 +988,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_register andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
 }
 
 // @param	...[vararg]		Key-value for data to be updated.
@@ -1006,28 +1006,28 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 //                          - nickname
 //                          - gender		1=Male, 2=Female
 //                          - birth_date	format YYYY-MM-DD
--(PBRequest *)updateUserForPlayerId:(NSString *)playerId firstArg:(NSString *)firstArg andDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)updateUserForPlayerId:(NSString *)playerId firstArg:(NSString *)firstArg andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     return [self updateUserForPlayerIdInternalBase:playerId firstArg:firstArg blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)updateUserForPlayerId:(NSString *)playerId firstArg:(NSString *)firstArg andBlock:(PBResponseBlock)block, ...
+-(PBRequest *)updateUserForPlayerId:(NSString *)playerId firstArg:(NSString *)firstArg andBlock:(PBResultStatus_ResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
     return [self updateUserForPlayerIdInternalBase:playerId firstArg:firstArg blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)updateUserForPlayerIdAsync:(NSString *)playerId firstArg:(NSString *)firstArg andDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)updateUserForPlayerIdAsync:(NSString *)playerId firstArg:(NSString *)firstArg andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     return [self updateUserForPlayerIdInternalBase:playerId firstArg:firstArg blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)updateUserForPlayerIdAsync:(NSString *)playerId firstArg:(NSString *)firstArg andBlock:(PBResponseBlock)block, ...
+-(PBRequest *)updateUserForPlayerIdAsync:(NSString *)playerId firstArg:(NSString *)firstArg andBlock:(PBResultStatus_ResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
@@ -1076,7 +1076,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
 
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_updateUser andResponse:response];
 }
 
 -(PBRequest *)deleteUserWithPlayerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate

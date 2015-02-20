@@ -243,7 +243,8 @@
             break;
         }
             // handle all cases of response that need only result status
-        case responseType_register:
+        case responseType_registerUser:
+        case responseType_updateUser:
         {
             if(responseDelegate)
             {
