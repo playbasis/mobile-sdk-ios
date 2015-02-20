@@ -246,6 +246,12 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // - redeemGoods (with optional parameter 'amount')
 -(PBRequest *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - redeemGoodsGroup
+-(PBRequest *)redeemGoodsGroupInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - redeemGoodsGroup (with optional parameter 'amount')
+-(PBRequest *)redeemGoodsGroupInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - recentPoint
 -(PBRequest *)recentPointWithOffsetInternalBase:(unsigned int)offset limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -2453,6 +2459,79 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
+
+-(PBRequest *)redeemGoodsGroup:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)redeemGoodsGroup:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsGroupAsync:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)redeemGoodsGroupAsync:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsGroupAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsGroupInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(token, @"access token is nil");
+    
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&group=%@", token, goodsId, playerId, group];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+}
+
+-(PBRequest *)redeemGoodsGroup:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group amount:amount blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)redeemGoodsGroup:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group amount:amount blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsGroupAsync:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group amount:amount blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequest *)redeemGoodsGroupAsync:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsGroupAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+{
+    return [self redeemGoodsGroupInternalBase:goodsId forPlayer:playerId group:group amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequest *)redeemGoodsGroupInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(token, @"access token is nil");
+    if(amount < 1){
+        amount = 1;
+    }
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&group=%@&amount=%u", token, goodsId, playerId, group, amount];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+}
+
 
 -(PBRequest *)recentPointWithOffset:(unsigned int)offset limit:(unsigned int)limit withDelegate:(id<PBRecentPoint_ResponseHandler>)delegate
 {
