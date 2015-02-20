@@ -243,6 +243,7 @@
             break;
         }
         case responseType_auth:
+        case responseType_renew:
         {
             if(responseDelegate)
             {

@@ -18,6 +18,7 @@ typedef enum
 {
     responseType_normal,
     responseType_auth,
+    responseType_renew,
     responseType_playerPublic,
     responseType_player,
     responseType_playerList,
