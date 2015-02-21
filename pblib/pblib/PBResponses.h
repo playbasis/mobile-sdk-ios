@@ -42,6 +42,8 @@ typedef enum
     responseType_actionCount,
     responseType_level,
     responseType_levels,
+    responseType_claimBadge,
+    responseType_redeemBadge,
     responseType_rank,
     responseType_ranks,
     responseType_goodsInfo,
