@@ -153,6 +153,15 @@ typedef void (^PBPlayerGoodsOwned_ResponseBlock)(PBPlayerGoodsOwned_Response * g
 ///----------------
 /// PointHistory
 ///----------------
+@protocol PBActionLastPerformedTime_ResponseHandler <NSObject>
+-(void)processResponseWithActionLastPerformedTime:(PBActionLastPerformedTime_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBActionLastPerformedTime_ResponseBlock)(PBActionLastPerformedTime_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// PointHistory
+///----------------
 @protocol PBPointHistory_ResponseHandler <NSObject>
 -(void)processResponseWithPointHistory:(PBPointHistory_Response*)pointHistory withURL:(NSURL *)url error:(NSError*)error;
 @end

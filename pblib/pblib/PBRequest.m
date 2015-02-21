@@ -587,6 +587,32 @@
             
             break;
         }
+        case responseType_actionLastPerformedTime:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithActionLastPerformedTime:withURL:error:)])
+                {
+                    id<PBActionLastPerformedTime_ResponseHandler> sd = (id<PBActionLastPerformedTime_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBActionLastPerformedTime_Response *response = [PBActionLastPerformedTime_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithActionLastPerformedTime:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBActionLastPerformedTime_Response *response = [PBActionLastPerformedTime_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBActionLastPerformedTime_ResponseBlock sb = (PBActionLastPerformedTime_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
         case responseType_actionTime:
         {
             if(responseDelegate)

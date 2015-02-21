@@ -1425,19 +1425,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 
 
--(PBRequest *)actionLastPerformedTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)actionLastPerformedTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBActionLastPerformedTime_ResponseHandler>)delegate
 {
     return [self actionLastPerformedTimeForPlayerInternalBase:playerId action:actionName blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)actionLastPerformedTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withBlock:(PBResponseBlock)block
+-(PBRequest *)actionLastPerformedTimeForPlayer:(NSString *)playerId action:(NSString *)actionName withBlock:(PBActionLastPerformedTime_ResponseBlock)block
 {
     return [self actionLastPerformedTimeForPlayerInternalBase:playerId action:actionName blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)actionLastPerformedTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)actionLastPerformedTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBActionLastPerformedTime_ResponseHandler>)delegate
 {
     return [self actionLastPerformedTimeForPlayerInternalBase:playerId action:actionName blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)actionLastPerformedTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withBlock:(PBResponseBlock)block
+-(PBRequest *)actionLastPerformedTimeForPlayerAsync:(NSString *)playerId action:(NSString *)actionName withBlock:(PBActionLastPerformedTime_ResponseBlock)block
 {
     return [self actionLastPerformedTimeForPlayerInternalBase:playerId action:actionName blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -1445,7 +1445,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, apiKeyParam];
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionLastPerformedTime andResponse:response];
 }
 
 -(PBRequest *)actionPerformedCountForPlayer:(NSString *)playerId action:(NSString *)actionName withDelegate:(id<PBActionCount_ResponseHandler>)delegate

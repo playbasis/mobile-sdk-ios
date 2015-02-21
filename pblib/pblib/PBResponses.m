@@ -1030,6 +1030,94 @@
 @end
 
 ///--------------------------------------
+/// Action Last Performed Time
+///--------------------------------------
+@implementation PBActionLastPerformedTime
+
+@synthesize actionId;
+@synthesize actionName;
+@synthesize time;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Action Last Performed Time : {\r\taction_id : %@\r\taction_name : %@\r\ttime : %@\r\t}", self.actionId, self.actionName, self.time];
+    
+    return descriptionString;
+}
+
++(PBActionLastPerformedTime *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBActionLastPerformedTime *c = [[PBActionLastPerformedTime alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    
+    // create a date formatter to parse date-timestamp
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    
+    c.time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Action Last Performed Time - Response
+///--------------------------------------
+@implementation PBActionLastPerformedTime_Response
+
+@synthesize response;
+
+- (NSString *)description
+{
+    return [self.response description];
+}
+
++(PBActionLastPerformedTime_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBActionLastPerformedTime_Response *c = [[PBActionLastPerformedTime_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'action'
+        NSDictionary *action = [response objectForKey:@"action"];
+        NSAssert(action != nil, @"action must not be nil");
+        
+        c.parseLevelJsonResponse = action;
+    }
+    
+    // parse
+    c.response = [PBActionLastPerformedTime parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// ActionTime
 ///--------------------------------------
 @implementation PBActionTime_Response
