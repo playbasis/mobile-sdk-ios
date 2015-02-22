@@ -112,6 +112,8 @@
     [[Playbasis sharedPB] redeemGoodsAsync:goodsInfo_.goods.goodsId forPlayer:USER amount:1 withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
         {
+            NSLog(@"%@", jsonResponse);
+            
             // get 'response'
             NSDictionary *response = [jsonResponse objectForKey:@"response"];
             // get 'event'
@@ -146,6 +148,10 @@
                     });
                 }
             }
+        }
+        else
+        {
+            NSLog(@"%@", error);
         }
     }];
 }

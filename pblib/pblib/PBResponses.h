@@ -440,7 +440,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// Custom - No Response
+/// Custom
 ///--------------------------------------
 @interface PBCustom : PBBase_Response
 
@@ -464,12 +464,36 @@ typedef enum
 @end
 
 ///--------------------------------------
+/// RedeemBadge
+///--------------------------------------
+@interface PBRedeemBadge : PBBase_Response
+
+@property (strong, nonatomic) NSString *badgeId;
+@property (nonatomic) NSUInteger badgeValue;
+
++(PBRedeemBadge*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RedeemBadges
+///--------------------------------------
+@interface PBRedeemBadges : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBRedeemBadges*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
 /// Redeem
 ///--------------------------------------
 @interface PBRedeem : PBBase_Response
 
 @property (nonatomic) NSUInteger pointValue;
 @property (strong, nonatomic) PBCustoms *customs;
+@property (strong, nonatomic) PBRedeemBadges *redeemBadges;
 
 +(PBRedeem*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

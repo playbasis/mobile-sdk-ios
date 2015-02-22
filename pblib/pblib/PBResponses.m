@@ -1742,6 +1742,104 @@
 @end
 
 ///--------------------------------------
+/// RedeemBadge
+///--------------------------------------
+@implementation PBRedeemBadge
+
+@synthesize badgeId;
+@synthesize badgeValue;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Redeem Badge : {\r\tbadge_id : %@\r\tbadge_value : %lu\r\t}", self.badgeId, (unsigned long)self.badgeValue];
+    
+    return descriptionString;
+}
+
++(PBRedeemBadge *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRedeemBadge *c = [[PBRedeemBadge alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
+    c.badgeValue = [[c.parseLevelJsonResponse objectForKey:@"badge_value"] unsignedIntegerValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// RedeemBadges
+///--------------------------------------
+@implementation PBRedeemBadges
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all items line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Redeem Badges : {"];
+    
+    for(PBRedeemBadge *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRedeemBadges *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRedeemBadges *c = [[PBRedeemBadges alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *redeemBadgesJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *redeemBadgeJson in redeemBadgesJson)
+    {
+        // pouplate item
+        PBRedeemBadge *item = [PBRedeemBadge parseFromDictionary:redeemBadgeJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:item];
+    }
+    
+    // set back array
+    c.list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Redeem
 ///--------------------------------------
 @implementation PBRedeem
@@ -1751,7 +1849,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Redeem : {\r\tpoint_value = %lu\r\t%@\r\t}", (unsigned long)self.pointValue, self.customs];
+    NSString *descriptionString = [NSString stringWithFormat:@"Redeem : {\r\tpoint_value = %lu\r\tcustom : %@\r\tbadge : %@\r\t}", (unsigned long)self.pointValue, self.customs, self.redeemBadges];
     
     return descriptionString;
 }
@@ -1772,6 +1870,7 @@
     NSDictionary *pointJson = [c.parseLevelJsonResponse objectForKey:@"point"];
     c.pointValue = [[pointJson objectForKey:@"point_value"] unsignedIntegerValue];
     c.customs = [PBCustoms parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES];
+    c.redeemBadges = [PBRedeemBadges parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"badge"] startFromFinalLevel:YES];
     
     return c;
 }

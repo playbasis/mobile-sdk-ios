@@ -11,6 +11,6 @@
 
 static NSString* API_KEY = @"abc";
 static NSString* API_SECRET = @"abcde";
-static NSString* USER = @"107594695381606716436google";     // <---- this is player_id
+static NSString* USER = @"16254950twitter";     // <---- this is player_id
 
 #endif
