@@ -70,8 +70,7 @@
                     UIImage *img = [[UIImage alloc] initWithData:data];
                     
                     // update ui stuff
-                    dispatch_queue_t uiQ = dispatch_get_main_queue();
-                    dispatch_async(uiQ, ^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
                         // set image to UIImageView
                         self.badgeImage.image = img;
                         

@@ -1001,12 +1001,62 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// RuleEventMissions
+/// RuleEventsMission
 ///--------------------------------------
+@interface PBRuleEventsMission : PBBase_Response
+
+@property (strong, nonatomic) PBRuleEvents *events;
+
+@property (strong, nonatomic) NSString *missionId;
+@property (strong, nonatomic) NSString *missionNumber;
+@property (strong, nonatomic) NSString *missionName;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *questId;
+
++(PBRuleEventsMission *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RuleEventsMissions
+///--------------------------------------
+@interface PBRuleEventsMissions : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBRuleEventsMissions *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RuleEventQuest
+///--------------------------------------
+@interface PBRuleEventsQuest : PBBase_Response
+
+@property (strong, nonatomic) PBRuleEvents *events;
+
+@property (strong, nonatomic) NSString *questId;
+@property (strong, nonatomic) NSString *questName;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic) NSString *image;
+
++(PBRuleEventsQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
 
 ///--------------------------------------
 /// RuleEventQuests
 ///--------------------------------------
+@interface PBRuleEventsQuests : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBRuleEventsQuests *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
 
 ///--------------------------------------
 /// Rule - Response
@@ -1014,6 +1064,8 @@ typedef enum
 @interface PBRule_Response : PBBase_Response
 
 @property (strong, nonatomic) PBRuleEvents *events;
+@property (strong, nonatomic) PBRuleEventsMissions *missions;
+@property (strong, nonatomic) PBRuleEventsQuests *quests;
 
 +(PBRule_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

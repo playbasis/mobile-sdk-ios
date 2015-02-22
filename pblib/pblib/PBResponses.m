@@ -3882,6 +3882,222 @@
 @end
 
 ///--------------------------------------
+/// RuleEventsMission
+///--------------------------------------
+@implementation PBRuleEventsMission
+
+@synthesize events;
+@synthesize missionNumber;
+@synthesize missionName;
+@synthesize description_;
+@synthesize hint;
+@synthesize image;
+@synthesize questId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Rule's events-missions : {\r\t%@\r\tmission_number : %@\r\tmission_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tquest_id : %@\r\t}", self.events, self.missionNumber, self.missionName, self.description_, self.hint, self.image, self.questId];
+    
+    return descriptionString;
+}
+
++(PBRuleEventsMission *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRuleEventsMission *c = [[PBRuleEventsMission alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    // parse 'events'
+    c.events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c.missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
+    c.missionNumber = [c.parseLevelJsonResponse objectForKey:@"mission_number"];
+    c.missionName = [c.parseLevelJsonResponse objectForKey:@"mission_name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// RuleEventsMissions
+///--------------------------------------
+@implementation PBRuleEventsMissions
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all action-config line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Rule's Events-Missions : {"];
+    
+    for(PBRuleEventsMission *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRuleEventsMissions *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRuleEventsMissions *c = [[PBRuleEventsMissions alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *ruleEventsMissionsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *ruleEventsMissionJson in ruleEventsMissionsJson)
+    {
+        // populate a single object
+        PBRuleEventsMission *ruleEventMission = [PBRuleEventsMission parseFromDictionary:ruleEventsMissionJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:ruleEventMission];
+    }
+    
+    // set back to result object
+    c.list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// RuleEventQuest
+///--------------------------------------
+@implementation PBRuleEventsQuest
+
+@synthesize events;
+@synthesize questId;
+@synthesize questName;
+@synthesize description_;
+@synthesize hint;
+@synthesize image;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Rule's events-quest : {\r\t%@\r\tquest_id : %@\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\t}", self.events, self.questId, self.questName, self.description_, self.hint, self.image];
+    
+    return descriptionString;
+}
+
++(PBRuleEventsQuest *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRuleEventsQuest *c = [[PBRuleEventsQuest alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// RuleEventQuests
+///--------------------------------------
+@implementation PBRuleEventsQuests
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all action-config line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Rule's events-quests : {"];
+    
+    for(PBRuleEventsQuest *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRuleEventsQuests *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRuleEventsQuests *c = [[PBRuleEventsQuests alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *ruleEventsQuestsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *ruleEventsQuestJson in ruleEventsQuestsJson)
+    {
+        // popuplate an item
+        PBRuleEventsQuest *item = [PBRuleEventsQuest parseFromDictionary:ruleEventsQuestJson startFromFinalLevel:YES];
+        
+        // add to temp array
+        [tempArray addObject:item];
+    }
+    
+    // set back list
+    c.list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Rule - Response
 ///--------------------------------------
 @implementation PBRule_Response
