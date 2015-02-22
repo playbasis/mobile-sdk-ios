@@ -367,6 +367,15 @@ typedef void (^PBQuestAvailableForPlayer_ResponseBlock)(PBQuestAvailableForPlaye
 typedef void (^PBJoinQuest_ResponseBlock)(PBJoinQuest_Response * response, NSURL *url, NSError *error);
 
 ///--------------------------------------
+/// Cancel Quest
+///--------------------------------------
+@protocol PBCancelQuest_ResponseHandler <NSObject>
+-(void)processResponseWithCancelQuest:(PBCancelQuest_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBCancelQuest_ResponseBlock)(PBCancelQuest_Response * response, NSURL *url, NSError *error);
+
+///--------------------------------------
 /// ActiveQuizList
 ///--------------------------------------
 @protocol PBActiveQuizList_ResponseHandler <NSObject>

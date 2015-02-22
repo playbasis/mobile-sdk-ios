@@ -4608,6 +4608,86 @@
 @end
 
 ///--------------------------------------
+/// Cancel Quest
+///--------------------------------------
+@implementation PBCancelQuest
+
+@synthesize eventType;
+@synthesize questId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Cancel Quest : {\r\tevent_type : %@\r\tquest_id : %@\r\t}", self.eventType, self.questId];
+    
+    return descriptionString;
+}
+
++(PBCancelQuest *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBCancelQuest *c = [[PBCancelQuest alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Cancel Quest - Response
+///--------------------------------------
+@implementation PBCancelQuest_Response
+
+@synthesize response;
+
+-(NSString *)description
+{
+    return [self.response description];
+}
+
++(PBCancelQuest_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBCancelQuest_Response *c = [[PBCancelQuest_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'events'
+        NSDictionary *events = [response objectForKey:@"events"];
+        NSAssert(events != nil, @"events must not be nil");
+        
+        c.parseLevelJsonResponse = events;
+    }
+    
+    // parse
+    c.response = [PBCancelQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// GradeRewardCustom
 ///--------------------------------------
 @implementation PBGradeRewardCustom

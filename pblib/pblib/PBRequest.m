@@ -1213,6 +1213,32 @@
             
             break;
         }
+        case responseType_cancelQuest:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithCancelQuest:withURL:error:)])
+                {
+                    id<PBCancelQuest_ResponseHandler> sd = (id<PBCancelQuest_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBCancelQuest_Response *response = [PBCancelQuest_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithCancelQuest:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBCancelQuest_Response *response = [PBCancelQuest_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBCancelQuest_ResponseBlock sb = (PBCancelQuest_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
         case responseType_activeQuizList:
         {
             if(responseDelegate)

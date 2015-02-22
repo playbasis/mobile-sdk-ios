@@ -2363,23 +2363,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
--(PBRequest *)cancelQuest:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)cancelQuest:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBCancelQuest_ResponseHandler>)delegate
 {
     return [self cancelQuestInternalBase:questId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)cancelQuest:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)cancelQuest:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBCancelQuest_ResponseBlock)block
 {
     return [self cancelQuestInternalBase:questId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)cancelQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)cancelQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBCancelQuest_ResponseHandler>)delegate
 {
     return [self cancelQuestInternalBase:questId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)cancelQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)cancelQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBCancelQuest_ResponseBlock)block
 {
     return [self cancelQuestInternalBase:questId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)cancelQuestAsync_:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)cancelQuestAsync_:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     return [self cancelQuestInternalBase:questId forPlayer:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
@@ -2387,14 +2387,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSAssert(token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Quest/%@/cancel%@", questId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id%@", token, playerId];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", token, playerId];
     
     if(!syncUrl)
     {
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_cancelQuest andResponse:response];
 }
 
 -(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
