@@ -187,6 +187,15 @@ typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, N
 typedef void (^PBActionConfig_ResponseBlock)(PBActionConfig_Response * actionConfigs, NSURL *url, NSError *error);
 
 ///----------------
+/// Rule
+///----------------
+@protocol PBRule_ResponseHandler <NSObject>
+-(void)processResponseWithRule:(PBRule_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBRule_ResponseBlock)(PBRule_Response * response, NSURL *url, NSError *error);
+
+///----------------
 /// LastAction
 ///----------------
 @protocol PBLastAction_ResponseHandler <NSObject>

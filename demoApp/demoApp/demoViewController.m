@@ -134,21 +134,19 @@
         
         // test calling via non-blocking call
         NSLog(@"Non-blocking rule():like call 1");
-        [[Playbasis sharedPB] ruleForPlayerAsync:USER action:action withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
-            if(error)
-            {
-                NSLog(@"Failed rule():like - 1, error = %@", [error localizedDescription]);
-            }
-            else
+        
+        [[Playbasis sharedPB] ruleForPlayerAsync:USER action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
             {
                 NSLog(@"response req 1 from url = %@", [url path]);
-                NSLog(@"%@", [jsonResponse description]);
+                NSLog(@"%@", [response description]);
                 
-                // set result to text area
-                self.resultTextArea.text = [jsonResponse description];
-                
-                // hide activity indicator
-                self.activityIndicator.hidden = true;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // set result to text area
+                    self.resultTextArea.text = [response description];
+                    // hide activity indicator
+                    self.activityIndicator.hidden = true;
+                });
             }
         }, nil];
     }

@@ -248,6 +248,8 @@
         case responseType_deleteUser:
         case responseType_loginUser:
         case responseType_logoutUser:
+        case responseType_claimBadge:
+        case responseType_redeemBadge:
         {
             if(responseDelegate)
             {
@@ -1050,6 +1052,32 @@
                 PBActionConfig_Response *response = [PBActionConfig_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBActionConfig_ResponseBlock sb = (PBActionConfig_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_rule:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithRule:withURL:error:)])
+                {
+                    id<PBRule_ResponseHandler> sd = (id<PBRule_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBRule_Response *response = [PBRule_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithRule:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBRule_Response *response = [PBRule_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBRule_ResponseBlock sb = (PBRule_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
             }
             

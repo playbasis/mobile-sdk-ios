@@ -2103,14 +2103,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 // 							- reward	name of the custom-point reward to give (for triggering rules with custom-point reward)
 // 							- quantity	amount of points to give (for triggering rules with custom-point reward)
 //
--(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBRule_ResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
     return [self ruleForPlayerInternalBase:playerId action:action blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
     va_end(argumentList);
 }
--(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withBlock:(PBRule_ResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
@@ -2119,7 +2119,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     va_end(argumentList);
 }
--(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBRule_ResponseHandler>)delegate, ...
 {
     va_list argumentList;
     va_start(argumentList, delegate);
@@ -2128,7 +2128,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     va_end(argumentList);
 }
--(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBRule_ResponseBlock)block, ...
 {
     va_list argumentList;
     va_start(argumentList, block);
@@ -2177,7 +2177,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         dataFinal = [NSString stringWithString:data];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_rule andResponse:response];
 }
 
 -(PBRequest *)questListWithDelegate:(id<PBQuestList_ResponseHandler>)delegate

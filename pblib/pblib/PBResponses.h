@@ -55,6 +55,7 @@ typedef enum
     responseType_questList,
     responseType_questInfo,
     responseType_actionConfig,
+    responseType_rule,
     responseType_recentPoint,
     responseType_missionInfo,
     responseType_questListAvailableForPlayer,
@@ -952,6 +953,69 @@ typedef enum
 @property (strong, nonatomic) PBConfigArray *configs;
 
 +(PBActionConfig *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RuleEventBadgeRewardData
+///--------------------------------------
+@interface PBRuleEventBadgeRewardData : PBBase_Response
+
+@property (strong, nonatomic) NSString *badgeId;
+@property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *description_;
+@property (strong, nonatomic) NSString *hint;
+@property (nonatomic) BOOL claim;
+@property (nonatomic) BOOL redeem;
+
++(PBRuleEventBadgeRewardData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RuleEvent
+///--------------------------------------
+@interface PBRuleEvent : PBBase_Response
+
+@property (strong, nonatomic) NSString *eventType;
+@property (strong, nonatomic) NSString *rewardType;
+@property (strong, nonatomic) NSString *value;
+// arbitrary data, it can be anything thus we use id as a data type here
+// certain reward type doesn't have any reward-data, but some has
+@property (strong, nonatomic) id rewardData;
+
++(PBRuleEvent *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RuleEvents
+///--------------------------------------
+@interface PBRuleEvents : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBRuleEvents *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RuleEventMissions
+///--------------------------------------
+
+///--------------------------------------
+/// RuleEventQuests
+///--------------------------------------
+
+///--------------------------------------
+/// Rule - Response
+///--------------------------------------
+@interface PBRule_Response : PBBase_Response
+
+@property (strong, nonatomic) PBRuleEvents *events;
+
++(PBRule_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

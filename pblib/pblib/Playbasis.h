@@ -474,10 +474,10 @@
 /**
  Process an action through all the game's rules defined for client's website.
  */
--(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...;
--(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...;
--(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBResponseHandler>)delegate, ...;
--(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBResponseBlock)block, ...;
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBRule_ResponseHandler>)delegate, ...;
+-(PBRequest *)ruleForPlayer:(NSString *)playerId action:(NSString *)action withBlock:(PBRule_ResponseBlock)block, ...;
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withDelegate:(id<PBRule_ResponseHandler>)delegate, ...;
+-(PBRequest *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBRule_ResponseBlock)block, ...;
 -(PBRequest *)ruleForPlayerAsync_:(NSString *)playerId action:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block, ...;
 
 /**

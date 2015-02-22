@@ -46,74 +46,55 @@
     
     // execute 'like' action
     // note: this will let activity indicator to be updated in UI thread
-    dispatch_queue_t gQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(gQueue, ^{
-        [[Playbasis sharedPB] ruleForPlayer:USER action:@"like" withBlock:^(NSDictionary *jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"like" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            NSLog(@"%@", response);
             
-            // if thing goes okay
-            if(!error)
+            BOOL isBadgeReward = NO;
+            
+            // check if we have a badge reward, then we will show it
+            for(PBRuleEvent *event in response.events.list)
             {
-                // print out response data
-                NSLog(@"response data = %@", [jsonResponse description]);
-                
-                // check if we got 'badge' reward just yet
-                if([jsonResponse objectForKey:@"response"] != nil)
+                if([event.rewardType isEqualToString:@"badge"])
                 {
-                    // get 'events' data
-                    NSDictionary *response = [jsonResponse objectForKey:@"response"];
-                    NSArray *events = (NSArray*)[response objectForKey:@"events"];
+                    // set badge reward
+                    isBadgeReward = YES;
                     
-                    if(events != nil)
-                    {
-                        // loop through all the events and find 'reward_type' of 'badge'
-                        for (NSDictionary *event in events)
-                        {
-                            // find 'reward_type' of 'badge'
-                            NSString *rewardType = [event objectForKey:@"reward_type"];
-                            if([rewardType isEqualToString:@"badge"])
-                            {
-                                // get reward data
-                                NSDictionary *rewardData = [event objectForKey:@"reward_data"];
-                                
-                                if(rewardData != nil)
-                                {
-                                    // get image url path
-                                    NSString* imageUrl = [rewardData objectForKey:@"image"];
-                                    
-                                    if(imageUrl != nil)
-                                    {
-                                        // load badge image from url
-                                        NSURL *url = [NSURL URLWithString:imageUrl];
-                                        NSData *data = [NSData dataWithContentsOfURL:url];
-                                        UIImage *img = [[UIImage alloc] initWithData:data];
-                                        
-                                        // update ui stuff
-                                        dispatch_queue_t uiQ = dispatch_get_main_queue();
-                                        dispatch_async(uiQ, ^{
-                                            // set image to UIImageView
-                                            self.badgeImage.image = img;
-                                            
-                                            // show UIImageView
-                                            self.badgeImage.hidden = false;
-                                            
-                                            // hide activity indicator
-                                            self.activityIndicator.hidden = true;
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    // get image url
+                    NSString *imageUrl = ((PBRuleEventBadgeRewardData*)event.rewardData).image;
+                    
+                    // load badge image from url
+                    NSURL *url = [NSURL URLWithString:imageUrl];
+                    NSData *data = [NSData dataWithContentsOfURL:url];
+                    UIImage *img = [[UIImage alloc] initWithData:data];
                     
                     // update ui stuff
                     dispatch_queue_t uiQ = dispatch_get_main_queue();
                     dispatch_async(uiQ, ^{
+                        // set image to UIImageView
+                        self.badgeImage.image = img;
+                        
+                        // show UIImageView
+                        self.badgeImage.hidden = false;
+                        
                         // hide activity indicator
                         self.activityIndicator.hidden = true;
                     });
                 }
             }
-        }, nil];
-    });
+            
+            // if we didn't got a badge reward, then we stop spinning activity indicator
+            if(!isBadgeReward)
+            {
+                // there's no badge to show, then we stop spinning activity indicator
+                dispatch_queue_t uiQ = dispatch_get_main_queue();
+                dispatch_async(uiQ, ^{
+                    // hide activity indicator
+                    self.activityIndicator.hidden = true;
+                });
+            }
+        }
+    }, nil];
 }
 @end
