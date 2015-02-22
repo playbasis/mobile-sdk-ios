@@ -9,8 +9,8 @@
 #ifndef demoApp_demoAppSettings_h
 #define demoApp_demoAppSettings_h
 
-static NSString* API_KEY = @"2409609667";
-static NSString* API_SECRET = @"ca58bad1f0c69e0d9229d2fba2646d62";
-static NSString* USER = @"1";     // <---- this is player_id
+static NSString* API_KEY = @"abc";
+static NSString* API_SECRET = @"abcde";
+static NSString* USER = @"107594695381606716436google";     // <---- this is player_id
 
 #endif

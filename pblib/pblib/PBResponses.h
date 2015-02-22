@@ -60,6 +60,7 @@ typedef enum
     responseType_missionInfo,
     responseType_questListAvailableForPlayer,
     responseType_questAvailableForPlayer,
+    responseType_joinQuest,
     responseType_activeQuizList,
     responseType_quizDetail,
     responseType_quizRandom,
@@ -1156,6 +1157,29 @@ typedef enum
 @property (nonatomic) BOOL eventStatus;
 
 +(PBQuestAvailableForPlayer_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Join Quest
+///--------------------------------------
+@interface PBJoinQuest : PBBase_Response
+
+@property (strong, nonatomic) NSString *eventType;
+@property (strong, nonatomic) NSString *questId;
+
++(PBJoinQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Join Quest - Response
+///--------------------------------------
+@interface PBJoinQuest_Response : PBBase_Response
+
+@property (strong, nonatomic) PBJoinQuest *response;
+
++(PBJoinQuest_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

@@ -4481,7 +4481,7 @@
 @end
 
 ///--------------------------------------
-/// QuestAvailableForPlayer
+/// QuestAvailableForPlayer - Response
 ///--------------------------------------
 @implementation PBQuestAvailableForPlayer_Response
 
@@ -4521,6 +4521,86 @@
     c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
     c.eventMessage = [c.parseLevelJsonResponse objectForKey:@"event_message"];
     c.eventStatus = [[c.parseLevelJsonResponse objectForKey:@"event_status"] boolValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Join Quest
+///--------------------------------------
+@implementation PBJoinQuest
+
+@synthesize eventType;
+@synthesize questId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Join Quest : {\r\tevent_type : %@\r\tquest_id : %@\r\t}", self.eventType, self.questId];
+    
+    return descriptionString;
+}
+
++(PBJoinQuest *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBJoinQuest *c = [[PBJoinQuest alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Join Quest - Response
+///--------------------------------------
+@implementation PBJoinQuest_Response
+
+@synthesize response;
+
+-(NSString *)description
+{
+    return [self.response description];
+}
+
++(PBJoinQuest_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBJoinQuest_Response *c = [[PBJoinQuest_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'events'
+        NSDictionary *events = [response objectForKey:@"events"];
+        NSAssert(events != nil, @"events must not be nil");
+        
+        c.parseLevelJsonResponse = events;
+    }
+    
+    // parse
+    c.response = [PBJoinQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }

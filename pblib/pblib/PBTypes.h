@@ -358,6 +358,15 @@ typedef void (^PBQuestListAvailableForPlayer_ResponseBlock)(PBQuestListAvailable
 typedef void (^PBQuestAvailableForPlayer_ResponseBlock)(PBQuestAvailableForPlayer_Response * available, NSURL *url, NSError *error);
 
 ///--------------------------------------
+/// Join Quest
+///--------------------------------------
+@protocol PBJoinQuest_ResponseHandler <NSObject>
+-(void)processResponseWithJoinQuest:(PBJoinQuest_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBJoinQuest_ResponseBlock)(PBJoinQuest_Response * response, NSURL *url, NSError *error);
+
+///--------------------------------------
 /// ActiveQuizList
 ///--------------------------------------
 @protocol PBActiveQuizList_ResponseHandler <NSObject>

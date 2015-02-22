@@ -1187,6 +1187,32 @@
             
             break;
         }
+        case responseType_joinQuest:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithJoinQuest:withURL:error:)])
+                {
+                    id<PBJoinQuest_ResponseHandler> sd = (id<PBJoinQuest_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBJoinQuest_Response *response = [PBJoinQuest_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithJoinQuest:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBJoinQuest_Response *response = [PBJoinQuest_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBJoinQuest_ResponseBlock sb = (PBJoinQuest_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
         case responseType_activeQuizList:
         {
             if(responseDelegate)

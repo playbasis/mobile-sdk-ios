@@ -523,11 +523,11 @@
 /**
  Player joins a quest.
  */
--(PBRequest *)joinQuest:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)joinQuest:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)joinQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)joinQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
--(PBRequest *)joinQuestAsync_:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequest *)joinQuest:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBJoinQuest_ResponseHandler>)delegate;
+-(PBRequest *)joinQuest:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBJoinQuest_ResponseBlock)block;
+-(PBRequest *)joinQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBJoinQuest_ResponseHandler>)delegate;
+-(PBRequest *)joinQuestAsync:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBJoinQuest_ResponseBlock)block;
+-(PBRequest *)joinQuestAsync_:(NSString *)questId forPlayer:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Player joins all quests.
