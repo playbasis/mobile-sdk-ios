@@ -109,22 +109,15 @@
     });
     
     // redeem this goods
-    [[Playbasis sharedPB] redeemGoodsAsync:goodsInfo_.goods.goodsId forPlayer:USER amount:1 withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] redeemGoodsAsync:goodsInfo_.goods.goodsId forPlayer:USER amount:1 withBlock:^(PBRedeemGoods_Response *response, NSURL *url, NSError *error) {
         if(!error)
         {
-            NSLog(@"%@", jsonResponse);
+            NSLog(@"%@", response);
             
-            // get 'response'
-            NSDictionary *response = [jsonResponse objectForKey:@"response"];
-            // get 'event'
-            NSArray *events = [response objectForKey:@"events"];
-            for(NSDictionary *eventJson in events)
+            for(PBRedeemGoodsEvent *event in response.response.list)
             {
-                // get 'event_type'
-                NSString *eventType = [eventJson objectForKey:@"event_type"];
-                
-                // we got goods, then we show code, and send buttons
-                if([eventType isEqualToString:@"GOODS_RECEIVED"])
+                // check if we got any goods
+                if([event.eventType isEqualToString:@"GOODS_RECEIVED"])
                 {
                     NSLog(@"Redeem complete");
                     

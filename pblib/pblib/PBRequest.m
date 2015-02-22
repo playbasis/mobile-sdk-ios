@@ -1369,6 +1369,32 @@
             
             break;
         }
+        case responseType_redeemGoods:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithRedeemGoods:withURL:error:)])
+                {
+                    id<PBRedeemGoods_ResponseHandler> sd = (id<PBRedeemGoods_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBRedeemGoods_Response *response = [PBRedeemGoods_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithRedeemGoods:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBRedeemGoods_Response *response = [PBRedeemGoods_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBRedeemGoods_ResponseBlock sb = (PBRedeemGoods_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
         case responseType_questionFromQuiz:
         {
             if(responseDelegate)

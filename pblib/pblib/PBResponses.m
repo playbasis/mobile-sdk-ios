@@ -5368,6 +5368,147 @@
 @end
 
 ///--------------------------------------
+/// RedeemGoodsEvent
+///--------------------------------------
+@implementation PBRedeemGoodsEvent
+
+@synthesize eventType;
+@synthesize goodsData;
+@synthesize value;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Redeem Goods : {\r\tevent_type : %@\r\tgoods_data : %@\r\tvalue : %lu\r\t}", self.eventType, self.goodsData, (unsigned long)self.value];
+    
+    return descriptionString;
+}
+
++(PBRedeemGoodsEvent *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRedeemGoodsEvent *c = [[PBRedeemGoodsEvent alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c.goodsData = [PBGoods parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"goods_data"] startFromFinalLevel:YES];
+    c.value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBRedeemGoodsEvents
+///--------------------------------------
+@implementation PBRedeemGoodsEvents
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all items line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Redeem Goods Array : {"];
+    
+    for(PBRedeemGoodsEvent *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBRedeemGoodsEvents *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBRedeemGoodsEvents *c = [[PBRedeemGoodsEvents alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *redeemGoodsArrayJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *redeemGoodsJson in redeemGoodsArrayJson)
+    {
+        // popuplate item
+        PBRedeemGoodsEvent *item = [PBRedeemGoodsEvent parseFromDictionary:redeemGoodsJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:item];
+    }
+    
+    // set back to result object
+    c.list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// RedeemGoods - Response
+///--------------------------------------
+@implementation PBRedeemGoods_Response
+
+@synthesize response;
+
+-(NSString *)description
+{
+    return [self.response description];
+}
+
++(PBRedeemGoods_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBRedeemGoods_Response *c = [[PBRedeemGoods_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // parse
+    c.response = [PBRedeemGoodsEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// GradeArray
 ///--------------------------------------
 @implementation PBGradeArray

@@ -67,6 +67,7 @@ typedef enum
     responseType_quizDetail,
     responseType_quizRandom,
     responseType_quizDoneListByPlayer,
+    responseType_redeemGoods,
     responseType_questionFromQuiz,
     responseType_questionAnswered,
     responseType_playersQuizRank
@@ -1386,6 +1387,41 @@ typedef enum
 @property (strong, nonatomic) PBQuizDoneArray *list;
 
 +(PBQuizDoneList_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RedeemGoods
+///--------------------------------------
+@interface PBRedeemGoodsEvent : PBBase_Response
+
+@property (strong, nonatomic) NSString *eventType;
+@property (strong, nonatomic) PBGoods *goodsData;
+@property (nonatomic) NSUInteger value;
+
++(PBRedeemGoodsEvent *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RedeemGoodsEvents
+///--------------------------------------
+@interface PBRedeemGoodsEvents : PBBase_Response
+
+@property (strong, nonatomic) NSArray *list;
+
++(PBRedeemGoodsEvents *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// RedeemGoods - Response
+///--------------------------------------
+@interface PBRedeemGoods_Response : PBBase_Response
+
+@property (strong, nonatomic) PBRedeemGoodsEvents *response;
+
++(PBRedeemGoods_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

@@ -421,6 +421,15 @@ typedef void (^PBQuizRandom_ResponseBlock)(PBQuizRandom_Response * quizRandom, N
 typedef void (^PBQuizDoneList_ResponseBlock)(PBQuizDoneList_Response * quizDoneList, NSURL *url, NSError *error);
 
 ///--------------------------------------
+/// RedeemGoods
+///--------------------------------------
+@protocol PBRedeemGoods_ResponseHandler <NSObject>
+-(void)processResponseWithRedeemGoods:(PBRedeemGoods_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBRedeemGoods_ResponseBlock)(PBRedeemGoods_Response * response, NSURL *url, NSError *error);
+
+///--------------------------------------
 /// QuestionFromQuiz
 ///--------------------------------------
 @protocol PBQuestion_ResponseHandler <NSObject>

@@ -2397,23 +2397,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_cancelQuest andResponse:response];
 }
 
--(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBRedeemGoods_ResponseHandler>)delegate
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBRedeemGoods_ResponseBlock)block
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId withDelegate:(id<PBRedeemGoods_ResponseHandler>)delegate
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBRedeemGoods_ResponseBlock)block
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
@@ -2429,26 +2429,26 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_redeemGoods andResponse:response];
 }
 
--(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBRedeemGoods_ResponseHandler>)delegate
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoods:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBRedeemGoods_ResponseBlock)block
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withDelegate:(id<PBRedeemGoods_ResponseHandler>)delegate
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoodsAsync:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBRedeemGoods_ResponseBlock)block
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBResponseBlock)block
+-(PBRequest *)redeemGoodsAsync_:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     return [self redeemGoodsInternalBase:goodsId forPlayer:playerId amount:amount blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
 }
@@ -2466,7 +2466,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_redeemGoods andResponse:response];
 }
 
 -(PBRequest *)redeemGoodsGroup:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group withDelegate:(id<PBResponseHandler>)delegate
