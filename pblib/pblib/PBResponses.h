@@ -832,7 +832,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// Quest Info
+/// Quest Info - Response
 ///--------------------------------------
 @interface PBQuestInfo_Response : PBQuestBasic
 
@@ -890,7 +890,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// QuestOfPlayer
+/// QuestOfPlayer - Response
 ///--------------------------------------
 @interface PBQuestOfPlayer_Response : PBBase_Response
 
@@ -901,7 +901,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// QuestListOfPlayer
+/// QuestListOfPlayer - Response
 ///--------------------------------------
 @interface PBQuestListOfPlayer_Response : PBBase_Response
 
@@ -912,7 +912,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// QuestListOfPlayer
+/// QuestListOfPlayer - Response
 ///--------------------------------------
 @interface PBQuestList_Response : PBBase_Response
 
@@ -1113,7 +1113,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// Recent Point Array
+/// Recent Point Array - Response
 ///--------------------------------------
 @interface PBRecentPointArray_Response : PBBase_Response
 
@@ -1124,7 +1124,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// MissionInfo
+/// MissionInfo - Response
 ///--------------------------------------
 @interface PBMissionInfo_Response : PBBase_Response
 
@@ -1136,7 +1136,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// QuestListAvailableForPlayer
+/// QuestListAvailableForPlayer - Response
 ///--------------------------------------
 @interface PBQuestListAvailableForPlayer_Response : PBBase_Response
 
@@ -1147,7 +1147,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// QuestAvailableForPlayer
+/// QuestAvailableForPlayer - Response
 ///--------------------------------------
 @interface PBQuestAvailableForPlayer_Response : PBBase_Response
 
@@ -1351,7 +1351,7 @@ typedef enum
 @end
 
 ///--------------------------------------
-/// ActiveQuizList
+/// ActiveQuizList - Response
 ///--------------------------------------
 @interface PBActiveQuizList_Response : PBBase_Response
 
