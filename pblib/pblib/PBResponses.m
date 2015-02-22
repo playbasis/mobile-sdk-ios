@@ -4608,6 +4608,80 @@
 @end
 
 ///--------------------------------------
+/// Join All Quests
+///--------------------------------------
+@implementation PBJoinAllQuests
+
+@synthesize joinAll;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Join All Quests : {\r\tjoin_all : %@\r\t}", self.joinAll];
+    
+    return descriptionString;
+}
+
++(PBJoinAllQuests *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBJoinAllQuests *c = [[PBJoinAllQuests alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c.joinAll = [c.parseLevelJsonResponse objectForKey:@"join_all"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Join All Quests - Response
+///--------------------------------------
+@implementation PBJoinAllQuests_Response
+
+@synthesize response;
+
+-(NSString *)description
+{
+    return [self.response description];
+}
+
++(PBJoinAllQuests_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBJoinAllQuests_Response *c = [[PBJoinAllQuests_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // parse
+    c.response = [PBJoinAllQuests parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Cancel Quest
 ///--------------------------------------
 @implementation PBCancelQuest

@@ -103,26 +103,6 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             
             // TODO: Add temporary testcase here ...
             // every testcase added here should be removed immediately after finish testing
-            /*[[Playbasis sharedPB] joinQuest:@"53903993988040821b8b45c2" forPlayer:USER withBlock:^(PBJoinQuest_Response *response, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"%@", response);
-                }
-                else
-                {
-                    NSLog(@"%@", error);
-                }
-            }];*/
-            [[Playbasis sharedPB] cancelQuest:@"53903993988040821b8b45c2" forPlayer:USER withBlock:^(PBCancelQuest_Response *response, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"%@", response);
-                }
-                else
-                {
-                    NSLog(@"%@", error);
-                }
-            }];
             
             NSLog(@"Passed through this line");
             

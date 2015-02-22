@@ -2329,19 +2329,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_joinQuest andResponse:response];
 }
 
--(PBRequest *)joinAllQuestsForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)joinAllQuestsForPlayer:(NSString *)playerId withDelegate:(id<PBJoinAllQuests_ResponseHandler>)delegate
 {
     return [self joinAllQuestsForPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)joinAllQuestsForPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)joinAllQuestsForPlayer:(NSString *)playerId withBlock:(PBJoinAllQuests_ResponseBlock)block
 {
     return [self joinAllQuestsForPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequest *)joinAllQuestsForPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequest *)joinAllQuestsForPlayerAsync:(NSString *)playerId withDelegate:(id<PBJoinAllQuests_ResponseHandler>)delegate
 {
     return [self joinAllQuestsForPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequest *)joinAllQuestsForPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block
+-(PBRequest *)joinAllQuestsForPlayerAsync:(NSString *)playerId withBlock:(PBJoinAllQuests_ResponseBlock)block
 {
     return [self joinAllQuestsForPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -2360,7 +2360,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_joinAllQuests andResponse:response];
 }
 
 -(PBRequest *)cancelQuest:(NSString *)questId forPlayer:(NSString *)playerId withDelegate:(id<PBCancelQuest_ResponseHandler>)delegate

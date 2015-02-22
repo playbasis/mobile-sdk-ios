@@ -1213,6 +1213,32 @@
             
             break;
         }
+        case responseType_joinAllQuests:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithJoinAllQuests:withURL:error:)])
+                {
+                    id<PBJoinAllQuests_ResponseHandler> sd = (id<PBJoinAllQuests_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBJoinAllQuests_Response *response = [PBJoinAllQuests_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithJoinAllQuests:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBJoinAllQuests_Response *response = [PBJoinAllQuests_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBJoinAllQuests_ResponseBlock sb = (PBJoinAllQuests_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
         case responseType_cancelQuest:
         {
             if(responseDelegate)
