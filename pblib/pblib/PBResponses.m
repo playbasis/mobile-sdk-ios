@@ -761,7 +761,7 @@
     }
     
     // set back player-badges
-    c.playerBadges = [NSArray arrayWithArray:tempBadges];
+    c->playerBadges = [NSArray arrayWithArray:tempBadges];
     
     return c;
 }
@@ -813,22 +813,22 @@
     }
     
     // get player's public information
-    c.playerPublic = [PBPlayerPublic_Response parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->playerPublic = [PBPlayerPublic_Response parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     // get other fields of data
-    c.percentOfLevel = [[c.parseLevelJsonResponse objectForKey:@"percent_of_level"] floatValue];
-    c.levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
-    c.levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
+    c->percentOfLevel = [[c.parseLevelJsonResponse objectForKey:@"percent_of_level"] floatValue];
+    c->levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
+    c->levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
     
     // get 'badges'
     NSDictionary *badgesJson = [c.parseLevelJsonResponse objectForKey:@"badges"];
     // get badges
-    c.badges = [PBPlayerBadges_Response parseFromDictionary:badgesJson startFromFinalLevel:YES];
+    c->badges = [PBPlayerBadges_Response parseFromDictionary:badgesJson startFromFinalLevel:YES];
     
     // get 'points'
     NSDictionary *pointsJson = [c.parseLevelJsonResponse objectForKey:@"points"];
     // get points
-    c.points = [PBPoints_Response parseFromDictionary:pointsJson startFromFinalLevel:YES];
+    c->points = [PBPoints_Response parseFromDictionary:pointsJson startFromFinalLevel:YES];
     
     return c;
 }
@@ -881,22 +881,22 @@
     }
     
     // get player's information
-    c.player = [PBPlayer_Response parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->player = [PBPlayer_Response parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     // get other fields of data
-    c.percentOfLevel = [[c.parseLevelJsonResponse objectForKey:@"percent_of_level"] floatValue];
-    c.levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
-    c.levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
+    c->percentOfLevel = [[c.parseLevelJsonResponse objectForKey:@"percent_of_level"] floatValue];
+    c->levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
+    c->levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
     
     // get 'badges'
     NSDictionary *badgesJson = [c.parseLevelJsonResponse objectForKey:@"badges"];
     // get badges
-    c.badges = [PBPlayerBadges_Response parseFromDictionary:badgesJson startFromFinalLevel:YES];
+    c->badges = [PBPlayerBadges_Response parseFromDictionary:badgesJson startFromFinalLevel:YES];
     
     // get 'points'
     NSDictionary *pointsJson = [c.parseLevelJsonResponse objectForKey:@"points"];
     // get points
-    c.points = [PBPoints_Response parseFromDictionary:pointsJson startFromFinalLevel:YES];
+    c->points = [PBPoints_Response parseFromDictionary:pointsJson startFromFinalLevel:YES];
     
     return c;
 }
@@ -935,21 +935,21 @@
     // ignore json level flag, because it doesn't appear anywhere singlely
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.message = [c.parseLevelJsonResponse objectForKey:@"message"];
-    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
-    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
-    c.value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
+    c->message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    c->value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
     
-    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
-    c.stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
-    c.actionIcon = [c.parseLevelJsonResponse objectForKey:@"action_icon"];
+    c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c->stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
+    c->actionIcon = [c.parseLevelJsonResponse objectForKey:@"action_icon"];
     
     return c;
 }
@@ -1026,7 +1026,7 @@
     }
     
     // set back to result response
-    c.pointHistory = [NSArray arrayWithArray:tempPhArray];
+    c->pointHistory = [NSArray arrayWithArray:tempPhArray];
     
     return c;
 }
@@ -1061,15 +1061,15 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
-    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    c->time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
     
     return c;
 }
@@ -1114,7 +1114,7 @@
     }
     
     // parse
-    c.response = [PBActionLastPerformedTime parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->response = [PBActionLastPerformedTime parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -1163,15 +1163,15 @@
     }
     
     // parse
-    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
-    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    c->time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
     
     return c;
 }
@@ -1220,15 +1220,15 @@
     }
     
     // parse
-    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
-    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    c->time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
     
     return c;
 }
@@ -1277,9 +1277,9 @@
     }
     
     // parse
-    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
-    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
-    c.count = [[c.parseLevelJsonResponse objectForKey:@"count"] unsignedIntegerValue];
+    c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c->count = [[c.parseLevelJsonResponse objectForKey:@"count"] unsignedIntegerValue];
     
     return c;
 }
@@ -1327,18 +1327,18 @@
     }
     
     // parse
-    c.levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
-    c.level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
-    c.minExp = [[c.parseLevelJsonResponse objectForKey:@"min_exp"] unsignedIntegerValue];
+    c->levelTitle = [c.parseLevelJsonResponse objectForKey:@"level_title"];
+    c->level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
+    c->minExp = [[c.parseLevelJsonResponse objectForKey:@"min_exp"] unsignedIntegerValue];
     id obj = [c.parseLevelJsonResponse objectForKey:@"max_exp"];
     
     if([obj respondsToSelector:@selector(unsignedIntegerValue)])
-       c.maxExp = [obj unsignedIntegerValue];
+       c->maxExp = [obj unsignedIntegerValue];
     else
        // TODO: Fix this later, as 'null' value returned can happen
-       c.maxExp = NSUIntegerMax;
+       c->maxExp = NSUIntegerMax;
     
-    c.levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
+    c->levelImage = [c.parseLevelJsonResponse objectForKey:@"level_image"];
     
     return c;
 }
@@ -1411,7 +1411,7 @@
     }
     
     // set back array to result response
-    c.levels = [NSArray arrayWithArray:tempLevels];
+    c->levels = [NSArray arrayWithArray:tempLevels];
     
     return c;
 }
@@ -1419,7 +1419,7 @@
 @end
 
 ///--------------------------------------
-/// Rank - No Response
+/// Rank
 ///--------------------------------------
 @implementation PBRank
 
@@ -1449,9 +1449,9 @@
     // parse
     // get 'pb_player_id'
     NSDictionary *pb_player_id = [c.parseLevelJsonResponse objectForKey:@"pb_player_id"];
-    c.pbPlayerId = [pb_player_id objectForKey:@"$id"];
+    c->pbPlayerId = [pb_player_id objectForKey:@"$id"];
     
-    c.playerId = [c.parseLevelJsonResponse objectForKey:@"player_id"];
+    c->playerId = [c.parseLevelJsonResponse objectForKey:@"player_id"];
     
     // get the key to determine point type
     NSArray *keys = [c.parseLevelJsonResponse allKeys];
@@ -1462,14 +1462,14 @@
            ![key isEqualToString:@"player_id"])
         {
             // set point type
-            c.pointType = key;
+            c->pointType = key;
             
             break;
         }
     }
     
     // get pointValue from pointType we got above
-    c.pointValue = [[c.parseLevelJsonResponse objectForKey:c.pointType] unsignedIntegerValue];
+    c->pointValue = [[c.parseLevelJsonResponse objectForKey:c.pointType] unsignedIntegerValue];
     
     return c;
 }
@@ -1542,7 +1542,7 @@
     }
     
     // set back to result response
-    c.ranks = [NSArray arrayWithArray:tempRanks];
+    c->ranks = [NSArray arrayWithArray:tempRanks];
     
     return c;
 }
@@ -1613,7 +1613,7 @@
     // get all keys from json response
     NSArray *keys = [c.parseLevelJsonResponse allKeys];
     // set rank-by-keys to result response
-    c.rankByKeys = keys;
+    c->rankByKeys = keys;
     
     // create temp dictionary to hold for all array populated
     NSMutableDictionary *tempRanksDict = [NSMutableDictionary dictionary];
@@ -1638,7 +1638,7 @@
     }
     
     // set back dictionary ranks to result response
-    c.ranks = [NSDictionary dictionaryWithDictionary:tempRanksDict];
+    c->ranks = [NSDictionary dictionaryWithDictionary:tempRanksDict];
     
     return c;
 }
@@ -1646,7 +1646,7 @@
 @end
 
 ///--------------------------------------
-/// Custom - No Response
+/// Custom
 ///--------------------------------------
 @implementation PBCustom
 
@@ -1673,9 +1673,9 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.customId = [c.parseLevelJsonResponse objectForKey:@"custom_id"];
-    c.customName = [c.parseLevelJsonResponse objectForKey:@"custom_name"];
-    c.customValue = [[c.parseLevelJsonResponse objectForKey:@"custom_value"] unsignedIntegerValue];
+    c->customId = [c.parseLevelJsonResponse objectForKey:@"custom_id"];
+    c->customName = [c.parseLevelJsonResponse objectForKey:@"custom_name"];
+    c->customValue = [[c.parseLevelJsonResponse objectForKey:@"custom_value"] unsignedIntegerValue];
     
     return c;
 }
@@ -1738,7 +1738,7 @@
     }
     
     // set back to result response
-    c.customs = [NSArray arrayWithArray:tempCustoms];
+    c->customs = [NSArray arrayWithArray:tempCustoms];
     
     // parse
     return c;
@@ -1773,8 +1773,8 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
-    c.badgeValue = [[c.parseLevelJsonResponse objectForKey:@"badge_value"] unsignedIntegerValue];
+    c->badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
+    c->badgeValue = [[c.parseLevelJsonResponse objectForKey:@"badge_value"] unsignedIntegerValue];
     
     return c;
 }
@@ -1837,7 +1837,7 @@
     }
     
     // set back array
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -1851,6 +1851,7 @@
 
 @synthesize pointValue;
 @synthesize customs;
+@synthesize redeemBadges;
 
 -(NSString *)description
 {
@@ -1873,9 +1874,9 @@
     // parse
     // get 'point'
     NSDictionary *pointJson = [c.parseLevelJsonResponse objectForKey:@"point"];
-    c.pointValue = [[pointJson objectForKey:@"point_value"] unsignedIntegerValue];
-    c.customs = [PBCustoms parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES];
-    c.redeemBadges = [PBRedeemBadges parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"badge"] startFromFinalLevel:YES];
+    c->pointValue = [[pointJson objectForKey:@"point_value"] unsignedIntegerValue];
+    c->customs = [PBCustoms parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES];
+    c->redeemBadges = [PBRedeemBadges parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"badge"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -1919,31 +1920,31 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
+    c->goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
     id q = [c.parseLevelJsonResponse objectForKey:@"quantity"];
     if([q respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.quantity = [q unsignedIntegerValue];
+        c->quantity = [q unsignedIntegerValue];
     }
     
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     
     // populate redeem object
-    c.redeem = [PBRedeem parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"redeem"] startFromFinalLevel:YES];
+    c->redeem = [PBRedeem parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"redeem"] startFromFinalLevel:YES];
     
-    c.code = [c.parseLevelJsonResponse objectForKey:@"code"];
-    c.sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
+    c->code = [c.parseLevelJsonResponse objectForKey:@"code"];
+    c->sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateStart = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_start"]];
-    c.dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
+    c->dateStart = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_start"]];
+    c->dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
     
     return c;
 }
@@ -1992,14 +1993,14 @@
     }
     
     // parse
-    c.goods = [PBGoods parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->goods = [PBGoods parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     id perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
     if([perUser respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.perUser = [perUser unsignedIntegerValue];
+        c->perUser = [perUser unsignedIntegerValue];
     }
-    c.isGroup = [[c.parseLevelJsonResponse objectForKey:@"is_group"] boolValue];
+    c->isGroup = [[c.parseLevelJsonResponse objectForKey:@"is_group"] boolValue];
     
     return c;
 }
@@ -2076,7 +2077,7 @@
     }
     
     // set back to response
-    c.goodsList = [NSArray arrayWithArray:tempGoodsList];
+    c->goodsList = [NSArray arrayWithArray:tempGoodsList];
     
     return c;
 }
@@ -2121,7 +2122,7 @@
     // convert from json into unsigned integer
     NSUInteger goodsGroupAvailable = [((id)c.parseLevelJsonResponse) unsignedIntegerValue];
     
-    c.available = goodsGroupAvailable;
+    c->available = goodsGroupAvailable;
     
     return c;
 }
@@ -2159,15 +2160,15 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     
     id amount = [c.parseLevelJsonResponse objectForKey:@"amount"];
     if([amount respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.amount = [amount unsignedIntegerValue];
+        c->amount = [amount unsignedIntegerValue];
     }
     
     return c;
@@ -2245,7 +2246,7 @@
     }
     
     // set back to response
-    c.goodsOwneds = [NSArray arrayWithArray:tempGoodsOwneds];
+    c->goodsOwneds = [NSArray arrayWithArray:tempGoodsOwneds];
     
     return c;
 }
@@ -2281,12 +2282,12 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.rewardValue = [c.parseLevelJsonResponse objectForKey:@"reward_value"];
-    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
-    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->rewardValue = [c.parseLevelJsonResponse objectForKey:@"reward_value"];
+    c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
     
     NSDictionary *rewardData = [c.parseLevelJsonResponse objectForKey:@"reward_data"];
-    c.rewardName = [rewardData objectForKey:@"name"];
+    c->rewardName = [rewardData objectForKey:@"name"];
     
     return c;
 }
@@ -2328,12 +2329,12 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
-    c.missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
-    c.rewardValue = [c.parseLevelJsonResponse objectForKey:@"reward_value"];
-    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
-    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
-    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
+    c->rewardValue = [c.parseLevelJsonResponse objectForKey:@"reward_value"];
+    c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
     
     // parse date field
     // create a date formatter to parse date-timestamp
@@ -2341,11 +2342,11 @@
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
-    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     
-    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
-    c.type = [c.parseLevelJsonResponse objectForKey:@"type"];
+    c->questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c->type = [c.parseLevelJsonResponse objectForKey:@"type"];
     
     return c;
 }
@@ -2408,7 +2409,7 @@
     }
     
     // set back to response object
-    c.questRewards = [NSArray arrayWithArray:tempArray];
+    c->questRewards = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -2453,7 +2454,7 @@
     }
     
     // parse
-    c.list = [PBQuestRewardArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->list = [PBQuestRewardArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -2515,7 +2516,7 @@
     }
     
     // set back to result object
-    c.rewards = [NSArray arrayWithArray:tempArray];
+    c->rewards = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -2552,17 +2553,17 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.incompletionId = [c.parseLevelJsonResponse objectForKey:@"incompletion_id"];
-    c.incompletionType = [c.parseLevelJsonResponse objectForKey:@"incompletion_type"];
+    c->incompletionId = [c.parseLevelJsonResponse objectForKey:@"incompletion_id"];
+    c->incompletionType = [c.parseLevelJsonResponse objectForKey:@"incompletion_type"];
     
     id incompletionValue = [c.parseLevelJsonResponse objectForKey:@"incompletion_value"];
     if([incompletionValue respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.incompletionValue = [incompletionValue unsignedIntegerValue];
+        c->incompletionValue = [incompletionValue unsignedIntegerValue];
     }
     
-    c.incompletionElementId = [c.parseLevelJsonResponse objectForKey:@"incompletion_element_id"];
-    c.incompletionFilter = [c.parseLevelJsonResponse objectForKey:@"incompletion_filter"];
+    c->incompletionElementId = [c.parseLevelJsonResponse objectForKey:@"incompletion_element_id"];
+    c->incompletionFilter = [c.parseLevelJsonResponse objectForKey:@"incompletion_filter"];
     
     return c;
 }
@@ -2625,7 +2626,7 @@
     }
     
     // set back to result object
-    c.incompletions = [NSArray arrayWithArray:tempArray];
+    c->incompletions = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -2661,11 +2662,11 @@
     // ignore parse level flag
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.icon = [c.parseLevelJsonResponse objectForKey:@"icon"];
-    c.color = [c.parseLevelJsonResponse objectForKey:@"color"];
+    c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->icon = [c.parseLevelJsonResponse objectForKey:@"icon"];
+    c->color = [c.parseLevelJsonResponse objectForKey:@"color"];
     
     return c;
 }
@@ -2704,14 +2705,14 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.completionFilter = [c.parseLevelJsonResponse objectForKey:@"completion_filter"];
-    c.completionValue = [c.parseLevelJsonResponse objectForKey:@"completion_value"];
-    c.completionId = [c.parseLevelJsonResponse objectForKey:@"completion_id"];
-    c.completionType = [c.parseLevelJsonResponse objectForKey:@"completion_type"];
-    c.completionElementId = [c.parseLevelJsonResponse objectForKey:@"completion_element_id"];
-    c.completionTitle = [c.parseLevelJsonResponse objectForKey:@"completion_title"];
+    c->completionFilter = [c.parseLevelJsonResponse objectForKey:@"completion_filter"];
+    c->completionValue = [c.parseLevelJsonResponse objectForKey:@"completion_value"];
+    c->completionId = [c.parseLevelJsonResponse objectForKey:@"completion_id"];
+    c->completionType = [c.parseLevelJsonResponse objectForKey:@"completion_type"];
+    c->completionElementId = [c.parseLevelJsonResponse objectForKey:@"completion_element_id"];
+    c->completionTitle = [c.parseLevelJsonResponse objectForKey:@"completion_title"];
     
-    c.completionData = [PBCompletionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion_data"] startFromFinalLevel:YES];
+    c->completionData = [PBCompletionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion_data"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -2774,7 +2775,7 @@
     }
     
     // set back to result object
-    c.completions = [NSArray arrayWithArray:tempArray];
+    c->completions = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -2809,10 +2810,10 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->message = [c.parseLevelJsonResponse objectForKey:@"message"];
     
-    c.incomplete = [PBIncomplete parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"incomplete"] startFromFinalLevel:YES];
+    c->incomplete = [PBIncomplete parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"incomplete"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -2875,7 +2876,7 @@
     }
     
     // set back to result object
-    c.pendings = [NSArray arrayWithArray:tempArray];
+    c->pendings = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -2916,14 +2917,14 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.missionName = [c.parseLevelJsonResponse objectForKey:@"mission_name"];
-    c.missionNumber = [c.parseLevelJsonResponse objectForKey:@"mission_number"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.completions = [PBCompletionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion"] startFromFinalLevel:YES];
-    c.rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
-    c.missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
+    c->missionName = [c.parseLevelJsonResponse objectForKey:@"mission_name"];
+    c->missionNumber = [c.parseLevelJsonResponse objectForKey:@"mission_number"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->completions = [PBCompletionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion"] startFromFinalLevel:YES];
+    c->rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c->missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
     
     return c;
 }
@@ -2986,7 +2987,7 @@
     }
     
     // set back to result object
-    c.missionBasics = [NSArray arrayWithArray:tempArray];
+    c->missionBasics = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -3022,7 +3023,7 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse mission basic
-    c.missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     // parse date field
     // create a date formatter to parse date-timestamp
@@ -3030,12 +3031,12 @@
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     
     // parse normal fields
-    c.status = [c.parseLevelJsonResponse objectForKey:@"status"];
+    c->status = [c.parseLevelJsonResponse objectForKey:@"status"];
     
-    c.pendings = [PBPendingArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"pending"] startFromFinalLevel:YES];
+    c->pendings = [PBPendingArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"pending"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -3098,7 +3099,7 @@
     }
     
     // set back to result object
-    c.missions = [NSArray arrayWithArray:tempArray];
+    c->missions = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -3135,10 +3136,10 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
     
     return c;
 }
@@ -3174,10 +3175,10 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.conditionId = [c.parseLevelJsonResponse objectForKey:@"condition_id"];
-    c.conditionType = [c.parseLevelJsonResponse objectForKey:@"condition_type"];
-    c.conditionValue = [c.parseLevelJsonResponse objectForKey:@"condition_value"];
-    c.conditionData = [PBConditionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition_data"] startFromFinalLevel:YES];
+    c->conditionId = [c.parseLevelJsonResponse objectForKey:@"condition_id"];
+    c->conditionType = [c.parseLevelJsonResponse objectForKey:@"condition_type"];
+    c->conditionValue = [c.parseLevelJsonResponse objectForKey:@"condition_value"];
+    c->conditionData = [PBConditionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition_data"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -3240,7 +3241,7 @@
     }
     
     // set back to result object
-    c.conditions = [NSArray arrayWithArray:tempArray];
+    c->conditions = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -3365,8 +3366,8 @@
     }
     
     // parse
-    c.questBasic = [PBQuestBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
-    c.conditions = [PBConditionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition"] startFromFinalLevel:YES];
+    c->questBasic = [PBQuestBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->conditions = [PBConditionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -3412,21 +3413,21 @@
     // ignroe parse level flag
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.missionOrder = [[c.parseLevelJsonResponse objectForKey:@"mission_order"] boolValue];
+    c->questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->missionOrder = [[c.parseLevelJsonResponse objectForKey:@"mission_order"] boolValue];
     
-    c.status = [c.parseLevelJsonResponse objectForKey:@"status"];
+    c->status = [c.parseLevelJsonResponse objectForKey:@"status"];
     id sortOrder = [c.parseLevelJsonResponse objectForKey:@"sort_order"];
     if([sortOrder respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.sortOrder = [sortOrder unsignedIntegerValue];
+        c->sortOrder = [sortOrder unsignedIntegerValue];
     }
     
-    c.rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
-    c.missions = [PBMissionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
+    c->rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c->missions = [PBMissionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
     
     // parse date field
     // create a date formatter to parse date-timestamp
@@ -3434,11 +3435,11 @@
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
-    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
-    c.clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
-    c.siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c->clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
+    c->siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
 }
@@ -3501,7 +3502,7 @@
     }
     
     // set back to result object
-    c.questBasics = [NSArray arrayWithArray:tempArray];
+    c->questBasics = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -3564,7 +3565,7 @@
     }
     
     // set back to result object
-    c.quests = [NSArray arrayWithArray:tempArray];
+    c->quests = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -3609,7 +3610,7 @@
     }
     
     // parse data
-    c.quest = [PBQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->quest = [PBQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -3654,7 +3655,7 @@
     }
     
     // parse data
-    c.questList = [PBQuestArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->questList = [PBQuestArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -3699,7 +3700,7 @@
     }
     
     // parse data
-    c.list = [PBQuestBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->list = [PBQuestBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -3732,7 +3733,7 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.url = [c.parseLevelJsonResponse objectForKey:@"url"];
+    c->url = [c.parseLevelJsonResponse objectForKey:@"url"];
     
     return c;
 }
@@ -3795,7 +3796,7 @@
     }
     
     // set back to result
-    c.configs = [NSArray arrayWithArray:tempArray];
+    c->configs = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -3829,8 +3830,8 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.configs = [PBConfigArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"config"] startFromFinalLevel:YES];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->configs = [PBConfigArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"config"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -3870,13 +3871,13 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
-    c.redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
+    c->badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
+    c->redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
     
     return c;
 }
@@ -3912,12 +3913,12 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
-    c.value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c->value = [c.parseLevelJsonResponse objectForKey:@"value"];
     
     // check to parse reward_data if reward_type matches ones that have
-    if([c.rewardType isEqualToString:@"badge"])
+    if([c->rewardType isEqualToString:@"badge"])
     {
         // get reward_data json
         NSDictionary *bRewardDataJson = [c.parseLevelJsonResponse objectForKey:@"reward_data"];
@@ -3926,7 +3927,7 @@
         PBRuleEventBadgeRewardData *bRewardData = [PBRuleEventBadgeRewardData parseFromDictionary:bRewardDataJson startFromFinalLevel:YES];
         
         // set back to result object
-        c.rewardData = bRewardData;
+        c->rewardData = bRewardData;
     }
     
     return c;
@@ -3990,7 +3991,7 @@
     }
     
     // set back array to result object
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -4003,6 +4004,7 @@
 @implementation PBRuleEventsMission
 
 @synthesize events;
+@synthesize missionId;
 @synthesize missionNumber;
 @synthesize missionName;
 @synthesize description_;
@@ -4031,14 +4033,14 @@
     
     // parse
     // parse 'events'
-    c.events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
-    c.missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
-    c.missionNumber = [c.parseLevelJsonResponse objectForKey:@"mission_number"];
-    c.missionName = [c.parseLevelJsonResponse objectForKey:@"mission_name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c->missionId = [c.parseLevelJsonResponse objectForKey:@"mission_id"];
+    c->missionNumber = [c.parseLevelJsonResponse objectForKey:@"mission_number"];
+    c->missionName = [c.parseLevelJsonResponse objectForKey:@"mission_name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
 }
@@ -4101,7 +4103,7 @@
     }
     
     // set back to result object
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -4140,12 +4142,12 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
-    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
     
     return c;
 }
@@ -4208,7 +4210,7 @@
     }
     
     // set back list
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -4254,7 +4256,7 @@
     }
     
     // parse 'events'
-    c.events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c->events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
     
     // TODO: Add parse 'events_missions', 'events_quests' ...
     
@@ -4323,7 +4325,7 @@
     }
     
     // set back to result object
-    c.actionConfigs = [NSArray arrayWithArray:tempArray];
+    c->actionConfigs = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -4363,7 +4365,7 @@
         c.parseLevelJsonResponse = response;
     }
     
-    c.list = [PBActionConfigArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->list = [PBActionConfigArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -4403,13 +4405,13 @@
     // ignore parse level flag
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.message = [c.parseLevelJsonResponse objectForKey:@"message"];
-    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
-    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    c->message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
     id value = [c.parseLevelJsonResponse objectForKey:@"value"];
     if([value respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.value = [value unsignedIntegerValue];
+        c->value = [value unsignedIntegerValue];
     }
     
     // create a date formatter to parse date-timestamp
@@ -4417,14 +4419,14 @@
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
     
     // parse playerbasic
-    c.playerBasic = [PBPlayerBasic parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"player"] startFromFinalLevel:YES];
+    c->playerBasic = [PBPlayerBasic parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"player"] startFromFinalLevel:YES];
     
-    c.actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
-    c.stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
-    c.actionIcon = [c.parseLevelJsonResponse objectForKey:@"action_icon"];
+    c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
+    c->stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
+    c->actionIcon = [c.parseLevelJsonResponse objectForKey:@"action_icon"];
     
     return c;
 }
@@ -4501,7 +4503,7 @@
     }
     
     // set back to response
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -4545,8 +4547,8 @@
         c.parseLevelJsonResponse = response;
     }
     
-    c.missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
 }
@@ -4591,7 +4593,7 @@
     }
     
     // parse
-    c.list = [PBQuestBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->list = [PBQuestBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -4636,9 +4638,9 @@
     }
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.eventMessage = [c.parseLevelJsonResponse objectForKey:@"event_message"];
-    c.eventStatus = [[c.parseLevelJsonResponse objectForKey:@"event_status"] boolValue];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->eventMessage = [c.parseLevelJsonResponse objectForKey:@"event_message"];
+    c->eventStatus = [[c.parseLevelJsonResponse objectForKey:@"event_status"] boolValue];
     
     return c;
 }
@@ -4672,8 +4674,8 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
 }
@@ -4718,7 +4720,7 @@
     }
     
     // parse
-    c.response = [PBJoinQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->response = [PBJoinQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -4751,7 +4753,7 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.joinAll = [c.parseLevelJsonResponse objectForKey:@"join_all"];
+    c->joinAll = [c.parseLevelJsonResponse objectForKey:@"join_all"];
     
     return c;
 }
@@ -4792,7 +4794,7 @@
     }
     
     // parse
-    c.response = [PBJoinAllQuests parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->response = [PBJoinAllQuests parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -4826,8 +4828,8 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
 }
@@ -4872,7 +4874,7 @@
     }
     
     // parse
-    c.response = [PBCancelQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->response = [PBCancelQuest parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -4906,8 +4908,8 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.customId = [c.parseLevelJsonResponse objectForKey:@"custom_id"];
-    c.customValue = [c.parseLevelJsonResponse objectForKey:@"custom_value"];
+    c->customId = [c.parseLevelJsonResponse objectForKey:@"custom_id"];
+    c->customValue = [c.parseLevelJsonResponse objectForKey:@"custom_value"];
     
     return c;
 }
@@ -4970,7 +4972,7 @@
     }
     
     // set back array to result object
-    c.gradeRewardCustoms = [NSArray arrayWithArray:tempArray];
+    c->gradeRewardCustoms = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -5005,9 +5007,9 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.expValue = [[c.parseLevelJsonResponse objectForKey:@"exp"] objectForKey:@"exp_value"];
-    c.pointValue = [[c.parseLevelJsonResponse objectForKey:@"point"] objectForKey:@"point_value"];
-    c.customList = [PBGradeRewardCustomArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES
+    c->expValue = [[c.parseLevelJsonResponse objectForKey:@"exp"] objectForKey:@"exp_value"];
+    c->pointValue = [[c.parseLevelJsonResponse objectForKey:@"point"] objectForKey:@"point_value"];
+    c->customList = [PBGradeRewardCustomArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"custom"] startFromFinalLevel:YES
                     ];
     return c;
 }
@@ -5047,13 +5049,13 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
-    c.start = [c.parseLevelJsonResponse objectForKey:@"start"];
-    c.end = [c.parseLevelJsonResponse objectForKey:@"end"];
-    c.grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
-    c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
-    c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
-    c.rewards = [PBGradeRewards parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c->gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
+    c->start = [c.parseLevelJsonResponse objectForKey:@"start"];
+    c->end = [c.parseLevelJsonResponse objectForKey:@"end"];
+    c->grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
+    c->rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
+    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
+    c->rewards = [PBGradeRewards parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -5089,10 +5091,10 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
-    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
-    c.value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->value = [c.parseLevelJsonResponse objectForKey:@"value"];
     
     return c;
 }
@@ -5155,7 +5157,7 @@
     }
     
     // set back to result object
-    c.gradeDoneRewards = [NSArray arrayWithArray:tempArray];
+    c->gradeDoneRewards = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -5199,30 +5201,30 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
-    c.start = [c.parseLevelJsonResponse objectForKey:@"start"];
-    c.end = [c.parseLevelJsonResponse objectForKey:@"end"];
-    c.grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
-    c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
-    c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rewards"];
-    c.rewards = [c.parseLevelJsonResponse objectForKey:@"rewards"];
+    c->gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
+    c->start = [c.parseLevelJsonResponse objectForKey:@"start"];
+    c->end = [c.parseLevelJsonResponse objectForKey:@"end"];
+    c->grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
+    c->rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
+    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rewards"];
+    c->rewards = [c.parseLevelJsonResponse objectForKey:@"rewards"];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
     if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.score = [score unsignedIntegerValue];
+        c->score = [score unsignedIntegerValue];
     }
-    c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    c->maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
     if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalScore = [totalScore unsignedIntegerValue];
+        c->totalScore = [totalScore unsignedIntegerValue];
     }
     
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
     if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+        c->totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
     
     return c;
@@ -5262,18 +5264,18 @@
     id value = [c.parseLevelJsonResponse objectForKey:@"value"];
     if([value respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.value = [value unsignedIntegerValue];
+        c->value = [value unsignedIntegerValue];
     }
     
-    c.grade = [PBGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
+    c->grade = [PBGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
     
     id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"value"];
     if([totalCompletedQuestion respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalCompletedQuestion = [totalCompletedQuestion unsignedIntegerValue];
+        c->totalCompletedQuestion = [totalCompletedQuestion unsignedIntegerValue];
     }
     
-    c.quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
+    c->quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
     
     return c;
 }
@@ -5336,7 +5338,7 @@
     }
     
     // set back to result object
-    c.quizDones = [NSArray arrayWithArray:tempArray];
+    c->quizDones = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -5381,7 +5383,7 @@
     }
     
     // parse
-    c.list = [PBQuizDoneArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->list = [PBQuizDoneArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -5416,9 +5418,9 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
-    c.goodsData = [PBGoods parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"goods_data"] startFromFinalLevel:YES];
-    c.value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->goodsData = [PBGoods parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"goods_data"] startFromFinalLevel:YES];
+    c->value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
     
     return c;
 }
@@ -5481,7 +5483,7 @@
     }
     
     // set back to result object
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -5522,7 +5524,7 @@
     }
     
     // parse
-    c.response = [PBRedeemGoodsEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c->response = [PBRedeemGoodsEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -5584,7 +5586,7 @@
     }
     
     // set back to result object
-    c.grades = [NSArray arrayWithArray:tempArray];
+    c->grades = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -5623,12 +5625,12 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
-    c.quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
+    c->quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
     
     return c;
 }
@@ -5668,7 +5670,7 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.basic = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->basic = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -5677,27 +5679,27 @@
     
     id dateStart = [c.parseLevelJsonResponse objectForKey:@"date_start"];
     if(dateStart != [NSNull null])
-        c.dateStart = [dateFormatter dateFromString:dateStart];
+        c->dateStart = [dateFormatter dateFromString:dateStart];
     
     id dateExpire = [c.parseLevelJsonResponse objectForKey:@"date_expire"];
     if(dateExpire != [NSNull null])
-        c.dateExpire = [dateFormatter dateFromString:dateExpire];
+        c->dateExpire = [dateFormatter dateFromString:dateExpire];
     
-    c.status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
+    c->status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
     
-    c.grades = [PBGradeArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grades"] startFromFinalLevel:YES];
+    c->grades = [PBGradeArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grades"] startFromFinalLevel:YES];
     
-    c.deleted = [[c.parseLevelJsonResponse objectForKey:@"deleted"] boolValue];
+    c->deleted = [[c.parseLevelJsonResponse objectForKey:@"deleted"] boolValue];
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
     if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+        c->totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
     
     id totalQuestions = [c.parseLevelJsonResponse objectForKey:@"total_questions"];
     if([totalQuestions respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalQuestions = [totalQuestions unsignedIntegerValue];
+        c->totalQuestions = [totalQuestions unsignedIntegerValue];
     }
     
     return c;
@@ -5761,7 +5763,7 @@
     }
     
     // set back to result object
-    c.quizBasics = [NSArray arrayWithArray:tempArray];
+    c->quizBasics = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -5806,7 +5808,7 @@
     }
     
     // parse
-    c.list = [PBQuizBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->list = [PBQuizBasicArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -5851,7 +5853,7 @@
     }
     
     // parse
-    c.quiz = [PBQuiz parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->quiz = [PBQuiz parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -5896,7 +5898,7 @@
     }
     
     // parse
-    c.randomQuiz = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->randomQuiz = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -5932,9 +5934,9 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.option = [c.parseLevelJsonResponse objectForKey:@"option"];
-    c.optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
-    c.optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
+    c->option = [c.parseLevelJsonResponse objectForKey:@"option"];
+    c->optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
+    c->optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
     
     return c;
 }
@@ -5996,7 +5998,7 @@
     }
     
     // set back to result object
-    c.options = [NSArray arrayWithArray:tempArray];
+    c->options = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -6035,22 +6037,22 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.question = [c.parseLevelJsonResponse objectForKey:@"question"];
-    c.questionImage = [c.parseLevelJsonResponse objectForKey:@"question_image"];
-    c.options = [PBQuestionOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
+    c->question = [c.parseLevelJsonResponse objectForKey:@"question"];
+    c->questionImage = [c.parseLevelJsonResponse objectForKey:@"question_image"];
+    c->options = [PBQuestionOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
     id index = [c.parseLevelJsonResponse objectForKey:@"index"];
     if([index respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.index = [index unsignedIntegerValue];
+        c->index = [index unsignedIntegerValue];
     }
     
     id total = [c.parseLevelJsonResponse objectForKey:@"total"];
     if([total respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.total = [total unsignedIntegerValue];
+        c->total = [total unsignedIntegerValue];
     }
     
-    c.questionId = [c.parseLevelJsonResponse objectForKey:@"question_id"];
+    c->questionId = [c.parseLevelJsonResponse objectForKey:@"question_id"];
     
     return c;
 }
@@ -6095,7 +6097,7 @@
     }
     
     // parse
-    c.question = [PBQuestion parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->question = [PBQuestion parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -6133,11 +6135,11 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.option = [c.parseLevelJsonResponse objectForKey:@"option"];
-    c.score = [c.parseLevelJsonResponse objectForKey:@"score"];
-    c.explanation = [c.parseLevelJsonResponse objectForKey:@"explanantion"];
-    c.optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
-    c.optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
+    c->option = [c.parseLevelJsonResponse objectForKey:@"option"];
+    c->score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    c->explanation = [c.parseLevelJsonResponse objectForKey:@"explanantion"];
+    c->optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
+    c->optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
     
     return c;
 }
@@ -6200,7 +6202,7 @@
     }
     
     // set back to result object
-    c.answeredOptions = [NSArray arrayWithArray:tempArray];
+    c->answeredOptions = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -6243,30 +6245,30 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
-    c.start = [c.parseLevelJsonResponse objectForKey:@"start"];
-    c.end = [c.parseLevelJsonResponse objectForKey:@"end"];
-    c.grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
-    c.rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
-    c.rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
+    c->gradeId = [c.parseLevelJsonResponse objectForKey:@"grade_id"];
+    c->start = [c.parseLevelJsonResponse objectForKey:@"start"];
+    c->end = [c.parseLevelJsonResponse objectForKey:@"end"];
+    c->grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
+    c->rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
+    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
     if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.score = [score unsignedIntegerValue];
+        c->score = [score unsignedIntegerValue];
     }
     
-    c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    c->maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
     if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalScore = [totalScore unsignedIntegerValue];
+        c->totalScore = [totalScore unsignedIntegerValue];
     }
     
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
     if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+        c->totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
     
     return c;
@@ -6307,29 +6309,29 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.options = [PBQuestionAnsweredOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
+    c->options = [PBQuestionAnsweredOptionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"options"] startFromFinalLevel:YES];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
     if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.score = [score unsignedIntegerValue];
+        c->score = [score unsignedIntegerValue];
     }
-    c.maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
-    c.explanation = [c.parseLevelJsonResponse objectForKey:@"explanation"];
+    c->maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    c->explanation = [c.parseLevelJsonResponse objectForKey:@"explanation"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
     if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalScore = [totalScore unsignedIntegerValue];
+        c->totalScore = [totalScore unsignedIntegerValue];
     }
     
     id totalMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
     if([totalMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.totalMaxScore = [totalMaxScore unsignedIntegerValue];
+        c->totalMaxScore = [totalMaxScore unsignedIntegerValue];
     }
     
-    c.grade = [PBQuestionAnsweredGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
-    c.rewards = [PBGradeDoneRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c->grade = [PBQuestionAnsweredGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
+    c->rewards = [PBGradeDoneRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -6374,7 +6376,7 @@
     }
     
     // parse
-    c.result = [PBQuestionAnswered parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->result = [PBQuestionAnswered parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -6409,12 +6411,12 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.pbPlayerId = [c.parseLevelJsonResponse objectForKey:@"pb_player_id"];
-    c.playerId = [c.parseLevelJsonResponse objectForKey:@"player_id"];
+    c->pbPlayerId = [c.parseLevelJsonResponse objectForKey:@"pb_player_id"];
+    c->playerId = [c.parseLevelJsonResponse objectForKey:@"player_id"];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
     if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.score = [score unsignedIntegerValue];
+        c->score = [score unsignedIntegerValue];
     }
     
     return c;
@@ -6478,7 +6480,7 @@
     }
     
     // set back to result object
-    c.list = [NSArray arrayWithArray:tempArray];
+    c->list = [NSArray arrayWithArray:tempArray];
     
     return c;
 }
@@ -6523,7 +6525,7 @@
     }
     
     // parse
-    c.playersQuizRank = [PBPlayerQuizRankArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->playersQuizRank = [PBPlayerQuizRankArray parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     return c;
 }
@@ -6548,7 +6550,7 @@
 {
     // create result status object with success
     PBManualSetResultStatus_Response *c = [[PBManualSetResultStatus_Response alloc] init];
-    c.success = YES;
+    c->success = YES;
     
     return c;
 }
@@ -6557,7 +6559,7 @@
 {
     // create result status object with success
     PBManualSetResultStatus_Response *c = [[PBManualSetResultStatus_Response alloc] init];
-    c.success = NO;
+    c->success = NO;
     
     return c;
 }
@@ -6590,7 +6592,7 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.success = [[c.parseLevelJsonResponse objectForKey:@"success"] boolValue];
+    c->success = [[c.parseLevelJsonResponse objectForKey:@"success"] boolValue];
     
     return c;
 }
