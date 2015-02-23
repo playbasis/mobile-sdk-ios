@@ -79,6 +79,13 @@
                         
                         // hide activity indicator
                         self.activityIndicator.hidden = true;
+                        
+                        // update text to update
+                        PBRuleEventBadgeRewardData *rewardData = event.rewardData;
+                        NSString *text = [NSString stringWithFormat:@"I just got a badge '%@'", rewardData.name];
+                        
+                        // show status update
+                        [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:text];
                     });
                 }
             }

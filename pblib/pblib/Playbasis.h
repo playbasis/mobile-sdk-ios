@@ -824,5 +824,6 @@
 //--------------------------------------------------
 -(void)showRegistrationFormFromView:(UIViewController *)view withBlock:(PBResponseBlock)block;
 -(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(void)showFeedbackStatusUpdateFromView:(UIViewController *) view text:(NSString *)text;
 
 @end

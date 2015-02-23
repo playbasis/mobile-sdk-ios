@@ -10,5 +10,6 @@
 #define pblib_PBUI_h
 
 #import "pbUserRegistrationFormViewController.h"
+#import "KLCPopup.h"
 
 #endif

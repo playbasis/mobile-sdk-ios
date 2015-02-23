@@ -18,6 +18,7 @@
 		1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */; };
 		1EC5B8FC1A8F3A410007C8A8 /* Playbasis.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; };
 		1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */; };
+		1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */; };
 		1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequest.m */; };
 		1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
 		2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
@@ -63,6 +64,8 @@
 		1EC5B9011A8F3AAD0007C8A8 /* pblibResource.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pblibResource.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC5B9041A8F3AAD0007C8A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EC5B9171A8FB1F70007C8A8 /* PBUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBUI.h; sourceTree = "<group>"; };
+		1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
+		1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
 		1EDC5FD71A701D9700991CEB /* PBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequest.h; sourceTree = "<group>"; };
 		1EDC5FD81A701D9700991CEB /* PBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequest.m; sourceTree = "<group>"; };
 		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		1EA3AE191A717AE0008F17F3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				1ED6CC241A9AB744000D8FB0 /* KLCPopup */,
 				1E304A331A90B745006F0C7F /* RNCryptor-Prefix.pch */,
 				1E304A341A90B745006F0C7F /* RNCryptor.h */,
 				1E304A351A90B745006F0C7F /* RNCryptor.m */,
@@ -149,6 +153,15 @@
 				1EC5B9041A8F3AAD0007C8A8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1ED6CC241A9AB744000D8FB0 /* KLCPopup */ = {
+			isa = PBXGroup;
+			children = (
+				1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */,
+				1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */,
+			);
+			path = KLCPopup;
 			sourceTree = "<group>";
 		};
 		2C1C74EC17461E1B005F3B57 = {
@@ -314,6 +327,7 @@
 				1E304A3D1A90B745006F0C7F /* RNCryptor.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */,
 				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,
+				1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */,
 				1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

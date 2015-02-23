@@ -3840,4 +3840,38 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     });
 }
 
+-(void)showFeedbackStatusUpdateFromView:(UIViewController *)view text:(NSString *)text
+{
+    UIView* contentView = [[UIView alloc] init];
+    contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    contentView.backgroundColor = [UIColor grayColor];
+    contentView.layer.cornerRadius = 12.0;
+    
+    UILabel* statusLabel = [[UILabel alloc] init];
+    statusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    statusLabel.backgroundColor = [UIColor clearColor];
+    statusLabel.textColor = [UIColor whiteColor];
+    statusLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    statusLabel.text = text;
+    
+    [contentView addSubview:statusLabel];
+    
+    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, statusLabel);
+    
+    [contentView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[statusLabel]-(10)-|"
+                                             options:NSLayoutFormatAlignAllCenterX
+                                             metrics:nil
+                                               views:views]];
+    
+    [contentView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(36)-[statusLabel]-(36)-|"
+                                             options:0
+                                             metrics:nil
+                                               views:views]];
+    
+    KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeClear dismissOnBackgroundTouch:NO dismissOnContentTouch:NO];
+    [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutBottom) duration:2.0f];
+}
+
 @end
