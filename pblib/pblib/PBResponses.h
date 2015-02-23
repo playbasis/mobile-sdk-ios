@@ -100,16 +100,16 @@ typedef enum
 ///--------------------------------------
 @interface PBPlayerBasic : PBBase_Response
 
-@property (strong, nonatomic) NSString *image;
-@property (strong, nonatomic) NSString *userName;
-@property (nonatomic) NSUInteger exp;
-@property (nonatomic) NSUInteger level;
-@property (strong, nonatomic) NSString *firstName;
-@property (strong, nonatomic) NSString *lastName;
-@property (nonatomic) NSUInteger gender;
-@property (strong, nonatomic) NSString* clPlayerId;
+@property (strong, nonatomic, readonly) NSString *image;
+@property (strong, nonatomic, readonly) NSString *userName;
+@property (nonatomic, readonly) NSUInteger exp;
+@property (nonatomic, readonly) NSUInteger level;
+@property (strong, nonatomic, readonly) NSString *firstName;
+@property (strong, nonatomic, readonly) NSString *lastName;
+@property (nonatomic, readonly) NSUInteger gender;
+@property (strong, nonatomic, readonly) NSString* clPlayerId;
 
-@property (strong, nonatomic) UIImage *uiImage;
+@property (strong, nonatomic, readonly) UIImage *uiImage;
 
 +(PBPlayerBasic*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -120,10 +120,10 @@ typedef enum
 ///--------------------------------------
 @interface PBPlayerPublic_Response : PBBase_Response
 
-@property (strong, nonatomic) PBPlayerBasic *playerBasic;
-@property (strong, nonatomic) NSDate *registered;
-@property (strong, nonatomic) NSDate *lastLogin;
-@property (strong, nonatomic) NSDate *lastLogout;
+@property (strong, nonatomic, readonly) PBPlayerBasic *playerBasic;
+@property (strong, nonatomic, readonly) NSDate *registered;
+@property (strong, nonatomic, readonly) NSDate *lastLogin;
+@property (strong, nonatomic, readonly) NSDate *lastLogout;
 
 +(PBPlayerPublic_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -134,9 +134,9 @@ typedef enum
 ///--------------------------------------
 @interface PBPlayer_Response : PBBase_Response
 
-@property (strong, nonatomic) PBPlayerPublic_Response *playerPublic;
-@property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *phoneNumber;
+@property (strong, nonatomic, readonly) PBPlayerPublic_Response *playerPublic;
+@property (strong, nonatomic, readonly) NSString *email;
+@property (strong, nonatomic, readonly) NSString *phoneNumber;
 
 +(PBPlayer_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -147,7 +147,7 @@ typedef enum
 ///--------------------------------------
 @interface PBPlayerList_Response : PBBase_Response
 
-@property (strong, nonatomic) NSArray *players;
+@property (strong, nonatomic, readonly) NSArray *players;
 
 +(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -158,9 +158,9 @@ typedef enum
 ///--------------------------------------
 @interface PBPoint : PBBase_Response
 
-@property (strong, nonatomic) NSString *rewardId;
-@property (strong, nonatomic) NSString *rewardName;
-@property (nonatomic) NSUInteger value;
+@property (strong, nonatomic, readonly) NSString *rewardId;
+@property (strong, nonatomic, readonly) NSString *rewardName;
+@property (nonatomic, readonly) NSUInteger value;
 
 +(PBPoint*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -171,7 +171,7 @@ typedef enum
 ///--------------------------------------
 @interface PBPoint_Response : PBBase_Response
 
-@property (strong, nonatomic) NSArray* point;
+@property (strong, nonatomic, readonly) NSArray* point;
 
 +(PBPoint_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -182,7 +182,7 @@ typedef enum
 ///--------------------------------------
 @interface PBPoints_Response : PBBase_Response
 
-@property (strong, nonatomic) NSArray* points;
+@property (strong, nonatomic, readonly) NSArray* points;
 
 +(PBPoints_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -193,17 +193,17 @@ typedef enum
 ///--------------------------------------
 @interface PBBadge_Response : PBBase_Response
 
-@property (strong, nonatomic) NSString* badgeId;
-@property (strong, nonatomic) NSString* image;
-@property (nonatomic) NSUInteger sortOrder;
-@property (strong, nonatomic) NSString* name;
-@property (strong, nonatomic) NSString* description_;
-@property (strong, nonatomic) NSString* hint;
-@property (nonatomic) BOOL sponsor;
-@property (nonatomic) BOOL claim;
-@property (nonatomic) BOOL redeem;
+@property (strong, nonatomic, readonly) NSString* badgeId;
+@property (strong, nonatomic, readonly) NSString* image;
+@property (nonatomic, readonly) NSUInteger sortOrder;
+@property (strong, nonatomic, readonly) NSString* name;
+@property (strong, nonatomic, readonly) NSString* description_;
+@property (strong, nonatomic, readonly) NSString* hint;
+@property (nonatomic, readonly) BOOL sponsor;
+@property (nonatomic, readonly) BOOL claim;
+@property (nonatomic, readonly) BOOL redeem;
 
-@property (strong, nonatomic) UIImage *uiImage;
+@property (strong, nonatomic, readonly) UIImage *uiImage;
 
 +(PBBadge_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -214,7 +214,7 @@ typedef enum
 ///--------------------------------------
 @interface PBBadges_Response : PBBase_Response
 
-@property (strong, nonatomic) NSArray* badges;
+@property (strong, nonatomic, readonly) NSArray* badges;
 
 +(PBBadges_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -225,16 +225,16 @@ typedef enum
 ///--------------------------------------
 @interface PBPlayerBadge : PBBase_Response
 
-@property (strong, nonatomic) NSString *badgeId;
-@property (nonatomic) BOOL redeemed;
-@property (nonatomic) BOOL claimed;
-@property (strong, nonatomic) NSString *image;
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *description_;
-@property (nonatomic) NSUInteger amount;
-@property (strong, nonatomic) NSString *hint;
+@property (strong, nonatomic, readonly) NSString *badgeId;
+@property (nonatomic, readonly) BOOL redeemed;
+@property (nonatomic, readonly) BOOL claimed;
+@property (strong, nonatomic, readonly) NSString *image;
+@property (strong, nonatomic, readonly) NSString *name;
+@property (strong, nonatomic, readonly) NSString *description_;
+@property (nonatomic, readonly) NSUInteger amount;
+@property (strong, nonatomic, readonly) NSString *hint;
 
-@property (strong, nonatomic) UIImage *uiImage;
+@property (strong, nonatomic, readonly) UIImage *uiImage;
 
 +(PBPlayerBadge*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

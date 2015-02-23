@@ -113,14 +113,14 @@
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.userName = [c.parseLevelJsonResponse objectForKey:@"username"];
-    c.exp = [[c.parseLevelJsonResponse objectForKey:@"exp"] unsignedIntegerValue];
-    c.level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
-    c.firstName = [c.parseLevelJsonResponse objectForKey:@"first_name"];
-    c.lastName = [c.parseLevelJsonResponse objectForKey:@"last_name"];
-    c.gender = [[c.parseLevelJsonResponse objectForKey:@"gender"] unsignedIntegerValue];
-    c.clPlayerId = [c.parseLevelJsonResponse objectForKey:@"cl_player_id"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->userName = [c.parseLevelJsonResponse objectForKey:@"username"];
+    c->exp = [[c.parseLevelJsonResponse objectForKey:@"exp"] unsignedIntegerValue];
+    c->level = [[c.parseLevelJsonResponse objectForKey:@"level"] unsignedIntegerValue];
+    c->firstName = [c.parseLevelJsonResponse objectForKey:@"first_name"];
+    c->lastName = [c.parseLevelJsonResponse objectForKey:@"last_name"];
+    c->gender = [[c.parseLevelJsonResponse objectForKey:@"gender"] unsignedIntegerValue];
+    c->clPlayerId = [c.parseLevelJsonResponse objectForKey:@"cl_player_id"];
     
     return c;
 }
@@ -169,16 +169,16 @@
     }
     
     // parse player's basic information
-    c.playerBasic = [PBPlayerBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    c->playerBasic = [PBPlayerBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.registered = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"registered"]];
-    c.lastLogin = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_login"]];
-    c.lastLogout = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_logout"]];
+    c->registered = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"registered"]];
+    c->lastLogin = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_login"]];
+    c->lastLogout = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_logout"]];
     
     return c;
 }
@@ -229,13 +229,13 @@
         c.parseLevelJsonResponse = player;
     }
     
-    c.email = [c.parseLevelJsonResponse objectForKey:@"email"];
-    c.phoneNumber = [c.parseLevelJsonResponse objectForKey:@"phone_number"];
+    c->email = [c.parseLevelJsonResponse objectForKey:@"email"];
+    c->phoneNumber = [c.parseLevelJsonResponse objectForKey:@"phone_number"];
     
     // parse player's public info
     PBPlayerPublic_Response *playerPublic = [PBPlayerPublic_Response parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     // set player's public info to this response
-    c.playerPublic = playerPublic;
+    c->playerPublic = playerPublic;
     
     return c;
 }
@@ -313,7 +313,7 @@
     }
 
     // add a player into an array
-    playerList.players = [NSArray arrayWithArray:playerArray];
+    playerList->players = [NSArray arrayWithArray:playerArray];
     
     return playerList;
 }
@@ -348,9 +348,9 @@
     // its appearance won't appear anywhere as a single entity to parse
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
-    c.value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
-    c.rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
+    c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
     
     return c;
 }
@@ -426,7 +426,7 @@
     }
     
     // set to NSArray
-    c.point = [NSArray arrayWithArray:tempPoints];
+    c->point = [NSArray arrayWithArray:tempPoints];
     
     return c;
 }
@@ -502,7 +502,7 @@
     }
     
     // set to NSArray
-    c.points = [NSArray arrayWithArray:tempPoints];
+    c->points = [NSArray arrayWithArray:tempPoints];
     
     return c;
 }
@@ -557,15 +557,15 @@
         c.parseLevelJsonResponse = badge;
     }
     
-    c.badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
-    c.claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
-    c.redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
+    c->badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->sortOrder = [[c.parseLevelJsonResponse objectForKey:@"sort_order"] unsignedIntegerValue];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
+    c->claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
+    c->redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
     
     return c;
 }
@@ -642,7 +642,7 @@
     }
     
     // set back to itself
-    c.badges = [NSArray arrayWithArray:tempBadges];
+    c->badges = [NSArray arrayWithArray:tempBadges];
     
     return c;
 }
@@ -659,7 +659,7 @@
 @synthesize claimed;
 @synthesize image;
 @synthesize name;
-@synthesize description;
+@synthesize description_;
 @synthesize amount;
 @synthesize hint;
 @synthesize uiImage;
@@ -682,14 +682,14 @@
     // ignore parsing level flag as it won't be appeared anywhere singlely
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
-    c.redeemed = [[c.parseLevelJsonResponse objectForKey:@"redeemed"] boolValue];
-    c.claimed = [[c.parseLevelJsonResponse objectForKey:@"claimed"] boolValue];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.amount = [[c.parseLevelJsonResponse objectForKey:@"amount"] unsignedIntegerValue];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->badgeId = [c.parseLevelJsonResponse objectForKey:@"badge_id"];
+    c->redeemed = [[c.parseLevelJsonResponse objectForKey:@"redeemed"] boolValue];
+    c->claimed = [[c.parseLevelJsonResponse objectForKey:@"claimed"] boolValue];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->amount = [[c.parseLevelJsonResponse objectForKey:@"amount"] unsignedIntegerValue];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
     
     return c;
 }
