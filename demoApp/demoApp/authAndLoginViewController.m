@@ -8,6 +8,7 @@
 
 #import "authAndLoginViewController.h"
 #import "demoAppSettings.h"
+#import "RNDecryptor.h"
 
 static const NSTimeInterval kWaitingTime = 0.15f;
 
@@ -122,7 +123,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
     NSLog(@"Begin auth() the app");
     
     // authenticate the app
-    [[Playbasis sharedPB] authWithApiKey:API_KEY apiSecret:API_SECRET andDelegate:self];
+    [[Playbasis sharedPB] authWithDelegate:self];
 }
 
 -(void)transitionToMainMenuScreen

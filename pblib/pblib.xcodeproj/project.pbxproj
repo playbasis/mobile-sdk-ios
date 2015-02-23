@@ -12,6 +12,7 @@
 		1E304A3E1A90B745006F0C7F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A381A90B745006F0C7F /* RNCryptorEngine.m */; };
 		1E304A3F1A90B745006F0C7F /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A3A1A90B745006F0C7F /* RNDecryptor.m */; };
 		1E304A401A90B745006F0C7F /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A3C1A90B745006F0C7F /* RNEncryptor.m */; };
+		1E887DA41A9B03540077B673 /* protectedResources in Resources */ = {isa = PBXBuildFile; fileRef = 1ED6CC2A1A9AE587000D8FB0 /* protectedResources */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1EB83E211A8E271600442B51 /* PBTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB83E201A8E271600442B51 /* PBTypes.m */; };
@@ -54,6 +55,7 @@
 		1E304A3C1A90B745006F0C7F /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNEncryptor.m; path = RNCryptor/RNEncryptor.m; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1E887DD71A9B19810077B673 /* PBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSettings.h; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		1EC5B9171A8FB1F70007C8A8 /* PBUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBUI.h; sourceTree = "<group>"; };
 		1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
 		1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
+		1ED6CC2A1A9AE587000D8FB0 /* protectedResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = protectedResources; sourceTree = "<group>"; };
 		1EDC5FD71A701D9700991CEB /* PBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequest.h; sourceTree = "<group>"; };
 		1EDC5FD81A701D9700991CEB /* PBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequest.m; sourceTree = "<group>"; };
 		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 		2C1C74EC17461E1B005F3B57 = {
 			isa = PBXGroup;
 			children = (
+				1ED6CC2A1A9AE587000D8FB0 /* protectedResources */,
 				2C1C74FA17461E1B005F3B57 /* pblib */,
 				1EC5B9021A8F3AAD0007C8A8 /* pblibResource */,
 				2C1C74F717461E1B005F3B57 /* Frameworks */,
@@ -212,6 +216,7 @@
 				1E20742A1A84B329002D77A1 /* PBResponses.m */,
 				1EB83E201A8E271600442B51 /* PBTypes.m */,
 				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
+				1E887DD71A9B19810077B673 /* PBSettings.h */,
 			);
 			path = pblib;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1EC5B9051A8F3AAD0007C8A8 /* Build configuration list for PBXNativeTarget "pblibResource" */;
 			buildPhases = (
+				1E887DA31A9B03440077B673 /* ShellScript */,
 				1EC5B8FD1A8F3AAD0007C8A8 /* Sources */,
 				1EC5B8FE1A8F3AAD0007C8A8 /* Frameworks */,
 				1EC5B8FF1A8F3AAD0007C8A8 /* Resources */,
@@ -298,11 +304,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E887DA41A9B03540077B673 /* protectedResources in Resources */,
 				1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1E887DA31A9B03440077B673 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DIRNAME=protectedResources\nENC_KEY=\"abcdefghijklmnopqrstuvwxyz123456\"\n\nINDIR=$PROJECT_DIR/$DIRNAME\nOUTDIR=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/$DIRNAME\n\nif [ ! -d \"$OUTDIR\" ]; then\nmkdir -p \"$OUTDIR\"\nfi\n\nfor file in \"$INDIR\"/*\n                     do\n                     echo \"Encrypting $file\"\n                     \"$PROJECT_DIR/crypt\" -k $ENC_KEY -i \"$file\" -o \"$OUTDIR/`basename \"$file\"`\"\n                     done";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1EC5B8FD1A8F3AAD0007C8A8 /* Sources */ = {

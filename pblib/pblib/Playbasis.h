@@ -14,6 +14,7 @@
 #import "PBRequest.h"
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
 #import "PBResponses.h"
+#import "PBSettings.h"
 
 /**
  Inclusion for all UIs.
@@ -27,14 +28,11 @@
 @interface Playbasis : NSObject
 {
     NSString *token;
-    NSString *_apiKey;
-    NSString *apiKeyParam;
     id<PBAuth_ResponseHandler> authDelegate;
     NSMutableArray *requestOptQueue;
 }
 
 @property (nonatomic, readonly) NSString* token;
-@property (nonatomic, readonly) NSString* apiKey;
 
 /**
  Utility method to register device for push notification.
@@ -71,12 +69,28 @@
 -(const NSMutableArray *)getRequestOperationalQueue;
 
 /**
+  Secure way to authenticate and get access token.
+ */
+-(PBRequest *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate;
+-(PBRequest *)authWithBlock:(PBAuth_ResponseBlock)block;
+-(PBRequest *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
+-(PBRequest *)authWithBlockAsync:(PBAuth_ResponseBlock)block;
+
+/**
  Authenticate and get access token.
  */
 -(PBRequest *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequest *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
 -(PBRequest *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequest *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
+
+/**
+ Secure way to request a new access token, and discard the current one.
+ */
+-(PBRequest *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate;
+-(PBRequest *)renewWithBlock:(PBAuth_ResponseBlock)block;
+-(PBRequest *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
+-(PBRequest *)renewWithBlockAsync:(PBAuth_ResponseBlock)block;
 
 /**
  Request a new access token, and discard the current one.

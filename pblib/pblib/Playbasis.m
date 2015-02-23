@@ -7,6 +7,7 @@
 //
 
 #import "Playbasis.h"
+#import "RNDecryptor.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -17,9 +18,26 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 //
 @interface Playbasis ()
 {
+    NSString *apiKeyParam;
+    NSString *_apiKey;
     BOOL isNetworkReachable;
     Reachability *reachability;
 }
+
+/**
+ Get Playbasis library's resource bundle.
+ */
+-(NSBundle*)getPBResourceBundle;
+
+/**
+ Load api-keys config from user.
+ */
+-(void)loadApiKeysConfig;
+
+/**
+ Get api-secret.
+ */
+-(NSString *)getApiSecretFromProtectedResources;
 
 /**
  Set token.
@@ -423,6 +441,8 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
     finishDelegate = delegate;
     finishBlock = nil;
     
+    
+    
     return self;
 }
 
@@ -479,7 +499,6 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 static NSString *sDeviceTokenRetrievalKey = nil;
 
 @synthesize token;
-@synthesize apiKey = _apiKey;
 
 +(void)registerDeviceForPushNotification
 {
@@ -593,6 +612,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // schedule interval call to dispatch request in queue
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
     
+    // load api-keys config from protected resources
+    [self loadApiKeysConfig];
+    
 #if __has_feature(objc_arc)
     requestOptQueue = [NSMutableArray array];
 #else
@@ -631,6 +653,57 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [requestOptQueue release];
     [super dealloc];
 #endif
+}
+
+-(NSBundle *)getPBResourceBundle
+{
+    return [NSBundle bundleWithURL:[[NSBundle mainBundle]  URLForResource:@"pblibResource" withExtension:@"bundle"]];
+}
+
+-(void)loadApiKeysConfig
+{
+    // get pb's bundle and locate 
+    NSBundle *pbBundle = [self getPBResourceBundle];
+    NSString *path = [pbBundle pathForResource:@"apikeys-config" ofType:@"txt" inDirectory:@"protectedResources"];
+    NSData *encryptedData = [NSData dataWithContentsOfFile:path];
+    
+    // error of decrypting data
+    NSError *error;
+    // decrypt data
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:pbProtectedResourcesSharedKey error:&error];
+    NSAssert(error == nil, @"Decrypting error");
+    
+    // convert into UTF8-String (json format)
+    NSString *string = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+    // get json-string object
+    NSDictionary *json = [string objectFromJSONString];
+    // cache api-key
+    // it's used frequently so we cache it here
+    _apiKey = [json objectForKey:@"api_key"];
+    
+    // we don't cache api_secret, we will on-demand decrypt the config file and use it right away
+    // it's not used frequently
+}
+
+-(NSString *)getApiSecretFromProtectedResources
+{
+    // get pb's bundle and locate
+    NSBundle *pbBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle]  URLForResource:@"pblibResource" withExtension:@"bundle"]];
+    NSString *path = [pbBundle pathForResource:@"apikeys-config" ofType:@"txt" inDirectory:@"protectedResources"];
+    NSData *encryptedData = [NSData dataWithContentsOfFile:path];
+    
+    // error of decrypting data
+    NSError *error;
+    // decrypt data
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:pbProtectedResourcesSharedKey error:&error];
+    NSAssert(error == nil, @"Decrypting error");
+    
+    // convert into UTF8-String (json format)
+    NSString *string = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+    // get json-string object
+    NSDictionary *json = [string objectFromJSONString];
+    // get api-secret
+    return [json objectForKey:@"api_secret"];
 }
 
 -(PBRequest *)refactoredInternalBaseReturnWithBlockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withMethod:(NSString *)method andData:(NSString *)data andResponse:(id)response
@@ -719,6 +792,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return requestOptQueue;
 }
 
+-(PBRequest *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate
+{
+    return [self authWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
+}
+-(PBRequest *)authWithBlock:(PBAuth_ResponseBlock)block
+{
+    return [self authWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
+}
+-(PBRequest *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate
+{
+    return [self authWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
+}
+-(PBRequest *)authWithBlockAsync:(PBAuth_ResponseBlock)block
+{
+    return [self authWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
+}
+
 -(PBRequest *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
     return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
@@ -755,6 +845,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:authDelegate];
+}
+
+-(PBRequest *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate
+{
+    return [self renewWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
+}
+-(PBRequest *)renewWithBlock:(PBAuth_ResponseBlock)block
+{
+    return [self renewWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
+}
+-(PBRequest *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate
+{
+    return [self renewWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
+}
+-(PBRequest *)renewWithBlockAsync:(PBAuth_ResponseBlock)block
+{
+    return [self renewWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
 }
 
 -(PBRequest *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate

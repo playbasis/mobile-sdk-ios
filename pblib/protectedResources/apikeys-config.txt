@@ -1,0 +1,4 @@
+{
+    "api_key": "abc",
+    "api_secret": "abcde"
+}
