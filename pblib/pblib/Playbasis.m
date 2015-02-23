@@ -96,6 +96,12 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
  */
 -(PBRequest *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params;
 
+/**
+ Generic dismiss method after touching button.
+ Use with KLCPopup.
+ */
+- (void)klcPopup_dismissButtonPressed:(id)sender;
+
 /*
  All internal base methods for API calls are listed here.
  */
@@ -3872,6 +3878,83 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeClear dismissOnBackgroundTouch:NO dismissOnContentTouch:NO];
     [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutBottom) duration:2.0f];
+}
+
+-(void)showFeedbackEventPopupFromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString *)description
+{
+    UIView* contentView = [[UIView alloc] init];
+    contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    contentView.backgroundColor = [UIColor grayColor];
+    contentView.layer.cornerRadius = 12.0;
+    
+    UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.translatesAutoresizingMaskIntoConstraints = YES;
+    imageView.frame = CGRectMake(0, 0, 150, 150);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    UILabel* titleLabel = [[UILabel alloc] init];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    titleLabel.contentMode = UIViewContentModeCenter;
+    titleLabel.text = title;
+    
+    UILabel* descriptionLabel = [[UILabel alloc] init];
+    descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    descriptionLabel.frame = CGRectMake(0, 0, 250, 80);
+    descriptionLabel.backgroundColor = [UIColor clearColor];
+    descriptionLabel.textColor = [UIColor whiteColor];
+    descriptionLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    descriptionLabel.numberOfLines = 0;
+    descriptionLabel.contentMode = UIViewContentModeCenter;
+    descriptionLabel.text = description;
+    
+    UIButton* dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
+    dismissButton.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
+    dismissButton.backgroundColor = [UIColor orangeColor];
+    [dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [dismissButton setTitleColor:[[dismissButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+    dismissButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    [dismissButton setTitle:@"Ok" forState:UIControlStateNormal];
+    dismissButton.layer.cornerRadius = 6.0;
+    [dismissButton addTarget:self action:@selector(klcPopup_dismissButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [contentView addSubview:titleLabel];
+    [contentView addSubview:imageView];
+    [contentView addSubview:descriptionLabel];
+    [contentView addSubview:dismissButton];
+    
+    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, titleLabel, imageView, descriptionLabel, dismissButton);
+    
+    [contentView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(30)-[imageView]-(20)-[titleLabel]-(10)-[descriptionLabel]-(10)-[dismissButton]-(24)-|"
+                                             options:NSLayoutFormatAlignAllCenterX
+                                             metrics:nil
+                                               views:views]];
+    
+    [contentView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(36)-[titleLabel]-(36)-|"
+                                             options:0
+                                             metrics:nil
+                                               views:views]];
+    
+    KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeGrowOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+    [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutCenter)];
+}
+
+-(void)showFeedbackEventPopupWithContent:(UIView *)contentView fromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString *)description
+{
+    KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeGrowOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+    [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutCenter)];
+}
+
+- (void)klcPopup_dismissButtonPressed:(id)sender
+{
+    if ([sender isKindOfClass:[UIView class]]) {
+        [(UIView*)sender dismissPresentingPopup];
+    }
 }
 
 @end

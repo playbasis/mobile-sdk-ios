@@ -82,10 +82,13 @@
                         
                         // update text to update
                         PBRuleEventBadgeRewardData *rewardData = event.rewardData;
-                        NSString *text = [NSString stringWithFormat:@"I just got a badge '%@'", rewardData.name];
+                        NSString *text = [NSString stringWithFormat:@"You just got a badge '%@'", rewardData.name];
                         
                         // show status update
                         [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:text];
+                        
+                        // show event popup update
+                        [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:img title:@"Badge" description:text];
                     });
                 }
             }

@@ -825,5 +825,7 @@
 -(void)showRegistrationFormFromView:(UIViewController *)view withBlock:(PBResponseBlock)block;
 -(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(void)showFeedbackStatusUpdateFromView:(UIViewController *) view text:(NSString *)text;
+-(void)showFeedbackEventPopupFromView:(UIViewController *) view image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
+-(void)showFeedbackEventPopupWithContent:(UIView *)contentView fromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
 
 @end
