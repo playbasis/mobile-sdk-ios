@@ -18,7 +18,7 @@
 
 @implementation rewardItemViewController
 
-@synthesize goodsInfo = goodsInfo_;
+@synthesize goods = goods_;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,10 +31,9 @@
         self.codeLabel.hidden = YES;
         
         // set page UI
-        self.goodsNameLabel.text = goodsInfo_.goods.name;
-        self.goodsDescriptionLabel.text = goodsInfo_.goods.description_;
-        self.expireLabel.text = [goodsInfo_.goods.dateExpire description];
-        self.codeLabel.text = goodsInfo_.goods.code;
+        self.goodsNameLabel.text = goods_.name;
+        self.goodsDescriptionLabel.text = goods_.description_;
+        self.expireLabel.text = [goods_.dateExpire description];
         self.goodsImage.image = self.image;
     });
 }
@@ -115,41 +114,60 @@
     });
     
     // redeem this goods
-    [[Playbasis sharedPB] redeemGoodsAsync:goodsInfo_.goods.goodsId forPlayer:USER amount:1 withBlock:^(PBRedeemGoods_Response *response, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] redeemGoodsAsync:goods_.goodsId forPlayer:USER amount:1 withBlock:^(PBRedeemGoods_Response *response, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"%@", response);
             
-            for(PBRedeemGoodsEvent *event in response.response.list)
-            {
-                // check if we got any goods
-                if([event.eventType isEqualToString:@"GOODS_RECEIVED"])
+            // get *code* information from goods-info
+            [[Playbasis sharedPB] goods:goods_.goodsId withBlock:^(PBGoodsInfo_Response *goodsInfo, NSURL *url, NSError *error) {
+                if(!error)
                 {
-                    NSLog(@"Redeem complete");
+                    // save goods-info
+                    goodsInfo_ = goodsInfo;
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.activityIndicator.hidden = YES;
-                        self.redeemButton.hidden = YES;
-                        self.sendCodeBySMSButton.hidden = NO;
-                        self.sendCodeByEmailButton.hidden = NO;
-                        self.codeLabel.hidden = NO;
-                        
-                        // show popup event
-                        [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:self.goodsImage.image title:@"Goods recieved!" description:@""];
-                    });
+                    for(PBRedeemGoodsEvent *event in response.response.list)
+                    {
+                        // check if we got any goods
+                        if([event.eventType isEqualToString:@"GOODS_RECEIVED"])
+                        {
+                            NSLog(@"Redeem complete");
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                self.activityIndicator.hidden = YES;
+                                self.redeemButton.hidden = YES;
+                                self.sendCodeBySMSButton.hidden = NO;
+                                self.sendCodeByEmailButton.hidden = NO;
+                                
+                                // get the code
+                                self.codeLabel.text = goodsInfo.goods.code;
+                                self.codeLabel.hidden = NO;
+                                
+                                // show popup event
+                                [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:self.goodsImage.image title:@"Goods recieved!" description:@""];
+                            });
+                            
+                            // we just break it out now
+                            break;
+                        }
+                        else
+                        {
+                            NSLog(@"Redeem un-complete.");
+                            // alert that's there not enough coin to redeem
+                            UIAlertView *popup = [[UIAlertView alloc] initWithTitle:@"Redeem not complete!" message:@"There's not enough coin!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            [popup show];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                self.activityIndicator.hidden = YES;
+                            });
+                        }
+                    }
                 }
                 else
                 {
-                    NSLog(@"Redeem un-complete.");
-                    // alert that's there not enough coin to redeem
-                    UIAlertView *popup = [[UIAlertView alloc] initWithTitle:@"Redeem not complete!" message:@"There's not enough coin!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [popup show];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.activityIndicator.hidden = YES;
-                    });
+                    NSLog(@"%@", error);
                 }
-            }
+            }];
         }
         else
         {

@@ -13,7 +13,6 @@
 {
     // cache the result from goodsList
     PBGoodsListInfo_Response *goodsListInfo_;
-    NSArray *goodsInfoList_;
 }
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

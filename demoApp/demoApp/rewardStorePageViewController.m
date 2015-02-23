@@ -32,7 +32,7 @@
     
     // start from the second one
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (int i=1; i<[_goodsInfoList count]; i++)
+        for (int i=1; i<[_goodsList.goodsList count]; i++)
         {
             [self cacheImageSequectiallyAtIndex:i];
         }
@@ -96,14 +96,13 @@
         return nil;
     }
     
-    // all of goods-info are loaded in the previous UI
-    // get goods-info at the specified index
-    PBGoodsInfo_Response *goodsInfo = [_goodsInfoList objectAtIndex:index];
+    // get goods from array
+    PBGoods *goods = [_goodsList.goodsList objectAtIndex:index];
     
     // create a new view controller, and pass goods-id for it to load itself
     rewardItemViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rewardItemViewController"];
     contentViewController.pageIndex = index;
-    contentViewController.goodsInfo = goodsInfo;
+    contentViewController.goods = goods;
     if([_cachedImages count] >= index + 1 && [_cachedImages count] > 0)
         contentViewController.image = [_cachedImages objectAtIndex:index];
     
@@ -123,10 +122,10 @@
 -(void)cacheImageSequectiallyAtIndex:(NSUInteger)index
 {
     // get goods-info
-    PBGoodsInfo_Response *goodsInfo = [_goodsInfoList objectAtIndex:index];
+    PBGoods *goods = [_goodsList.goodsList objectAtIndex:index];
     
     // get question's image url
-    NSString *imageUrl = goodsInfo.goods.image;
+    NSString *imageUrl = goods.image;
     
     // async loading image
     // load and cache image from above url

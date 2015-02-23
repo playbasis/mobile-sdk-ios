@@ -12,7 +12,6 @@
 @interface rewardStorePageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
     PBGoodsListInfo_Response *_goodsList;
-    NSArray *_goodsInfoList;
     NSMutableArray *_cachedImages;
 }
 

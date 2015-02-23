@@ -135,33 +135,8 @@
         // get reward-store
         rewardStorePageViewController *rewardStore = [segue destinationViewController];
         
-        // if we start fresh, then we load it
-        if(goodsInfoList_ == nil)
-        {
-            // temp array to hold all goodsInfo
-            NSMutableArray *tempArray = [NSMutableArray array];
-            
-            // cache all goodsInfo in goodsList
-            for(PBGoods *goods in goodsListInfo_.goodsList)
-            {
-                [[Playbasis sharedPB] goods:goods.goodsId withBlock:^(PBGoodsInfo_Response *goodsInfo, NSURL *url, NSError *error) {
-                    if(!error)
-                    {
-                        NSLog(@"Complete loading goodsInfo %@", goods.goodsId);
-                        
-                        [tempArray addObject:goodsInfo];
-                    }
-                }];
-            }
-            
-            // create a final array of goods-info list
-            goodsInfoList_ = [NSArray arrayWithArray:tempArray];
-        }
-        
         // set result of goodslist back to reward-store
         rewardStore.goodsList = goodsListInfo_;
-        // set back final result of cached goodsInfo array
-        rewardStore.goodsInfoList = goodsInfoList_;
         
         // stop spinning activity indicator
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -11,12 +11,13 @@
 
 @interface rewardItemViewController : UIViewController<UIAlertViewDelegate>
 {
+    PBGoods *goods_;
     PBGoodsInfo_Response *goodsInfo_;
 }
 
 // meta
 @property NSUInteger pageIndex;
-@property (strong, nonatomic) PBGoodsInfo_Response *goodsInfo;
+@property (strong, nonatomic) PBGoods *goods;
 
 // image
 @property (strong, nonatomic) UIImage *image;
