@@ -88,8 +88,8 @@ typedef enum
 ///--------------------------------------
 @interface PBAuth_Response : PBBase_Response
 
-@property (strong, nonatomic) NSString *token;
-@property (strong, nonatomic) NSDate *dateExpire;
+@property (strong, nonatomic, readonly) NSString *token;
+@property (strong, nonatomic, readonly) NSDate *dateExpire;
 
 +(PBAuth_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

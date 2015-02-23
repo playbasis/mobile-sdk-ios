@@ -39,7 +39,7 @@
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Auth : {\r\ttoken : %@\r\tdate_expire : %@\r\t}", self.token, self.dateExpire];
+    NSString *descriptionString = [NSString stringWithFormat:@"Auth : {\r\ttoken : %@\r\tdate_expire : %@\r\t}", self->token, self->dateExpire];
     return descriptionString;
 }
 
@@ -65,14 +65,14 @@
     }
 
     // set token
-    c.token = [c.parseLevelJsonResponse objectForKey:@"token"];
+    c->token = [c.parseLevelJsonResponse objectForKey:@"token"];
     
     // create a date formatter to parse date-timestamp
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
+    c->dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
     
     return c;
 }
