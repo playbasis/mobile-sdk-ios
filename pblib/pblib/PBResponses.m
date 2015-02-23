@@ -3268,19 +3268,9 @@
 @synthesize questId;
 @synthesize uiImage;
 
--(void)setImage:(NSString *)image_
-{
-    self->image = image_;
-    
-    // then start loading image immediately in the background
-    [UIImage startLoadingImageInTheBackgroundWithUrl:self->image response:^(UIImage *image__) {
-        self->uiImage = image__;
-    }];
-}
-
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tdate_modified : %@\r\tquest_id : %@\r\t}", self.questName, self.description_, self.hint, self.image, self.missionOrder ? @"YES" : @"NO", self.status ? @"YES" : @"NO", (unsigned long)self.sortOrder, self.rewards, self.missionBasics, self.dateAdded, self.clientId, self.siteId, self.dateModified, self.questId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tdate_modified : %@\r\tquest_id : %@\r\t}", self->questName, self->description_, self->hint, self->image, self->missionOrder ? @"YES" : @"NO", self->status ? @"YES" : @"NO", (unsigned long)self->sortOrder, self->rewards, self->missionBasics, self->dateAdded, self->clientId, self->siteId, self->dateModified, self->questId];
     
     return descriptionString;
 }
@@ -3296,21 +3286,26 @@
     // ignroe parse level flag
     c.parseLevelJsonResponse = [jsonResponse copy];
     
-    c.questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
-    c.description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c.hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c.image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c.missionOrder = [[c.parseLevelJsonResponse objectForKey:@"mission_order"] boolValue];
+    c->questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    // then start loading image immediately in the background
+    [UIImage startLoadingImageInTheBackgroundWithUrl:c->image response:^(UIImage *image) {
+        c->uiImage = image;
+    }];
     
-    c.status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
+    c->missionOrder = [[c.parseLevelJsonResponse objectForKey:@"mission_order"] boolValue];
+    
+    c->status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
     id sortOrder = [c.parseLevelJsonResponse objectForKey:@"sort_order"];
     if([sortOrder respondsToSelector:@selector(unsignedIntegerValue)])
     {
-        c.sortOrder = [sortOrder unsignedIntegerValue];
+        c->sortOrder = [sortOrder unsignedIntegerValue];
     }
     
-    c.rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
-    c.missionBasics = [PBMissionBasicArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
+    c->rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
+    c->missionBasics = [PBMissionBasicArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
     
     // parse date field
     // create a date formatter to parse date-timestamp
@@ -3318,11 +3313,11 @@
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c.dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
-    c.dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
-    c.clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
-    c.siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
-    c.questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c->clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
+    c->siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
+    c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
 }

@@ -859,22 +859,22 @@ typedef enum
 ///--------------------------------------
 @interface PBQuestBasic : PBBase_Response
 
-@property (strong, nonatomic) NSString *questName;
-@property (strong, nonatomic) NSString *description_;
-@property (strong, nonatomic) NSString *hint;
-@property (strong, nonatomic) NSString *image;
-@property (nonatomic) BOOL missionOrder;
-@property (nonatomic) BOOL status;
-@property (nonatomic) NSUInteger sortOrder;
-@property (strong, nonatomic) PBRewardArray *rewards;
-@property (strong, nonatomic) PBMissionBasicArray *missionBasics;
-@property (strong, nonatomic) NSDate *dateAdded;
-@property (strong, nonatomic) NSString *clientId;
-@property (strong, nonatomic) NSString *siteId;
-@property (strong, nonatomic) NSDate *dateModified;
-@property (strong, nonatomic) NSString *questId;
+@property (strong, nonatomic, readonly) NSString *questName;
+@property (strong, nonatomic, readonly) NSString *description_;
+@property (strong, nonatomic, readonly) NSString *hint;
+@property (strong, nonatomic, readonly) NSString *image;
+@property (nonatomic, readonly) BOOL missionOrder;
+@property (nonatomic, readonly) BOOL status;
+@property (nonatomic, readonly) NSUInteger sortOrder;
+@property (strong, nonatomic, readonly) PBRewardArray *rewards;
+@property (strong, nonatomic, readonly) PBMissionBasicArray *missionBasics;
+@property (strong, nonatomic, readonly) NSDate *dateAdded;
+@property (strong, nonatomic, readonly) NSString *clientId;
+@property (strong, nonatomic, readonly) NSString *siteId;
+@property (strong, nonatomic, readonly) NSDate *dateModified;
+@property (strong, nonatomic, readonly) NSString *questId;
 
-@property (strong, nonatomic) UIImage *uiImage;
+@property (strong, nonatomic, readonly) UIImage *uiImage;
 
 +(PBQuestBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
