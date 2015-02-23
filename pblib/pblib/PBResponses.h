@@ -10,6 +10,7 @@
 #define pblib_PBResponses_h
 
 #import <Foundation/Foundation.h>
+#import "ui/UIImage+AutoLoader.h"
 
 ///--------------------------------------
 /// Type of Response
@@ -108,6 +109,8 @@ typedef enum
 @property (nonatomic) NSUInteger gender;
 @property (strong, nonatomic) NSString* clPlayerId;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBPlayerBasic*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -200,6 +203,8 @@ typedef enum
 @property (nonatomic) BOOL claim;
 @property (nonatomic) BOOL redeem;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBBadge_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -228,6 +233,8 @@ typedef enum
 @property (strong, nonatomic) NSString *description_;
 @property (nonatomic) NSUInteger amount;
 @property (strong, nonatomic) NSString *hint;
+
+@property (strong, nonatomic) UIImage *uiImage;
 
 +(PBPlayerBadge*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -271,6 +278,8 @@ typedef enum
 @property (strong, nonatomic) NSString *levelImage;
 @property (strong, nonatomic) PBPlayerBadges_Response *badges;
 @property (strong, nonatomic) PBPoints_Response *points;
+
+@property (strong, nonatomic) UIImage *uiLevelImage;
 
 +(PBPlayerDetailed_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -379,6 +388,8 @@ typedef enum
 @property (nonatomic) NSUInteger minExp;
 @property (nonatomic) NSUInteger maxExp;
 @property (strong, nonatomic) NSString *levelImage;
+
+@property (strong, nonatomic) UIImage *uiLevelImage;
 
 +(PBLevel_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -517,6 +528,8 @@ typedef enum
 @property (strong, nonatomic) NSDate *dateStart;
 @property (strong, nonatomic) NSDate *dateExpire;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBGoods*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -566,6 +579,8 @@ typedef enum
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *description_;
 @property (nonatomic) NSUInteger amount;
+
+@property (strong, nonatomic) UIImage *uiImage;
 
 +(PBPlayerGoodsOwned*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -756,6 +771,8 @@ typedef enum
 @property (strong, nonatomic) PBRewardArray *rewards;
 @property (strong, nonatomic) NSString *missionId;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBMissionBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -806,6 +823,8 @@ typedef enum
 @property (strong, nonatomic) NSString *hint;
 @property (strong, nonatomic) NSString *image;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBConditionData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -855,6 +874,8 @@ typedef enum
 @property (strong, nonatomic) NSDate *dateModified;
 @property (strong, nonatomic) NSString *questId;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBQuestBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -890,6 +911,8 @@ typedef enum
 @property (strong, nonatomic) NSString *siteId;
 @property (strong, nonatomic) NSDate *dateModified;
 @property (strong, nonatomic) NSString *questId;
+
+@property (strong, nonatomic) UIImage *uiImage;
 
 +(PBQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -997,6 +1020,8 @@ typedef enum
 @property (nonatomic) BOOL claim;
 @property (nonatomic) BOOL redeem;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBRuleEventBadgeRewardData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -1043,6 +1068,8 @@ typedef enum
 @property (strong, nonatomic) NSString *image;
 @property (strong, nonatomic) NSString *questId;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBRuleEventsMission *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -1070,6 +1097,8 @@ typedef enum
 @property (strong, nonatomic) NSString *description_;
 @property (strong, nonatomic) NSString *hint;
 @property (strong, nonatomic) NSString *image;
+
+@property (strong, nonatomic) UIImage *uiImage;
 
 +(PBRuleEventsQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -1304,6 +1333,8 @@ typedef enum
 @property (strong, nonatomic) NSString *rankImage;
 @property (strong, nonatomic) PBGradeRewards *rewards;
 
+@property (strong, nonatomic) UIImage *uiRankImage;
+
 +(PBGrade *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -1349,6 +1380,8 @@ typedef enum
 @property (strong, nonatomic) NSString *maxScore;
 @property (nonatomic) NSUInteger totalScore;
 @property (nonatomic) NSUInteger totalMaxScore;
+
+@property (strong, nonatomic) UIImage *uiRankImage;
 
 +(PBGradeDone *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -1448,6 +1481,8 @@ typedef enum
 @property (strong, nonatomic) NSString *descriptionImage;
 @property (strong, nonatomic) NSString *quizId;
 
+@property (strong, nonatomic) UIImage *uiImage;
+
 +(PBQuizBasic *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -1523,6 +1558,8 @@ typedef enum
 @property (strong, nonatomic) NSString *optionImage;
 @property (strong, nonatomic) NSString *optionId;
 
+@property (strong, nonatomic) UIImage *uiOptionImage;
+
 +(PBQuestionOption *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -1550,6 +1587,8 @@ typedef enum
 @property (nonatomic) NSUInteger total;
 @property (strong, nonatomic) NSString *questionId;
 
+@property (strong, nonatomic) UIImage *uiQuestionImage;
+
 +(PBQuestion *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
@@ -1575,6 +1614,8 @@ typedef enum
 @property (strong, nonatomic) NSString *explanation;
 @property (strong, nonatomic) NSString *optionImage;
 @property (strong, nonatomic) NSString *optionId;
+
+@property (strong, nonatomic) UIImage *uiOptionImage;
 
 +(PBQuestionAnsweredOption *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -1606,6 +1647,8 @@ typedef enum
 @property (strong, nonatomic) NSString *maxScore;
 @property (nonatomic) NSUInteger totalScore;
 @property (nonatomic) NSUInteger totalMaxScore;
+
+@property (strong, nonatomic) UIImage *uiRankImage;
 
 +(PBQuestionAnsweredGradeDone *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

@@ -17,7 +17,6 @@
     PBQuestListOfPlayer_Response *questList_;
 }
 
-@property (strong, nonatomic) NSMutableDictionary *loadedImagesForAllQuests;
 @property (strong, nonatomic) NSMutableArray *allRewardsLinesForAllQuests;
 
 @end

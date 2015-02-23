@@ -25,7 +25,6 @@
     self.delegate = self;
     
     // initialize all empty arrays
-    _loadedImagesForAllQuests = [NSMutableDictionary dictionary];
     _allRewardsLinesForAllQuests = [NSMutableArray array];
     
     // load all quests available to player
@@ -38,21 +37,6 @@
             // async load all image from the quest-list
             for(PBQuestBasic *q in questListAvailable_.list.questBasics)
             {
-                // load and cache images (async)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    
-                    // get question's image url
-                    NSString *imageUrl = q.image;
-                    
-                    // async loading image
-                    // load and cache image from above url
-                    NSURL *url = [NSURL URLWithString:imageUrl];
-                    NSData *imageData = [NSData dataWithContentsOfURL:url];
-                    
-                    [self.loadedImagesForAllQuests setValue:[[UIImage alloc] initWithData:imageData] forKey:q.questId];
-                    
-                });
-                
                 if([q.rewards.rewards count] > 0)
                 {
                     NSMutableString *rewardsLines = [NSMutableString string];
@@ -188,7 +172,7 @@
     // set text string to be loaded into ui when the view controller is loaded
     contentViewController.questId = questBasic.questId;
     contentViewController.questName = questBasic.questName;
-    contentViewController.questImage = [_loadedImagesForAllQuests objectForKey:questBasic.questId];
+    contentViewController.questImage = questBasic.uiImage;
     contentViewController.questDescription = questBasic.description_;
     contentViewController.questRewards = [_allRewardsLinesForAllQuests objectAtIndex:index];
     contentViewController.questStatus = status;

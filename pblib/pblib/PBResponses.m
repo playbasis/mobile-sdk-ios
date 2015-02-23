@@ -92,6 +92,7 @@
 @synthesize lastName;
 @synthesize gender;
 @synthesize clPlayerId;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -522,6 +523,7 @@
 @synthesize sponsor;
 @synthesize claim;
 @synthesize redeem;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -660,6 +662,7 @@
 @synthesize description;
 @synthesize amount;
 @synthesize hint;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -843,6 +846,7 @@
 @synthesize levelImage;
 @synthesize badges;
 @synthesize points;
+@synthesize uiLevelImage;
 
 -(NSString *)description
 {
@@ -1292,6 +1296,7 @@
 @synthesize minExp;
 @synthesize maxExp;
 @synthesize levelImage;
+@synthesize uiLevelImage;
 
 -(NSString *)description
 {
@@ -1893,6 +1898,7 @@
 @synthesize sponsor;
 @synthesize dateStart;
 @synthesize dateExpire;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -2132,6 +2138,7 @@
 @synthesize name;
 @synthesize description_;
 @synthesize amount;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -2888,6 +2895,7 @@
 @synthesize completions;
 @synthesize rewards;
 @synthesize missionId;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -3106,6 +3114,7 @@
 @synthesize description_;
 @synthesize hint;
 @synthesize image;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -3257,6 +3266,17 @@
 @synthesize siteId;
 @synthesize dateModified;
 @synthesize questId;
+@synthesize uiImage;
+
+-(void)setImage:(NSString *)image_
+{
+    self->image = image_;
+    
+    // then start loading image immediately in the background
+    [UIImage startLoadingImageInTheBackgroundWithUrl:self->image response:^(UIImage *image__) {
+        self->uiImage = image__;
+    }];
+}
 
 -(NSString *)description
 {
@@ -3377,6 +3397,7 @@
 @synthesize siteId;
 @synthesize dateModified;
 @synthesize questId;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -3833,6 +3854,7 @@
 @synthesize hint;
 @synthesize claim;
 @synthesize redeem;
+@synthesize uiImage;
 
 - (NSString *)description
 {
@@ -3992,6 +4014,7 @@
 @synthesize hint;
 @synthesize image;
 @synthesize questId;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -4101,6 +4124,7 @@
 @synthesize description_;
 @synthesize hint;
 @synthesize image;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -5007,6 +5031,7 @@
 @synthesize rank;
 @synthesize rankImage;
 @synthesize rewards;
+@synthesize uiRankImage;
 
 -(NSString *)description
 {
@@ -5158,6 +5183,7 @@
 @synthesize maxScore;
 @synthesize totalScore;
 @synthesize totalMaxScore;
+@synthesize uiRankImage;
 
 -(NSString *)description
 {
@@ -5581,6 +5607,7 @@
 @synthesize description_;
 @synthesize descriptionImage;
 @synthesize quizId;
+@synthesize uiImage;
 
 -(NSString *)description
 {
@@ -5889,6 +5916,7 @@
 @synthesize option;
 @synthesize optionImage;
 @synthesize optionId;
+@synthesize uiOptionImage;
 
 -(NSString *)description
 {
@@ -5991,6 +6019,7 @@
 @synthesize index;
 @synthesize total;
 @synthesize questionId;
+@synthesize uiQuestionImage;
 
 -(NSString *)description
 {
@@ -6088,6 +6117,7 @@
 @synthesize explanation;
 @synthesize optionImage;
 @synthesize optionId;
+@synthesize uiOptionImage;
 
 -(NSString *)description
 {
@@ -6197,6 +6227,7 @@
 @synthesize maxScore;
 @synthesize totalScore;
 @synthesize totalMaxScore;
+@synthesize uiRankImage;
 
 -(NSString *)description
 {

@@ -12,6 +12,7 @@
 		1E304A3E1A90B745006F0C7F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A381A90B745006F0C7F /* RNCryptorEngine.m */; };
 		1E304A3F1A90B745006F0C7F /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A3A1A90B745006F0C7F /* RNDecryptor.m */; };
 		1E304A401A90B745006F0C7F /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A3C1A90B745006F0C7F /* RNEncryptor.m */; };
+		1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
 		1E887DA41A9B03540077B673 /* protectedResources in Resources */ = {isa = PBXBuildFile; fileRef = 1ED6CC2A1A9AE587000D8FB0 /* protectedResources */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
@@ -55,6 +56,8 @@
 		1E304A3C1A90B745006F0C7F /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNEncryptor.m; path = RNCryptor/RNEncryptor.m; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
+		1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
 		1E887DD71A9B19810077B673 /* PBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSettings.h; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */,
 				1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */,
 				1EC5B9171A8FB1F70007C8A8 /* PBUI.h */,
+				1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */,
+				1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				1E304A401A90B745006F0C7F /* RNEncryptor.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
 				1E304A3D1A90B745006F0C7F /* RNCryptor.m in Sources */,
+				1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */,
 				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,
 				1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */,

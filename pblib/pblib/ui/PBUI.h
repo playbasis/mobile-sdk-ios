@@ -11,5 +11,6 @@
 
 #import "pbUserRegistrationFormViewController.h"
 #import "KLCPopup.h"
+#import "UIImage+AutoLoader.h"
 
 #endif
