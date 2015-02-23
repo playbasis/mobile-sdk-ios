@@ -3965,6 +3965,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     statusLabel.backgroundColor = [UIColor clearColor];
     statusLabel.textColor = [UIColor whiteColor];
     statusLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    statusLabel.numberOfLines = 0;  // cover all lines
     statusLabel.text = text;
     
     [contentView addSubview:statusLabel];

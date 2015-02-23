@@ -180,9 +180,10 @@
     });
     
     // do an action
-    [[Playbasis sharedPB] ruleForPlayerAsync:USER action:action withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] ruleForPlayerAsync:USER action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
         if(!error)
         {
+            NSLog(@"%@", response);
             NSLog(@"Did '%@'", action);
             NSLog(@"Reload quest information to update mission screen.");
             
@@ -201,10 +202,14 @@
                     // reload table
                     [self.tableView reloadData];
                     
-                    // stop spining activity indicator
+                    // update UI
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        // stop spining activity indicator
                         self.activityIndicator.hidden = YES;
                         self.doSelectedActionButton.enabled = NO;
+                        
+                        // show update status
+                        [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:[NSString stringWithFormat:@"You did %@.", action]];
                     });
                 }
                 else

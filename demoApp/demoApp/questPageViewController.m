@@ -92,7 +92,7 @@
         }
     }];
     
-    // load quest complete from player
+    // load quest that player has joined to get its status
     [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
         if(!error)
         {
@@ -101,22 +101,13 @@
             
             NSLog(@"Complete loading all quests information.");
             
-            if([questList_.questList.quests count] > 0)
-            {
-                // set the initial first view controller
-                questDemoViewController *viewController = [self viewControllerAtIndex:0];
-                NSArray *viewControllers = [NSArray arrayWithObject:viewController];
-                [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-                
-                // set the current page index for later use when we touch the button
-                currentPageIndex = 0;
-            }
-            else
-            {
-                // alert that's there no available quests
-                UIAlertView *popup = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There's no available quests" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [popup show];
-            }
+            // set the initial first view controller
+            questDemoViewController *viewController = [self viewControllerAtIndex:0];
+            NSArray *viewControllers = [NSArray arrayWithObject:viewController];
+            [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+            
+            // set the current page index for later use when we touch the button
+            currentPageIndex = 0;
         }
     }];
 }
@@ -172,11 +163,23 @@
         return nil;
     }
     
-    // get quest at the specified index
-    PBQuest *quest = [questList_.questList.quests objectAtIndex:index];
-    
     // get quest basic
     PBQuestBasic *questBasic = [questListAvailable_.list.questBasics objectAtIndex:index];
+    
+    // get quest at the specified index
+    NSString *status = nil;
+    
+    if(questList_.questList.quests != nil )
+    {
+        for(PBQuest *quest in questList_.questList.quests)
+        {
+            if([quest.questId isEqualToString:questBasic.questId])
+            {
+                // get status
+                status = quest.status;
+            }
+        }
+    }
     
     // create a new view controller and pass suitable data
     questDemoViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"questContentViewController"];
@@ -188,7 +191,7 @@
     contentViewController.questImage = [_loadedImagesForAllQuests objectForKey:questBasic.questId];
     contentViewController.questDescription = questBasic.description_;
     contentViewController.questRewards = [_allRewardsLinesForAllQuests objectAtIndex:index];
-    contentViewController.questStatus = quest.status;
+    contentViewController.questStatus = status;
     
     return contentViewController;
 }

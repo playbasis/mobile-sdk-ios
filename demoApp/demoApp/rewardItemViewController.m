@@ -68,6 +68,9 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.activityIndicator.hidden = YES;
+                
+                // show status update
+                [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Send code via E-mail Complete!"];
             });
         }
         else
@@ -91,6 +94,9 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.activityIndicator.hidden = YES;
+                
+                // show status update
+                [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Send code SMS Complete!"];
             });
         }
         else
@@ -127,6 +133,9 @@
                         self.sendCodeBySMSButton.hidden = NO;
                         self.sendCodeByEmailButton.hidden = NO;
                         self.codeLabel.hidden = NO;
+                        
+                        // show popup event
+                        [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:self.goodsImage.image title:@"Goods recieved!" description:@""];
                     });
                 }
                 else

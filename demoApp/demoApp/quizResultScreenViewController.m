@@ -27,7 +27,7 @@
     
     PBQuestionAnswered *result = questionAnswered_response.result;
     
-    NSString *rExpReward, *rPointReward;
+    NSString *rExpReward, *rPointReward, *rCoinReward;
     
     // get rewards
     for(PBGradeDoneReward *reward in result.rewards.gradeDoneRewards)
@@ -41,6 +41,24 @@
         {
             rPointReward = reward.value;
         }
+        else if([reward.rewardType isEqualToString:@"coin"])
+        {
+            rCoinReward = reward.value;
+        }
+    }
+    
+    NSMutableString *statusUpdate = [NSMutableString stringWithString:@"Finished quiz."];
+    if(rExpReward != nil)
+    {
+        [statusUpdate appendFormat:@"\nGot %@ exp. ", rExpReward];
+    }
+    if(rPointReward != nil)
+    {
+        [statusUpdate appendFormat:@"\nGot %@ point.", rPointReward];
+    }
+    if(rCoinReward != nil)
+    {
+        [statusUpdate appendFormat:@"\nGot %@ coin.", rCoinReward];
     }
     
     // immediately do async loading of rank image
@@ -65,6 +83,9 @@
                 self.pointRewardLabel.text = [NSString stringWithFormat:@"Got %@ point", rPointReward];
                 self.pointRewardLabel.hidden = false;
             }
+            
+            // show update on status
+            [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:statusUpdate];
         });
     });
 }

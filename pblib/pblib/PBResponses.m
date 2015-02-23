@@ -4208,7 +4208,7 @@
     NSString *d = [self.events description];
     NSLog(@"d = %@", d);
     
-    NSString *descriptionString = [NSString stringWithFormat:@"Rule Response: {\r\t%@\r\t}", [self.events description]];
+    NSString *descriptionString = [NSString stringWithFormat:@"Rule Response: {\r\tevents : %@\r\tevents-missions : %@\r\tevents-quests : %@\r\t}", [self.events description], [self.missions description], [self.quests description]];
     
     return descriptionString;
 }
