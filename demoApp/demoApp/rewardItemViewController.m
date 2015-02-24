@@ -154,7 +154,7 @@
                     // save goods-info
                     goodsInfo_ = goodsInfo;
                     
-                    for(PBRedeemGoodsEvent *event in response.response.list)
+                    for(PBRedeemGoodsEvent *event in response.events.list)
                     {
                         // check if we got any goods
                         if([event.eventType isEqualToString:@"GOODS_RECEIVED"])

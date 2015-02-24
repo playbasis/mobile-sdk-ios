@@ -1424,7 +1424,8 @@ typedef enum
 ///--------------------------------------
 @interface PBRedeemGoods_Response : PBBase_Response
 
-@property (strong, nonatomic, readonly) PBRedeemGoodsEvents *response;
+@property (strong, nonatomic, readonly) PBRedeemGoodsEvents *events;
+@property (strong, nonatomic, readonly) NSString *logId;
 
 +(PBRedeemGoods_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

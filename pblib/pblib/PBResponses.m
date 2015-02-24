@@ -5474,11 +5474,14 @@
 ///--------------------------------------
 @implementation PBRedeemGoods_Response
 
-@synthesize response;
+@synthesize events;
+@synthesize logId;
 
 -(NSString *)description
 {
-    return [self.response description];
+    NSString *descriptionString = [NSString stringWithFormat:@"Redeem Goods : {\r\tevents : %@\r\tlog_id : %@\r\t}", self.events, self.logId];
+    
+    return descriptionString;
 }
 
 +(PBRedeemGoods_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
@@ -5503,7 +5506,8 @@
     }
     
     // parse
-    c->response = [PBRedeemGoodsEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c->events = [PBRedeemGoodsEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
+    c->logId = [c.parseLevelJsonResponse objectForKey:@"log_id"];
     
     return c;
 }
