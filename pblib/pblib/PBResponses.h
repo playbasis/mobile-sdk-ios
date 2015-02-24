@@ -71,6 +71,8 @@ typedef enum
     responseType_redeemGoods,
     responseType_sendEmail,
     responseType_sendEmailCoupon,
+    responseType_sendSMS,
+    responseType_sendSMSCoupon,
     responseType_questionFromQuiz,
     responseType_questionAnswered,
     responseType_playersQuizRank
@@ -1675,6 +1677,30 @@ typedef enum
 @property (strong, nonatomic, readonly) PBPlayerQuizRankArray *playersQuizRank;
 
 +(PBPlayersQuizRank_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBSendSMS
+///--------------------------------------
+@interface PBSendSMS : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSString *to;
+@property (strong, nonatomic, readonly) NSString *from;
+@property (strong, nonatomic, readonly) NSString *message;
+
++(PBSendSMS *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBSendSMS - Response
+///--------------------------------------
+@interface PBSendSMS_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) PBSendSMS *response;
+
++(PBSendSMS_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

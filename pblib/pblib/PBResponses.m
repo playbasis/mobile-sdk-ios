@@ -6399,6 +6399,84 @@
 @end
 
 ///--------------------------------------
+/// PBSendSMS
+///--------------------------------------
+@implementation PBSendSMS
+
+@synthesize to;
+@synthesize from;
+@synthesize message;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Send SMS : {\r\tto : %@\r\tfrom : %@\r\tmessage : %@\r\t}", self.to, self.from, self.message];
+    
+    return descriptionString;
+}
+
++(PBSendSMS *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBSendSMS *c = [[PBSendSMS alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->to = [c.parseLevelJsonResponse objectForKey:@"to"];
+    c->from = [c.parseLevelJsonResponse objectForKey:@"from"];
+    c->message = [c.parseLevelJsonResponse objectForKey:@"message"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBSendSMS - Response
+///--------------------------------------
+@implementation PBSendSMS_Response
+
+@synthesize response;
+
+-(NSString *)description
+{
+    return [self.response description];
+}
+
++(PBSendSMS_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBSendSMS_Response *c = [[PBSendSMS_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // parse
+    c->response = [PBSendSMS parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// PlayerQuizRankArray
 ///--------------------------------------
 @implementation PBPlayerQuizRankArray

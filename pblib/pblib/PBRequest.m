@@ -251,6 +251,7 @@
         case responseType_claimBadge:
         case responseType_redeemBadge:
         case responseType_sendEmail:
+        case responseType_sendEmailCoupon:
         {
             if(responseDelegate)
             {
@@ -1469,6 +1470,34 @@
                 PBPlayersQuizRank_Response *response = [PBPlayersQuizRank_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayersQuizRank_ResponseBlock sb = (PBPlayersQuizRank_ResponseBlock)responseBlock;
+                sb(response, [urlRequest URL], error);
+            }
+            
+            break;
+        }
+            // both send-sms, and send-sms-coupon
+        case responseType_sendSMS:
+        case responseType_sendSMSCoupon:
+        {
+            if(responseDelegate)
+            {
+                if([responseDelegate respondsToSelector:@selector(processResponseWithSMS:withURL:error:)])
+                {
+                    id<PBSendSMS_ResponseHandler> sd = (id<PBSendSMS_ResponseHandler>)responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBSendSMS_Response *response = [PBSendSMS_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithSMS:response withURL:[urlRequest URL] error:error];
+                }
+            }
+            else if(responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBSendSMS_Response *response = [PBSendSMS_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
+                
+                PBSendSMS_ResponseBlock sb = (PBSendSMS_ResponseBlock)responseBlock;
                 sb(response, [urlRequest URL], error);
             }
             

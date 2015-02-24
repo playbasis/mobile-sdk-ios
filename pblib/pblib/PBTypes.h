@@ -456,4 +456,13 @@ typedef void (^PBQuestionAnswered_ResponseBlock)(PBQuestionAnswered_Response * q
 
 typedef void (^PBPlayersQuizRank_ResponseBlock)(PBPlayersQuizRank_Response * playersQuizRank, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// SendSMS (normal and coupon)
+///--------------------------------------
+@protocol PBSendSMS_ResponseHandler <NSObject>
+-(void)processResponseWithSMS:(PBSendSMS_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBSendSMS_ResponseBlock)(PBSendSMS_Response * response, NSURL *url, NSError *error);
+
 #endif
