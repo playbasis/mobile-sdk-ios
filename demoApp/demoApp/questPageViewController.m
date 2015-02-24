@@ -38,10 +38,26 @@
             // async load all image from the quest-list
             for(PBQuestBasic *q in questListAvailable_.list.questBasics)
             {
+                // only the first one, we will do blocking-call loading image
+                static BOOL isFirstOne = YES;
                 // cache loading image in the background
-                [UIImage startLoadingImageInTheBackgroundWithUrl:q.image response:^(UIImage *image) {
+                if(isFirstOne)
+                {
+                    // load image in blocking-call
+                    [UIImage startLoadingImageWithUrl:q.image response:^(UIImage *image) {
+                        [_cachedQuestImages setValue:image forKey:q.questId];
+                    }];
+                    
+                    // not first one anymore
+                    isFirstOne = NO;
+                }
+                else
+                {
+                    // load image in non-blocking call
+                    [UIImage startLoadingImageInTheBackgroundWithUrl:q.image response:^(UIImage *image) {
                     [_cachedQuestImages setValue:image forKey:q.questId];
-                }];
+                    }];
+                }
                 
                 if([q.rewards.rewards count] > 0)
                 {
