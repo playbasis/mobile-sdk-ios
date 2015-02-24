@@ -7,7 +7,10 @@
 //
 
 #import "Playbasis.h"
+
 #import "RNDecryptor.h"
+#import "KLCPopup.h"
+#import "MBProgressHUD.h"
 
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -4063,6 +4066,35 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if ([sender isKindOfClass:[UIView class]]) {
         [(UIView*)sender dismissPresentingPopup];
     }
+}
+
+-(void)showHUDFromView:(UIView *)view
+{
+    [MBProgressHUD showHUDAddedTo:view animated:YES];
+}
+
+-(void)showHUDFromView:(UIView *)view withText:(NSString *)text
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.labelText = text;
+}
+
+-(void)showTextHUDFromView:(UIView *)view withText:(NSString *)text forDuration:(NSTimeInterval)duration
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = text;
+    [hud hide:YES afterDelay:duration];
+}
+
+-(void)hideHUDFromView:(UIView *)view
+{
+    [MBProgressHUD hideHUDForView:view animated:YES];
+}
+
+-(void)hideAllHUDFromView:(UIView *)view
+{
+    [MBProgressHUD hideAllHUDsForView:view animated:YES];
 }
 
 @end

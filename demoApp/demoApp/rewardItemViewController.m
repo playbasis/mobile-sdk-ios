@@ -58,6 +58,11 @@
     // form message
     NSString *message = [NSString stringWithFormat:@"Your reward code is: %@ Enjoy the privilege!", goodsInfo_.goods.code];
     
+    // showing hud
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Sending code by E-mail"];
+    });
+    
     // all is good then we send code via email
     [[Playbasis sharedPB] sendEmailForPlayer:USER subject:@"Redeem Complete!" message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
         if(!error)
@@ -66,7 +71,8 @@
             NSLog(@"%@", jsonResponse);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.activityIndicator.hidden = YES;
+                // hide hud
+                [[Playbasis sharedPB] hideHUDFromView:self.view];
                 
                 // show status update
                 [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Send code via E-mail Complete!"];
@@ -76,6 +82,14 @@
         {
             NSLog(@"Sent email failed");
             NSLog(@"%@", error);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // hide the previous hud first
+                [[Playbasis sharedPB] hideHUDFromView:self.view];
+                
+                // show text, then hide after a short time
+                [[Playbasis sharedPB] showTextHUDFromView:self.view withText:@"Failed to send E-mail" forDuration:2];
+            });
         }
     }];
 }
@@ -83,6 +97,11 @@
 {
     // form message
     NSString *message = [NSString stringWithFormat:@"Your reward code is: %@ Enjoy the privilege!", goodsInfo_.goods.code];
+    
+    // showing hud
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Sending code by SMS"];
+    });
     
     // all is good then we send code via email
     [[Playbasis sharedPB] sendSMSForPlayer:USER message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
@@ -92,7 +111,8 @@
             NSLog(@"%@", jsonResponse);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.activityIndicator.hidden = YES;
+                // hide hud
+                [[Playbasis sharedPB] hideHUDFromView:self.view];
                 
                 // show status update
                 [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Send code SMS Complete!"];
@@ -102,15 +122,23 @@
         {
             NSLog(@"Sent sms failed");
             NSLog(@"%@", error);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // hide the previous hud first
+                [[Playbasis sharedPB] hideHUDFromView:self.view];
+                
+                // show text, then hide after a short time
+                [[Playbasis sharedPB] showTextHUDFromView:self.view withText:@"Failed to send SMS" forDuration:2];
+            });
         }
     }];
 }
 
 - (IBAction)redeemGoods:(id)sender {
     
-    // spin activity indicator
+    // showing hud
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.activityIndicator.hidden = NO;
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Redeeming"];
     });
     
     // redeem this goods
@@ -134,7 +162,9 @@
                             NSLog(@"Redeem complete");
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                self.activityIndicator.hidden = YES;
+                                // hide hud
+                                [[Playbasis sharedPB] hideHUDFromView:self.view];
+                                
                                 self.redeemButton.hidden = YES;
                                 self.sendCodeBySMSButton.hidden = NO;
                                 self.sendCodeByEmailButton.hidden = NO;
@@ -158,7 +188,8 @@
                             [popup show];
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                self.activityIndicator.hidden = YES;
+                                // hide hud
+                                [[Playbasis sharedPB] hideHUDFromView:self.view];
                             });
                         }
                     }
@@ -221,14 +252,18 @@
 }
 
 - (IBAction)sendCodeByEmail:(id)sender {
+    // showing hud
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.activityIndicator.hidden = NO;
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Trying to send ..."];
     });
     
     // get player information to check for e-mail if it's valid
     [[Playbasis sharedPB] playerAsync:USER withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
         if(!error)
         {
+            // hide hud
+            [[Playbasis sharedPB] hideHUDFromView:self.view];
+            
             // basic check
             if(player.email == (id)[NSNull null] ||
                [player.email isEqualToString:@""] ||
@@ -250,14 +285,18 @@
 }
 
 - (IBAction)sendCodeBySMS:(id)sender {
+    // showing hud
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.activityIndicator.hidden = NO;
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Trying to send ..."];
     });
     
     // get player information to check for e-mail if it's valid
     [[Playbasis sharedPB] playerAsync:USER withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
         if(!error)
         {
+            // hide hud
+            [[Playbasis sharedPB] hideHUDFromView:self.view];
+            
             // basic check
             if(player.phoneNumber == (id)[NSNull null] ||
                [player.phoneNumber isEqualToString:@""])

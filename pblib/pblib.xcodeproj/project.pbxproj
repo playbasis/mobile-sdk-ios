@@ -13,6 +13,7 @@
 		1E80C7E01A9C291A00C6C291 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
 		1E80C7E11A9C291A00C6C291 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
 		1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
+		1E80C7E61A9C298800C6C291 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */; };
 		1E887DA41A9B03540077B673 /* protectedResources in Resources */ = {isa = PBXBuildFile; fileRef = 1ED6CC2A1A9AE587000D8FB0 /* protectedResources */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
@@ -58,6 +59,8 @@
 		1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
 		1E80C7DD1A9C291A00C6C291 /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
 		1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
+		1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1E887DD71A9B19810077B673 /* PBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSettings.h; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -123,9 +126,19 @@
 			path = RNCryptor;
 			sourceTree = "<group>";
 		};
+		1E80C7E31A9C298800C6C291 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */,
+				1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		1EA3AE191A717AE0008F17F3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				1E80C7E31A9C298800C6C291 /* MBProgressHUD */,
 				1E80C7D41A9C291A00C6C291 /* RNCryptor */,
 				1ED6CC241A9AB744000D8FB0 /* KLCPopup */,
 				1EA3AE1A1A717AE0008F17F3 /* Reachability */,
@@ -359,6 +372,7 @@
 				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
 				1E80C7E11A9C291A00C6C291 /* RNDecryptor.m in Sources */,
+				1E80C7E61A9C298800C6C291 /* MBProgressHUD.m in Sources */,
 				1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */,
 				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,

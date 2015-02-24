@@ -842,4 +842,13 @@
 -(void)showFeedbackEventPopupFromView:(UIViewController *) view image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
 -(void)showFeedbackEventPopupWithContent:(UIView *)contentView fromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
 
+//--------------------------------------------------
+// UI - HUD
+//--------------------------------------------------
+-(void)showHUDFromView:(UIView *)view;
+-(void)showHUDFromView:(UIView *)view withText:(NSString *)text;
+-(void)showTextHUDFromView:(UIView *)view withText:(NSString *)text forDuration:(NSTimeInterval)duration;
+-(void)hideHUDFromView:(UIView *)view;
+-(void)hideAllHUDFromView:(UIView *)view;
+
 @end

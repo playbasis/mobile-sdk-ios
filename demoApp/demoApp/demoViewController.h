@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Playbasis.h"
 
-@interface demoViewController : UIViewController <PBResponseHandler>
+@interface demoViewController : UIViewController <PBRule_ResponseHandler>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITextView *resultTextArea;
 
--(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error;
+-(void)processResponseWithRule:(PBRule_Response *)response withURL:(NSURL *)url error:(NSError *)error;
 
 - (IBAction)callAPI_player1:(id)sender;
 - (IBAction)callAPI_player:(id)sender;

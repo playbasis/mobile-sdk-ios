@@ -28,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *goodsDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *expireLabel;
 @property (weak, nonatomic) IBOutlet UILabel *codeLabel;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *redeemButton;
 - (IBAction)redeemGoods:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *sendCodeBySMSButton;

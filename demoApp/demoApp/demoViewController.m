@@ -20,9 +20,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    // firstly hide the activity indicator
-    self.activityIndicator.hidden = true;
+    self.activityIndicator.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -31,7 +29,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)processResponse:(id)jsonResponse withURL:(NSURL *)url error:(NSError*)error
+-(void)processResponseWithRule:(PBRule_Response *)response withURL:(NSURL *)url error:(NSError *)error
 {
     // now the returning part is in user's thread, not ui thread.
     // thus updating any ui related elements, we need to get UI queue via dispatch_get_main_queue().
@@ -43,7 +41,7 @@
         
         // print out the response
         NSLog(@"delegate triggered from URL: %@", urlPath);
-        NSLog(@"%@", jsonResponse);
+        NSLog(@"%@", response);
         NSLog(@"Error = %@", [error localizedDescription]);
         
         return;
@@ -55,20 +53,18 @@
         
         // print out the response
         NSLog(@"delegate triggered from URL: %@", urlPath);
-        NSLog(@"%@", jsonResponse);
+        NSLog(@"%@", response);
         
         // set result to text area
         dispatch_queue_t uiThread = dispatch_get_main_queue();
         dispatch_async(uiThread, ^{
-            self.resultTextArea.text = [jsonResponse description];
+            self.resultTextArea.text = [response description];
         });
     }
     
-    // show activity indicator
-    // note: make sure we do it in ui thread
-    dispatch_queue_t uiThread = dispatch_get_main_queue();
-    dispatch_async(uiThread, ^{
-        self.activityIndicator.hidden = true;
+    // hide hud
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[Playbasis sharedPB] hideHUDFromView:self.view];
     });
 }
 
@@ -78,8 +74,8 @@
     {
         NSLog(@"Touched to callAPI_player1");
 
-        // show activity indicator
-        self.activityIndicator.hidden = false;
+        // show hud
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
         
         // execute 'like' action
         // note: this will let activity indicator to be updated in UI thread
@@ -96,8 +92,8 @@
     {
         NSLog(@"Touched to get player's info");
         
-        // show activity indicator
-        self.activityIndicator.hidden = false;
+        // show hud
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
         
         // test calling via non-blocking call
         NSLog(@"Non-blocking player() call 1");
@@ -114,8 +110,8 @@
                 // set result to text area
                 self.resultTextArea.text = [player description];
                 
-                // hide activity indicator
-                self.activityIndicator.hidden = true;
+                // hide hud
+                [[Playbasis sharedPB] hideHUDFromView:self.view];
             }
         }];
     }
@@ -127,8 +123,8 @@
     {
         NSLog(@"Touched to send rule: for 'like'");
         
-        // show activity indicator
-        self.activityIndicator.hidden = false;
+        // show hud
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
         
         NSString *action = @"like";
         
@@ -144,8 +140,8 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // set result to text area
                     self.resultTextArea.text = [response description];
-                    // hide activity indicator
-                    self.activityIndicator.hidden = true;
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
                 });
             }
         }, nil];

@@ -680,9 +680,6 @@
                                     <action selector="redeemGoods:" destination="zpB-t8-h45" eventType="touchUpInside" id="L0m-nU-0Ql"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ycT-QG-lSi">
-                                <rect key="frame" x="150" y="280" width="20" height="20"/>
-                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YeW-XV-jnO">
                                 <rect key="frame" x="180" y="456" width="124" height="44"/>
                                 <constraints>
@@ -706,13 +703,11 @@
                             <constraint firstAttribute="bottom" secondItem="K95-LF-edS" secondAttribute="bottom" constant="49" id="4St-MO-eey"/>
                             <constraint firstItem="Idg-VU-QdN" firstAttribute="leading" secondItem="kgT-HR-91V" secondAttribute="leadingMargin" constant="24" type="user" id="5p9-oO-VVO"/>
                             <constraint firstItem="K95-LF-edS" firstAttribute="leading" secondItem="1WV-tm-CdX" secondAttribute="leading" type="user" id="89P-8X-xIm"/>
-                            <constraint firstAttribute="centerY" secondItem="ycT-QG-lSi" secondAttribute="centerY" constant="-16" type="user" id="92A-Ep-RXf"/>
                             <constraint firstAttribute="bottom" secondItem="pLY-Hy-s92" secondAttribute="bottom" constant="50" id="Aqd-vl-MAS"/>
                             <constraint firstItem="1WV-tm-CdX" firstAttribute="top" secondItem="kgT-HR-91V" secondAttribute="top" constant="108" type="user" id="AzY-Iv-EwT"/>
                             <constraint firstItem="Idg-VU-QdN" firstAttribute="top" secondItem="1WV-tm-CdX" secondAttribute="bottom" constant="15" type="user" id="Mhf-nz-CGy"/>
                             <constraint firstItem="3mD-RK-YlA" firstAttribute="leading" secondItem="4gT-xq-028" secondAttribute="leading" type="user" id="OzX-p0-yXG"/>
                             <constraint firstItem="pLY-Hy-s92" firstAttribute="baseline" secondItem="YeW-XV-jnO" secondAttribute="baseline" type="user" id="Qb6-hS-HVt"/>
-                            <constraint firstItem="ycT-QG-lSi" firstAttribute="top" secondItem="4gT-xq-028" secondAttribute="top" type="user" id="RPT-jN-xHZ"/>
                             <constraint firstAttribute="centerX" secondItem="K95-LF-edS" secondAttribute="centerX" constant="7.5" type="user" id="S85-j6-jZj"/>
                             <constraint firstItem="4gT-xq-028" firstAttribute="leading" secondItem="kgT-HR-91V" secondAttribute="leadingMargin" constant="24" type="user" id="UU9-oZ-e9L"/>
                             <constraint firstItem="3mD-RK-YlA" firstAttribute="leading" secondItem="kgT-HR-91V" secondAttribute="leading" constant="40" type="user" id="Xlk-ye-9qY"/>
@@ -722,6 +717,7 @@
                             <constraint firstAttribute="bottom" secondItem="LNp-4T-ubq" secondAttribute="bottom" constant="123" id="d33-iG-2mn"/>
                             <constraint firstItem="pLY-Hy-s92" firstAttribute="leading" secondItem="kgT-HR-91V" secondAttribute="leading" constant="16" type="user" id="fUF-Yv-ygw"/>
                             <constraint firstItem="Idg-VU-QdN" firstAttribute="trailing" secondItem="4gT-xq-028" secondAttribute="trailing" type="user" id="gUv-kj-Tir"/>
+                            <constraint firstItem="LNp-4T-ubq" firstAttribute="centerX" secondItem="4gT-xq-028" secondAttribute="centerX" type="default" id="iLL-W4-rSV"/>
                             <constraint firstItem="4gT-xq-028" firstAttribute="leading" secondItem="Idg-VU-QdN" secondAttribute="leading" type="user" id="lOg-e7-CLL"/>
                             <constraint firstAttribute="centerX" secondItem="1WV-tm-CdX" secondAttribute="centerX" constant="-0.5" type="user" id="lnj-4p-wEq"/>
                             <constraint firstItem="LNp-4T-ubq" firstAttribute="top" secondItem="3mD-RK-YlA" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="mtw-8d-VPj"/>
@@ -729,13 +725,10 @@
                             <constraint firstItem="Idg-VU-QdN" firstAttribute="centerX" secondItem="1WV-tm-CdX" secondAttribute="centerX" type="user" id="oZv-Lf-4hW"/>
                             <constraint firstItem="3mD-RK-YlA" firstAttribute="top" secondItem="4gT-xq-028" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="qex-sD-vcL"/>
                             <constraint firstItem="K95-LF-edS" firstAttribute="top" secondItem="YeW-XV-jnO" secondAttribute="top" type="default" id="r4q-h7-msE"/>
-                            <constraint firstItem="ycT-QG-lSi" firstAttribute="centerX" secondItem="4gT-xq-028" secondAttribute="centerX" type="default" id="rBa-94-6un"/>
-                            <constraint firstItem="ycT-QG-lSi" firstAttribute="centerX" secondItem="LNp-4T-ubq" secondAttribute="centerX" type="default" id="sDa-MF-Lvh"/>
                             <constraint firstAttribute="trailing" secondItem="YeW-XV-jnO" secondAttribute="trailing" constant="16" id="ziA-N6-eDj"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="ycT-QG-lSi" id="3ja-hK-zbI"/>
                         <outlet property="codeLabel" destination="LNp-4T-ubq" id="ab9-WP-dIn"/>
                         <outlet property="expireLabel" destination="3mD-RK-YlA" id="1Wf-Lr-zoT"/>
                         <outlet property="goodsDescriptionLabel" destination="4gT-xq-028" id="03h-18-YKx"/>

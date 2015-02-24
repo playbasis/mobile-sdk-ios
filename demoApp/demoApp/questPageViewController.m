@@ -28,6 +28,9 @@
     _cachedQuestImages = [NSMutableDictionary dictionary];
     _allRewardsLinesForAllQuests = [NSMutableArray array];
     
+    // show hud (spining activity indicator)
+    [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
+    
     // load all quests available to player
     [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
         if(!error)
@@ -114,6 +117,9 @@
             
             // set the current page index for later use when we touch the button
             currentPageIndex = 0;
+            
+            // hide hud
+            [[Playbasis sharedPB] hideHUDFromView:self.view];
         }
     }];
 }

@@ -100,7 +100,7 @@
     BOOL isActionComplete = YES;
     for(PBPending *pending in pendings.pendings)
     {
-        if([completion.completionId isEqualToString:pending.incomplete.incompletionId])
+        if([completion.completionFilter isEqualToString:pending.incomplete.incompletionFilter])
         {
             isActionComplete = NO;
             break;
@@ -178,9 +178,9 @@
     NSString *url = completion.completionFilter;
     NSString *urlParam = [NSString stringWithFormat:@"url=%@", url];
     
-    // spining activity indicator
+    // show hud
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.activityIndicator.hidden = NO;
+        [[Playbasis sharedPB] showHUDFromView:self.view withText:[NSString stringWithFormat:@"Doing %@", action]];
     });
     
     // do an action
@@ -208,8 +208,9 @@
                     
                     // update UI
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        // stop spining activity indicator
-                        self.activityIndicator.hidden = YES;
+                        // hide hud
+                        [[Playbasis sharedPB] hideHUDFromView:self.view];
+                        
                         self.doSelectedActionButton.enabled = NO;
                         
                         // show update status
@@ -219,12 +220,18 @@
                 else
                 {
                     NSLog(@"Error occurs %@", error);
+                    
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
                 }
             }];
         }
         else
         {
             NSLog(@"Error occurs : %@", error);
+            
+            // hide hud
+            [[Playbasis sharedPB] hideHUDFromView:self.view];
         }
     }, urlParam, nil];
 }
