@@ -13,10 +13,10 @@
     UIAlertViewDelegate>
 {
     NSUInteger currentPageIndex;
+    NSMutableDictionary *_cachedQuestImages;
+    NSMutableArray *_allRewardsLinesForAllQuests;
     PBQuestListAvailableForPlayer_Response *questListAvailable_;
     PBQuestListOfPlayer_Response *questList_;
 }
-
-@property (strong, nonatomic) NSMutableArray *allRewardsLinesForAllQuests;
 
 @end

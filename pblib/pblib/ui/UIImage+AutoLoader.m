@@ -25,4 +25,15 @@
     });
 }
 
++(void)startLoadingImageWithUrl:(NSString *)imageUrl response:(void (^)(UIImage *))response
+{
+    // create a url
+    NSURL *url = [NSURL URLWithString:imageUrl];
+    // start loading
+    NSData *imageData = [NSData dataWithContentsOfURL:url];
+    
+    // return via response block
+    response([[UIImage alloc] initWithData:imageData]);
+}
+
 @end

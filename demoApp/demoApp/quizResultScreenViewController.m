@@ -61,15 +61,11 @@
         [statusUpdate appendFormat:@"\nGot %@ coin.", rCoinReward];
     }
     
-    // immediately do async loading of rank image
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // load and cache image from above url
-        NSURL *url = [NSURL URLWithString:result.grade.rankImage];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        
+    // load image, then after finish do further stuff
+    [UIImage startLoadingImageInTheBackgroundWithUrl:result.grade.rankImage response:^(UIImage *image) {
         // update ui
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.rankImageView.image = [[UIImage alloc] initWithData:imageData];
+            self.rankImageView.image = image;
             self.rankNameLabel.text = result.grade.rank;
             self.scoreOutOfLabel.text = [NSString stringWithFormat:@"Got %lu out of %lu", (unsigned long)result.totalScore, (unsigned long)result.totalMaxScore];
             
@@ -83,11 +79,11 @@
                 self.pointRewardLabel.text = [NSString stringWithFormat:@"Got %@ point", rPointReward];
                 self.pointRewardLabel.hidden = false;
             }
-            
-            // show update on status
-            [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:statusUpdate];
         });
-    });
+        
+        // show update on status
+        [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:statusUpdate];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

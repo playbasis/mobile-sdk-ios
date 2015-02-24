@@ -55,25 +55,20 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.questionTextLabel.text = question.question.question;
                 self.questionTextLabel.hidden = false;
-            });
-            
-            // async loading image
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                // load and cache image from above url
-                NSURL *url = [NSURL URLWithString:question.question.questionImage];
-                NSData *imageData = [NSData dataWithContentsOfURL:url];
                 
-                // update ui question image
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.questionImage.image = [[UIImage alloc] initWithData:imageData];
-                });
-            });
-            
-            // after all loaded, then reload it
-            dispatch_async(dispatch_get_main_queue(), ^{
                 // reload table data
                 [self.tableView reloadData];
             });
+            
+            // load image
+            [UIImage startLoadingImageInTheBackgroundWithUrl:question.question.questionImage response:^(UIImage *image) {
+                
+                // update ui question image
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.questionImage.image = image;
+                    
+                });
+            }];
         }
     }];
 }

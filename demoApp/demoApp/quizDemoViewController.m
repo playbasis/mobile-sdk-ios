@@ -39,12 +39,14 @@
                 // save response
                 quizResponse = quizRandom;
                 
-                // get quiz's image url
-                NSString *quizImageUrl = quizRandom.randomQuiz.image;
-                // load and cache image from above url
-                NSURL *url = [NSURL URLWithString:quizImageUrl];
-                NSData *imageData = [NSData dataWithContentsOfURL:url];
-                cachedQuizImage = [[UIImage alloc] initWithData:imageData];
+                // loading (blocking call)
+                [UIImage startLoadingImageWithUrl:quizRandom.randomQuiz.image response:^(UIImage *image) {
+                    cachedQuizImage = image;
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.activityIndicator.hidden = true;
+                    });
+                }];
                 
                 // transition into another UIViewController
                 [self performSegueWithIdentifier:@"showQuizScreen" sender:self];

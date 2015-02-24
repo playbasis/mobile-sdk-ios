@@ -46,22 +46,16 @@
         self.doSelectedActionButton.enabled = NO;
     });
     
-    // load mission image url in async way
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // get mission image url
-        NSString *missionImageUrl = _mission.missionBasic.image;
-        // load and cache image from above url
-        NSURL *url = [NSURL URLWithString:missionImageUrl];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        
+    // load image
+    [UIImage startLoadingImageInTheBackgroundWithUrl:_mission.missionBasic.image response:^(UIImage *image) {
         dispatch_async(dispatch_get_main_queue(), ^{
             // update image
-            self.missionImage.image = [[UIImage alloc] initWithData:imageData];
+            self.missionImage.image = image;
             
             // stop spining activity indicator
             self.activityIndicator.hidden = YES;
         });
-    });
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

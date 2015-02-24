@@ -16,4 +16,10 @@
  */
 +(void) startLoadingImageInTheBackgroundWithUrl:(NSString *)imageUrl response:(void (^)(UIImage* image))response;
 
+/**
+ Start loading image with given url, then return it via a given block.
+ This method is blocking call until loading finishes.
+ */
++(void) startLoadingImageWithUrl:(NSString *)imageUrl response:(void (^)(UIImage* image))response;
+
 @end

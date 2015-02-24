@@ -64,32 +64,23 @@
                     // get image url
                     NSString *imageUrl = ((PBRuleEventBadgeRewardData*)event.rewardData).image;
                     
-                    // load badge image from url
-                    NSURL *url = [NSURL URLWithString:imageUrl];
-                    NSData *data = [NSData dataWithContentsOfURL:url];
-                    UIImage *img = [[UIImage alloc] initWithData:data];
-                    
-                    // update ui stuff
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        // set image to UIImageView
-                        self.badgeImage.image = img;
-                        
-                        // show UIImageView
-                        self.badgeImage.hidden = false;
-                        
-                        // hide activity indicator
-                        self.activityIndicator.hidden = true;
-                        
-                        // update text to update
-                        PBRuleEventBadgeRewardData *rewardData = event.rewardData;
-                        NSString *text = [NSString stringWithFormat:@"You just got a badge '%@'", rewardData.name];
-                        
-                        // show status update
-                        [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:text];
-                        
-                        // show event popup update
-                        [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:img title:@"Badge" description:text];
-                    });
+                    [UIImage startLoadingImageInTheBackgroundWithUrl:imageUrl response:^(UIImage *image) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.badgeImage.image = image;
+                            self.badgeImage.hidden = false;
+                            self.activityIndicator.hidden = true;
+                            
+                            // update text to update
+                            PBRuleEventBadgeRewardData *rewardData = event.rewardData;
+                            NSString *text = [NSString stringWithFormat:@"You just got a badge '%@'", rewardData.name];
+                            
+                            // show status update
+                            [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:text];
+                            
+                            // show event popup update
+                            [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:image title:@"Badge" description:text];
+                        });
+                    }];
                 }
             }
             
