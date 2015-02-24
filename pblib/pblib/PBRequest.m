@@ -250,6 +250,7 @@
         case responseType_logoutUser:
         case responseType_claimBadge:
         case responseType_redeemBadge:
+        case responseType_sendEmail:
         {
             if(responseDelegate)
             {

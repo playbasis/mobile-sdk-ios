@@ -64,11 +64,11 @@
     });
     
     // all is good then we send code via email
-    [[Playbasis sharedPB] sendEmailForPlayer:USER subject:@"Redeem Complete!" message:message withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] sendEmailForPlayer:USER subject:@"Redeem Complete!" message:message withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         if(!error)
         {
             NSLog(@"Sent email complete");
-            NSLog(@"%@", jsonResponse);
+            NSLog(@"%@", result);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // hide hud
@@ -81,7 +81,7 @@
         else
         {
             NSLog(@"Sent email failed");
-            NSLog(@"%@", error);
+            NSLog(@"%@", result);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // hide the previous hud first

@@ -69,6 +69,8 @@ typedef enum
     responseType_quizRandom,
     responseType_quizDoneListByPlayer,
     responseType_redeemGoods,
+    responseType_sendEmail,
+    responseType_sendEmailCoupon,
     responseType_questionFromQuiz,
     responseType_questionAnswered,
     responseType_playersQuizRank
