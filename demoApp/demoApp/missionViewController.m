@@ -32,12 +32,22 @@
     // form rewards string
     NSMutableString *rewardsString = [NSMutableString string];
     NSArray *missionRewards = _mission.missionBasic.rewards.rewards;
-    for(PBReward *reward in missionRewards)
+    if(missionRewards != nil)
     {
-        [rewardsString appendFormat:@"%@ : %@\r", reward.rewardName, reward.rewardValue];
+        for(PBReward *reward in missionRewards)
+        {
+            [rewardsString appendFormat:@"%@ : %@\r", reward.rewardName, reward.rewardValue];
+        }
+        // cut out /r at the end
+        self.missionRewardsLabel.text = [rewardsString substringToIndex:[rewardsString length] - 1];
     }
-    // cut out /r at the end
-    self.missionRewardsLabel.text = [rewardsString substringToIndex:[rewardsString length] - 1];
+    else
+    {
+        // there's nothing to show for mission rewards thus we hide it
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.missionRewardsLabel.hidden = YES;
+        });
+    }
     
     // spining activity indicator
     dispatch_async(dispatch_get_main_queue(), ^{
