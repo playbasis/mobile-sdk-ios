@@ -142,10 +142,10 @@
                                 // get the code
                                 self.codeLabel.text = goodsInfo.goods.code;
                                 self.codeLabel.hidden = NO;
-                                
-                                // show popup event
-                                [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:self.goodsImage.image title:@"Goods recieved!" description:@""];
                             });
+                            
+                            // show popup event
+                            [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:self.goodsImage.image title:@"Goods recieved!" description:@""];
                             
                             // we just break it out now
                             break;
@@ -187,11 +187,11 @@
         NSString *paramEmailUpdate = [NSString stringWithFormat:@"email=%@", email];
         
         // udpate user's profile
-        [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:paramEmailUpdate andBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:paramEmailUpdate andBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
             if(!error)
             {
                 NSLog(@"Updated users's email.");
-                NSLog(@"%@", jsonResponse);
+                NSLog(@"%@", result);
                 
                 // send code by email
                 [self sendCodeByEmail_internal];
@@ -207,16 +207,16 @@
         NSString *paramPhonenumberUdpate = [NSString stringWithFormat:@"phone_number=%@", phoneNumber];
         
         // udpate user's profile
-        [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:paramPhonenumberUdpate andBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] updateUserForPlayerId:USER firstArg:paramPhonenumberUdpate andBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
             if(!error)
             {
                 NSLog(@"Updated user's phonenumber.");
-                NSLog(@"%@", jsonResponse);
+                NSLog(@"%@", result);
                 
                 // send code by sms
                 [self sendCodeBySMS_internal];
             }
-        }, nil];
+        },nil];
     }
 }
 
@@ -230,7 +230,7 @@
         if(!error)
         {
             // basic check
-            if(player.email == nil ||
+            if(player.email == (id)[NSNull null] ||
                [player.email isEqualToString:@""] ||
                [player.email isEqualToString:@"noreply@gmail.com"] ||
                [player.email isEqualToString:@"pb_app_auto_user@playbasis.com"])
@@ -259,7 +259,7 @@
         if(!error)
         {
             // basic check
-            if(player.phoneNumber == nil ||
+            if(player.phoneNumber == (id)[NSNull null] ||
                [player.phoneNumber isEqualToString:@""])
             {
                 // show the form for user to re-enter the phone number
