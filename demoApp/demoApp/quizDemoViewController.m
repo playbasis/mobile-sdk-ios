@@ -20,12 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSLog(@"Begin loading a quiz.");
-    
-    self.activityIndicator.hidden = false;
-    
     // begin loading quiz information
-    [self loadQuizAsync];
+    [self refreshAvailableQuiz:self];
 }
 
 -(void)loadQuizAsync
@@ -44,7 +40,10 @@
                     cachedQuizImage = image;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        // hide activity indicator
                         self.activityIndicator.hidden = true;
+                        // change label to complete
+                        self.loadingStatusLabel.text = @"Completed loading";
                     });
                 }];
                 
@@ -97,6 +96,7 @@
     NSLog(@"Begin loading a quiz.");
     
     self.activityIndicator.hidden = false;
+    self.loadingStatusLabel.text = @"Loading Question ...";
     
     // begin loading quiz information
     [self loadQuizAsync];

@@ -130,15 +130,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6h-2R-Zdc">
-                                <rect key="frame" x="105" y="270" width="111" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="U3w-Uh-Zkn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HtD-Cr-jfM">
                                 <rect key="frame" x="162" y="445" width="149" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
@@ -153,15 +144,25 @@
                                     <action selector="refreshAvailableQuiz:" destination="ajk-5j-TJz" eventType="touchUpInside" id="ejk-3o-e91"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Question ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6h-2R-Zdc">
+                                <rect key="frame" x="93" y="270" width="135" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="JTg-q4-VmL"/>
+                                    <constraint firstAttribute="height" constant="21" id="U3w-Uh-Zkn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="N6h-2R-Zdc" firstAttribute="centerX" secondItem="A7K-nq-J8T" secondAttribute="centerX" type="default" id="4Cp-PR-xHu"/>
+                            <constraint firstItem="N6h-2R-Zdc" firstAttribute="centerX" secondItem="A7K-nq-J8T" secondAttribute="centerX" type="default" id="0xI-Px-gRv"/>
                             <constraint firstItem="vxT-yg-FW8" firstAttribute="top" secondItem="tht-gO-gER" secondAttribute="top" constant="94" id="7gz-sc-TeT"/>
                             <constraint firstAttribute="trailing" secondItem="HtD-Cr-jfM" secondAttribute="trailing" constant="9" id="Cc1-rn-jOz"/>
-                            <constraint firstItem="A7K-nq-J8T" firstAttribute="centerX" secondItem="tht-gO-gER" secondAttribute="centerX" type="default" id="Hyq-4s-NVS"/>
-                            <constraint firstItem="A7K-nq-J8T" firstAttribute="top" secondItem="tht-gO-gER" secondAttribute="top" constant="242" id="c0c-B8-cgh"/>
+                            <constraint firstItem="A7K-nq-J8T" firstAttribute="centerY" secondItem="tht-gO-gER" secondAttribute="centerY" type="default" id="axl-eU-El1"/>
                             <constraint firstItem="A7K-nq-J8T" firstAttribute="centerX" secondItem="vxT-yg-FW8" secondAttribute="centerX" type="default" id="gaV-Bz-Zmz"/>
+                            <constraint firstItem="N6h-2R-Zdc" firstAttribute="centerX" secondItem="tht-gO-gER" secondAttribute="centerX" type="default" id="hO8-RP-PUo"/>
                             <constraint firstItem="N6h-2R-Zdc" firstAttribute="top" secondItem="A7K-nq-J8T" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="icR-Oy-lKd"/>
                             <constraint firstAttribute="bottomMargin" secondItem="HtD-Cr-jfM" secondAttribute="bottom" constant="16" type="user" id="wk0-r8-UXq"/>
                         </constraints>
