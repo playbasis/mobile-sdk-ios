@@ -24,6 +24,12 @@
     self.dataSource = self;
     self.delegate = self;
     
+    // show blank view ui controller before doing any loading
+    // we will set viewControllers again after we finished loading requested information
+    UIViewController *blankView = [self.storyboard instantiateViewControllerWithIdentifier:@"blankViewUIController"];
+    NSArray *viewControllers = [NSArray arrayWithObject:blankView];
+    [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
     // initialize all empty arrays
     _cachedQuestImages = [NSMutableDictionary dictionary];
     _allRewardsLinesForAllQuests = [NSMutableArray array];
@@ -31,97 +37,99 @@
     // show hud (spining activity indicator)
     [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
     
-    // load all quests available to player
-    [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
-        if(!error)
-        {
-            // save the response
-            questListAvailable_ = list;
-            
-            // async load all image from the quest-list
-            for(PBQuestBasic *q in questListAvailable_.list.questBasics)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // load all quests available to player
+        [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
+            if(!error)
             {
-                // only the first one, we will do blocking-call loading image
-                static BOOL isFirstOne = YES;
-                // cache loading image in the background
-                if(isFirstOne)
-                {
-                    // load image in blocking-call
-                    [UIImage startLoadingImageWithUrl:q.image response:^(UIImage *image) {
-                        [_cachedQuestImages setValue:image forKey:q.questId];
-                    }];
-                    
-                    // not first one anymore
-                    isFirstOne = NO;
-                }
-                else
-                {
-                    // load image in non-blocking call
-                    [UIImage startLoadingImageInTheBackgroundWithUrl:q.image response:^(UIImage *image) {
-                    [_cachedQuestImages setValue:image forKey:q.questId];
-                    }];
-                }
+                // save the response
+                questListAvailable_ = list;
                 
-                if([q.rewards.rewards count] > 0)
+                // async load all image from the quest-list
+                for(PBQuestBasic *q in questListAvailable_.list.questBasics)
                 {
-                    NSMutableString *rewardsLines = [NSMutableString string];
-                    
-                    for(PBReward *reward in q.rewards.rewards)
+                    // only the first one, we will do blocking-call loading image
+                    static BOOL isFirstOne = YES;
+                    // cache loading image in the background
+                    if(isFirstOne)
                     {
-                        NSString *rewardValue = reward.rewardValue;
+                        // load image in blocking-call
+                        [UIImage startLoadingImageWithUrl:q.image response:^(UIImage *image) {
+                            [_cachedQuestImages setValue:image forKey:q.questId];
+                        }];
                         
-                        if(reward.rewardName != nil)
-                        {
-                            // form the line
-                            NSString *line = [NSString stringWithFormat:@"%@: %@", reward.rewardName, rewardValue];
-                            
-                            // append to the result string
-                            if([rewardsLines length] == 0)
-                                rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                            else
-                                rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                        }
-                        else
-                        {
-                            // form the line (without reward name)
-                            NSString *line = [NSString stringWithFormat:@"Unknown type: %@", rewardValue];
-                            
-                            // append to the result string
-                            if([rewardsLines length] == 0)
-                                rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                            else
-                                rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                        }
+                        // not first one anymore
+                        isFirstOne = NO;
+                    }
+                    else
+                    {
+                        // load image in non-blocking call
+                        [UIImage startLoadingImageInTheBackgroundWithUrl:q.image response:^(UIImage *image) {
+                            [_cachedQuestImages setValue:image forKey:q.questId];
+                        }];
                     }
                     
-                    // add to array
-                    [_allRewardsLinesForAllQuests addObject:rewardsLines];
+                    if([q.rewards.rewards count] > 0)
+                    {
+                        NSMutableString *rewardsLines = [NSMutableString string];
+                        
+                        for(PBReward *reward in q.rewards.rewards)
+                        {
+                            NSString *rewardValue = reward.rewardValue;
+                            
+                            if(reward.rewardName != nil)
+                            {
+                                // form the line
+                                NSString *line = [NSString stringWithFormat:@"%@: %@", reward.rewardName, rewardValue];
+                                
+                                // append to the result string
+                                if([rewardsLines length] == 0)
+                                    rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
+                                else
+                                    rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
+                            }
+                            else
+                            {
+                                // form the line (without reward name)
+                                NSString *line = [NSString stringWithFormat:@"Unknown type: %@", rewardValue];
+                                
+                                // append to the result string
+                                if([rewardsLines length] == 0)
+                                    rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
+                                else
+                                    rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
+                            }
+                        }
+                        
+                        // add to array
+                        [_allRewardsLinesForAllQuests addObject:rewardsLines];
+                    }
                 }
             }
-        }
-    }];
-    
-    // load quest that player has joined to get its status
-    [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
-        if(!error)
-        {
-            // save the result
-            questList_ = questList;
-            
-            NSLog(@"Complete loading all quests information.");
-            
-            // set the initial first view controller
-            questDemoViewController *viewController = [self viewControllerAtIndex:0];
-            NSArray *viewControllers = [NSArray arrayWithObject:viewController];
-            [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-            
-            // set the current page index for later use when we touch the button
-            currentPageIndex = 0;
-            
-            // hide hud
-            [[Playbasis sharedPB] hideHUDFromView:self.view];
-        }
-    }];
+        }];
+        
+        // load quest that player has joined to get its status
+        [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                // save the result
+                questList_ = questList;
+                
+                NSLog(@"Complete loading all quests information.");
+                
+                // set the initial first view controller
+                questDemoViewController *viewController = [self viewControllerAtIndex:0];
+                NSArray *viewControllers = [NSArray arrayWithObject:viewController];
+                [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+                
+                // set the current page index for later use when we touch the button
+                currentPageIndex = 0;
+                
+                // hide hud
+                [[Playbasis sharedPB] hideHUDFromView:self.view];
+            }
+        }];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
