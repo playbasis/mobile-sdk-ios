@@ -6807,6 +6807,80 @@
 @end
 
 ///--------------------------------------
+/// PBResetPoint
+///--------------------------------------
+@implementation PBResetPoint
+
+@synthesize reset;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Reset Point : {\r\treset : %@\r\t}", self.reset ? @"YES" : @"NO"];
+    
+    return descriptionString;
+}
+
++(PBResetPoint *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBResetPoint *c = [[PBResetPoint alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // ignore parse level flag
+    c->reset = [[c.parseLevelJsonResponse objectForKey:@"reset"] boolValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBResetPoint - Response
+///--------------------------------------
+@implementation PBResetPoint_Response
+
+@synthesize response;
+
+-(NSString *)description
+{
+    return [self.response description];
+}
+
++(PBResetPoint_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBResetPoint_Response *c = [[PBResetPoint_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    
+    // parse
+    c->response = [PBResetPoint parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// ManualSetResultStatus - Response
 ///--------------------------------------
 @implementation PBManualSetResultStatus_Response

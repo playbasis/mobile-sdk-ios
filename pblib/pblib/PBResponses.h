@@ -76,7 +76,8 @@ typedef enum
     responseType_sendSMSCoupon,
     responseType_questionFromQuiz,
     responseType_questionAnswered,
-    responseType_playersQuizRank
+    responseType_playersQuizRank,
+    responseType_resetPoint
 }pbResponseType;
 
 ///--------------------------------------
@@ -1754,6 +1755,28 @@ typedef enum
 @property (strong, nonatomic, readonly) PBQuizPendings *quizPendings;
 
 +(PBQuizPendings_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBResetPoint
+///--------------------------------------
+@interface PBResetPoint : PBBase_Response
+
+@property (nonatomic, readonly) BOOL reset;
+
++(PBResetPoint *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBResetPoint - Response
+///--------------------------------------
+@interface PBResetPoint_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) PBResetPoint *response;
+
++(PBResetPoint_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

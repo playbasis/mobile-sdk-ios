@@ -474,4 +474,13 @@ typedef void (^PBSendSMS_ResponseBlock)(PBSendSMS_Response * response, NSURL *ur
 
 typedef void (^PBQuizPendings_ResponseBlock)(PBQuizPendings_Response * response, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// ResetPoint
+///--------------------------------------
+@protocol PBResetPoint_ResponseHandler <NSObject>
+-(void)processResponseWithResetPoint:(PBResetPoint_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBResetPoint_ResponseBlock)(PBResetPoint_Response * response, NSURL *url, NSError *error);
+
 #endif

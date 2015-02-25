@@ -618,19 +618,19 @@
 /**
  Reset point for all players.
  */
--(PBRequest *)resetPointForAllPlayersWithDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)resetPointForAllPlayersWithBlock:(PBResponseBlock)block;
--(PBRequest *)resetPointForAllPlayersWithDelegateAsync:(id<PBResponseHandler>)delegate;
--(PBRequest *)resetPointForAllPlayersWithBlockAsync:(PBResponseBlock)block;
+-(PBRequest *)resetPointForAllPlayersWithDelegate:(id<PBResetPoint_ResponseHandler>)delegate;
+-(PBRequest *)resetPointForAllPlayersWithBlock:(PBResetPoint_ResponseBlock)block;
+-(PBRequest *)resetPointForAllPlayersWithDelegateAsync:(id<PBResetPoint_ResponseHandler>)delegate;
+-(PBRequest *)resetPointForAllPlayersWithBlockAsync:(PBResetPoint_ResponseBlock)block;
 -(PBRequest *)resetPointForAllPlayersWithBlockAsync_:(PBAsyncURLRequestResponseBlock)block;
 /**
  Reset point for all players.
  With optional parameter 'point_name'
  */
--(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withBlock:(PBResponseBlock)block;
--(PBRequest *)resetPointForAllPlayersForPointAsync:(NSString *)pointName withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequest *)resetPointForAllPlayersForPointAsync:(NSString *)pointName withBlock:(PBResponseBlock)block;
+-(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withDelegate:(id<PBResetPoint_ResponseHandler>)delegate;
+-(PBRequest *)resetPointForAllPlayersForPoint:(NSString *)pointName withBlock:(PBResetPoint_ResponseBlock)block;
+-(PBRequest *)resetPointForAllPlayersForPointAsync:(NSString *)pointName withDelegate:(id<PBResetPoint_ResponseHandler>)delegate;
+-(PBRequest *)resetPointForAllPlayersForPointAsync:(NSString *)pointName withBlock:(PBResetPoint_ResponseBlock)block;
 -(PBRequest *)resetPointForAllPlayersForPointAsync_:(NSString *)pointName withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
