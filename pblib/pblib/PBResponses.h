@@ -1708,11 +1708,41 @@ typedef enum
 @end
 
 ///--------------------------------------
+/// PBQuizPendingGradeReward
+///--------------------------------------
+@interface PBQuizPendingGradeReward : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSString *eventType;
+@property (strong, nonatomic, readonly) NSString *rewardType;
+@property (strong, nonatomic, readonly) NSString *rewardId;
+@property (strong, nonatomic, readonly) NSString *value;
+
+// arbitrary data, it can be anything thus we use id as a data type here
+// certain reward type doesn't have any reward-data, but some has
+@property (strong, nonatomic, readonly) id rewardData;
+
++(PBQuizPendingGradeReward *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBQuizPendingGradeRewards
+///--------------------------------------
+@interface PBQuizPendingGradeRewards : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSArray *list;
+
++(PBQuizPendingGradeRewards *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
 /// PBQuizPendingGrade
 ///--------------------------------------
 @interface PBQuizPendingGrade : PBBase_Response
 
 @property (nonatomic, readonly) NSUInteger score;
+@property (strong, nonatomic, readonly) PBQuizPendingGradeRewards *rewards;
 @property (strong, nonatomic, readonly) NSString *maxScore;
 @property (nonatomic, readonly) NSUInteger totalScore;
 @property (nonatomic, readonly) NSUInteger totalMaxScore;

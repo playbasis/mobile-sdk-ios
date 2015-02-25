@@ -104,6 +104,16 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             
             // TODO: Add temporary testcase here ...
             // every testcase added here should be removed immediately after finish testing
+            [[Playbasis sharedPB] quizPendingOfPlayer:USER limit:3 withBlock:^(PBQuizPendings_Response *response, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"%@", response);
+                }
+                else
+                {
+                    NSLog(@"%@", error);
+                }
+            }];
             
             NSLog(@"Passed through this line");
             

@@ -6481,18 +6481,136 @@
 @end
 
 ///--------------------------------------
+/// PBQuizPendingGradeReward
+///--------------------------------------
+@implementation PBQuizPendingGradeReward
+
+@synthesize eventType;
+@synthesize rewardType;
+@synthesize rewardId;
+@synthesize value;
+@synthesize rewardData;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Pending Grade Reward : {\r\tevent_type : %@\r\treward_type : %@\r\treward_id : %@\r\tvalue : %@\r\treward_data : %@\r\t}", self.eventType, self.rewardType, self.rewardId, self.value, self.rewardData];
+    
+    return descriptionString;
+}
+
++(PBQuizPendingGradeReward *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizPendingGradeReward *c = [[PBQuizPendingGradeReward alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
+    c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
+    c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    c->value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    
+    // check to parse reward_data if reward_type matches ones that have
+    if([c->rewardType isEqualToString:@"badge"])
+    {
+        // get reward_data json
+        NSDictionary *bRewardDataJson = [c.parseLevelJsonResponse objectForKey:@"reward_data"];
+        
+        // populate badge's reward data
+        PBRuleEventBadgeRewardData *bRewardData = [PBRuleEventBadgeRewardData parseFromDictionary:bRewardDataJson startFromFinalLevel:YES];
+        
+        // set back to result object
+        c->rewardData = bRewardData;
+    }
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBQuizPendingGradeRewards
+///--------------------------------------
+@implementation PBQuizPendingGradeRewards
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all player-quiz-rank line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Quiz Pending Grade Rewards : {"];
+    
+    for(PBQuizPendingGradeReward *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuizPendingGradeRewards *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizPendingGradeRewards *c = [[PBQuizPendingGradeRewards alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert json into array
+    NSArray *quizPendingGradeRewardsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *quizPendingGradeRewardJson in quizPendingGradeRewardsJson)
+        
+    {
+        // populate item
+        PBQuizPendingGradeReward *item = [PBQuizPendingGradeReward parseFromDictionary:quizPendingGradeRewardJson startFromFinalLevel:YES];
+                                          
+        // add to temp array
+        [tempArray addObject:item];
+    }
+    
+    // set back to result object
+    c->list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// PBQuizPendingGrade
 ///--------------------------------------
 @implementation PBQuizPendingGrade
 
 @synthesize score;
+@synthesize rewards;
 @synthesize maxScore;
 @synthesize totalScore;
 @synthesize totalMaxScore;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quiz's Pending Grade : {\r\tscore : %lu\r\tmax_score  :%@\r\ttotal_score : %lu\r\ttotal_max_score : %lu\r\t}", (unsigned long)self.score, self.maxScore, (unsigned long)self.totalScore, (unsigned long)self.totalMaxScore];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz's Pending Grade : {\r\tscore : %lu\r\trewards : %@\r\tmax_score  :%@\r\ttotal_score : %lu\r\ttotal_max_score : %lu\r\t}", (unsigned long)self.score, self.rewards, self.maxScore, (unsigned long)self.totalScore, (unsigned long)self.totalMaxScore];
     
     return descriptionString;
 }
@@ -6514,6 +6632,7 @@
         c->score = [score unsignedIntegerValue];
     }
     
+    c->rewards = [PBQuizPendingGradeRewards parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     c->maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
     
     id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
