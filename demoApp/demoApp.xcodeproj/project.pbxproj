@@ -15,6 +15,7 @@
 		1E304A531A915FBC006F0C7F /* notcomplete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E304A511A915FBC006F0C7F /* notcomplete.png */; };
 		1E304A571A918D8D006F0C7F /* rewardStorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */; };
 		1E304A5A1A918E07006F0C7F /* rewardItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A591A918E07006F0C7F /* rewardItemViewController.m */; };
+		1E3EF72B1A9D9ABA005C6EBC /* rewardStoreLoadingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3EF72A1A9D9ABA005C6EBC /* rewardStoreLoadingPageViewController.m */; };
 		1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */; };
 		1E9AF55D1A7746C200A6E416 /* mainmenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55C1A7746C200A6E416 /* mainmenuViewController.m */; };
 		1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55F1A774C1800A6E416 /* authAndLoginViewController.m */; };
@@ -84,6 +85,8 @@
 		1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardStorePageViewController.m; sourceTree = "<group>"; };
 		1E304A581A918E07006F0C7F /* rewardItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rewardItemViewController.h; sourceTree = "<group>"; };
 		1E304A591A918E07006F0C7F /* rewardItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardItemViewController.m; sourceTree = "<group>"; };
+		1E3EF7291A9D9AB9005C6EBC /* rewardStoreLoadingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rewardStoreLoadingPageViewController.h; sourceTree = "<group>"; };
+		1E3EF72A1A9D9ABA005C6EBC /* rewardStoreLoadingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardStoreLoadingPageViewController.m; sourceTree = "<group>"; };
 		1E83D4B71A7A1A8A00D2670C /* questDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questDemoViewController.h; sourceTree = "<group>"; };
 		1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questDemoViewController.m; sourceTree = "<group>"; };
 		1E9AF55B1A7746C200A6E416 /* mainmenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainmenuViewController.h; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */,
 				1E304A581A918E07006F0C7F /* rewardItemViewController.h */,
 				1E304A591A918E07006F0C7F /* rewardItemViewController.m */,
+				1E3EF7291A9D9AB9005C6EBC /* rewardStoreLoadingPageViewController.h */,
+				1E3EF72A1A9D9ABA005C6EBC /* rewardStoreLoadingPageViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				1E9AF5721A783EC900A6E416 /* quizScreenViewController.m in Sources */,
 				1E9AF5651A77681700A6E416 /* badgeDemoViewController.m in Sources */,
 				1E9AF56D1A77B66F00A6E416 /* quizDemoViewController.m in Sources */,
+				1E3EF72B1A9D9ABA005C6EBC /* rewardStoreLoadingPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

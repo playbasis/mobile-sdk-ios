@@ -62,68 +62,9 @@
     }
 }
 
--(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if([identifier isEqualToString:@"showRewardStorePageViewController"])
-    {
-        // spinning activity indicator
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.activityIndicator.hidden = NO;
-        });
-        
-        __block BOOL shouldPerformSegue = YES;
-        
-        // if we start fresh, then we load things
-        if(goodsListInfo_ == nil)
-        {
-            [[Playbasis sharedPB] goodsListWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
-                if(!error)
-                {
-                    NSLog(@"%@", goodsListInfo);
-                    
-                    // there's no available goods to list
-                    if([goodsListInfo.goodsList count] <= 0)
-                    {
-                        NSLog(@"Not okay to perform segue, show popup instead.");
-                        
-                        // alert that's there no available quests
-                        UIAlertView *popup = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There's no available reward!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                        [popup show];
-                        
-                        shouldPerformSegue = NO;
-                    }
-                    else
-                    {
-                        NSLog(@"Okay to perform segue");
-                        
-                        // cache the result
-                        goodsListInfo_ = goodsListInfo;
-                        
-                        shouldPerformSegue = YES;
-                    }
-                }
-            }];
-        }
-        else if([goodsListInfo_.goodsList count] <= 0)
-        {
-            NSLog(@"Not okay to perform segue, show popup instead.");
-            
-            // alert that's there no available quests
-            UIAlertView *popup = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There's no available reward!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [popup show];
-            
-            shouldPerformSegue = NO;
-        }
-        
-        return shouldPerformSegue;
-    }
-    else
-        return YES;
-}
-
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
@@ -140,7 +81,7 @@
             self.activityIndicator.hidden = YES;
         });
     }
-}
+}*/
 
 -(void)viewWillAppear:(BOOL)animated
 {
