@@ -68,6 +68,7 @@ typedef enum
     responseType_quizDetail,
     responseType_quizRandom,
     responseType_quizDoneListByPlayer,
+    responseType_quizPendingsByPlayer,
     responseType_redeemGoods,
     responseType_sendEmail,
     responseType_sendEmailCoupon,
@@ -1702,6 +1703,57 @@ typedef enum
 @property (strong, nonatomic, readonly) PBSendSMS *response;
 
 +(PBSendSMS_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBQuizPendingGrade
+///--------------------------------------
+@interface PBQuizPendingGrade : PBBase_Response
+
+@property (nonatomic, readonly) NSUInteger score;
+@property (strong, nonatomic, readonly) NSString *maxScore;
+@property (nonatomic, readonly) NSUInteger totalScore;
+@property (nonatomic, readonly) NSUInteger totalMaxScore;
+
++(PBQuizPendingGrade *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBQuizPending
+///--------------------------------------
+@interface PBQuizPending : PBBase_Response
+
+@property (nonatomic, readonly) NSUInteger value;
+@property (strong, nonatomic, readonly) PBQuizPendingGrade *grade;
+@property (nonatomic, readonly) NSUInteger totalCompletedQuestions;
+@property (nonatomic, readonly) NSUInteger totalPendingQuestions;
+@property (strong, nonatomic, readonly) NSString *quizId;
+
++(PBQuizPending *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBQuizPendings
+///--------------------------------------
+@interface PBQuizPendings : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSArray *list;
+
++(PBQuizPendings *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBQuizPendings - Response
+///--------------------------------------
+@interface PBQuizPendings_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) PBQuizPendings *quizPendings;
+
++(PBQuizPendings_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

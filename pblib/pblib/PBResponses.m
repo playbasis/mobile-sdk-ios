@@ -6481,6 +6481,224 @@
 @end
 
 ///--------------------------------------
+/// PBQuizPendingGrade
+///--------------------------------------
+@implementation PBQuizPendingGrade
+
+@synthesize score;
+@synthesize maxScore;
+@synthesize totalScore;
+@synthesize totalMaxScore;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz's Pending Grade : {\r\tscore : %lu\r\tmax_score  :%@\r\ttotal_score : %lu\r\ttotal_max_score : %lu\r\t}", (unsigned long)self.score, self.maxScore, (unsigned long)self.totalScore, (unsigned long)self.totalMaxScore];
+    
+    return descriptionString;
+}
+
++(PBQuizPendingGrade *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizPendingGrade *c = [[PBQuizPendingGrade alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    id score = [c.parseLevelJsonResponse objectForKey:@"score"];
+    if([score respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->score = [score unsignedIntegerValue];
+    }
+    
+    c->maxScore = [c.parseLevelJsonResponse objectForKey:@"max_score"];
+    
+    id totalScore = [c.parseLevelJsonResponse objectForKey:@"total_score"];
+    if([totalScore respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->totalScore = [totalScore unsignedIntegerValue];
+    }
+    
+    id totalScoreMaxScore = [c.parseLevelJsonResponse objectForKey:@"total_max_score"];
+    if([totalScoreMaxScore respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->totalMaxScore = [totalScoreMaxScore unsignedIntegerValue];
+    }
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBQuizPending
+///--------------------------------------
+@implementation PBQuizPending
+
+@synthesize value;
+@synthesize grade;
+@synthesize totalCompletedQuestions;
+@synthesize totalPendingQuestions;
+@synthesize quizId;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Pending : {\r\tvalue : %lu\r\tgrade : %@\r\ttotal_completed_questions : %lu\r\ttotal_pending_questions : %lu\r\tquiz_id : %@\r\t}", (unsigned long)self.value, self.grade, (unsigned long)self.totalCompletedQuestions, (unsigned long)self.totalPendingQuestions, self.quizId];
+    
+    return descriptionString;
+}
+
++(PBQuizPending *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizPending *c = [[PBQuizPending alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    id value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    if([value respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->value = [value unsignedIntegerValue];
+    }
+    
+    c->grade = [PBQuizPendingGrade parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
+    
+    id totalCompletedQuestions = [c.parseLevelJsonResponse objectForKey:@"total_completed_questions"];
+    if([totalCompletedQuestions respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->totalCompletedQuestions = [totalCompletedQuestions unsignedIntegerValue];
+    }
+    
+    id totalPendingQuestions = [c.parseLevelJsonResponse objectForKey:@"total_pending_questions"];
+    if([totalPendingQuestions respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->totalPendingQuestions = [totalPendingQuestions unsignedIntegerValue];
+    }
+    
+    c->quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBQuizPendings
+///--------------------------------------
+@implementation PBQuizPendings
+
+@synthesize list;
+
+-(NSString *)description
+{
+    // create string to hold all player-quiz-rank line-by-line
+    NSMutableString *lines = [NSMutableString stringWithString:@"Quiz Pendings : {"];
+    
+    for(PBQuizPending *item in self.list)
+    {
+        // get description line from each player-badge
+        NSString *itemLine = [item description];
+        // append \r
+        NSString *itemLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", itemLine];
+        
+        // append to result 'lines'
+        [lines appendString:itemLineWithCR];
+    }
+    
+    // end with brace
+    [lines appendString:@"}"];
+    
+    return [NSString stringWithString:lines];
+}
+
++(PBQuizPendings *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result object
+    PBQuizPendings *c = [[PBQuizPendings alloc] init];
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // convert input json into array
+    NSArray *quizPendingsJson = (NSArray*)c.parseLevelJsonResponse;
+    
+    // temp array to hold all items
+    NSMutableArray *tempArray = [NSMutableArray array];
+    
+    for(NSDictionary *quizPendingJson in quizPendingsJson)
+    {
+        // popuplate item
+        PBQuizPending *item = [PBQuizPending parseFromDictionary:quizPendingJson startFromFinalLevel:YES];
+        
+        // add into temp array
+        [tempArray addObject:item];
+    }
+    
+    // set back to result object
+    c->list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// PBQuizPendings - Response
+///--------------------------------------
+@implementation PBQuizPendings_Response
+
+@synthesize quizPendings;
+
+-(NSString *)description
+{
+    return [self.quizPendings description];
+}
+
++(PBQuizPendings_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(jsonResponse == nil || (id)jsonResponse == (id)[NSNull null])
+        return nil;
+    
+    // create a result response
+    PBQuizPendings_Response *c = [[PBQuizPendings_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'result'
+        NSDictionary *result = [response objectForKey:@"result"];
+        NSAssert(result != nil, @"result must not be nil");
+        
+        c.parseLevelJsonResponse = result;
+    }
+    
+    // parse
+    c->quizPendings = [PBQuizPendings parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// PlayerQuizRankArray
 ///--------------------------------------
 @implementation PBPlayerQuizRankArray

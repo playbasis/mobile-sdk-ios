@@ -465,4 +465,13 @@ typedef void (^PBPlayersQuizRank_ResponseBlock)(PBPlayersQuizRank_Response * pla
 
 typedef void (^PBSendSMS_ResponseBlock)(PBSendSMS_Response * response, NSURL *url, NSError *error);
 
+///--------------------------------------
+/// QuizPendings
+///--------------------------------------
+@protocol PBQuizPendings_ResponseHandler <NSObject>
+-(void)processResponseWithQuizPendings:(PBQuizPendings_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBQuizPendings_ResponseBlock)(PBQuizPendings_Response * response, NSURL *url, NSError *error);
+
 #endif

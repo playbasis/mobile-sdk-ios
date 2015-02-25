@@ -21,11 +21,6 @@
 - (IBAction)refreshAvailableQuiz:(id)sender;
 
 /**
- Testcases included here in this method.
- */
--(void)testcases;
-
-/**
  Load a quiz.
  */
 -(void)loadQuizAsync;
