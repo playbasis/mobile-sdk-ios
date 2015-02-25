@@ -23,21 +23,6 @@
     self.dataSource = self;
     self.delegate = self;
     
-    _cachedImages = [NSMutableArray array];
-    
-    // cache images async
-    // start via blocking-call for the first one
-    // note: we want to fully show the first page as fast as possible
-    [self cacheImageSequectiallyAtIndex:0];
-    
-    // start from the second one
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (int i=1; i<[_goodsList.goodsList count]; i++)
-        {
-            [self cacheImageSequectiallyAtIndex:i];
-        }
-    });
-    
     // create view controller
     rewardItemViewController *viewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = [NSArray arrayWithObject:viewController];
@@ -103,8 +88,7 @@
     rewardItemViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rewardItemViewController"];
     contentViewController.pageIndex = index;
     contentViewController.goods = goods;
-    if([_cachedImages count] >= index + 1 && [_cachedImages count] > 0)
-        contentViewController.image = [_cachedImages objectAtIndex:index];
+    contentViewController.image = [_goodsListCachedImages objectAtIndex:index];
     
     return contentViewController;
 }
@@ -117,27 +101,6 @@
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     return 0;
-}
-
--(void)cacheImageSequectiallyAtIndex:(NSUInteger)index
-{
-    // get goods-info
-    PBGoods *goods = [_goodsList.goodsList objectAtIndex:index];
-    
-    // get question's image url
-    NSString *imageUrl = goods.image;
-    
-    // async loading image
-    // load and cache image from above url
-    NSURL *url = [NSURL URLWithString:imageUrl];
-    NSData *imageData = [NSData dataWithContentsOfURL:url];
-    
-    // cache image to be set later when we need to load that particular view controller
-    // add one by one, it's sequential, then it's safe
-    // this is to show the first image as fast as possible
-    [_cachedImages addObject:[UIImage imageWithData:imageData]];
-    
-    NSLog(@"Complete loading image for %lu", (unsigned long)index);
 }
 
 /*

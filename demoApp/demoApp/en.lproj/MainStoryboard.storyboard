@@ -797,7 +797,7 @@
                     <connections>
                         <outlet property="errorLabel" destination="gum-lW-iMp" id="LWw-G3-c2i"/>
                         <outlet property="goodsInfoListNotAvailableLabel" destination="evK-pq-fvp" id="dNr-v6-lG2"/>
-                        <segue destination="Wos-nM-bb1" kind="push" identifier="showRewardStorePageViewController" id="N0a-6X-tNc"/>
+                        <segue destination="Wos-nM-bb1" kind="push" identifier="showRewardStorePageViewController" id="42q-As-fVt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YB9-kM-Rfu" userLabel="First Responder" sceneMemberID="firstResponder"/>

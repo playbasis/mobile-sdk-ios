@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Playbasis.h"
 
-@interface rewardStoreLoadingPageViewController : UIViewController <UIAlertViewDelegate>
+@interface rewardStoreLoadingPageViewController : UIViewController
 {
     PBGoodsListInfo_Response *_goodsListInfo;
+    NSMutableArray *_goodsListInfoCachedImages;
 }
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *goodsInfoListNotAvailableLabel;
