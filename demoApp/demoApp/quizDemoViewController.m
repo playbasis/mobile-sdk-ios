@@ -94,9 +94,7 @@
 }
 
 - (IBAction)goBack:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"dismissed and went back to mainmenu screen");
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)refreshAvailableQuiz:(id)sender {

@@ -24,6 +24,7 @@
     // initially didn't show anything for these two rewards
     self.expRewardLabel.hidden = true;
     self.pointRewardLabel.hidden = true;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     PBQuestionAnswered *result = questionAnswered_response.result;
     
@@ -103,35 +104,8 @@
 
 - (IBAction)goBackToMainMenu:(id)sender {
     
-    // for this section, check your ui design and follow any necessary steps to go back to
-    // specific ui view controller
-    
-    /// get parent modal view
-    UIViewController *questionScreen = self.presentingViewController;
-    // get quiz screen
-    UIViewController *quizScreen = questionScreen.presentingViewController;
-    // get quiz demo main screen
-    UIViewController *quizMainScreen = quizScreen.presentingViewController;
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"dismissed quiz result screen - modal");
-        
-        // dismiss a parent (it's a modal view)
-        [questionScreen dismissViewControllerAnimated:YES completion:^{
-            NSLog(@"dismissed question screen - modal");
-            
-            // popup quiz screen
-            [quizScreen dismissViewControllerAnimated:YES completion:^{
-                NSLog(@"dismissed quiz screen - pushed");
-                
-                // dismiss quiz-main screen and finally got back to mainmenu screen
-                [quizMainScreen dismissViewControllerAnimated:YES completion:^{
-                    NSLog(@"dismissed quiz-main screen - pushed");
-                    NSLog(@"all done");
-                }];
-            }];
-            
-        }];
-    }];
+    // go back to root navigation controller (mainmenu)
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 @end

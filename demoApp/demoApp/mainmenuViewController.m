@@ -21,13 +21,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.activityIndicator.hidden = YES;
+    
     // listen to network status changed
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNetworkStatusChanged:) name:pbNetworkStatusChangedNotification object:nil];
-    
-    // initially hide activity indicator
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.activityIndicator.hidden = YES;
-    });
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -145,5 +142,11 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    // make sure navigation bar is always showing
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillAppear:animated];
+}
 
 @end

@@ -9,6 +9,6 @@
 #ifndef demoApp_demoAppSettings_h
 #define demoApp_demoAppSettings_h
 
-static NSString* USER = @"1";     // <---- this is player_id
+static NSString* USER = @"107594695381606716436google";     // <---- this is player_id
 
 #endif
