@@ -153,37 +153,16 @@
                                     <action selector="refreshAvailableQuiz:" destination="ajk-5j-TJz" eventType="touchUpInside" id="ejk-3o-e91"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wH1-tU-0kq">
-                                <rect key="frame" x="82" y="445" width="72" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="72" id="aCa-64-ZKY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goBack:" destination="ajk-5j-TJz" eventType="touchUpInside" id="dAO-kE-KpH"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wH1-tU-0kq" firstAttribute="top" secondItem="HtD-Cr-jfM" secondAttribute="top" type="user" id="3BN-GU-rFo"/>
                             <constraint firstItem="N6h-2R-Zdc" firstAttribute="centerX" secondItem="A7K-nq-J8T" secondAttribute="centerX" type="default" id="4Cp-PR-xHu"/>
-                            <constraint firstItem="wH1-tU-0kq" firstAttribute="baseline" secondItem="HtD-Cr-jfM" secondAttribute="baseline" type="default" id="6mu-pu-hQP"/>
                             <constraint firstItem="vxT-yg-FW8" firstAttribute="top" secondItem="tht-gO-gER" secondAttribute="top" constant="94" id="7gz-sc-TeT"/>
+                            <constraint firstAttribute="trailing" secondItem="HtD-Cr-jfM" secondAttribute="trailing" constant="9" id="Cc1-rn-jOz"/>
                             <constraint firstItem="A7K-nq-J8T" firstAttribute="centerX" secondItem="tht-gO-gER" secondAttribute="centerX" type="default" id="Hyq-4s-NVS"/>
                             <constraint firstItem="A7K-nq-J8T" firstAttribute="top" secondItem="tht-gO-gER" secondAttribute="top" constant="242" id="c0c-B8-cgh"/>
-                            <constraint firstAttribute="bottom" secondItem="wH1-tU-0kq" secondAttribute="bottom" constant="16" type="user" id="dTP-Wa-aLb"/>
-                            <constraint firstItem="wH1-tU-0kq" firstAttribute="leading" secondItem="tht-gO-gER" secondAttribute="leading" constant="82" id="edq-ff-PJ2"/>
                             <constraint firstItem="A7K-nq-J8T" firstAttribute="centerX" secondItem="vxT-yg-FW8" secondAttribute="centerX" type="default" id="gaV-Bz-Zmz"/>
                             <constraint firstItem="N6h-2R-Zdc" firstAttribute="top" secondItem="A7K-nq-J8T" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="icR-Oy-lKd"/>
-                            <constraint firstItem="HtD-Cr-jfM" firstAttribute="leading" secondItem="wH1-tU-0kq" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="tPz-2p-I2v"/>
                             <constraint firstAttribute="bottomMargin" secondItem="HtD-Cr-jfM" secondAttribute="bottom" constant="16" type="user" id="wk0-r8-UXq"/>
                         </constraints>
                     </view>

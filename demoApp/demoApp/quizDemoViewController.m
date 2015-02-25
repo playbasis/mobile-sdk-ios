@@ -93,10 +93,6 @@
     }
 }
 
-- (IBAction)goBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)refreshAvailableQuiz:(id)sender {
     NSLog(@"Begin loading a quiz.");
     
