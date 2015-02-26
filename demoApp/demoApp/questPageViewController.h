@@ -19,4 +19,8 @@
     PBQuestListOfPlayer_Response *questList_;
 }
 
+@property (strong, nonatomic) PBQuestListAvailableForPlayer_Response *questListAvailable;
+@property (strong, nonatomic) PBQuestListOfPlayer_Response *questList;
+@property (strong, nonatomic) NSMutableDictionary *cachedQuestImages;
+
 @end

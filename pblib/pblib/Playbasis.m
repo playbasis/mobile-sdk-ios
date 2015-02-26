@@ -23,7 +23,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 {
     NSString *apiKeyParam;
     NSString *_apiKey;
-    BOOL isNetworkReachable;
+    BOOL _isNetworkReachable;
     Reachability *reachability;
 }
 
@@ -502,6 +502,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 static NSString *sDeviceTokenRetrievalKey = nil;
 
 @synthesize token;
+@synthesize isNetworkReachable = _isNetworkReachable;
 
 +(void)registerDeviceForPushNotification
 {
@@ -586,7 +587,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if(!(self = [super init]))
         return nil;
     
-    isNetworkReachable = FALSE;
+    _isNetworkReachable = FALSE;
     token = nil;
     apiKeyParam = nil;
     authDelegate = nil;
@@ -3725,7 +3726,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     
     // if network is reachable then dispatch it immediately
-    if(isNetworkReachable)
+    if(_isNetworkReachable)
     {
         // start the request
         [pbRequest start];
@@ -3818,7 +3819,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     
     // if network is reachable then dispatch it immediately
-    if(isNetworkReachable)
+    if(_isNetworkReachable)
     {
         // start the request
         [pbRequest start];
@@ -3860,7 +3861,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // only dispatch a first found request if network can be reached, and
     // operational queue is not empty
-    if(isNetworkReachable && ![requestOptQueue empty])
+    if(_isNetworkReachable && ![requestOptQueue empty])
     {
         [[self getRequestOperationalQueue] dequeueAndStart];
         NSLog(@"Dispatched first founed request in queue");
@@ -3873,15 +3874,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     switch(networkStatus)
     {
         case NotReachable:
-            isNetworkReachable = FALSE;
+            _isNetworkReachable = FALSE;
             NSLog(@"Network is not reachable");
             break;
         case ReachableViaWiFi:
-            isNetworkReachable = TRUE;
+            _isNetworkReachable = TRUE;
             NSLog(@"Network is reachable via WiFi");
             break;
         case ReachableViaWWAN:
-            isNetworkReachable = TRUE;
+            _isNetworkReachable = TRUE;
             NSLog(@"Network is reachable via WWAN");
             break;
     }

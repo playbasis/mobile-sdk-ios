@@ -15,4 +15,6 @@
     NSMutableArray *_goodsListInfoCachedImages;
 }
 
+@property (strong, nonatomic) PBGoodsListInfo_Response *goodsListInfo;
+@property (strong, nonatomic) NSMutableArray *goodsListInfoCachedImages;
 @end

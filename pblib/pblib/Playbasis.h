@@ -33,6 +33,7 @@
 }
 
 @property (nonatomic, readonly) NSString* token;
+@property (nonatomic, readonly) BOOL isNetworkReachable;
 
 /**
  Utility method to register device for push notification.

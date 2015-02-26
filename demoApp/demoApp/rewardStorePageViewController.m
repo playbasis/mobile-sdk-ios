@@ -18,6 +18,9 @@
 
 @implementation rewardStorePageViewController
 
+@synthesize goodsListInfo = _goodsListInfo;
+@synthesize goodsListInfoCachedImages = _goodsListInfoCachedImages;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -38,7 +41,7 @@
     [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
     
     // we we start fresh, then begin loading process
-    if(_goodsListInfo == nil && [_goodsListInfoCachedImages count] == [_goodsListInfo.goodsList count])
+    if(_goodsListInfo == nil || _goodsListInfoCachedImages == nil || [_goodsListInfoCachedImages count] <= 0)
     {
         // load goods-list in non-blocking way
         [[Playbasis sharedPB] goodsListAsyncWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {

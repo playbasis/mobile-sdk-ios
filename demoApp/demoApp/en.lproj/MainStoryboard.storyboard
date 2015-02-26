@@ -1066,7 +1066,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bnY-65-Q5u" kind="push" id="27k-1H-XRw"/>
+                                    <segue destination="bnY-65-Q5u" kind="push" identifier="showQuestPageViewController" id="27k-1H-XRw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kU-zT-PXS">

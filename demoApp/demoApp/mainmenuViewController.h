@@ -17,4 +17,14 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
+// caching
+// - quest
+@property (strong, nonatomic) PBQuestListAvailableForPlayer_Response* cachedQuestListAvailable_response;
+@property (strong, nonatomic) NSMutableDictionary *cachedQuestImages;
+@property (strong, nonatomic) PBQuestListOfPlayer_Response* cachedQuestListOfPlayer_response;
+
+// - reward store
+@property (strong, nonatomic) PBGoodsListInfo_Response* cachedGoodsListInfo;
+@property (strong, nonatomic) NSMutableArray *cachedGoodsListInfoImages;
+
 @end
