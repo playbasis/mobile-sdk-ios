@@ -28,7 +28,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNetworkStatusChanged:) name:pbNetworkStatusChangedNotification object:nil];
     
     // do caching for quest
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // load all quests available to player
         [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
             if(!error)
@@ -76,7 +76,7 @@
     });
     
     // do caching for reward store
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // load goods-list in non-blocking way
         [[Playbasis sharedPB] goodsListWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
             if(!error)

@@ -27,6 +27,9 @@
     self.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.questionTextLabel.hidden = true;
     
+    // show hud
+    [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
+    
     [self loadNextQuestionAsyncFrom:self.quizId];
 }
 
@@ -67,6 +70,8 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.questionImage.image = image;
                     
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
                 });
             }];
         }
@@ -108,6 +113,11 @@
                 // otherwise reload this screen again for a next question
                 else
                 {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // show hud
+                        [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
+                    });
+                    
                     // load next question
                     [self loadNextQuestionAsyncFrom:self.quizId];
                 }
