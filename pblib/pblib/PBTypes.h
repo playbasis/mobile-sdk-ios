@@ -10,11 +10,19 @@
 #define pblib_PBTypes_h
 
 #import "PBResponses.h"
+#import "Reachability.h"
 
 ///----------------
-/// Notification string
+/// Global Notification string
 ///----------------
-extern NSString *pbNetworkStatusChangedNotification;
+/// TODO: Insert something here ...
+
+///----------------
+/// Notification protocol
+///----------------
+@protocol PBNetworkStatusChangedDelegate <NSObject>
+- (void)networkStatusChanged:(NetworkStatus)status;
+@end
 
 ///---------------------------------------------
 /// @name Delegates and Block Response Handlers

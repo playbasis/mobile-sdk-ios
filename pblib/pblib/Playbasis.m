@@ -3887,12 +3887,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             break;
     }
     
-    // create a passing data with dictionary
-    NSNumber *data = [NSNumber numberWithInt:networkStatus];
-    NSDictionary *passingData = [NSDictionary dictionaryWithObject:data forKey:@"data"];
-    
-    // notify listeners about this events
-    [[NSNotificationCenter defaultCenter] postNotificationName:pbNetworkStatusChangedNotification object:nil userInfo:passingData];
+    // raising the event
+    [self.networkStatusChangedDelegate networkStatusChanged:networkStatus];
 }
 
 -(void)onApplicationDidFinishLaunching:(NSNotification *)notif

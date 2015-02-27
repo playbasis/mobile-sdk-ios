@@ -17,7 +17,6 @@
 		1E887DA41A9B03540077B673 /* protectedResources in Resources */ = {isa = PBXBuildFile; fileRef = 1ED6CC2A1A9AE587000D8FB0 /* protectedResources */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
-		1EB83E211A8E271600442B51 /* PBTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB83E201A8E271600442B51 /* PBTypes.m */; };
 		1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */; };
 		1EC5B8FC1A8F3A410007C8A8 /* Playbasis.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; };
 		1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */; };
@@ -65,7 +64,6 @@
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		1EB83E201A8E271600442B51 /* PBTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTypes.m; sourceTree = "<group>"; };
 		1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PBStoryboard.storyboard; sourceTree = "<group>"; };
 		1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbUserRegistrationFormViewController.h; sourceTree = "<group>"; };
 		1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pbUserRegistrationFormViewController.m; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 				1EDC5FDA1A7022EA00991CEB /* PBTypes.h */,
 				1E2074291A84B069002D77A1 /* PBResponses.h */,
 				1E20742A1A84B329002D77A1 /* PBResponses.m */,
-				1EB83E201A8E271600442B51 /* PBTypes.m */,
 				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
 				1E887DD71A9B19810077B673 /* PBSettings.h */,
 			);
@@ -367,7 +364,6 @@
 			files = (
 				1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */,
 				1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */,
-				1EB83E211A8E271600442B51 /* PBTypes.m in Sources */,
 				1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
 				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,

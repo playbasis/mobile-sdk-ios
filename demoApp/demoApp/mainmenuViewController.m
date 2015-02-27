@@ -18,14 +18,19 @@
 
 @implementation mainmenuViewController
 
+-(void)networkStatusChanged:(NetworkStatus)status
+{
+    NSLog(@"Network status changed to %d", (int)status);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.activityIndicator.hidden = YES;
     
-    // listen to network status changed
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNetworkStatusChanged:) name:pbNetworkStatusChangedNotification object:nil];
+    // listen to network status changed from playbasis
+    [Playbasis sharedPB].networkStatusChangedDelegate = self;
     
     // do caching for quest
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -121,36 +126,11 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    // remove listener from notification
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:pbNetworkStatusChangedNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)onNetworkStatusChanged:(NSNotification *)notif
-{
-    // get NetworkStatus from notif
-    NSDictionary *data = notif.userInfo;
-    NSNumber *networkStatusNumber = [data objectForKey:@"data"];
-    
-    NetworkStatus networkStatus = [networkStatusNumber intValue];
-    
-    switch(networkStatus)
-    {
-        case NotReachable:
-            NSLog(@"User: Network is not reachable");
-            break;
-        case ReachableViaWiFi:
-            NSLog(@"User: Network is reachable via WiFi");
-            break;
-        case ReachableViaWWAN:
-            NSLog(@"User: Network is reachable via WWAN");
-            break;
-    }
 }
 
 #pragma mark - Navigation

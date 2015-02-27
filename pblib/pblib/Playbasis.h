@@ -32,8 +32,10 @@
     NSMutableArray *requestOptQueue;
 }
 
-@property (nonatomic, readonly) NSString* token;
+@property (nonatomic, strong, readonly) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
+
+@property (nonatomic, strong) IBOutlet id<PBNetworkStatusChangedDelegate> networkStatusChangedDelegate;
 
 /**
  Utility method to register device for push notification.
