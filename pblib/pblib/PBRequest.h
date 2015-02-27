@@ -48,13 +48,6 @@ PBRequestState;
 -(void)dealloc;
 -(NSDictionary *)getResponse;
 
-/**
- Wait for a certain set amount of delay time in PBSettings.h then make a request again.
- 
- It blocks on the thread the request is on, until it makes a request again.
- */
--(void)waitAndRetry;
-
 
 /**
  Start its internal request. This sends request over network.

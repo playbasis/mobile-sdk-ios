@@ -25,6 +25,6 @@ static const NSUInteger pbRequestRetryCount = 1;
 /**
  Amount of delay in millisecond to initiate a next retry.
  */
-static const float pbDelayAmountBeforeNextRequestRetry = 6000;
+static const float pbDelayAmountBeforeNextRequestRetry = 10000;
 
 #endif

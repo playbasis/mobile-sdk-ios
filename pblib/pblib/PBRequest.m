@@ -9,6 +9,7 @@
 #import "PBRequest.h"
 #import "JSONKit.h"
 #import "PBSettings.h"
+#import "Playbasis.h"
 
 //
 // object for handling requests response
@@ -141,19 +142,6 @@
     return jsonResponse;
 }
 
--(void)waitAndRetry
-{
-    NSLog(@"Waiting to make a request to %@ for duration of %.2f", [urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
-    
-    // sleep the current thread that this request is on for set amount of time
-    [NSThread sleepForTimeInterval:pbDelayAmountBeforeNextRequestRetry / 1000.0f];
-    
-    // after sleep for certain amount of time, then restart the request again
-    NSLog(@"Retry sending request to %@", [urlRequest URL]);
-    // start the reqeust
-    [self start];
-}
-
 -(void)responseAsyncURLRequestFromStringResponse:(NSString *)strResponse error:(NSError*)error
 {
     // if there's not set responseBlock then return immediately
@@ -177,7 +165,26 @@
             // if retry count doesn't reach the limit then retry
             if(retryCount <= pbRequestRetryCount)
             {
-                [self waitAndRetry];
+                NSLog(@"Waiting to make a request to %@ for duration of %.2f", [urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
+                
+                // sleep the current thread that this request is on for set amount of time
+                [NSThread sleepForTimeInterval:pbDelayAmountBeforeNextRequestRetry / 1000.0f];
+                
+                // if network can be reached then retry
+                if([Playbasis sharedPB].isNetworkReachable)
+                {
+                    // after sleep for certain amount of time, then restart the request again
+                    NSLog(@"Retry sending request to %@", [urlRequest URL]);
+                    [self start];
+                }
+                // otherwise, break out the retry-loop, then save to local storage
+                else
+                {
+                    NSLog(@"Break out of the loop, and save it into local storage");
+                    [[[Playbasis sharedPB] getRequestOperationalQueue] enqueue:self];
+                    
+                    NSLog(@"Queue size = %lu", (unsigned long)[[[Playbasis sharedPB] getRequestOperationalQueue] count]);
+                }
             }
             else
             {
@@ -1634,7 +1641,26 @@
             // if retry count doesn't reach the limit then retry
             if(retryCount <= pbRequestRetryCount)
             {
-                [self waitAndRetry];
+                NSLog(@"Waiting to make a request to %@ for duration of %.2f", [urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
+                
+                // sleep the current thread that this request is on for set amount of time
+                [NSThread sleepForTimeInterval:pbDelayAmountBeforeNextRequestRetry / 1000.0f];
+                
+                // if network can be reached then retry
+                if([Playbasis sharedPB].isNetworkReachable)
+                {
+                    // after sleep for certain amount of time, then restart the request again
+                    NSLog(@"Retry sending request to %@", [urlRequest URL]);
+                    [self start];
+                }
+                // otherwise, break out the retry-loop, then save to local storage
+                else
+                {
+                    NSLog(@"Break out of the loop, and save it into local storage");
+                    [[[Playbasis sharedPB] getRequestOperationalQueue] enqueue:self];
+                    
+                    NSLog(@"Queue size = %lu", (unsigned long)[[[Playbasis sharedPB] getRequestOperationalQueue] count]);
+                }
             }
             else
             {
