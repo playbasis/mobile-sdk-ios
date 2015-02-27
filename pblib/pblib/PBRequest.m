@@ -8,6 +8,7 @@
 
 #import "PBRequest.h"
 #import "JSONKit.h"
+#import "PBSettings.h"
 
 //
 // object for handling requests response
@@ -37,6 +38,7 @@
     isSyncURLRequest = syncUrl;
     
     responseType = _responseType;
+    retryCount = 0;
     
     // in this case use delegate, thus we set block to nil
     responseDelegate = delegate;
@@ -66,6 +68,7 @@
     isSyncURLRequest = syncUrl;
     
     responseType = _responseType;
+    retryCount = 0;
     
     // in this case use block, thus we set delegate to nil
     responseDelegate = nil;
@@ -89,6 +92,10 @@
     jsonResponse = [decoder decodeObjectForKey:@"jsonResponse"];
     
     // we need to wrap up integer value into object
+    NSNumber *retryCountNumber = [decoder decodeObjectForKey:@"retryCount"];
+    retryCount = [retryCountNumber integerValue];
+    
+    // we need to wrap up integer value into object
     NSNumber *responseTypeNumberObj = [decoder decodeObjectForKey:@"responseType"];
     responseType = [responseTypeNumberObj integerValue];
     
@@ -108,6 +115,7 @@
     [encoder encodeObject:urlRequest forKey:@"urlRequest"];
     [encoder encodeObject:receivedData forKey:@"receivedData"];
     [encoder encodeObject:jsonResponse forKey:@"jsonResponse"];
+    [encoder encodeObject:[NSNumber numberWithInteger:retryCount] forKey:@"retryCount"];
     [encoder encodeObject:[NSNumber numberWithInt:responseType]  forKey:@"responseType"];
     [encoder encodeInt:state forKey:@"state"];
     [encoder encodeBool:isBlockingCall forKey:@"isBlockingCall"];
@@ -133,6 +141,19 @@
     return jsonResponse;
 }
 
+-(void)waitAndRetry
+{
+    NSLog(@"Waiting to make a request to %@ for duration of %.2f", [urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
+    
+    // sleep the current thread that this request is on for set amount of time
+    [NSThread sleepForTimeInterval:pbDelayAmountBeforeNextRequestRetry / 1000.0f];
+    
+    // after sleep for certain amount of time, then restart the request again
+    NSLog(@"Retry sending request to %@", [urlRequest URL]);
+    // start the reqeust
+    [self start];
+}
+
 -(void)responseAsyncURLRequestFromStringResponse:(NSString *)strResponse error:(NSError*)error
 {
     // if there's not set responseBlock then return immediately
@@ -153,13 +174,23 @@
         // if there's connection error, then use its object to send to back to response
         if(error)
         {
-            PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
+            // if retry count doesn't reach the limit then retry
+            if(retryCount <= pbRequestRetryCount)
+            {
+                [self waitAndRetry];
+            }
+            else
+            {
+                PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
             
-            // response with fail
-            sb([PBManualSetResultStatus_Response resultStatusWithFailure], [urlRequest URL], error);
+                // response with fail
+                sb([PBManualSetResultStatus_Response resultStatusWithFailure], [urlRequest URL], error);
+            }
         }
         else
         {
+            NSLog(@"Give up retrying, sending back error for %@.", [urlRequest URL]);
+            
             // create an error message directly from the response back
             NSString *errorMessage = strResponse != nil && ![strResponse isEqualToString:@""] ? strResponse : [NSString stringWithFormat:@"There's error from async url request %@", [urlRequest URL]];
             
@@ -198,6 +229,8 @@
     }
     else
     {
+        NSLog(@"Give up retrying, sending back error for %@.", [urlRequest URL]);
+        
         // get error message
         NSString *errorMessage = [_jsonResponse objectForKey:@"message"];
         
@@ -1560,6 +1593,13 @@
 
 -(void)start
 {
+    // increase the number of retry-count
+    retryCount++;
+    
+    // only print out for the first try
+    if(retryCount == 1)
+        NSLog(@"Sending request for %@", [urlRequest URL]);
+    
     // start the request according to the type of request
     // if it's blocking call
     if(isBlockingCall)
@@ -1588,11 +1628,19 @@
             // response according to the type of response
             [self responseFromJSONResponse:jsonResponse];
         }
-        // otherwise print out error
+        // otherwise check to retry
         else
         {
-            // respnose fail
-            [self responseFromJSONResponse:nil error:error];
+            // if retry count doesn't reach the limit then retry
+            if(retryCount <= pbRequestRetryCount)
+            {
+                [self waitAndRetry];
+            }
+            else
+            {
+                // response fail
+                [self responseFromJSONResponse:nil error:error];
+            }
         }
     }
     // otherwise, it's non-blocking call

@@ -17,5 +17,14 @@
  */
 static NSString* const pbProtectedResourcesSharedKey = @"abcdefghijklmnopqrstuvwxyz123456";
 
+/**
+ Number of retry of PBRequest to do before giving up.
+ */
+static const NSUInteger pbRequestRetryCount = 1;
+
+/**
+ Amount of delay in millisecond to initiate a next retry.
+ */
+static const float pbDelayAmountBeforeNextRequestRetry = 6000;
 
 #endif

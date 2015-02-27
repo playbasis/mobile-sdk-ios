@@ -45,7 +45,7 @@
         // create empty array
         _questImages = [NSMutableDictionary dictionary];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // load all quests available to player
             [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
                 if(!error)
@@ -68,25 +68,34 @@
                     
                     // prepare all rewards-line for all quests
                     [self prepareAllRewardsLinesForAllQuestsFrom:_questListAvailable.list.questBasics];
+                    
+                    // load quest that player has joined to get its status
+                    [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
+                        if(!error)
+                        {
+                            // save the result
+                            _questList = questList;
+                            // update to globalCaching
+                            [globalCaching sharedInstance].cachedQuestListOfPlayer_response = _questList;
+                            
+                            NSLog(@"Complete loading all quests information.");
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                // set views for self
+                                [self setViewsForSelf];
+                                // hide hud
+                                [[Playbasis sharedPB] hideHUDFromView:self.view];
+                            });
+                        }
+                        else
+                        {
+                            NSLog(@"Error request to questListOfPlayer %@", error);
+                        }
+                    }];
                 }
-            }];
-            
-            // load quest that player has joined to get its status
-            [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
-                if(!error)
+                else
                 {
-                    // save the result
-                    _questList = questList;
-                    // update to globalCaching
-                    [globalCaching sharedInstance].cachedQuestListOfPlayer_response = _questList;
-                    
-                    NSLog(@"Complete loading all quests information.");
-                    
-                    // set views for self
-                    [self setViewsForSelf];
-                    
-                    // hide hud
-                    [[Playbasis sharedPB] hideHUDFromView:self.view];
+                    NSLog(@"Error request to questListAvailableForPlayer %@", error);
                 }
             }];
         });

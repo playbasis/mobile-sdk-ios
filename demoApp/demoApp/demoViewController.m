@@ -44,7 +44,10 @@
         NSLog(@"%@", response);
         NSLog(@"Error = %@", [error localizedDescription]);
         
-        return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // hide hud
+            [[Playbasis sharedPB] hideHUDFromView:self.view];
+        });
     }
     else
     {
@@ -56,16 +59,13 @@
         NSLog(@"%@", response);
         
         // set result to text area
-        dispatch_queue_t uiThread = dispatch_get_main_queue();
-        dispatch_async(uiThread, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // set text
             self.resultTextArea.text = [response description];
+            // hide hud
+            [[Playbasis sharedPB] hideHUDFromView:self.view];
         });
     }
-    
-    // hide hud
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[Playbasis sharedPB] hideHUDFromView:self.view];
-    });
 }
 
 - (IBAction)callAPI_player1:(id)sender {
@@ -78,9 +78,8 @@
         [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
         
         // execute 'like' action
-        // note: this will let activity indicator to be updated in UI thread
-        dispatch_queue_t gQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(gQueue, ^{
+        // do like this to allow time for hud to be updated
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [[Playbasis sharedPB] ruleForPlayer:USER action:@"like" withDelegate:self, nil];
         });
     }
@@ -101,17 +100,23 @@
             if(error)
             {
                 NSLog(@"failed player(), error = %@", [error localizedDescription]);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
+                });
             }
             else
             {
                 NSLog(@"[Blocking call via block 1] block triggered from URL: %@", [url path]);
                 NSLog(@"%@", player);
                 
-                // set result to text area
-                self.resultTextArea.text = [player description];
-                
-                // hide hud
-                [[Playbasis sharedPB] hideHUDFromView:self.view];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // set result to text area
+                    self.resultTextArea.text = [player description];
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
+                });
             }
         }];
     }
@@ -140,6 +145,13 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // set result to text area
                     self.resultTextArea.text = [response description];
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
+                });
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
                     // hide hud
                     [[Playbasis sharedPB] hideHUDFromView:self.view];
                 });

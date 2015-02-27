@@ -65,6 +65,10 @@
                 });
             }
         }
+        else
+        {
+            NSLog(@"Error occurs loading quizRandomForPlayer %@", error);
+        }
     }];
 }
 

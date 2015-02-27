@@ -40,6 +40,8 @@
         // create empty array to hold images
         _goodsListInfoImages = [NSMutableArray array];
         
+        NSLog(@"Begin loading goodsListAsyncWithBlock");
+        
         // load goods-list in non-blocking way
         [[Playbasis sharedPB] goodsListAsyncWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
             if(!error)
@@ -75,8 +77,11 @@
                     for(PBGoods *goods in goodsListInfo.goodsList)
                     {
                         [UIImage startLoadingImageWithUrl:goods.image response:^(UIImage *image) {
-                            // add image sequentially
-                            [_goodsListInfoImages addObject:image];
+                            if(image != nil)
+                            {
+                                // add image sequentially
+                                [_goodsListInfoImages addObject:image];
+                            }
                         }];
                     }
                     // update to globalCaching
