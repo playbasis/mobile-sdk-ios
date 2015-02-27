@@ -10,16 +10,16 @@
 #import "questDemoViewController.h"
 #import "Playbasis.h"
 #import "demoAppSettings.h"
+#import "globalCaching.h"
 
 @interface questPageViewController ()
+
+- (void)prepareAllRewardsLinesForAllQuestsFrom:(NSArray *)questBasics;
+- (void)setViewsForSelf;
 
 @end
 
 @implementation questPageViewController
-
-@synthesize questListAvailable = questListAvailable_;
-@synthesize questList = questList_;
-@synthesize cachedQuestImages = _cachedQuestImages;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,70 +34,40 @@
     NSArray *viewControllers = [NSArray arrayWithObject:blankView];
     [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
-    // initialize all empty arrays
-    // only create a new dictionary for cached quest images if cached data is not set
-    if(_cachedQuestImages == nil)
-        _cachedQuestImages = [NSMutableDictionary dictionary];
     _allRewardsLinesForAllQuests = [NSMutableArray array];
     
     // show hud (spining activity indicator)
     [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
     
-    // if at least one of cached data is not set then we make a new request
-    if(questListAvailable_ == nil || questList_ == nil || _cachedQuestImages == nil)
+    // make requests only when network is reachable
+    if([Playbasis sharedPB].isNetworkReachable)
     {
+        // create empty array
+        _questImages = [NSMutableDictionary dictionary];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             // load all quests available to player
             [[Playbasis sharedPB] questListAvailableForPlayer:USER withBlock:^(PBQuestListAvailableForPlayer_Response *list, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     // save the response
-                    questListAvailable_ = list;
+                    _questListAvailable = list;
+                    // update to globalCaching
+                    [globalCaching sharedInstance].cachedQuestListAvailable_response = _questListAvailable;
                     
                     // async load all image from the quest-list
-                    for(PBQuestBasic *q in questListAvailable_.list.questBasics)
+                    for(PBQuestBasic *q in _questListAvailable.list.questBasics)
                     {
                         // load image in blocking-call
                         [UIImage startLoadingImageWithUrl:q.image response:^(UIImage *image) {
-                            [_cachedQuestImages setValue:image forKey:q.questId];
+                            [_questImages setValue:image forKey:q.questId];
                         }];
-                        
-                        if([q.rewards.rewards count] > 0)
-                        {
-                            NSMutableString *rewardsLines = [NSMutableString string];
-                            
-                            for(PBReward *reward in q.rewards.rewards)
-                            {
-                                NSString *rewardValue = reward.rewardValue;
-                                
-                                if(reward.rewardName != nil)
-                                {
-                                    // form the line
-                                    NSString *line = [NSString stringWithFormat:@"%@: %@", reward.rewardName, rewardValue];
-                                    
-                                    // append to the result string
-                                    if([rewardsLines length] == 0)
-                                        rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                                    else
-                                        rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                                }
-                                else
-                                {
-                                    // form the line (without reward name)
-                                    NSString *line = [NSString stringWithFormat:@"Unknown type: %@", rewardValue];
-                                    
-                                    // append to the result string
-                                    if([rewardsLines length] == 0)
-                                        rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                                    else
-                                        rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                                }
-                            }
-                            
-                            // add to array
-                            [_allRewardsLinesForAllQuests addObject:rewardsLines];
-                        }
+                        // update to globalCaching
+                        [globalCaching sharedInstance].cachedQuestImages = _questImages;
                     }
+                    
+                    // prepare all rewards-line for all quests
+                    [self prepareAllRewardsLinesForAllQuestsFrom:_questListAvailable.list.questBasics];
                 }
             }];
             
@@ -106,17 +76,14 @@
                 if(!error)
                 {
                     // save the result
-                    questList_ = questList;
+                    _questList = questList;
+                    // update to globalCaching
+                    [globalCaching sharedInstance].cachedQuestListOfPlayer_response = _questList;
                     
                     NSLog(@"Complete loading all quests information.");
                     
-                    // set the initial first view controller
-                    questDemoViewController *viewController = [self viewControllerAtIndex:0];
-                    NSArray *viewControllers = [NSArray arrayWithObject:viewController];
-                    [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-                    
-                    // set the current page index for later use when we touch the button
-                    currentPageIndex = 0;
+                    // set views for self
+                    [self setViewsForSelf];
                     
                     // hide hud
                     [[Playbasis sharedPB] hideHUDFromView:self.view];
@@ -124,67 +91,92 @@
             }];
         });
     }
-    else
+    // otherwise we use cached data if it's ready to use
+    else if([globalCaching sharedInstance].questDataReadyToUse)
     {
         // all cached data set then populate view for this pageview
         NSLog(@"Use cached data");
         
-        // set all rewards lines
-        for(PBQuestBasic *q in questListAvailable_.list.questBasics)
-        {
-            if([q.rewards.rewards count] > 0)
-            {
-                NSMutableString *rewardsLines = [NSMutableString string];
-                
-                for(PBReward *reward in q.rewards.rewards)
-                {
-                    NSString *rewardValue = reward.rewardValue;
-                    
-                    if(reward.rewardName != nil)
-                    {
-                        // form the line
-                        NSString *line = [NSString stringWithFormat:@"%@: %@", reward.rewardName, rewardValue];
-                        
-                        // append to the result string
-                        if([rewardsLines length] == 0)
-                            rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                        else
-                            rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                    }
-                    else
-                    {
-                        // form the line (without reward name)
-                        NSString *line = [NSString stringWithFormat:@"Unknown type: %@", rewardValue];
-                        
-                        // append to the result string
-                        if([rewardsLines length] == 0)
-                            rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
-                        else
-                            rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
-                    }
-                }
-                
-                // add to array
-                [_allRewardsLinesForAllQuests addObject:rewardsLines];
-            }
-        }
+        // get cached data from globalCaching
+        _questListAvailable = [globalCaching sharedInstance].cachedQuestListAvailable_response;
+        _questList = [globalCaching sharedInstance].cachedQuestListOfPlayer_response;
+        _questImages = [globalCaching sharedInstance].cachedQuestImages;
         
-        // set the initial first view controller
-        questDemoViewController *viewController = [self viewControllerAtIndex:0];
-        NSArray *viewControllers = [NSArray arrayWithObject:viewController];
-        [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        // prepare all rewards-line for all quests
+        [self prepareAllRewardsLinesForAllQuestsFrom:_questListAvailable.list.questBasics];
         
-        // set the current page index for later use when we touch the button
-        currentPageIndex = 0;
+        // set views for self
+        [self setViewsForSelf];
         
         // hide hud
         [[Playbasis sharedPB] hideHUDFromView:self.view];
+    }
+    // network is not reachable, and cached data is not ready
+    // thus we show alert and go back to mainmenu
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network error!" message:@"Cannot load data" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)setViewsForSelf
+{
+    // set the initial first view controller
+    questDemoViewController *viewController = [self viewControllerAtIndex:0];
+    NSArray *viewControllers = [NSArray arrayWithObject:viewController];
+    [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // set the current page index for later use when we touch the button
+    currentPageIndex = 0;
+}
+
+- (void)prepareAllRewardsLinesForAllQuestsFrom:(NSArray *)questBasics
+{
+    // iterate PBQuestBasis from the input array
+    for(PBQuestBasic *q in questBasics)
+    {
+        if([q.rewards.rewards count] > 0)
+        {
+            NSMutableString *rewardsLines = [NSMutableString string];
+            
+            for(PBReward *reward in q.rewards.rewards)
+            {
+                NSString *rewardValue = reward.rewardValue;
+                
+                if(reward.rewardName != nil)
+                {
+                    // form the line
+                    NSString *line = [NSString stringWithFormat:@"%@: %@", reward.rewardName, rewardValue];
+                    
+                    // append to the result string
+                    if([rewardsLines length] == 0)
+                        rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
+                    else
+                        rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
+                }
+                else
+                {
+                    // form the line (without reward name)
+                    NSString *line = [NSString stringWithFormat:@"Unknown type: %@", rewardValue];
+                    
+                    // append to the result string
+                    if([rewardsLines length] == 0)
+                        rewardsLines = [NSMutableString stringWithFormat:@"%@%@", rewardsLines, line];
+                    else
+                        rewardsLines = [NSMutableString stringWithFormat:@"%@\n%@", rewardsLines, line];
+                }
+            }
+            
+            // add to array
+            [_allRewardsLinesForAllQuests addObject:rewardsLines];
+        }
+    }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -219,7 +211,7 @@
     }
     
     index++;
-    if(index == [questListAvailable_.list.questBasics count])
+    if(index == [_questListAvailable.list.questBasics count])
     {
         return nil;
     }
@@ -228,20 +220,20 @@
 
 - (questDemoViewController*)viewControllerAtIndex:(NSUInteger)index
 {
-    if(([questListAvailable_.list.questBasics count] == 0) || (index >= [questListAvailable_.list.questBasics count]))
+    if(([_questListAvailable.list.questBasics count] == 0) || (index >= [_questListAvailable.list.questBasics count]))
     {
         return nil;
     }
     
     // get quest basic
-    PBQuestBasic *questBasic = [questListAvailable_.list.questBasics objectAtIndex:index];
+    PBQuestBasic *questBasic = [_questListAvailable.list.questBasics objectAtIndex:index];
     
     // get quest at the specified index
     NSString *status = nil;
     
-    if(questList_.questList.quests != nil )
+    if(_questList.questList.quests != nil )
     {
-        for(PBQuest *quest in questList_.questList.quests)
+        for(PBQuest *quest in _questList.questList.quests)
         {
             if([quest.questId isEqualToString:questBasic.questId])
             {
@@ -258,7 +250,7 @@
     // set text string to be loaded into ui when the view controller is loaded
     contentViewController.questId = questBasic.questId;
     contentViewController.questName = questBasic.questName;
-    contentViewController.questImage = [_cachedQuestImages objectForKey:questBasic.questId];
+    contentViewController.questImage = [_questImages objectForKey:questBasic.questId];
     contentViewController.questDescription = questBasic.description_;
     contentViewController.questRewards = [_allRewardsLinesForAllQuests objectAtIndex:index];
     contentViewController.questStatus = status;
@@ -268,7 +260,7 @@
 
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
-    return [questListAvailable_.list.questBasics count];
+    return [_questListAvailable.list.questBasics count];
 }
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
