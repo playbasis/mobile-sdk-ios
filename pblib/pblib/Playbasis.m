@@ -25,6 +25,26 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
     NSString *_apiKey;
     BOOL _isNetworkReachable;
     Reachability *reachability;
+    
+    /**
+     Used internally to keep track of player-id logging in the system.
+     
+     Playbasis class will set intended player-id, then PBRequest's response section will confirm whether player-id is successfully logged in or not.
+     
+     User should not use these two variables. They are used internally.
+     */
+    NSString *_intendedLoginPlayerId;
+    BOOL _isIntendedLoginPlayerIdConfirmed;
+    
+    /**
+     Used internally to keep track of player-id logging out the system.
+     
+     Playbasis class will set intended player-id, then PBRequest's response section will confirm whether player-id is successfully logged out or not.
+     
+     User should not use these two variables. They are used internally.
+     */
+    NSString *_intendedLogoutPlayerId;
+    BOOL _isIntendedLogoutPlayerIdConfirmed;
 }
 
 /**
@@ -796,6 +816,49 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return requestOptQueue;
 }
 
+-(void)setIntendedLoginPlayerIdAndResetConfirmStatus:(NSString *)playerId
+{
+    _intendedLoginPlayerId = playerId;
+    
+    // reset confirm flag immediately
+    [self confirmIntendedLoginPlayerId:NO];
+}
+
+-(void)confirmIntendedLoginPlayerId:(BOOL)confirm
+{
+    _isIntendedLoginPlayerIdConfirmed = confirm;
+}
+
+-(void)resetIntendedLoginPlayerId
+{
+    [self setIntendedLoginPlayerIdAndResetConfirmStatus:nil];
+}
+
+-(void)setIntendedLogoutPlayerIdAndResetConfirmStatus:(NSString *)playerId
+{
+    _intendedLogoutPlayerId = playerId;
+    
+    // reset confirm flag immediately
+    [self confirmIntendedLogoutPlayerId:NO];
+}
+
+-(void)confirmIntendedLogoutPlayerId:(BOOL)confirm
+{
+    _isIntendedLogoutPlayerIdConfirmed = confirm;
+    
+    // if confirm, and both intended login & logout are matched, thus invalidate intended login player-id
+    if(_isIntendedLogoutPlayerIdConfirmed &&
+       [_intendedLogoutPlayerId isEqualToString:_intendedLoginPlayerId])
+    {
+        [self resetIntendedLoginPlayerId];
+    }
+}
+
+-(void)resetIntendedLogoutPlayerId
+{
+    [self setIntendedLogoutPlayerIdAndResetConfirmStatus:nil];
+}
+
 -(PBRequest *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
     return [self authWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
@@ -1263,6 +1326,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
+    // set intended player-id
+    [self setIntendedLoginPlayerIdAndResetConfirmStatus:playerId];
+    
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_loginUser andResponse:response];
 }
 
@@ -1296,6 +1362,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     {
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
+    
+    // set intended player-id
+    [self setIntendedLogoutPlayerIdAndResetConfirmStatus:playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_logoutUser andResponse:response];
 }
@@ -3894,11 +3963,47 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)onApplicationDidFinishLaunching:(NSNotification *)notif
 {
     NSLog(@"called onApplicationDidFinishLaunching()");
+    
+    // only track when tracking player-id is set, and confirm status is set
+    if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
+    {
+        NSString *action = @"appdidfinishlaunching";
+        
+        [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                NSLog(@"%@", response);
+            }
+            else
+            {
+                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+            }
+        }, nil];
+    }
 }
 
 -(void)onApplicationWillResignActive:(NSNotification *)notif
 {
     NSLog(@"called onApplicatoinWillResignActive()");
+    
+    // only track when tracking player-id is set, and confirm status is set
+    if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
+    {
+        NSString *action = @"appwillresignactive";
+        
+        [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                NSLog(@"%@", response);
+            }
+            else
+            {
+                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+            }
+        }, nil];
+    }
 }
 
 -(void)onApplicationDidEnterBackground:(NSNotification *)notif
@@ -3907,6 +4012,24 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // serialize and save all requests in queue
     [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
+    
+    // only track when tracking player-id is set, and confirm status is set
+    if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
+    {
+        NSString *action = @"appdidenterbackground";
+        
+        [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                NSLog(@"%@", response);
+            }
+            else
+            {
+                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+            }
+        }, nil];
+    }
 }
 
 -(void)onApplicationWillEnterForeground:(NSNotification *)notif
@@ -3915,11 +4038,47 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // load saved requests from file
     [[[Playbasis sharedPB] getRequestOperationalQueue] load];
+    
+    // only track when tracking player-id is set, and confirm status is set
+    if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
+    {
+        NSString *action = @"appwillenterforeground";
+        
+        [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                NSLog(@"%@", response);
+            }
+            else
+            {
+                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+            }
+        }, nil];
+    }
 }
 
 -(void)onApplicationDidBecomeActive:(NSNotification *)notif
 {
     NSLog(@"called onApplicationDidBecomeActive()");
+    
+    // only track when tracking player-id is set, and confirm status is set
+    if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
+    {
+        NSString *action = @"appdidbecomeactive";
+        
+        [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                NSLog(@"%@", response);
+            }
+            else
+            {
+                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+            }
+        }, nil];
+    }
 }
 
 -(void)onApplicationWillTerminate:(NSNotification *)notif
@@ -3928,6 +4087,24 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // serialize and save all requests in queue
     [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
+    
+    // only track when tracking player-id is set, and confirm status is set
+    if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
+    {
+        NSString *action = @"appwillterminate";
+        
+        [self ruleForPlayer:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                NSLog(@"%@", response);
+            }
+            else
+            {
+                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+            }
+        }, nil];
+    }
 }
 
 //--------------------------------------------------

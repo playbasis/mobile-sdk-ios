@@ -35,6 +35,9 @@
 @property (nonatomic, strong, readonly) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
 
+/**
+ Event delegates exposed here.
+ */
 @property (nonatomic, strong) IBOutlet id<PBNetworkStatusChangedDelegate> networkStatusChangedDelegate;
 
 /**
@@ -70,6 +73,53 @@
  It holds all created http requests. Those requests are not dispatched or sent just yet. It's after dequeing, it will start sending those request one by one.
  */
 -(const NSMutableArray *)getRequestOperationalQueue;
+
+//------------------------------
+//- Tracking Login of Player-id
+//------------------------------
+/**
+ Set intended player-id that will be logged in.
+ It also resets confirm flag immediately.
+ User should not use this method. It's used internally.
+ */
+-(void)setIntendedLoginPlayerIdAndResetConfirmStatus:(NSString *)playerId;
+
+/**
+ Confirm intended loging in player-id.
+ User should not usel this method. It's used internally.
+ */
+-(void)confirmIntendedLoginPlayerId:(BOOL)confirm;
+
+/**
+ Reset state of both intended player-id and its confirm status.
+ */
+-(void)resetIntendedLoginPlayerId;
+
+//------------------------------
+
+//------------------------------
+//- Tracking Logout of Player-id
+//------------------------------
+/**
+ Set intended player-id that will be logged out.
+ It also resets confirm flag immediately.
+ User should not use this method. It's used internally.
+ */
+-(void)setIntendedLogoutPlayerIdAndResetConfirmStatus:(NSString *)playerId;
+
+/**
+ Confirm intended loging out player-id.
+ If intended login player-id matches intended logout player-id, then it will invalidate intended login player-id as well.
+ User should not usel this method. It's used internally.
+ */
+-(void)confirmIntendedLogoutPlayerId:(BOOL)confirm;
+
+/**
+ Reset state of both intended player-id and its confirm status.
+ */
+-(void)resetIntendedLogoutPlayerId;
+
+//------------------------------
 
 /**
   Secure way to authenticate and get access token.

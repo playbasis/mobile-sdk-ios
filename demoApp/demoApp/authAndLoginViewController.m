@@ -90,20 +90,30 @@ static const NSTimeInterval kWaitingTime = 0.15f;
                 self.activityLabel.text = [NSString stringWithFormat:@"Logging in user '%@'", USER];
             });
             
-            // login via non-blocking call, and with async url request
-            [[Playbasis sharedPB] loginPlayerAsync_:USER withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+            // login
+            [[Playbasis sharedPB] loginPlayer:USER withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
                 if(!error)
                 {
-                    NSLog(@"Login : %@", status);
+                    NSLog(@"%@ logged in successfully. [result : %@]", USER, result);
                 }
                 else
                 {
-                    NSLog(@"%@", [error description]);
+                    NSLog(@"Failed to log in for %@", USER);
                 }
             }];
             
             // TODO: Add temporary testcase here ...
             // every testcase added here should be removed immediately after finish testing
+            [[Playbasis sharedPB] logoutPlayer:USER withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+                if(!error)
+                {
+                    NSLog(@"Logout successfully for %@ [result : %@]", USER, result);
+                }
+                else
+                {
+                    NSLog(@"Logout failed for %@ [%@]", USER, error);
+                }
+            }];
             
             NSLog(@"Passed through this line");
             

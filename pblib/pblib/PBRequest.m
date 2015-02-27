@@ -302,6 +302,26 @@
                     // parse data (get nil if jsonResponse is nil)
                     PBResultStatus_Response *response = [PBResultStatus_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                     
+                    // track log-in user
+                    if(responseType == responseType_loginUser)
+                    {
+                        if(error == nil)
+                            [[Playbasis sharedPB] confirmIntendedLoginPlayerId:YES];
+                        else
+                            [[Playbasis sharedPB] confirmIntendedLoginPlayerId:NO];
+                    }
+                    else if(responseType == responseType_logoutUser)
+                    {
+                        if(error == nil)
+                            [[Playbasis sharedPB] confirmIntendedLogoutPlayerId:YES];
+                        else
+                            [[Playbasis sharedPB] confirmIntendedLogoutPlayerId:NO];
+                        
+                        // reset logout intended player-id
+                        // we don't need it anymore
+                        [[Playbasis sharedPB] resetIntendedLogoutPlayerId];
+                    }
+                    
                     // execute
                     [sd processResponseWithResultStatus:response withURL:[urlRequest URL] error:error];
                 }
@@ -312,6 +332,27 @@
                 PBResultStatus_Response *response = [PBResultStatus_Response parseFromDictionary:_jsonResponse startFromFinalLevel:NO];
                 
                 PBResultStatus_ResponseBlock sb = (PBResultStatus_ResponseBlock)responseBlock;
+                
+                // track log-in user
+                if(responseType == responseType_loginUser)
+                {
+                    if(error == nil)
+                        [[Playbasis sharedPB] confirmIntendedLoginPlayerId:YES];
+                    else
+                        [[Playbasis sharedPB] confirmIntendedLoginPlayerId:NO];
+                }
+                else if(responseType == responseType_logoutUser)
+                {
+                    if(error == nil)
+                        [[Playbasis sharedPB] confirmIntendedLogoutPlayerId:YES];
+                    else
+                        [[Playbasis sharedPB] confirmIntendedLogoutPlayerId:NO];
+                    
+                    // reset logout intended player-id
+                    // we don't need it anymore
+                    [[Playbasis sharedPB] resetIntendedLogoutPlayerId];
+                }
+                
                 sb(response, [urlRequest URL], error);
             }
             
