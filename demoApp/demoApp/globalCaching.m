@@ -77,8 +77,15 @@
                     {
                         // load image in non-blocking call
                         [UIImage startLoadingImageInTheBackgroundWithUrl:q.image response:^(UIImage *image) {
-                            [_cachedQuestImages setValue:image forKey:q.questId];
-                            NSLog(@"Complete caching quest image %@", q.questId);
+                            if(image != nil)
+                            {
+                                [_cachedQuestImages setValue:image forKey:q.questId];
+                                NSLog(@"Complete caching quest image %@", q.questId);
+                            }
+                            else
+                            {
+                                NSLog(@"Failed caching image %@", q.image);
+                            }
                         }];
                     }
                 }
@@ -140,9 +147,16 @@
                     for(PBGoods *goods in goodsListInfo.goodsList)
                     {
                         [UIImage startLoadingImageWithUrl:goods.image response:^(UIImage *image) {
-                            // add image sequentially
-                            [_cachedGoodsListInfoImages addObject:image];
-                            NSLog(@"Complete caching image for %@", goods.image);
+                            if(image != nil)
+                            {
+                                // add image sequentially
+                                [_cachedGoodsListInfoImages addObject:image];
+                                NSLog(@"Complete caching image for %@", goods.image);
+                            }
+                            else
+                            {
+                                NSLog(@"Failed caching image %@", goods.image);
+                            }
                         }];
                     }
                     

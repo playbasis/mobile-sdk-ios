@@ -10,11 +10,7 @@
 #import "Playbasis.h"
 
 @interface rewardStorePageViewController : UIPageViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIAlertViewDelegate>
-{
-    PBGoodsListInfo_Response *_goodsListInfo;
-    NSMutableArray *_goodsListInfoCachedImages;
-}
 
 @property (strong, nonatomic) PBGoodsListInfo_Response *goodsListInfo;
-@property (strong, nonatomic) NSMutableArray *goodsListInfoCachedImages;
+@property (strong, nonatomic) NSMutableArray *goodsListInfoImages;
 @end

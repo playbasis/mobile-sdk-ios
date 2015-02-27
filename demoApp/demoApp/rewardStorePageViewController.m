@@ -9,6 +9,7 @@
 #import "rewardStorePageViewController.h"
 #import "rewardItemViewController.h"
 #import "demoAppSettings.h"
+#import "globalCaching.h"
 
 @interface rewardStorePageViewController ()
 
@@ -17,9 +18,6 @@
 @end
 
 @implementation rewardStorePageViewController
-
-@synthesize goodsListInfo = _goodsListInfo;
-@synthesize goodsListInfoCachedImages = _goodsListInfoCachedImages;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,16 +31,15 @@
     NSArray *viewControllers = [NSArray arrayWithObject:blankView];
     [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
-    // create a temp array to hold all cached images only if it's the first time loading this page
-    if(_goodsListInfo == nil)
-        _goodsListInfoCachedImages = [NSMutableArray array];
-    
     // show hud
     [[Playbasis sharedPB] showHUDFromView:self.view withText:@"Loading"];
     
-    // we we start fresh, then begin loading process
-    if(_goodsListInfo == nil || _goodsListInfoCachedImages == nil || [_goodsListInfoCachedImages count] <= 0)
+    // if network is reachable then we make requests
+    if([Playbasis sharedPB].isNetworkReachable)
     {
+        // create empty array to hold images
+        _goodsListInfoImages = [NSMutableArray array];
+        
         // load goods-list in non-blocking way
         [[Playbasis sharedPB] goodsListAsyncWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
             if(!error)
@@ -51,6 +48,8 @@
                 
                 // save response
                 _goodsListInfo = goodsListInfo;
+                // update to globalCaching
+                [globalCaching sharedInstance].cachedGoodsListInfo = _goodsListInfo;
                 
                 // there's no available goods to list
                 if(goodsListInfo.goodsList == nil ||
@@ -77,9 +76,11 @@
                     {
                         [UIImage startLoadingImageWithUrl:goods.image response:^(UIImage *image) {
                             // add image sequentially
-                            [_goodsListInfoCachedImages addObject:image];
+                            [_goodsListInfoImages addObject:image];
                         }];
                     }
+                    // update to globalCaching
+                    [globalCaching sharedInstance].cachedGoodsListInfoImages = _goodsListInfoImages;
                     
                     // all goods then reload the pageview
                     [self populatePageView];
@@ -100,15 +101,29 @@
             }
         }];
     }
-    else
+    // if network cannot be reachable, and cache data is ready
+    // then we use cached data
+    else if(![Playbasis sharedPB].isNetworkReachable &&
+            [globalCaching sharedInstance].goodsListDataReadyToUse)
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // hide hud
-            [[Playbasis sharedPB] hideHUDFromView:self.view];
-        });
+        NSLog(@"Use cached data.");
+        
+        // set newly loaded data to globalCaching
+        _goodsListInfo = [globalCaching sharedInstance].cachedGoodsListInfo;
+        _goodsListInfoImages = [globalCaching sharedInstance].cachedGoodsListInfoImages;
+        
+        // hide hud
+        [[Playbasis sharedPB] hideHUDFromView:self.view];
         
         // all good
         [self populatePageView];
+    }
+    // network is not reachable, and cached data is not ready
+    // thus we show alert and go back to mainmenu
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network error!" message:@"Cannot load data" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
@@ -179,7 +194,7 @@
     rewardItemViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rewardItemViewController"];
     contentViewController.pageIndex = index;
     contentViewController.goods = goods;
-    contentViewController.image = [_goodsListInfoCachedImages objectAtIndex:index];
+    contentViewController.image = [_goodsListInfoImages objectAtIndex:index];
     
     return contentViewController;
 }
