@@ -20,9 +20,16 @@
 ///----------------
 /// Notification protocol
 ///----------------
+///----------------
+/// Network status changed event
+///----------------
 @protocol PBNetworkStatusChangedDelegate <NSObject>
 - (void)networkStatusChanged:(NetworkStatus)status;
 @end
+
+///----------------
+/// Normal
+///----------------
 
 ///---------------------------------------------
 /// @name Delegates and Block Response Handlers
