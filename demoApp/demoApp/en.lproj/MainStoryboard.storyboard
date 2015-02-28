@@ -444,6 +444,128 @@
             </objects>
             <point key="canvasLocation" x="-412" y="698"/>
         </scene>
+        <!--Gesture Demo View Controller-->
+        <scene sceneID="la7-yG-Yca">
+            <objects>
+                <viewController title="Gesture Demo View Controller" id="2vp-Gq-U7X" customClass="gestureDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o0f-vM-MVz">
+                        <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gesture Demo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eeO-lI-mgH">
+                                <rect key="frame" x="105" y="90" width="111" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IzO-Vv-Qqy">
+                                <rect key="frame" x="123" y="278" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s75-3w-Vxu">
+                                <rect key="frame" x="16" y="329" width="82" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M5i-Jg-fbk">
+                                <rect key="frame" x="206" y="329" width="93" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sXl-Hl-0SS">
+                                <rect key="frame" x="105" y="140" width="111" height="44"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button Click">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonClick:" destination="2vp-Gq-U7X" eventType="touchUpInside" id="YXe-Vw-cQl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2V-Gg-g2d">
+                                <rect key="frame" x="79" y="191" width="163" height="44"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button Click (w/ url)">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonClickAttachedWithUrl:" destination="2vp-Gq-U7X" eventType="touchUpInside" id="uzw-aO-6Nf"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe Down" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgp-Yp-g2n">
+                                <rect key="frame" x="112" y="378" width="97" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="sXl-Hl-0SS" firstAttribute="top" secondItem="eeO-lI-mgH" secondAttribute="bottom" constant="29" type="user" id="BPG-2o-PKd"/>
+                            <constraint firstAttribute="centerX" secondItem="B2V-Gg-g2d" secondAttribute="centerX" constant="-0.5" type="user" id="EQ9-W2-ofE"/>
+                            <constraint firstAttribute="bottom" secondItem="M5i-Jg-fbk" secondAttribute="bottom" constant="154" id="TgH-Wc-w7k"/>
+                            <constraint firstItem="sXl-Hl-0SS" firstAttribute="top" secondItem="o0f-vM-MVz" secondAttribute="top" constant="140" type="user" id="V2o-5O-cOU"/>
+                            <constraint firstAttribute="centerX" secondItem="eeO-lI-mgH" secondAttribute="centerX" constant="-0.5" type="user" id="Y40-82-Mb1"/>
+                            <constraint firstAttribute="bottom" secondItem="IzO-Vv-Qqy" secondAttribute="bottom" constant="205" id="YQz-lp-abl"/>
+                            <constraint firstAttribute="bottom" secondItem="Lgp-Yp-g2n" secondAttribute="bottom" constant="105" id="Zot-wV-3U3"/>
+                            <constraint firstItem="s75-3w-Vxu" firstAttribute="leading" secondItem="o0f-vM-MVz" secondAttribute="leading" constant="16" type="user" id="aHY-5s-Kob"/>
+                            <constraint firstItem="sXl-Hl-0SS" firstAttribute="centerX" secondItem="o0f-vM-MVz" secondAttribute="centerX" type="user" id="ceL-D8-fXs"/>
+                            <constraint firstItem="B2V-Gg-g2d" firstAttribute="centerX" secondItem="IzO-Vv-Qqy" secondAttribute="centerX" type="default" id="g35-J4-NyW"/>
+                            <constraint firstItem="M5i-Jg-fbk" firstAttribute="baseline" secondItem="s75-3w-Vxu" secondAttribute="baseline" type="default" id="iIs-Qb-P6d"/>
+                            <constraint firstItem="sXl-Hl-0SS" firstAttribute="centerX" secondItem="B2V-Gg-g2d" secondAttribute="centerX" type="user" id="nNM-Da-WPq"/>
+                            <constraint firstItem="eeO-lI-mgH" firstAttribute="top" secondItem="o0f-vM-MVz" secondAttribute="top" constant="90" type="user" id="oaa-1p-z3r"/>
+                            <constraint firstItem="B2V-Gg-g2d" firstAttribute="top" secondItem="sXl-Hl-0SS" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="qgr-Xe-xkl"/>
+                            <constraint firstItem="s75-3w-Vxu" firstAttribute="leading" secondItem="o0f-vM-MVz" secondAttribute="leadingMargin" type="user" id="rSP-Tr-ivK"/>
+                            <constraint firstItem="Lgp-Yp-g2n" firstAttribute="centerX" secondItem="IzO-Vv-Qqy" secondAttribute="centerX" type="default" id="tMy-4D-KwZ"/>
+                            <constraint firstAttribute="trailing" secondItem="M5i-Jg-fbk" secondAttribute="trailing" constant="21" id="v6a-Xg-tPU"/>
+                            <constraint firstItem="sXl-Hl-0SS" firstAttribute="leading" secondItem="eeO-lI-mgH" secondAttribute="leading" type="user" id="y2Q-Hl-WkD"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ymu-M9-NeL" appends="YES" id="lzu-xD-AxW"/>
+                            <outletCollection property="gestureRecognizers" destination="28p-Kw-ThU" appends="YES" id="efw-wG-Bi3"/>
+                            <outletCollection property="gestureRecognizers" destination="b9K-uu-zAj" appends="YES" id="RVq-W9-uJB"/>
+                            <outletCollection property="gestureRecognizers" destination="9TN-74-pqN" appends="YES" id="QpN-qY-ghO"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="ziw-6Z-QBE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pZy-1w-wfY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="ymu-M9-NeL" userLabel="Swipe Right Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeRight:" destination="2vp-Gq-U7X" id="r7T-9K-85x"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="28p-Kw-ThU" userLabel="Swipe Left Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeLeft:" destination="2vp-Gq-U7X" id="aJr-4Q-FoX"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="b9K-uu-zAj" userLabel="Swipe Up Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeUp:" destination="2vp-Gq-U7X" id="BOl-SY-4T4"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="9TN-74-pqN" userLabel="Swipe Down Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeDown:" destination="2vp-Gq-U7X" id="iAT-5H-yqN"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="337" y="1287"/>
+        </scene>
         <!--Badge Demo Screen-->
         <scene sceneID="UCj-YA-WwD">
             <objects>
@@ -829,6 +951,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="2EY-kV-qHZ" firstAttribute="centerX" secondItem="5fx-f4-X0L" secondAttribute="centerX" type="default" id="6o3-ab-YCP"/>
                             <constraint firstItem="TLj-Ee-jRn" firstAttribute="trailing" secondItem="2EY-kV-qHZ" secondAttribute="trailing" type="default" id="AAY-4m-NHu"/>
@@ -1100,10 +1223,25 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lgj-ki-JdJ">
                                 <rect key="frame" x="150" y="216" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98W-CU-LsO">
+                                <rect key="frame" x="98" y="357" width="125" height="44"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Gesture Demo">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="2vp-Gq-U7X" kind="push" id="WHZ-pZ-5Ym"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4fB-1z-r8D" firstAttribute="centerX" secondItem="dEr-46-8uB" secondAttribute="centerX" type="user" id="2bl-pt-MKr"/>
+                            <constraint firstItem="98W-CU-LsO" firstAttribute="top" secondItem="cBz-aM-uU7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="4GT-Df-zFM"/>
                             <constraint firstItem="sjo-rb-xgI" firstAttribute="centerX" secondItem="9UM-PI-kul" secondAttribute="centerX" type="default" id="4TV-8R-OHq"/>
                             <constraint firstItem="4fB-1z-r8D" firstAttribute="centerX" secondItem="8kU-zT-PXS" secondAttribute="centerX" type="user" id="4Yd-A6-lvi"/>
                             <constraint firstItem="lgj-ki-JdJ" firstAttribute="centerX" secondItem="4fB-1z-r8D" secondAttribute="centerX" type="user" id="6fS-16-KrM"/>
@@ -1122,6 +1260,7 @@
                             <constraint firstItem="9UM-PI-kul" firstAttribute="top" secondItem="sjo-rb-xgI" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="pTZ-cu-AJf"/>
                             <constraint firstItem="cBz-aM-uU7" firstAttribute="centerX" secondItem="8kU-zT-PXS" secondAttribute="centerX" type="user" id="wfO-oW-Wey"/>
                             <constraint firstAttribute="centerY" secondItem="lgj-ki-JdJ" secondAttribute="centerY" constant="26" type="user" id="wxu-5M-q1c"/>
+                            <constraint firstItem="98W-CU-LsO" firstAttribute="centerX" secondItem="cBz-aM-uU7" secondAttribute="centerX" type="default" id="ych-Wd-IBr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="e6S-n3-Szc"/>

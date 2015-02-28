@@ -15,6 +15,7 @@
 		1E304A531A915FBC006F0C7F /* notcomplete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E304A511A915FBC006F0C7F /* notcomplete.png */; };
 		1E304A571A918D8D006F0C7F /* rewardStorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */; };
 		1E304A5A1A918E07006F0C7F /* rewardItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E304A591A918E07006F0C7F /* rewardItemViewController.m */; };
+		1E5C92D01AA1C73D00CEDB1A /* gestureDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5C92CF1AA1C73D00CEDB1A /* gestureDemoViewController.m */; };
 		1E7A4B871AA00863006F9D61 /* globalCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A4B861AA00863006F9D61 /* globalCaching.m */; };
 		1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E83D4B81A7A1A8A00D2670C /* questDemoViewController.m */; };
 		1E9AF55D1A7746C200A6E416 /* mainmenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF55C1A7746C200A6E416 /* mainmenuViewController.m */; };
@@ -87,6 +88,8 @@
 		1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardStorePageViewController.m; sourceTree = "<group>"; };
 		1E304A581A918E07006F0C7F /* rewardItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rewardItemViewController.h; sourceTree = "<group>"; };
 		1E304A591A918E07006F0C7F /* rewardItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardItemViewController.m; sourceTree = "<group>"; };
+		1E5C92CE1AA1C73D00CEDB1A /* gestureDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestureDemoViewController.h; sourceTree = "<group>"; };
+		1E5C92CF1AA1C73D00CEDB1A /* gestureDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gestureDemoViewController.m; sourceTree = "<group>"; };
 		1E7A4B851AA00863006F9D61 /* globalCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globalCaching.h; sourceTree = "<group>"; };
 		1E7A4B861AA00863006F9D61 /* globalCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = globalCaching.m; sourceTree = "<group>"; };
 		1E83D4B71A7A1A8A00D2670C /* questDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questDemoViewController.h; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				1E304A591A918E07006F0C7F /* rewardItemViewController.m */,
 				1E7A4B851AA00863006F9D61 /* globalCaching.h */,
 				1E7A4B861AA00863006F9D61 /* globalCaching.m */,
+				1E5C92CE1AA1C73D00CEDB1A /* gestureDemoViewController.h */,
+				1E5C92CF1AA1C73D00CEDB1A /* gestureDemoViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 				1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */,
 				1E7A4B871AA00863006F9D61 /* globalCaching.m in Sources */,
 				1E20741F1A844757002D77A1 /* questPageViewController.m in Sources */,
+				1E5C92D01AA1C73D00CEDB1A /* gestureDemoViewController.m in Sources */,
 				1E304A5A1A918E07006F0C7F /* rewardItemViewController.m in Sources */,
 				1E304A4D1A9139D5006F0C7F /* missionPageViewController.m in Sources */,
 				1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */,

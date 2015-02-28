@@ -4180,6 +4180,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)showFeedbackStatusUpdateFromView:(UIViewController *)view text:(NSString *)text
 {
+    [self showFeedbackStatusUpdateFromView:view text:text duration:2.0];
+}
+
+-(void)showFeedbackStatusUpdateFromView:(UIViewController *)view text:(NSString *)text duration:(NSTimeInterval)duration
+{
     UIView* contentView = [[UIView alloc] init];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
     contentView.backgroundColor = [UIColor grayColor];
@@ -4210,7 +4215,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                                                views:views]];
     
     KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeClear dismissOnBackgroundTouch:NO dismissOnContentTouch:NO];
-    [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutBottom) duration:2.0f];
+    [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutBottom) duration:duration];
 }
 
 -(void)showFeedbackEventPopupFromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString *)description
