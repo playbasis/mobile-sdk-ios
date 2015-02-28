@@ -524,6 +524,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 @synthesize token;
 @synthesize isNetworkReachable = _isNetworkReachable;
 @synthesize enableGettingLocation;
+@synthesize coreMotionManager = _coreMotionManager;
 
 +(void)registerDeviceForPushNotification
 {
@@ -618,6 +619,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     _locationManager.delegate = self;
     _locationManager.distanceFilter = kCLDistanceFilterNone;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    // core motion
+    _coreMotionManager = [[CMMotionManager alloc] init];
     
     // explicitly ask for permission for iOS 8
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 #import "libs/Reachability/Reachability.h"
 #import "JSONKit.h"
 #import "PBTypes.h"
@@ -32,10 +33,12 @@
     id<PBAuth_ResponseHandler> authDelegate;
     NSMutableArray *requestOptQueue;
     CLLocationManager *_locationManager;
+    CMMotionManager *_coreMotionManager;
 }
 
 @property (nonatomic, strong, readonly) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
+@property (nonatomic, strong, readonly) CMMotionManager *coreMotionManager;
 
 /**
  Get / Set whether SDK should receive location.
