@@ -1,5 +1,5 @@
 //
-//  PBRequest.h
+//  PBRequestUnit.h
 //  pblib
 //
 //  Created by haxpor on 1/22/15.
@@ -22,7 +22,7 @@ typedef enum
 }
 PBRequestState;
 
-@interface PBRequest : NSObject
+@interface PBRequestUnit : NSObject
 {
     NSURLRequest *urlRequest;
     NSMutableData *receivedData;

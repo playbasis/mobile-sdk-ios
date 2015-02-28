@@ -26,6 +26,10 @@
 	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Require permission to get location when app is in use</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Require permission to get location when app is in use</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -8,7 +8,7 @@
 //  Copyright (c) 2015 Maethee Chongchitnant. All rights reserved.
 //
 
-#import "PBRequest.h"
+#import "PBRequestUnit.h"
 
 @interface NSMutableArray (QueueAndSerializationAdditions)
 

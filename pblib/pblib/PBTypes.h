@@ -12,14 +12,13 @@
 #import "PBResponses.h"
 #import "Reachability.h"
 
+@class CLLocation;
+
 ///----------------
 /// Global Notification string
 ///----------------
 /// TODO: Insert something here ...
 
-///----------------
-/// Notification protocol
-///----------------
 ///----------------
 /// Network status changed event
 ///----------------
@@ -28,8 +27,11 @@
 @end
 
 ///----------------
-/// Normal
+/// Location update
 ///----------------
+@protocol PBLocationUpdatedDelegate <NSObject>
+- (void)locationUpdated:(CLLocation*)location;
+@end
 
 ///---------------------------------------------
 /// @name Delegates and Block Response Handlers

@@ -81,10 +81,22 @@
                             NSLog(@"Complete loading all quests information.");
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                // set views for self
-                                [self setViewsForSelf];
-                                // hide hud
-                                [[Playbasis sharedPB] hideHUDFromView:self.view];
+                                
+                                // if there's no available quests to show
+                                if(_questListAvailable.list.questBasics == nil ||
+                                   [_questListAvailable.list.questBasics count] == 0)
+                                {
+                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network error!" message:@"Cannot load data" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                                    [alert show];
+                                }
+                                // otherwise set views to show
+                                else
+                                {
+                                    // set views for self
+                                    [self setViewsForSelf];
+                                    // hide hud
+                                    [[Playbasis sharedPB] hideHUDFromView:self.view];
+                                }
                             });
                         }
                         else

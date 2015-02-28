@@ -48,7 +48,7 @@ static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
 
 -(id) dequeueAndStart
 {
-    PBRequest *req = [self dequeue];
+    PBRequestUnit *req = [self dequeue];
     
     // start sending request right away if founded a request object there
     if(req != nil)

@@ -18,7 +18,7 @@
 static NSString* const pbProtectedResourcesSharedKey = @"abcdefghijklmnopqrstuvwxyz123456";
 
 /**
- Number of retry of PBRequest to do before giving up.
+ Number of retry of PBRequestUnit to do before giving up.
  */
 static const NSUInteger pbRequestRetryCount = 1;
 

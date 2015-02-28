@@ -26,6 +26,7 @@
 		1E9AF5781A783EFF00A6E416 /* quizResultScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9AF5771A783EFF00A6E416 /* quizResultScreenViewController.m */; };
 		1EA3AE1F1A717EBB008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */; };
 		1EC5B90E1A8F3E0E0007C8A8 /* pblibResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */; };
+		1EDA69D31AA13D6300F8A13B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D21AA13D6300F8A13B /* CoreLocation.framework */; };
 		2C1C75191749D7DB005F3B57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C75181749D7DB005F3B57 /* UIKit.framework */; };
 		2C1C751B1749D7DB005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C751A1749D7DB005F3B57 /* Foundation.framework */; };
 		2C1C751D1749D7DB005F3B57 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C751C1749D7DB005F3B57 /* CoreGraphics.framework */; };
@@ -105,6 +106,7 @@
 		1E9AF5761A783EFF00A6E416 /* quizResultScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quizResultScreenViewController.h; sourceTree = "<group>"; };
 		1E9AF5771A783EFF00A6E416 /* quizResultScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = quizResultScreenViewController.m; sourceTree = "<group>"; };
 		1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1EDA69D21AA13D6300F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2C1C75151749D7DB005F3B57 /* demoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1C75181749D7DB005F3B57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2C1C751A1749D7DB005F3B57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -129,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EDA69D31AA13D6300F8A13B /* CoreLocation.framework in Frameworks */,
 				1E304A481A90BCCF006F0C7F /* Security.framework in Frameworks */,
 				1EA3AE1F1A717EBB008F17F3 /* SystemConfiguration.framework in Frameworks */,
 				2C90D7EA1749DCCD0080C57D /* pblib.a in Frameworks */,
@@ -162,6 +165,7 @@
 		2C1C75171749D7DB005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EDA69D21AA13D6300F8A13B /* CoreLocation.framework */,
 				1E304A471A90BCCF006F0C7F /* Security.framework */,
 				1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */,
 				2C1C75181749D7DB005F3B57 /* UIKit.framework */,

@@ -21,7 +21,8 @@
 		1EC5B8FC1A8F3A410007C8A8 /* Playbasis.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; };
 		1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */; };
 		1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */; };
-		1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequest.m */; };
+		1EDA69D41AA148C700F8A13B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */; };
+		1EDC5FD91A701D9700991CEB /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
 		1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
 		2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
 		2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -73,8 +74,9 @@
 		1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
 		1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
 		1ED6CC2A1A9AE587000D8FB0 /* protectedResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = protectedResources; sourceTree = "<group>"; };
-		1EDC5FD71A701D9700991CEB /* PBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequest.h; sourceTree = "<group>"; };
-		1EDC5FD81A701D9700991CEB /* PBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequest.m; sourceTree = "<group>"; };
+		1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestUnit.h; sourceTree = "<group>"; };
+		1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequestUnit.m; sourceTree = "<group>"; };
 		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
 		1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAndSerializationAdditions.h"; sourceTree = "<group>"; };
 		1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAndSerializationAdditions.m"; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EDA69D41AA148C700F8A13B /* CoreLocation.framework in Frameworks */,
 				1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */,
 				2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */,
 			);
@@ -214,6 +217,7 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */,
 				1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */,
 				1E304A411A90BC83006F0C7F /* Security.framework */,
 				1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */,
@@ -233,8 +237,8 @@
 				2C1C750717461E6B005F3B57 /* JSONKit.m */,
 				2C1C750817461E6B005F3B57 /* Playbasis.h */,
 				2C1C750917461E6B005F3B57 /* Playbasis.m */,
-				1EDC5FD71A701D9700991CEB /* PBRequest.h */,
-				1EDC5FD81A701D9700991CEB /* PBRequest.m */,
+				1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */,
+				1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */,
 				1EDC5FDA1A7022EA00991CEB /* PBTypes.h */,
 				1E2074291A84B069002D77A1 /* PBResponses.h */,
 				1E20742A1A84B329002D77A1 /* PBResponses.m */,
@@ -365,7 +369,7 @@
 				1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */,
 				1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */,
 				1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
-				1EDC5FD91A701D9700991CEB /* PBRequest.m in Sources */,
+				1EDC5FD91A701D9700991CEB /* PBRequestUnit.m in Sources */,
 				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
 				1E80C7E11A9C291A00C6C291 /* RNDecryptor.m in Sources */,
 				1E80C7E61A9C298800C6C291 /* MBProgressHUD.m in Sources */,

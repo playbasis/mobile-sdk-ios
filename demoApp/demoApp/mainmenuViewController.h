@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Playbasis.h"
 
-@interface mainmenuViewController : UIViewController<PBNetworkStatusChangedDelegate>
+@interface mainmenuViewController : UIViewController<PBNetworkStatusChangedDelegate, PBLocationUpdatedDelegate>
 {
     // cache the result from goodsList
     PBGoodsListInfo_Response *goodsListInfo_;

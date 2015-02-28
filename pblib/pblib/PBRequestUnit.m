@@ -1,12 +1,12 @@
-    //
-//  PBRequest.m
+//
+//  PBRequestUnit.m
 //  pblib
 //
 //  Created by haxpor on 1/22/15.
 //  Copyright (c) 2015 Maethee Chongchitnant. All rights reserved.
 //
 
-#import "PBRequest.h"
+#import "PBRequestUnit.h"
 #import "JSONKit.h"
 #import "PBSettings.h"
 #import "Playbasis.h"
@@ -14,7 +14,7 @@
 //
 // object for handling requests response
 //
-@implementation PBRequest
+@implementation PBRequestUnit
 
 @synthesize state;
 @synthesize isBlockingCall;

@@ -24,6 +24,11 @@
     NSLog(@"Network status changed to %d", (int)status);
 }
 
+-(void)locationUpdated:(CLLocation *)location
+{
+    NSLog(@"Received location updated : %f %f", location.coordinate.latitude, location.coordinate.longitude);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -37,6 +42,9 @@
     
     // listen to network status changed from playbasis
     [Playbasis sharedPB].networkStatusChangedDelegate = self;
+    // enable location update
+    [Playbasis sharedPB].enableGettingLocation = YES;
+    [Playbasis sharedPB].locationUpdatedDelegate = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
