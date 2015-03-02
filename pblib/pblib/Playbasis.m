@@ -3832,6 +3832,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [request setValue:userAgent forHTTPHeaderField:@"Uset-Agent"];
     });
     
+    // set appbundle header (custom header)
+    // this is to distinguish the call that it is initiated from mobile
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *appbundleHeaderValue = [NSString stringWithFormat:@"%@-ios", bundleIdentifier];
+    [request setValue:appbundleHeaderValue forHTTPHeaderField:@"App-Bundle"];
+    
     // create PBRequestUnit with delegate callback
     PBRequestUnit* pbRequest = nil;
     if(useDelegate)
