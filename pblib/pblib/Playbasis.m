@@ -3765,7 +3765,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequestUnit *)callInternalBase:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest useDelegate:(BOOL)useDelegate responseType:(pbResponseType)responseType withResponse:(id)response
 {
-    id request = nil;
+    // create an http request that we will modify its header later on below
+    NSMutableURLRequest *request = nil;
     
     // set the default mode to sync mode
     NSString *urlRequest = BASE_URL;
@@ -3784,7 +3785,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     if(!data)
     {
-        request = [NSURLRequest requestWithURL:url];
+        request = [NSMutableURLRequest requestWithURL:url];
+        NSLog(@"Get request");
     }
     else
     {
@@ -3798,30 +3800,38 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         else
             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        {
-            // set date header
-            // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
-            NSDate *date = [NSDate date];
-            
-            // crete a date formatter
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            // setup format to be http date
-            // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-            [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
-            // get http date string
-            NSString *httpDateStr = [dateFormatter stringFromDate:date];
-            
-            NSLog(@"date: %@", [date description]);
-            NSLog(@"dateStr: %@", httpDateStr);
-            
-            // set to request's date header
-            [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
-        }
-        
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
         [request setHTTPBody:postData];
+        NSLog(@"Post request");
     }
+    
+    // set all relevant headers for the requests
+    // set date header
+    // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
+    NSDate *date = [NSDate date];
+    
+    // crete a date formatter
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // setup format to be http date
+    // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
+    // get http date string
+    NSString *httpDateStr = [dateFormatter stringFromDate:date];
+    
+    NSLog(@"date: %@", [date description]);
+    NSLog(@"dateStr: %@", httpDateStr);
+    
+    // set to request's date header
+    [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
+    
+    // set user's agent header (we can get in the main-thread only)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        NSString* userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+        [request setValue:userAgent forHTTPHeaderField:@"Uset-Agent"];
+    });
+    
     // create PBRequestUnit with delegate callback
     PBRequestUnit* pbRequest = nil;
     if(useDelegate)
@@ -3848,105 +3858,13 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         
         NSLog(@"Queue size = %lu", (unsigned long)[requestOptQueue count]);
     }
-    
-#if __has_feature(objc_arc)
+
     return pbRequest;
-#else
-    return [pbRequest autorelease];
-#endif
 }
 
 -(PBRequestUnit *)callInternalBase:(NSString *)method withData:(NSString *)data blockingCall:(BOOL)blockingCall syncURLRequest:(BOOL)syncURLRequest useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    id request = nil;
-    
-    // set the default mode to sync mode
-    NSString *urlRequest = BASE_URL;
-    // if it goes to async mode, then set it accordingly
-    if(!syncURLRequest)
-        urlRequest = BASE_ASYNC_URL;
-    
-    id url = nil;
-    
-    // if it's sync url request then append method into base url
-    if(syncURLRequest)
-        url = [NSURL URLWithString:[urlRequest stringByAppendingString:method]];
-    // otherwise, no need to append anything to the base url
-    else
-        url = [NSURL URLWithString:urlRequest];
-    
-    if(!data)
-    {
-        request = [NSURLRequest requestWithURL:url];
-    }
-    else
-    {
-        NSData *postData = [data dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-        request = [NSMutableURLRequest requestWithURL:url];
-        [request setHTTPMethod:@"POST"];
-        
-        if(syncURLRequest)
-            [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        else
-            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        {
-            // set date header
-            // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
-            NSDate *date = [NSDate date];
-            
-            // crete a date formatter
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            // setup format to be http date
-            // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-            [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
-            // get http date string
-            NSString *httpDateStr = [dateFormatter stringFromDate:date];
-            
-            NSLog(@"date: %@", [date description]);
-            NSLog(@"dateStr: %@", httpDateStr);
-            
-            // set to request's date header
-            [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
-        }
-        
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setHTTPBody:postData];
-    }
-    // create PBRequestUnit with delegate callback
-    PBRequestUnit* pbRequest = nil;
-    if(useDelegate)
-    {
-        pbRequest = [[PBRequestUnit alloc] initWithURLRequest:request blockingCall:blockingCall syncUrl:syncURLRequest responseType:responseType_normal andDelegate:response];
-    }
-    // create PBRequestUnit with block callback
-    else
-    {
-        pbRequest = [[PBRequestUnit alloc] initWithURLRequest:request blockingCall:blockingCall syncUrl:syncURLRequest responseType:responseType_normal andBlock:response];
-    }
-    
-    // if network is reachable then dispatch it immediately
-    if(_isNetworkReachable)
-    {
-        // start the request
-        [pbRequest start];
-    }
-    // otherwise, then add into the queue
-    else
-    {
-        // add PBRequestUnit into operational queue
-        [requestOptQueue enqueue:pbRequest];
-        
-        NSLog(@"Queue size = %lu", (unsigned long)[requestOptQueue count]);
-    }
-    
-#if __has_feature(objc_arc)
-    return pbRequest;
-#else
-    return [pbRequest autorelease];
-#endif
+    return [self callInternalBase:method withData:data blockingCall:blockingCall syncURLRequest:syncURLRequest useDelegate:useDelegate responseType:responseType_normal withResponse:response];
 }
 
 -(void)setToken:(NSString *)newToken
