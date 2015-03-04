@@ -43,7 +43,7 @@
     // listen to network status changed from playbasis
     [Playbasis sharedPB].networkStatusChangedDelegate = self;
     // enable location update
-    [Playbasis sharedPB].enableGettingLocation = YES;
+    [Playbasis sharedPB].enableGettingLocation = NO;
     [Playbasis sharedPB].locationUpdatedDelegate = self;
 }
 

@@ -1,4 +1,4 @@
 {
-    "api_key": "abc",
-    "api_secret": "abcde"
+    "api_key": "3026965093",
+    "api_secret": "ce9c9335d542674a2a3e286307dba8c0"
 }

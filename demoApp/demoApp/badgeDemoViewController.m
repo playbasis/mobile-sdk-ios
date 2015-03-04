@@ -95,6 +95,10 @@
                 });
             }
         }
+        else
+        {
+            NSLog(@"Error %@", error);
+        }
     }, nil];
 }
 @end

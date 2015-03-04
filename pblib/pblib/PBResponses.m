@@ -1937,8 +1937,13 @@
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     
-    c->dateStart = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_start"]];
-    c->dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
+    id dateStart = [c.parseLevelJsonResponse objectForKey:@"date_start"];
+    if(dateStart != nil && dateStart != (id)[NSNull null])
+        c->dateStart = [dateFormatter dateFromString:dateStart];
+    
+    id dateExpire = [c.parseLevelJsonResponse objectForKey:@"date_expire"];
+    if(dateExpire != nil && dateExpire != (id)[NSNull null])
+        c->dateExpire = [dateFormatter dateFromString:dateExpire];
     
     return c;
 }

@@ -66,7 +66,8 @@
                 // save the response
                 _cachedQuestListAvailable_response = list;
                 
-                if(_cachedQuestListAvailable_response.list != nil &&
+                if(_cachedQuestListAvailable_response != nil &&
+                   _cachedQuestListAvailable_response.list != nil &&
                    [_cachedQuestListAvailable_response.list.questBasics count] > 0)
                 {
                     // create dictionary
@@ -136,42 +137,46 @@
                 // save response
                 _cachedGoodsListInfo = goodsListInfo;
                 
-                // it's there any to load
-                if(goodsListInfo.goodsList != nil &&
-                   [goodsListInfo.goodsList count] > 0)
+                // do only when there's some goods list
+                if(_cachedGoodsListInfo != nil)
                 {
-                    // create array
-                    _cachedGoodsListInfoImages = [NSMutableArray array];
-                    
-                    // cache all images
-                    for(PBGoods *goods in goodsListInfo.goodsList)
+                    // it's there any to load
+                    if(goodsListInfo.goodsList != nil &&
+                       [goodsListInfo.goodsList count] > 0)
                     {
-                        [UIImage startLoadingImageWithUrl:goods.image response:^(UIImage *image) {
-                            if(image != nil)
-                            {
-                                // add image sequentially
-                                [_cachedGoodsListInfoImages addObject:image];
-                                NSLog(@"Complete caching image for %@", goods.image);
-                            }
-                            else
-                            {
-                                NSLog(@"Failed caching image %@", goods.image);
-                            }
-                        }];
+                        // create array
+                        _cachedGoodsListInfoImages = [NSMutableArray array];
+                        
+                        // cache all images
+                        for(PBGoods *goods in goodsListInfo.goodsList)
+                        {
+                            [UIImage startLoadingImageWithUrl:goods.image response:^(UIImage *image) {
+                                if(image != nil)
+                                {
+                                    // add image sequentially
+                                    [_cachedGoodsListInfoImages addObject:image];
+                                    NSLog(@"Complete caching image for %@", goods.image);
+                                }
+                                else
+                                {
+                                    NSLog(@"Failed caching image %@", goods.image);
+                                }
+                            }];
+                        }
+                        
+                        NSLog(@"Complete caching all information about goods-list");
+                    }
+                    else
+                    {
+                        NSLog(@"There's no goods list available.");
                     }
                     
-                    NSLog(@"Complete caching all information about goods-list");
-                }
-                else
-                {
-                    NSLog(@"There's no goods list available.");
-                }
-                
-                completionCount++;
-                if(completionCount >= kTargetCompletion)
-                {
-                    completion(YES);
-                    NSLog(@"Sent to completion block : YES");
+                    completionCount++;
+                    if(completionCount >= kTargetCompletion)
+                    {
+                        completion(YES);
+                        NSLog(@"Sent to completion block : YES");
+                    }
                 }
             }
             else
