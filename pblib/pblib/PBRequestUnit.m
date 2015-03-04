@@ -1640,6 +1640,9 @@
 
 -(void)start
 {
+    // set to proper state
+    state = Started;
+    
     // increase the number of retry-count
     retryCount++;
     
@@ -1667,6 +1670,9 @@
         // if all okay
         if(error == nil)
         {
+            // set a proper state
+            state = Finished;
+            
             // convert response data to string
             NSString *response = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
             // parse string into json
@@ -1678,6 +1684,9 @@
         // otherwise check to retry
         else
         {
+            // set to a proper state
+            state = FinishedWithError;
+            
             // if retry count doesn't reach the limit then retry
             if(retryCount <= pbRequestRetryCount)
             {
@@ -1696,6 +1705,9 @@
                 // otherwise, break out the retry-loop, then save to local storage
                 else
                 {
+                    // set to a proper state
+                    state = ReadyToStart;
+                    
                     NSLog(@"Break out of the loop, and save it into local storage");
                     [[[Playbasis sharedPB] getRequestOperationalQueue] enqueue:self];
                     
@@ -1723,6 +1735,9 @@
                 // if data received
                 if(error == nil)
                 {
+                    // set to a proper state
+                    state = Finished;
+                    
                     // convert response data to string
                     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     // parse string into json
@@ -1734,6 +1749,9 @@
                 // otherwise, there's an error
                 else
                 {
+                    // set to a proper state
+                    state = FinishedWithError;
+                    
                     // response fail
                     [self responseFromJSONResponse:nil error:error];
                 }
@@ -1742,6 +1760,9 @@
             {
                 if(error == nil)
                 {
+                    // set to a proper state
+                    state = Finished;
+                    
                     // convert data into string
                     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     
@@ -1751,6 +1772,9 @@
                 // otherwise, there's an error
                 else
                 {
+                    // set to a proper state
+                    state = FinishedWithError;
+                    
                     // response fail
                     [self responseAsyncURLRequestFromStringResponse:nil error:error];
                 }

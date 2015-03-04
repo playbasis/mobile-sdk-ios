@@ -11,12 +11,11 @@
 #import "PBResponses.h"
 #import "JSONKit.h"
 
+/** State of request */
 typedef enum
 {
     ReadyToStart,
     Started,
-    ResponseReceived,
-    ReceivingData,
     FinishedWithError,
     Finished
 }
@@ -37,7 +36,7 @@ PBRequestState;
     id responseBlock;
 }
 
-@property PBRequestState state;
+@property (nonatomic, readonly) PBRequestState state;
 @property (nonatomic, readonly) BOOL isBlockingCall;
 @property (nonatomic, readonly) BOOL isSyncURLRequest;
 

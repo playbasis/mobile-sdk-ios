@@ -53,9 +53,6 @@ static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
     // start sending request right away if founded a request object there
     if(req != nil)
     {
-        // update state of request
-        req.state = Started;
-        
         // start a request
         [req start];
     }
