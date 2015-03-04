@@ -82,6 +82,7 @@
 		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
 		1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAndSerializationAdditions.h"; sourceTree = "<group>"; };
 		1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAndSerializationAdditions.m"; sourceTree = "<group>"; };
+		1EDD1F521AA7231F00BED1CA /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
 		2C1C74F517461E1B005F3B57 /* pblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = pblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1C74F817461E1B005F3B57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C1C74FC17461E1B005F3B57 /* pblib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pblib-Prefix.pch"; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 				1E20742A1A84B329002D77A1 /* PBResponses.m */,
 				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
 				1E887DD71A9B19810077B673 /* PBSettings.h */,
+				1EDD1F521AA7231F00BED1CA /* PBConstants.h */,
 			);
 			path = pblib;
 			sourceTree = "<group>";

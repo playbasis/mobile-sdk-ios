@@ -7,8 +7,6 @@
 //
 
 #import "PBRequestUnit.h"
-#import "JSONKit.h"
-#import "PBSettings.h"
 #import "Playbasis.h"
 
 //
@@ -207,11 +205,11 @@
                                        NSLocalizedFailureReasonErrorKey: NSLocalizedString([NSString stringWithString:errorMessage], nil)
                                        };
             
-            // fix at specific value, because the response might not have any value
-            NSInteger nserrorErrorCode = 99;
+            // use default value of error code from Playbasis's domain
+            NSInteger nserrorErrorCode = PBERROR_DEFAULT;
             
             // create an NSError
-            NSError *userError = [NSError errorWithDomain:[[urlRequest URL] path]  code:nserrorErrorCode userInfo:userInfo];
+            NSError *userError = [NSError errorWithDomain:@"com.playbasis.iossdk" code:nserrorErrorCode userInfo:userInfo];
             
             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)responseBlock;
             
@@ -226,6 +224,7 @@
     // we need to check the error code, and success flag from json-response first before dispatch out either for success or failure
     // check "error_code" and "success"
     BOOL success = [[_jsonResponse objectForKey:@"success"] boolValue];
+    // get error code from this json message
     NSString *errorCode = [_jsonResponse objectForKey:@"error_code"];
     
     // success
@@ -251,7 +250,7 @@
         NSInteger nserrorErrorCode = [errorCode integerValue];
         
         // create an NSError
-        NSError *error = [NSError errorWithDomain:[[urlRequest URL] path]  code:nserrorErrorCode userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:@"com.playbasis.iossdk" code:nserrorErrorCode userInfo:userInfo];
         
         // response with fail
         [self responseFromJSONResponse:nil error:error];

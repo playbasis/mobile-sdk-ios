@@ -3549,7 +3549,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // check if user exists in the system or not
         [self player:playerId withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
             // user doesn't exist
-            if(player == nil && error != nil && error.code == 200)
+            if(player == nil && error != nil && error.code == PBERROR_USER_NOT_EXIST)
             {
                 NSLog(@"Player doesn't exist");
                 
@@ -3628,7 +3628,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // check if user exists in the system or not
     [self playerInternalBase:playerId blockingCall:blockingCall syncUrl:YES useDelegate:NO withResponse:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
         // user doesn't exist
-        if(player == nil && error != nil && error.code == 200)
+        if(player == nil && error != nil && error.code == PBERROR_USER_NOT_EXIST)
         {
             NSLog(@"Player doesn't exist");
             
