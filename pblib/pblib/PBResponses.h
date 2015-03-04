@@ -10,7 +10,7 @@
 #define pblib_PBResponses_h
 
 #import <Foundation/Foundation.h>
-#import "ui/UIImage+AutoLoader.h"
+#import "UIImage+AutoLoader.h"
 
 ///--------------------------------------
 /// Type of Response

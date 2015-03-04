@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
-#import "libs/Reachability/Reachability.h"
+#import "Reachability.h"
 #import "JSONKit.h"
 #import "PBTypes.h"
 #import "PBRequestUnit.h"
@@ -21,7 +21,7 @@
 /**
  Inclusion for all UIs.
  */
-#import "ui/PBUI.h"
+#import "PBUI.h"
 
 /**
  Playbasis
