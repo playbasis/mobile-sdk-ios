@@ -146,6 +146,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 /*
  All internal base methods for API calls are listed here.
  */
+// - auth (via protected config file)
+-(PBRequestUnit *)authWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - auth
 -(PBRequestUnit *)authWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
@@ -651,9 +654,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // schedule interval call to dispatch request in queue
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
     
-    // load api-keys config from protected resources
-    [self loadApiKeysConfig];
-    
 #if __has_feature(objc_arc)
     requestOptQueue = [NSMutableArray array];
 #else
@@ -901,19 +901,27 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequestUnit *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
-    return [self authWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
+    return [self authWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequestUnit *)authWithBlock:(PBAuth_ResponseBlock)block
 {
-    return [self authWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
+    return [self authWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
 -(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate
 {
-    return [self authWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andDelegate:delegate];
+    return [self authWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
 -(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block
 {
-    return [self authWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
+    return [self authWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)authWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    // load api-key and api-secret from protected config file
+    [self loadApiKeysConfig];
+    
+    // relay to the underlying inernal method
+    return [self authWithApiKeyInternalBase:_apiKey apiSecret:[self getApiSecretFromProtectedResources] blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response];
 }
 
 -(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
