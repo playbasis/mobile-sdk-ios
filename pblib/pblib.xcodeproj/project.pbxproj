@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
 		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
 		1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
 		1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
@@ -44,6 +45,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1E0DE7F81AA810DC002CEB3E /* PBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUtils.h; sourceTree = "<group>"; };
+		1E0DE7F91AA810DC002CEB3E /* PBUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBUtils.m; sourceTree = "<group>"; };
 		1E2074291A84B069002D77A1 /* PBResponses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
 		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -250,6 +253,8 @@
 				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
 				1E887DD71A9B19810077B673 /* PBSettings.h */,
 				1EDD1F521AA7231F00BED1CA /* PBConstants.h */,
+				1E0DE7F81AA810DC002CEB3E /* PBUtils.h */,
+				1E0DE7F91AA810DC002CEB3E /* PBUtils.m */,
 			);
 			path = pblib;
 			sourceTree = "<group>";
@@ -382,6 +387,7 @@
 				1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */,
 				2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */,
 				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,
+				1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */,
 				1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */,
 				1E80C7E01A9C291A00C6C291 /* RNCryptorEngine.m in Sources */,
 				1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "PBResponses.h"
 #import "JSONKit.h"
+#import "PBUtils.h"
 
 ///--------------------------------------
 /// Base - Response
@@ -65,13 +66,7 @@
 
     // set token
     c->token = [c.parseLevelJsonResponse objectForKey:@"token"];
-    
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->dateExpire = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
+    c->dateExpire = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_expire"]];
     
     return c;
 }
@@ -169,14 +164,9 @@
     // parse player's basic information
     c->playerBasic = [PBPlayerBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->registered = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"registered"]];
-    c->lastLogin = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_login"]];
-    c->lastLogout = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_logout"]];
+    c->registered = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"registered"]];
+    c->lastLogin = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_login"]];
+    c->lastLogout = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"last_logout"]];
     
     return c;
 }
@@ -935,12 +925,7 @@
     c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
     c->value = [[c.parseLevelJsonResponse objectForKey:@"value"] unsignedIntegerValue];
     
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateAdded = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
     
     c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
     c->stringFilter = [c.parseLevelJsonResponse objectForKey:@"string_filter"];
@@ -1058,13 +1043,7 @@
     // parse
     c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
     c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
-    
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    c->time = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
     
     return c;
 }
@@ -1160,13 +1139,7 @@
     // parse
     c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
     c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
-    
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    c->time = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
     
     return c;
 }
@@ -1217,13 +1190,7 @@
     // parse
     c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
     c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
-    
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->time = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
+    c->time = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"time"]];
     
     return c;
 }
@@ -1931,18 +1898,13 @@
     c->code = [c.parseLevelJsonResponse objectForKey:@"code"];
     c->sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
     
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
     id dateStart = [c.parseLevelJsonResponse objectForKey:@"date_start"];
     if(dateStart != nil && dateStart != (id)[NSNull null])
-        c->dateStart = [dateFormatter dateFromString:dateStart];
+        c->dateStart = [[PBUtils sharedInstance].dateFormatter dateFromString:dateStart];
     
     id dateExpire = [c.parseLevelJsonResponse objectForKey:@"date_expire"];
     if(dateExpire != nil && dateExpire != (id)[NSNull null])
-        c->dateExpire = [dateFormatter dateFromString:dateExpire];
+        c->dateExpire = [[PBUtils sharedInstance].dateFormatter dateFromString:dateExpire];
     
     return c;
 }
@@ -2332,16 +2294,8 @@
     c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
     c->rewardId = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
     c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
-    
-    // parse date field
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
-    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
-    
+    c->dateAdded = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateModified = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     c->questName = [c.parseLevelJsonResponse objectForKey:@"quest_name"];
     c->type = [c.parseLevelJsonResponse objectForKey:@"type"];
     
@@ -3021,15 +2975,8 @@
     // parse mission basic
     c->missionBasic = [PBMissionBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
-    // parse date field
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    c->dateModified = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     
-    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
-    
-    // parse normal fields
     c->status = [c.parseLevelJsonResponse objectForKey:@"status"];
     
     c->pendings = [PBPendingArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"pending"] startFromFinalLevel:YES];
@@ -3297,14 +3244,8 @@
     c->rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     c->missionBasics = [PBMissionBasicArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
     
-    // parse date field
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
-    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c->dateAdded = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateModified = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     c->clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
     c->siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
     c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
@@ -3417,14 +3358,8 @@
     c->rewards = [PBRewardArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     c->missions = [PBMissionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"missions"] startFromFinalLevel:YES];
     
-    // parse date field
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
-    c->dateModified = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
+    c->dateAdded = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateModified = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     c->clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
     c->siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
     c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
@@ -4396,12 +4331,7 @@
         c->value = [value unsignedIntegerValue];
     }
     
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
-    c->dateAdded = [dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
+    c->dateAdded = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_added"]];
     
     // parse playerbasic
     c->playerBasic = [PBPlayerBasic parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"player"] startFromFinalLevel:YES];
@@ -5655,18 +5585,13 @@
     // parse
     c->basic = [PBQuizBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
-    // create a date formatter to parse date-timestamp
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    
     id dateStart = [c.parseLevelJsonResponse objectForKey:@"date_start"];
-    if(dateStart != [NSNull null])
-        c->dateStart = [dateFormatter dateFromString:dateStart];
+    if(dateStart != nil && dateStart != [NSNull null])
+        c->dateStart = [[PBUtils sharedInstance].dateFormatter dateFromString:dateStart];
     
     id dateExpire = [c.parseLevelJsonResponse objectForKey:@"date_expire"];
-    if(dateExpire != [NSNull null])
-        c->dateExpire = [dateFormatter dateFromString:dateExpire];
+    if(dateExpire != nil && dateExpire != [NSNull null])
+        c->dateExpire = [[PBUtils sharedInstance].dateFormatter dateFromString:dateExpire];
     
     c->status = [[c.parseLevelJsonResponse objectForKey:@"status"] boolValue];
     

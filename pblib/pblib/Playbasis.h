@@ -18,6 +18,7 @@
 #import "PBResponses.h"
 #import "PBSettings.h"
 #import "PBConstants.h"
+#import "PBUtils.h"
 
 /**
  Inclusion for all UIs.
