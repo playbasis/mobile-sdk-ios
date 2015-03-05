@@ -12,16 +12,6 @@
 
 @implementation demoAppDelegate
 
-- (void)dealloc
-{
-#if __has_feature(objc_arc)
-    // do nothing
-#else
-    [_window release];
-    [super dealloc];
-#endif
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.

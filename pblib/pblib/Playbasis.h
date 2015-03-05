@@ -31,9 +31,9 @@
  */
 @interface Playbasis : NSObject <CLLocationManagerDelegate>
 {
-    NSString *token;
-    id<PBAuth_ResponseHandler> authDelegate;
-    NSMutableArray *requestOptQueue;
+    NSString *_token;
+    id<PBAuth_ResponseHandler> _authDelegate;
+    NSMutableArray *_requestOptQueue;
     CLLocationManager *_locationManager;
     CMMotionManager *_coreMotionManager;
 }

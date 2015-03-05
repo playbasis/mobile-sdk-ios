@@ -26,11 +26,7 @@
     // save NSURLRequest for later creation of NSURLConnection, and retrieve information from it
     urlRequest = request;
     
-#if __has_feature(objc_arc)
     receivedData = [NSMutableData data];
-#else
-    receivedData = [[NSMutableData data] retain];
-#endif
     
     // save blocking call flag
     isBlockingCall = blockingCall;
@@ -56,11 +52,7 @@
     // save NSURLRequest for later creation of NSURLConnection, and retrieve information from it
     urlRequest = request;
     
-#if __has_feature(objc_arc)
     receivedData = [NSMutableData data];
-#else
-    receivedData = [[NSMutableData data] retain];
-#endif
     
     // save blocking call flag
     isBlockingCall = blockingCall;
@@ -123,16 +115,6 @@
     // for delegate and block, we don't serialize it as those objects might not be available
     // after queue loaded all requests from file
     // The important thing here is that we execute the API call, result is another story.
-}
-
--(void)dealloc
-{
-#if __has_feature(objc_arc)
-    // do nothing
-#else
-    [url release];
-    [super dealloc];
-#endif
 }
 
 -(NSDictionary *)getResponse

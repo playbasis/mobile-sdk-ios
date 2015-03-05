@@ -103,7 +103,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             }];
             
             // TODO: Add temporary testcase here ...
-            // every testcase added here should be removed immediately after finish testing
+            // every tetcase added here should be removed immediately after finish testing
             
             NSLog(@"Passed through this line");
             

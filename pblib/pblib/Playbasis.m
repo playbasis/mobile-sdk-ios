@@ -21,10 +21,10 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 //
 @interface Playbasis ()
 {
-    NSString *apiKeyParam;
+    NSString *_apiKeyParam;
     NSString *_apiKey;
     BOOL _isNetworkReachable;
-    Reachability *reachability;
+    Reachability *_reachability;
     
     /**
      Used internally to keep track of player-id logging in the system.
@@ -524,9 +524,9 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 // NSUserDefaults key for Playbasis sdk to retrieve it later
 static NSString *sDeviceTokenRetrievalKey = nil;
 
-@synthesize token;
+@synthesize token = _token;
 @synthesize isNetworkReachable = _isNetworkReachable;
-@synthesize enableGettingLocation;
+@synthesize enableGettingLocation = _enableGettingLocation;
 @synthesize coreMotionManager = _coreMotionManager;
 
 +(void)registerDeviceForPushNotification
@@ -589,22 +589,22 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return nil;
     }
     
-    token = [decoder decodeObjectForKey:@"token"];
+    _token = [decoder decodeObjectForKey:@"token"];
     _apiKey = [decoder decodeObjectForKey:@"apiKey"];
-    apiKeyParam = [decoder decodeObjectForKey:@"apiKeyParam"];
-    authDelegate = [decoder decodeObjectForKey:@"authDelegate"];
-    requestOptQueue = [decoder decodeObjectForKey:@"requestOptQueue"];
+    _apiKeyParam = [decoder decodeObjectForKey:@"apiKeyParam"];
+    _authDelegate = [decoder decodeObjectForKey:@"authDelegate"];
+    _requestOptQueue = [decoder decodeObjectForKey:@"requestOptQueue"];
     
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:token forKey:@"token"];
+    [encoder encodeObject:_token forKey:@"token"];
     [encoder encodeObject:_apiKey forKey:@"apiKey"];
-    [encoder encodeObject:apiKeyParam forKey:@"apiKeyParam"];
-    [encoder encodeObject:authDelegate forKey:@"authDelegate"];
-    [encoder encodeObject:requestOptQueue forKey:@"requestOptQueue"];
+    [encoder encodeObject:_apiKeyParam forKey:@"apiKeyParam"];
+    [encoder encodeObject:_authDelegate forKey:@"authDelegate"];
+    [encoder encodeObject:_requestOptQueue forKey:@"requestOptQueue"];
 }
 
 -(id)init
@@ -613,9 +613,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return nil;
     
     _isNetworkReachable = FALSE;
-    token = nil;
-    apiKeyParam = nil;
-    authDelegate = nil;
+    _token = nil;
+    _apiKeyParam = nil;
+    _authDelegate = nil;
     
     // location manager
     _locationManager = [[CLLocationManager alloc] init];
@@ -631,7 +631,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [_locationManager requestWhenInUseAuthorization];
     
     // create reachability instance
-    reachability = [Reachability reachabilityForInternetConnection];
+    _reachability = [Reachability reachabilityForInternetConnection];
     // initially set the network status here
     // send 'nil' in has no effect for this method
     [self checkNetworkStatus:nil];
@@ -649,16 +649,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
     
     // start notifier right away
-    [reachability startNotifier];
+    [_reachability startNotifier];
     
     // schedule interval call to dispatch request in queue
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
     
-#if __has_feature(objc_arc)
-    requestOptQueue = [NSMutableArray array];
-#else
-    requestOptQueue = [[NSMutableArray array] retain];
-#endif
+    _requestOptQueue = [NSMutableArray array];
     
     // after queue creation then start checking to load requests from file
     [[self getRequestOperationalQueue] load];
@@ -669,7 +665,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)dealloc
 {
     // stop notifier
-    [reachability stopNotifier];
+    [_reachability stopNotifier];
     // remove notification of network status change
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
@@ -680,25 +676,13 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-    
-#if __has_feature(objc_arc)
-    // do nothing
-#else
-    if(token)
-        [token release];
-    if(authDelegate)
-        [authDelegate release];
-    if(requestOptQueue)
-        [requestOptQueue release];
-    [super dealloc];
-#endif
 }
 
 - (void)setEnableGettingLocation:(BOOL)get
 {
-    self->enableGettingLocation = get;
+    _enableGettingLocation = get;
     
-    if(self->enableGettingLocation)
+    if(_enableGettingLocation)
     {
         [_locationManager startUpdatingLocation];
         NSLog(@"Start updating location");
@@ -853,7 +837,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(const NSMutableArray *)getRequestOperationalQueue
 {
-    return requestOptQueue;
+    return _requestOptQueue;
 }
 
 -(void)setIntendedLoginPlayerIdAndResetConfirmStatus:(NSString *)playerId
@@ -947,19 +931,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // note: the final response is via PBAuthDelegate either by delegate or block
     // in this case, it's by delegate
-    apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
+    _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     
     // check whether it uses delegate to response back
     if(useDelegate)
-        authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:response];
+        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:response];
     else
-        authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
+        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
     
-    NSString *method = [NSString stringWithFormat:@"Auth%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
     
     // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:authDelegate];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:_authDelegate];
 }
 
 -(PBRequestUnit *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate
@@ -1000,19 +984,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // save apikey
     _apiKey = apiKey;
     
-    apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
+    _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     
     // check whether it uses delegate to response back
     if(useDelegate)
-        authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:response];
+        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:response];
     else
-        authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
+        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
     
-    NSString *method = [NSString stringWithFormat:@"Auth%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
     
     // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_renew andResponse:authDelegate];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_renew andResponse:_authDelegate];
 }
 
 -(PBRequestUnit *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate
@@ -1033,8 +1017,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)playerPublicInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerPublic andResponse:response];
 }
@@ -1057,9 +1041,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)playerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_player andResponse:response];
 }
@@ -1083,9 +1067,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)playerListInternalBase:(NSString *)playerListId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/list%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id=%@", token, playerListId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/list%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id=%@", _token, playerListId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerList andResponse:response];
 }
@@ -1108,8 +1092,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)playerDetailPublicInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, apiKeyParam];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerDetailedPublic andResponse:response];
 }
@@ -1132,9 +1116,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/data/all%@", playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerDetailed andResponse:response];
 }
@@ -1189,9 +1173,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)registerUserWithPlayerIdInternalBase:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", token, username, email, imageUrl];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/register%@", playerId, _apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&username=%@&email=%@&image=%@", _token, username, email, imageUrl];
     
     // create data final that will be used at the end of the process
     NSString *dataFinal = nil;
@@ -1271,10 +1255,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)updateUserForPlayerIdInternalBase:(NSString *)playerId firstArg:(NSString *)firstArg blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/update%@", playerId, apiKeyParam];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/update%@", playerId, _apiKeyParam];
     
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", token];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", _token];
     
     // create a data final
     NSString *dataFinal = nil;
@@ -1329,9 +1313,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)deleteUserWithPlayerIdInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/delete%@", playerId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/delete%@", playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     if(!syncUrl)
     {
@@ -1364,10 +1348,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)loginPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/login%@", playerId, apiKeyParam];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/login%@", playerId, _apiKeyParam];
     
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     if(!syncUrl)
     {
@@ -1402,9 +1386,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)logoutPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/logout%@", playerId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/logout%@", playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     if(!syncUrl)
     {
@@ -1435,7 +1419,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 - (PBRequestUnit *)pointsOfPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/points%@", playerId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/points%@", playerId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_points andResponse:response];
 }
@@ -1458,7 +1442,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)pointOfPlayerInternalBase:(NSString *)playerId forPoint:(NSString *)pointName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point/%@%@", playerId, pointName, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point/%@%@", playerId, pointName, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_point andResponse:response];
 }
@@ -1482,7 +1466,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)pointHistoryInternalBase:(NSString *)playerId forPoint:(NSString *)pointName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *params = [NSString stringWithFormat:@"&point_name=%@", pointName];
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, params];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, _apiKeyParam, params];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_pointHistory andResponse:response];
 }
@@ -1506,7 +1490,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)pointHistoryInternalBase:(NSString *)playerId offset:(unsigned int)offset blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *params = [NSString stringWithFormat:@"&offset=%u", offset];
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, params];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, _apiKeyParam, params];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_pointHistory andResponse:response];
 }
@@ -1531,7 +1515,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)pointHistoryInternalBase:(NSString *)playerId withLimit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *params = [NSString stringWithFormat:@"&limit=%u", limit];
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, params];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, _apiKeyParam, params];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_pointHistory andResponse:response];
 }
@@ -1555,7 +1539,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)pointHistoryInternalBase:(NSString *)playerId forPoint:(NSString *)pointName offset:(unsigned int)offset blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *params = [NSString stringWithFormat:@"&point_name=%@&offset=%u", pointName, offset];
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, params];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, _apiKeyParam, params];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_pointHistory andResponse:response];
 }
@@ -1579,7 +1563,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)pointHistoryInternalBase:(NSString *)playerId forPoint:(NSString *)pointName withLimit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *params = [NSString stringWithFormat:@"&point_name=%@&limit=%u", pointName, limit];
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, params];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, _apiKeyParam, params];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_pointHistory andResponse:response];
 }
@@ -1607,7 +1591,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if (pointName != nil) {
         params = [NSString stringWithFormat:@"%@&point_name=%@", params, pointName];
     }
-    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, apiKeyParam, params];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/point_history%@%@", playerId, _apiKeyParam, params];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_pointHistory andResponse:response];
 }
@@ -1630,7 +1614,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)actionTimeForPlayerInternalBase:(NSString *)playerId action:(NSString *)actionName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionTime andResponse:response];
 }
@@ -1653,7 +1637,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)actionLastPerformedForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/action/time%@", playerId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/action/time%@", playerId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_lastAction andResponse:response];
 }
@@ -1677,7 +1661,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)actionLastPerformedTimeForPlayerInternalBase:(NSString *)playerId action:(NSString *)actionName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/time%@", playerId, actionName, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionLastPerformedTime andResponse:response];
 }
@@ -1700,7 +1684,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)actionPerformedCountForPlayerInternalBase:(NSString *)playerId action:(NSString *)actionName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/count%@", playerId, actionName, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/action/%@/count%@", playerId, actionName, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionCount andResponse:response];
 }
@@ -1723,7 +1707,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)badgeOwnedForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/badge%@", playerId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/badge%@", playerId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerBadges andResponse:response];
 }
@@ -1746,7 +1730,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)rankByInternalBase:(NSString *)rankedBy blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/rank/%@%@", rankedBy, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/rank/%@%@", rankedBy, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_rank andResponse:response];
 }
@@ -1769,7 +1753,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)rankByInternalBase:(NSString *)rankedBy withLimit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/rank/%@/%u%@", rankedBy, limit, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/rank/%@/%u%@", rankedBy, limit, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_rank andResponse:response];
 }
@@ -1792,7 +1776,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)ranksWithLimitInternalBase:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/ranks/%u%@", limit, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/ranks/%u%@", limit, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_ranks andResponse:response];
 }
@@ -1815,7 +1799,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)levelInternalBase:(unsigned int)level blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/level/%u%@", level, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/level/%u%@", level, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_level andResponse:response];
 }
@@ -1838,7 +1822,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)levelsInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/levels%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/levels%@", _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_levels andResponse:response];
 }
@@ -1865,9 +1849,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)claimBadgeForPlayerInternalBase:(NSString *)playerId badgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/claim%@", playerId, badgeId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/claim%@", playerId, badgeId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     if(!syncUrl)
     {
@@ -1900,9 +1884,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)redeemBadgeForPlayerInternalBase:(NSString *)playerId badgeId:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/redeem%@", playerId, badgeId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/badge/%@/redeem%@", playerId, badgeId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     if(!syncUrl)
     {
@@ -1931,7 +1915,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)goodsOwnedOfPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/goods%@", playerId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/goods%@", playerId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerGoodsOwned andResponse:response];
 }
@@ -1954,7 +1938,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questOfPlayerInternalBase:(NSString *)playerId questId:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/quest/%@%@&player_id=%@", questId, apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Player/quest/%@%@&player_id=%@", questId, _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questOfPlayer andResponse:response];
 }
@@ -1977,7 +1961,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questRewardHistoryOfPlayerInternalBase:(NSString *)playerId offset:(unsigned int)offset blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/quest_reward_history%@&offset=%u", playerId, apiKeyParam, offset];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/quest_reward_history%@&offset=%u", playerId, _apiKeyParam, offset];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questRewardHistoryOfPlayer andResponse:response];
 }
@@ -2000,7 +1984,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questRewardHistoryOfPlayerInternalBase:(NSString *)playerId limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/quest_reward_history%@&limit=%u", playerId, apiKeyParam, limit];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/quest_reward_history%@&limit=%u", playerId, _apiKeyParam, limit];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questRewardHistoryOfPlayer andResponse:response];
 }
@@ -2023,7 +2007,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questRewardHistoryOfPlayerInternalBase:(NSString *)playerId offset:(unsigned int)offset limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/%@/quest_reward_history%@&offset=%u&limit=%u", playerId, apiKeyParam, offset, limit];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/quest_reward_history%@&offset=%u&limit=%u", playerId, _apiKeyParam, offset, limit];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questRewardHistoryOfPlayer andResponse:response];
 }
@@ -2050,9 +2034,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)deductRewardFromPlayerInternalBase:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct_reward%@", playerId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&reward=%@&amount=%lu", token, reward, (unsigned long)amount];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct_reward%@", playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&reward=%@&amount=%lu", _token, reward, (unsigned long)amount];
     
     if(!syncUrl)
     {
@@ -2085,9 +2069,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)deductRewardFromPlayerInternalBase:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct_reward%@", playerId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&reward=%@&amount=%lu&force=%lu", token, reward, (unsigned long)amount, (unsigned long)force];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct_reward%@", playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&reward=%@&amount=%lu&force=%lu", _token, reward, (unsigned long)amount, (unsigned long)force];
     
     if(!syncUrl)
     {
@@ -2116,7 +2100,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questListOfPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Player/quest%@&player_id=%@", apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Player/quest%@&player_id=%@", _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questListOfPlayer andResponse:response];
 }
@@ -2139,7 +2123,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)badgeInternalBase:(NSString *)badgeId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Badge/%@%@", badgeId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Badge/%@%@", badgeId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_badge andResponse:response];
 }
@@ -2162,7 +2146,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)badgesInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Badges%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Badges%@", _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_badges andResponse:response];
 }
@@ -2185,7 +2169,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)goodsInternalBase:(NSString *)goodId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Goods/%@%@", goodId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Goods/%@%@", goodId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsInfo andResponse:response];
 }
@@ -2208,7 +2192,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)goodsListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Goods%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Goods%@", _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsListInfo andResponse:response];
 }
@@ -2235,7 +2219,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)goodsGroupAvailableInternalBase:(NSString *)playerId group:(NSString *)group blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Redeem/goodsGroup%@&player_id=%@&group=%@", apiKeyParam, playerId, group];
+    NSString *method = [NSString stringWithFormat:@"Redeem/goodsGroup%@&player_id=%@&group=%@", _apiKeyParam, playerId, group];
     NSString *data = nil;
     
     if(!syncUrl)
@@ -2268,7 +2252,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)goodsGroupAvailableInternalBase:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Redeem/goodsGroup%@&player_id=%@&group=%@&amount=%u", apiKeyParam, playerId, group, amount];
+    NSString *method = [NSString stringWithFormat:@"Redeem/goodsGroup%@&player_id=%@&group=%@&amount=%u", _apiKeyParam, playerId, group, amount];
     NSString *data = nil;
     
     if(!syncUrl)
@@ -2301,7 +2285,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)actionConfigInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Engine/actionConfig%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Engine/actionConfig%@", _apiKeyParam];
     
     NSString *data = nil;
     
@@ -2383,10 +2367,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(PBRequestUnit *)ruleForPlayerInternalBase:(NSString *)playerId action:(NSString *)action blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
-    NSString *method = [NSString stringWithFormat:@"Engine/rule%@", apiKeyParam];
-    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", token, playerId, action];
+    NSString *method = [NSString stringWithFormat:@"Engine/rule%@", _apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", _token, playerId, action];
     NSString *dataFinal = nil;
     
     if(params != nil)
@@ -2432,7 +2416,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quest%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quest%@", _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questList andResponse:response];
 }
@@ -2455,7 +2439,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questInternalBase:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quest/%@%@", questId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questInfo andResponse:response];
 }
@@ -2478,7 +2462,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)missionInternalBase:(NSString *)missionId ofQuest:(NSString *)questId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quest/%@/mission/%@%@", questId, missionId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/mission/%@%@", questId, missionId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_missionInfo andResponse:response];
 }
@@ -2501,7 +2485,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questListAvailableForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quest/available%@&player_id=%@", apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quest/available%@&player_id=%@", _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questListAvailableForPlayer andResponse:response];
 }
@@ -2524,7 +2508,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)questAvailableInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quest/%@/available%@&player_id=%@", questId, apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/available%@&player_id=%@", questId, _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questAvailableForPlayer andResponse:response];
 }
@@ -2551,9 +2535,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)joinQuestInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Quest/%@/join%@", questId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", token, playerId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/join%@", questId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", _token, playerId];
     
     if(!syncUrl)
     {
@@ -2585,9 +2569,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)joinAllQuestsForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Quest/joinAll%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", token, playerId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Quest/joinAll%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", _token, playerId];
     
     if(!syncUrl)
     {
@@ -2619,9 +2603,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)cancelQuestInternalBase:(NSString *)questId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Quest/%@/cancel%@", questId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", token, playerId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Quest/%@/cancel%@", questId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", _token, playerId];
     
     if(!syncUrl)
     {
@@ -2653,10 +2637,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
-    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@", token, goodsId, playerId];
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@", _token, goodsId, playerId];
     
     if(!syncUrl)
     {
@@ -2688,12 +2672,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)redeemGoodsInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     if(amount < 1){
         amount = 1;
     }
-    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&amount=%u", token, goodsId, playerId, amount];
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&amount=%u", _token, goodsId, playerId, amount];
     
     if(!syncUrl)
     {
@@ -2725,10 +2709,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)redeemGoodsGroupInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
-    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&group=%@", token, goodsId, playerId, group];
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&group=%@", _token, goodsId, playerId, group];
     
     if(!syncUrl)
     {
@@ -2760,12 +2744,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)redeemGoodsGroupInternalBase:(NSString *)goodsId forPlayer:(NSString *)playerId group:(NSString *)group amount:(unsigned int)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     if(amount < 1){
         amount = 1;
     }
-    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&group=%@&amount=%u", token, goodsId, playerId, group, amount];
+    NSString *method = [NSString stringWithFormat:@"Redeem/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&goods_id=%@&player_id=%@&group=%@&amount=%u", _token, goodsId, playerId, group, amount];
     
     if(!syncUrl)
     {
@@ -2794,7 +2778,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)recentPointWithOffsetInternalBase:(unsigned int)offset limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u", apiKeyParam, offset, limit];
+    NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u", _apiKeyParam, offset, limit];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_recentPoint andResponse:response];
 }
@@ -2817,7 +2801,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)recentPointByNameInternalBase:(NSString *)pointName offset:(unsigned int)offset limit:(unsigned int)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u&point_name=%@", apiKeyParam, offset, limit, pointName];
+    NSString *method = [NSString stringWithFormat:@"Service/recent_point%@&offset=%u&limit=%u&point_name=%@", _apiKeyParam, offset, limit, pointName];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_recentPoint andResponse:response];
 }
@@ -2844,9 +2828,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)resetPointForAllPlayersWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Service/reset_point%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", token];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Service/reset_point%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     if(!syncUrl)
     {
@@ -2878,9 +2862,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)resetPointForAllPlayersForPointInternalBase:(NSString *)pointName blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Service/reset_point%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&point_name=%@", token, pointName];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Service/reset_point%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&point_name=%@", _token, pointName];
     
     if(!syncUrl)
     {
@@ -2912,9 +2896,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendEmailForPlayerInternalBase:(NSString *)playerId subject:(NSString *)subject message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Email/send%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@", token, playerId, subject, message];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/send%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@", _token, playerId, subject, message];
     
     if(!syncUrl)
     {
@@ -2946,9 +2930,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendEmailForPlayerInternalBase:(NSString *)playerId subject:(NSString *)subject message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Email/send%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@&template_id=%@", token, playerId, subject, message, templateId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/send%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&message=%@&template_id=%@", _token, playerId, subject, message, templateId];
     
     if(!syncUrl)
     {
@@ -2980,9 +2964,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendEmailCouponForPlayerInternalBase:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Email/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&ref_id=%@&message=%@", token, playerId, subject, refId, message];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&ref_id=%@&message=%@", _token, playerId, subject, refId, message];
     
     if(!syncUrl)
     {
@@ -3014,9 +2998,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendEmailCouponForPlayerInternalBase:(NSString *)playerId ref:(NSString *)refId subject:(NSString *)subject message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Email/goods%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, subject, refId, message, templateId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Email/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&subject=%@&ref_id=%@&message=%@&template_id=%@", _token, playerId, subject, refId, message, templateId];
     
     if(!syncUrl)
     {
@@ -3044,7 +3028,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizListWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/list%@", apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quiz/list%@", _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_activeQuizList andResponse:response];
 }
@@ -3067,7 +3051,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizListOfPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/list%@&player_id=%@", apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quiz/list%@&player_id=%@", _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_activeQuizList andResponse:response];
 }
@@ -3090,7 +3074,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizDetailInternalBase:(NSString *)quizId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/%@/detail%@", quizId, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/detail%@", quizId, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_quizDetail andResponse:response];
 }
@@ -3113,7 +3097,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizDetailInternalBase:(NSString *)quizId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/%@/detail%@&player_id=%@", quizId, apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/detail%@&player_id=%@", quizId, _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_quizDetail andResponse:response];
 }
@@ -3136,7 +3120,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizRandomForPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quiz/random%@&player_id=%@", _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_quizRandom andResponse:response];
 }
@@ -3159,7 +3143,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizDoneForPlayerInternalBase:(NSString *)playerId limit:(NSInteger)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/%ld%@", playerId, (long)limit, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/%ld%@", playerId, (long)limit, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_quizDoneListByPlayer andResponse:response];
 }
@@ -3182,7 +3166,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizPendingOfPlayerInternalBase:(NSString *)playerId limit:(NSInteger)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/pending/%ld%@", playerId, (long)limit, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quiz/player/%@/pending/%ld%@", playerId, (long)limit, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_quizPendingsByPlayer andResponse:response];
 }
@@ -3205,7 +3189,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizQuestionInternalBase:(NSString *)quizId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@", quizId, apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@", quizId, _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questionFromQuiz andResponse:response];
 }
@@ -3232,9 +3216,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizAnswerInternalBase:(NSString *)quizId optionId:(NSString *)optionId forPlayer:(NSString *)playerId ofQuestionId:(NSString *)questionId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Quiz/%@/answer%@", quizId, apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&question_id=%@&option_id=%@", token, playerId, questionId, optionId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/answer%@", quizId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&question_id=%@&option_id=%@", _token, playerId, questionId, optionId];
     
     if(!syncUrl)
     {
@@ -3262,7 +3246,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizScoreRankInternalBase:(NSString *)quizId limit:(NSInteger)limit blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/%@/rank/%ld%@", quizId, (long)limit, apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/rank/%ld%@", quizId, (long)limit, _apiKeyParam];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playersQuizRank andResponse:response];
 }
@@ -3289,9 +3273,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendSMSForPlayerInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token , @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Sms/send%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
+    NSAssert(_token , @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/send%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", _token, playerId, message];
     
     if(!syncUrl)
     {
@@ -3323,9 +3307,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendSMSForPlayerInternalBase:(NSString *)playerId message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token , @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Sms/send%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", token, playerId, message, templateId];
+    NSAssert(_token , @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/send%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", _token, playerId, message, templateId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_sendSMS andResponse:response];
 }
@@ -3352,9 +3336,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendSMSCouponForPlayerInternalBase:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Sms/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", _token, playerId, refId, message];
     
     if(!syncUrl)
     {
@@ -3386,9 +3370,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)sendSMSCouponForPlayerInternalBase:(NSString *)playerId ref:(NSString *)refId message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Sms/goods%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, refId, message, templateId];
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Sms/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", _token, playerId, refId, message, templateId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_sendSMSCoupon andResponse:response];
 }
@@ -3411,7 +3395,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)pushNotificationForPlayerInternalBase:(NSString *)playerId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
     // check if device token is there and set before making a request
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
@@ -3421,8 +3405,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return nil;
     }
     
-    NSString *method = [NSString stringWithFormat:@"Push/send%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", token, playerId, message];
+    NSString *method = [NSString stringWithFormat:@"Push/send%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@", _token, playerId, message];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -3445,7 +3429,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)pushNotificationForPlayerInternalBase:(NSString *)playerId message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
     // check if device token is there and set before making a request
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
@@ -3455,8 +3439,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return nil;
     }
     
-    NSString *method = [NSString stringWithFormat:@"Push/send%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", token, playerId, message, templateId];
+    NSString *method = [NSString stringWithFormat:@"Push/send%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&message=%@&template_id=%@", _token, playerId, message, templateId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -3479,7 +3463,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)pushNotificationCouponForPlayerInternalBase:(NSString *)playerId refId:(NSString *)refId message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
     // check if device token is there and set before making a request
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
@@ -3489,8 +3473,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return nil;
     }
     
-    NSString *method = [NSString stringWithFormat:@"Push/goods%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", token, playerId, refId, message];
+    NSString *method = [NSString stringWithFormat:@"Push/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@", _token, playerId, refId, message];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
@@ -3513,7 +3497,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)pushNotificationCouponForPlayerInternalBase:(NSString *)playerId refId:(NSString *)refId message:(NSString *)message template:(NSString *)templateId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
     // check if device token is there and set before making a request
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
@@ -3523,22 +3507,22 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         return nil;
     }
     
-    NSString *method = [NSString stringWithFormat:@"Push/goods%@",apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", token, playerId, refId, message, templateId];
+    NSString *method = [NSString stringWithFormat:@"Push/goods%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@&ref_id=%@&message=%@&template_id=%@", _token, playerId, refId, message, templateId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
 -(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate
 {
-    NSAssert(token, @"access token is nil");
+    NSAssert(_token, @"access token is nil");
     
     // get device token from what we save in NSUserDefaults
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
     NSAssert(deviceToken, @"device token is nil");
     
-    NSString *method = [NSString stringWithFormat:@"Push/registerdevice%@", apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", token, deviceToken];
+    NSString *method = [NSString stringWithFormat:@"Push/registerdevice%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", _token, deviceToken];
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
 
@@ -3868,9 +3852,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     else
     {
         // add PBRequestUnit into operational queue
-        [requestOptQueue enqueue:pbRequest];
+        [_requestOptQueue enqueue:pbRequest];
         
-        NSLog(@"Queue size = %lu", (unsigned long)[requestOptQueue count]);
+        NSLog(@"Queue size = %lu", (unsigned long)[_requestOptQueue count]);
     }
 
     return pbRequest;
@@ -3883,17 +3867,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)setToken:(NSString *)newToken
 {
+    _token = newToken;
     
-#if __has_feature(objc_arc)
-    token = newToken;
-#else
-    if(token)
-        [token release];
-    token = newToken;
-    [token retain];
-#endif
-    
-    NSLog(@"token assigned: %@", token);
+    NSLog(@"token assigned: %@", _token);
 }
 
 -(void)dispatchFirstRequestInQueue:(NSTimer *)dt
@@ -3902,7 +3878,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // only dispatch a first found request if network can be reached, and
     // operational queue is not empty
-    if(_isNetworkReachable && ![requestOptQueue empty])
+    if(_isNetworkReachable && ![_requestOptQueue empty])
     {
         [[self getRequestOperationalQueue] dequeueAndStart];
         NSLog(@"Dispatched first founed request in queue");
@@ -3911,7 +3887,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)checkNetworkStatus:(NSNotification *)notice
 {
-    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    NetworkStatus networkStatus = [_reachability currentReachabilityStatus];
     switch(networkStatus)
     {
         case NotReachable:
