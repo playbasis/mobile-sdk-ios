@@ -47,6 +47,7 @@
 /* Begin PBXFileReference section */
 		1E0DE7F81AA810DC002CEB3E /* PBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUtils.h; sourceTree = "<group>"; };
 		1E0DE7F91AA810DC002CEB3E /* PBUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBUtils.m; sourceTree = "<group>"; };
+		1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMacros.h; sourceTree = "<group>"; };
 		1E2074291A84B069002D77A1 /* PBResponses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
 		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -255,6 +256,7 @@
 				1EDD1F521AA7231F00BED1CA /* PBConstants.h */,
 				1E0DE7F81AA810DC002CEB3E /* PBUtils.h */,
 				1E0DE7F91AA810DC002CEB3E /* PBUtils.m */,
+				1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */,
 			);
 			path = pblib;
 			sourceTree = "<group>";

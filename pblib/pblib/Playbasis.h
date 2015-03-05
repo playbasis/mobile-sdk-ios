@@ -19,6 +19,7 @@
 #import "PBSettings.h"
 #import "PBConstants.h"
 #import "PBUtils.h"
+#import "PBMacros.h"
 
 /**
  Inclusion for all UIs.
