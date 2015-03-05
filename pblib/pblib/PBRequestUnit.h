@@ -44,7 +44,6 @@ PBRequestState;
 -(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andBlock:(PBResponseBlock)block;
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
--(void)dealloc;
 -(NSDictionary *)getResponse;
 
 

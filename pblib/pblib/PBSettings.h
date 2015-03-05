@@ -27,4 +27,9 @@ static const NSUInteger pbRequestRetryCount = 1;
  */
 static const float pbDelayAmountBeforeNextRequestRetry = 10000;
 
+/**
+ Debug mode enabled.
+ */
+#define PBDebugMode 1
+
 #endif
