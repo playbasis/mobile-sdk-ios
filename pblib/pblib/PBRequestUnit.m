@@ -145,7 +145,7 @@
             // if retry count doesn't reach the limit then retry
             if(_retryCount <= pbRequestRetryCount)
             {
-                NSLog(@"Waiting to make a request to %@ for duration of %.2f", [_urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
+                PBLOG(@"Waiting to make a request to %@ for duration of %.2f", [_urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
                 
                 // sleep the current thread that this request is on for set amount of time
                 [NSThread sleepForTimeInterval:pbDelayAmountBeforeNextRequestRetry / 1000.0f];
@@ -154,16 +154,16 @@
                 if([Playbasis sharedPB].isNetworkReachable)
                 {
                     // after sleep for certain amount of time, then restart the request again
-                    NSLog(@"Retry sending request to %@", [_urlRequest URL]);
+                    PBLOG(@"Retry sending request to %@", [_urlRequest URL]);
                     [self start];
                 }
                 // otherwise, break out the retry-loop, then save to local storage
                 else
                 {
-                    NSLog(@"Break out of the loop, and save it into local storage");
+                    PBLOG(@"Break out of the loop, and save it into local storage");
                     [[[Playbasis sharedPB] getRequestOperationalQueue] enqueue:self];
                     
-                    NSLog(@"Queue size = %lu", (unsigned long)[[[Playbasis sharedPB] getRequestOperationalQueue] count]);
+                    PBLOG(@"Queue size = %lu", (unsigned long)[[[Playbasis sharedPB] getRequestOperationalQueue] count]);
                 }
             }
             else
@@ -176,7 +176,7 @@
         }
         else
         {
-            NSLog(@"Give up retrying, sending back error for %@.", [_urlRequest URL]);
+            PBLOG(@"Give up retrying, sending back error for %@.", [_urlRequest URL]);
             
             // create an error message directly from the response back
             NSString *errorMessage = strResponse != nil && ![strResponse isEqualToString:@""] ? strResponse : [NSString stringWithFormat:@"There's error from async url request %@", [_urlRequest URL]];
@@ -217,7 +217,7 @@
     }
     else
     {
-        NSLog(@"Give up retrying, sending back error for %@.", [_urlRequest URL]);
+        PBLOG(@"Give up retrying, sending back error for %@.", [_urlRequest URL]);
         
         // get error message
         NSString *errorMessage = [jsonResponse objectForKey:@"message"];
@@ -1630,7 +1630,7 @@
     
     // only print out for the first try
     if(_retryCount == 1)
-        NSLog(@"Sending request for %@", [_urlRequest URL]);
+        PBLOG(@"Sending request for %@", [_urlRequest URL]);
     
     // start the request according to the type of request
     // if it's blocking call
@@ -1672,7 +1672,7 @@
             // if retry count doesn't reach the limit then retry
             if(_retryCount <= pbRequestRetryCount)
             {
-                NSLog(@"Waiting to make a request to %@ for duration of %.2f", [_urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
+                PBLOG(@"Waiting to make a request to %@ for duration of %.2f", [_urlRequest URL], pbDelayAmountBeforeNextRequestRetry / 1000.0f);
                 
                 // sleep the current thread that this request is on for set amount of time
                 [NSThread sleepForTimeInterval:pbDelayAmountBeforeNextRequestRetry / 1000.0f];
@@ -1681,7 +1681,7 @@
                 if([Playbasis sharedPB].isNetworkReachable)
                 {
                     // after sleep for certain amount of time, then restart the request again
-                    NSLog(@"Retry sending request to %@", [_urlRequest URL]);
+                    PBLOG(@"Retry sending request to %@", [_urlRequest URL]);
                     [self start];
                 }
                 // otherwise, break out the retry-loop, then save to local storage
@@ -1690,10 +1690,10 @@
                     // set to a proper state
                     _state = ReadyToStart;
                     
-                    NSLog(@"Break out of the loop, and save it into local storage");
+                    PBLOG(@"Break out of the loop, and save it into local storage");
                     [[[Playbasis sharedPB] getRequestOperationalQueue] enqueue:self];
                     
-                    NSLog(@"Queue size = %lu", (unsigned long)[[[Playbasis sharedPB] getRequestOperationalQueue] count]);
+                    PBLOG(@"Queue size = %lu", (unsigned long)[[[Playbasis sharedPB] getRequestOperationalQueue] count]);
                 }
             }
             else

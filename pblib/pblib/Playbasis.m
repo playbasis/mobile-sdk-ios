@@ -496,7 +496,7 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
     if(error)
     {
         // auth failed
-        NSLog(@"Auth failed, error = %@", [error localizedDescription]);
+        PBLOG(@"Auth failed, error = %@", [error localizedDescription]);
         return;
     }
     
@@ -540,13 +540,13 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
         
-        NSLog(@"Register device ios %f+", 8.0f);
+        PBLOG(@"Register device ios %f+", 8.0f);
     }
     else
     {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
         
-        NSLog(@"Registered devie ios < %f", 8.0f);
+        PBLOG(@"Registered devie ios < %f", 8.0f);
     }
 }
 
@@ -557,7 +557,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    NSLog(@"Device token is: %@", device);
+    PBLOG(@"Device token is: %@", device);
     
     // save the key for Playbasis to be able to retrieve it via NSUserDefaults later
     sDeviceTokenRetrievalKey = key;
@@ -685,12 +685,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if(_enableGettingLocation)
     {
         [_locationManager startUpdatingLocation];
-        NSLog(@"Start updating location");
+        PBLOG(@"Start updating location");
     }
     else
     {
         [_locationManager stopUpdatingLocation];
-        NSLog(@"Stop updating location.");
+        PBLOG(@"Stop updating location.");
     }
 }
 
@@ -702,7 +702,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations lastObject];
-    NSLog(@"Location : %f %f", location.coordinate.latitude, location.coordinate.longitude);
+    PBLOG(@"Location : %f %f", location.coordinate.latitude, location.coordinate.longitude);
     
     // also send update to delegate
     [self.locationUpdatedDelegate locationUpdated:location];
@@ -830,7 +830,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // get json string
     NSString *dataFinal = [dictWholeData JSONString];
-    NSLog(@"jsonString = %@", dataFinal);
+    PBLOG(@"jsonString = %@", dataFinal);
     
     return dataFinal;
 }
@@ -2307,7 +2307,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         
         // get json string
         data = [dictWholeData JSONString];
-        NSLog(@"jsonString = %@", data);
+        PBLOG(@"jsonString = %@", data);
     }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_actionConfig andResponse:response];
@@ -3401,7 +3401,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
     if(deviceToken == nil)
     {
-        NSLog(@"No device token acquired just yet.");
+        PBLOG(@"No device token acquired just yet.");
         return nil;
     }
     
@@ -3435,7 +3435,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
     if(deviceToken == nil)
     {
-        NSLog(@"No device token acquired just yet.");
+        PBLOG(@"No device token acquired just yet.");
         return nil;
     }
     
@@ -3469,7 +3469,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
     if(deviceToken == nil)
     {
-        NSLog(@"No device token acquired just yet.");
+        PBLOG(@"No device token acquired just yet.");
         return nil;
     }
     
@@ -3503,7 +3503,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
     if(deviceToken == nil)
     {
-        NSLog(@"No device token acquired just yet.");
+        PBLOG(@"No device token acquired just yet.");
         return nil;
     }
     
@@ -3543,7 +3543,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             // user doesn't exist
             if(player == nil && error != nil && error.code == PBERROR_USER_NOT_EXIST)
             {
-                NSLog(@"Player doesn't exist");
+                PBLOG(@"Player doesn't exist");
                 
                 // show registration form
                 if(view != nil)
@@ -3551,14 +3551,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                     [self showRegistrationFormFromView:view intendedPlayerId:playerId withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
                         if(!error)
                         {
-                            NSLog(@"Register successfully, then do rule().");
+                            PBLOG(@"Register successfully, then do rule().");
                             // register successfully, then do the work
                             // now it's time to track
                             [self ruleForPlayerInternalBase:playerId action:action blockingCall:NO syncUrl:NO useDelegate:useDelegate withResponse:response withParams:nil];
                         }
                         else
                         {
-                            NSLog(@"Register failed, then send error back to response.");
+                            PBLOG(@"Register failed, then send error back to response.");
 
                             PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
                             sb([PBManualSetResultStatus_Response resultStatusWithFailure], nil, error);
@@ -3568,7 +3568,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 // otherwise, response back with error
                 else
                 {
-                    NSLog(@"No view set, then send back with error to reponse.");
+                    PBLOG(@"No view set, then send back with error to reponse.");
                     // if there's no view input, then directly send back response with error
                     PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
                     sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);
@@ -3577,7 +3577,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             // player exists
             else if(player != nil && error == nil)
             {
-                NSLog(@"Player exists as following info: %@", player);
+                PBLOG(@"Player exists as following info: %@", player);
                 
                 // now it's time to track
                 // response back to the root response
@@ -3586,7 +3586,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             // error
             else
             {
-                NSLog(@"Error occurs: %@", error);
+                PBLOG(@"Error occurs: %@", error);
                 
                 // direct response back
                 if(response != nil)
@@ -3622,7 +3622,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // user doesn't exist
         if(player == nil && error != nil && error.code == PBERROR_USER_NOT_EXIST)
         {
-            NSLog(@"Player doesn't exist");
+            PBLOG(@"Player doesn't exist");
             
             // show registration form
             if(view != nil)
@@ -3630,14 +3630,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 [self showRegistrationFormFromView:view intendedPlayerId:playerId withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
                     if(!error)
                     {
-                        NSLog(@"Register successfully, then do rule().");
+                        PBLOG(@"Register successfully, then do rule().");
                         // register successfully, then do the work
                         // now it's time to track
                         [self ruleForPlayerInternalBase:playerId action:action blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response withParams:nil];
                     }
                     else
                     {
-                        NSLog(@"Register failed, then send error back to response.");
+                        PBLOG(@"Register failed, then send error back to response.");
 
                         if(useDelegate)
                         {
@@ -3660,7 +3660,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
             // otherwise, response back with error
             else
             {
-                NSLog(@"No view set, then send back with error to reponse.");
+                PBLOG(@"No view set, then send back with error to reponse.");
                 // if there's no view input, then directly send back response with error
                 if(useDelegate)
                 {
@@ -3682,7 +3682,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // player exists
         else if(player != nil && error == nil)
         {
-            NSLog(@"Player exists as following info: %@", player);
+            PBLOG(@"Player exists as following info: %@", player);
             
             // now it's time to track
             // response back to the root response
@@ -3691,7 +3691,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // error
         else
         {
-            NSLog(@"Error occurs: %@", error);
+            PBLOG(@"Error occurs: %@", error);
             
             // direct response back
             if(useDelegate)
@@ -3778,7 +3778,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if(!data)
     {
         request = [NSMutableURLRequest requestWithURL:url];
-        NSLog(@"Get request");
+        PBLOG(@"Get request");
     }
     else
     {
@@ -3794,7 +3794,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
         [request setHTTPBody:postData];
-        NSLog(@"Post request");
+        PBLOG(@"Post request");
     }
     
     // set all relevant headers for the requests
@@ -3811,8 +3811,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // get http date string
     NSString *httpDateStr = [dateFormatter stringFromDate:date];
     
-    NSLog(@"date: %@", [date description]);
-    NSLog(@"dateStr: %@", httpDateStr);
+    PBLOG(@"date: %@", [date description]);
+    PBLOG(@"dateStr: %@", httpDateStr);
     
     // set to request's date header
     [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
@@ -3854,7 +3854,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // add PBRequestUnit into operational queue
         [_requestOptQueue enqueue:pbRequest];
         
-        NSLog(@"Queue size = %lu", (unsigned long)[_requestOptQueue count]);
+        PBLOG(@"Queue size = %lu", (unsigned long)[_requestOptQueue count]);
     }
 
     return pbRequest;
@@ -3869,19 +3869,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     _token = newToken;
     
-    NSLog(@"token assigned: %@", _token);
+    PBLOG(@"token assigned: %@", _token);
 }
 
 -(void)dispatchFirstRequestInQueue:(NSTimer *)dt
 {
-    //NSLog(@"Called dispatchFirstRequestInQueue");
+    //PBLOG(@"Called dispatchFirstRequestInQueue");
     
     // only dispatch a first found request if network can be reached, and
     // operational queue is not empty
     if(_isNetworkReachable && ![_requestOptQueue empty])
     {
         [[self getRequestOperationalQueue] dequeueAndStart];
-        NSLog(@"Dispatched first founed request in queue");
+        PBLOG(@"Dispatched first founed request in queue");
     }
 }
 
@@ -3892,15 +3892,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     {
         case NotReachable:
             _isNetworkReachable = FALSE;
-            NSLog(@"Network is not reachable");
+            PBLOG(@"Network is not reachable");
             break;
         case ReachableViaWiFi:
             _isNetworkReachable = TRUE;
-            NSLog(@"Network is reachable via WiFi");
+            PBLOG(@"Network is reachable via WiFi");
             break;
         case ReachableViaWWAN:
             _isNetworkReachable = TRUE;
-            NSLog(@"Network is reachable via WWAN");
+            PBLOG(@"Network is reachable via WWAN");
             break;
     }
     
@@ -3910,7 +3910,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)onApplicationDidFinishLaunching:(NSNotification *)notif
 {
-    NSLog(@"called onApplicationDidFinishLaunching()");
+    PBLOG(@"called onApplicationDidFinishLaunching()");
     
     // only track when tracking player-id is set, and confirm status is set
     if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
@@ -3920,12 +3920,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
-                NSLog(@"%@", response);
+                PBLOG(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                PBLOG(@"%@", response);
             }
             else
             {
-                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+                PBLOG(@"Failed to send phone event of '%@' to Playbasis.", action);
             }
         }, nil];
     }
@@ -3933,7 +3933,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)onApplicationWillResignActive:(NSNotification *)notif
 {
-    NSLog(@"called onApplicatoinWillResignActive()");
+    PBLOG(@"called onApplicatoinWillResignActive()");
     
     // only track when tracking player-id is set, and confirm status is set
     if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
@@ -3943,12 +3943,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
-                NSLog(@"%@", response);
+                PBLOG(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                PBLOG(@"%@", response);
             }
             else
             {
-                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+                PBLOG(@"Failed to send phone event of '%@' to Playbasis.", action);
             }
         }, nil];
     }
@@ -3956,7 +3956,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)onApplicationDidEnterBackground:(NSNotification *)notif
 {
-    NSLog(@"called onApplicationDidEnterBackground()");
+    PBLOG(@"called onApplicationDidEnterBackground()");
     
     // serialize and save all requests in queue
     [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
@@ -3969,12 +3969,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
-                NSLog(@"%@", response);
+                PBLOG(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                PBLOG(@"%@", response);
             }
             else
             {
-                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+                PBLOG(@"Failed to send phone event of '%@' to Playbasis.", action);
             }
         }, nil];
     }
@@ -3982,7 +3982,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)onApplicationWillEnterForeground:(NSNotification *)notif
 {
-    NSLog(@"called onApplicationWillEnterForeground()");
+    PBLOG(@"called onApplicationWillEnterForeground()");
     
     // load saved requests from file
     [[[Playbasis sharedPB] getRequestOperationalQueue] load];
@@ -3995,12 +3995,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
-                NSLog(@"%@", response);
+                PBLOG(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                PBLOG(@"%@", response);
             }
             else
             {
-                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+                PBLOG(@"Failed to send phone event of '%@' to Playbasis.", action);
             }
         }, nil];
     }
@@ -4008,7 +4008,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)onApplicationDidBecomeActive:(NSNotification *)notif
 {
-    NSLog(@"called onApplicationDidBecomeActive()");
+    PBLOG(@"called onApplicationDidBecomeActive()");
     
     // only track when tracking player-id is set, and confirm status is set
     if(_intendedLoginPlayerId != nil && _isIntendedLoginPlayerIdConfirmed)
@@ -4018,12 +4018,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [self ruleForPlayerAsync:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
-                NSLog(@"%@", response);
+                PBLOG(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                PBLOG(@"%@", response);
             }
             else
             {
-                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+                PBLOG(@"Failed to send phone event of '%@' to Playbasis.", action);
             }
         }, nil];
     }
@@ -4031,7 +4031,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)onApplicationWillTerminate:(NSNotification *)notif
 {
-    NSLog(@"called onApplicationWillTerminate()");
+    PBLOG(@"called onApplicationWillTerminate()");
     
     // serialize and save all requests in queue
     [[[Playbasis sharedPB] getRequestOperationalQueue] serializeAndSaveToFile];
@@ -4044,12 +4044,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         [self ruleForPlayer:_intendedLoginPlayerId action:action withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
             if(!error)
             {
-                NSLog(@"Successfully sent phone event of '%@' to Playbasis.", action);
-                NSLog(@"%@", response);
+                PBLOG(@"Successfully sent phone event of '%@' to Playbasis.", action);
+                PBLOG(@"%@", response);
             }
             else
             {
-                NSLog(@"Failed to send phone event of '%@' to Playbasis.", action);
+                PBLOG(@"Failed to send phone event of '%@' to Playbasis.", action);
             }
         }, nil];
     }

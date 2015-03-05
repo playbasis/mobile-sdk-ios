@@ -29,6 +29,7 @@ static const float pbDelayAmountBeforeNextRequestRetry = 10000;
 
 /**
  Debug mode enabled.
+ Set to 1 to enable debugging mode, or 0 to disable it.
  */
 #define PBDebugMode 1
 

@@ -55,17 +55,17 @@
 */
 
 - (IBAction)onTouchedCancelButton:(id)sender {
-    NSLog(@"Cancel button touched.");
+    PBLOG(@"Cancel button touched.");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onTouchedSubmitButton:(id)sender {
-    NSLog(@"Submit the information to register user.");
+    PBLOG(@"Submit the information to register user.");
     
-    NSLog(@"First name : %@", self.firstNameTextField.text);
-    NSLog(@"Last name : %@", self.lastNameTextField.text);
-    NSLog(@"Email : %@", self.emailTextField.text);
-    NSLog(@"Username : %@", self.usernameTextField.text);
+    PBLOG(@"First name : %@", self.firstNameTextField.text);
+    PBLOG(@"Last name : %@", self.lastNameTextField.text);
+    PBLOG(@"Email : %@", self.emailTextField.text);
+    PBLOG(@"Username : %@", self.usernameTextField.text);
     
     // register according to the information entered
     // if all fields are entered, then we enable submit button

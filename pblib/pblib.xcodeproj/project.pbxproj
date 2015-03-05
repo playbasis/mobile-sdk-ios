@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
+		1E0DE7FE1AA85081002CEB3E /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
 		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
 		1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
 		1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
@@ -48,6 +49,8 @@
 		1E0DE7F81AA810DC002CEB3E /* PBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUtils.h; sourceTree = "<group>"; };
 		1E0DE7F91AA810DC002CEB3E /* PBUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBUtils.m; sourceTree = "<group>"; };
 		1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMacros.h; sourceTree = "<group>"; };
+		1E0DE7FC1AA85081002CEB3E /* PBCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCommon.h; sourceTree = "<group>"; };
+		1E0DE7FD1AA85081002CEB3E /* PBCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCommon.m; sourceTree = "<group>"; };
 		1E2074291A84B069002D77A1 /* PBResponses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
 		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -257,6 +260,8 @@
 				1E0DE7F81AA810DC002CEB3E /* PBUtils.h */,
 				1E0DE7F91AA810DC002CEB3E /* PBUtils.m */,
 				1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */,
+				1E0DE7FC1AA85081002CEB3E /* PBCommon.h */,
+				1E0DE7FD1AA85081002CEB3E /* PBCommon.m */,
 			);
 			path = pblib;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E0DE7FE1AA85081002CEB3E /* PBCommon.m in Sources */,
 				1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */,
 				1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */,
 				1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,

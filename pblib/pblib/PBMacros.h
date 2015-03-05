@@ -27,7 +27,7 @@
  PBLOG, console logging
  */
 #if PBDebugMode == 1
-#define PBLOG(text, ...)    NSLog(text, ##__VA_ARGS__)
+#define PBLOG(text, ...)    PBLog(text, ##__VA_ARGS__)
 #else
 #define PBLOG(text, ...)    do {} while(0)
 #endif

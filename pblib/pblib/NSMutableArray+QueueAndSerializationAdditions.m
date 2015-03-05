@@ -11,6 +11,7 @@
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "PBMacros.h"
 
 static NSString * const SAVEFILE_NAME = @"requests.pb";
 static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
@@ -138,12 +139,12 @@ static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
         // this is for consistency
         [self removeAllObjects];
         
-        NSLog(@"Successfully serialized and saved all requests to %@", SAVEFILE_NAME);
+        PBLOG(@"Successfully serialized and saved all requests to %@", SAVEFILE_NAME);
         return YES;
     }
     else
     {
-        NSLog(@"Failed serializing and saving all requests to %@", SAVEFILE_NAME);
+        PBLOG(@"Failed serializing and saving all requests to %@", SAVEFILE_NAME);
         return NO;
     }
 }
@@ -161,7 +162,7 @@ static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
     // check if file exists or not
     if(![fileManager fileExistsAtPath:appFile])
     {
-        NSLog(@"File didn't exist. Start fresh :)");
+        PBLOG(@"File didn't exist. Start fresh :)");
         return NO;
     }
     
@@ -197,12 +198,12 @@ static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";
     BOOL success = [fileManager removeItemAtPath:appFile error:&error];
     if(success)
     {
-        NSLog(@"Successfully loaded requests from %@", SAVEFILE_NAME);
+        PBLOG(@"Successfully loaded requests from %@", SAVEFILE_NAME);
         return YES;
     }
     else
     {
-        NSLog(@"Failed loading requests file from %@, error: %@", SAVEFILE_NAME, [error localizedDescription]);
+        PBLOG(@"Failed loading requests file from %@, error: %@", SAVEFILE_NAME, [error localizedDescription]);
         return NO;
     }
 }
