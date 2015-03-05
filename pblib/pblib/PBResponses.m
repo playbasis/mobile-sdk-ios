@@ -14,14 +14,13 @@
 /// Additional interface for private methods
 ///--------------------------------------
 @interface PBBase_Response ()
-
 /**
  Do not use this property.
  It's used internally for convenience in parsing json-response.
  */
 @property (strong, nonatomic) NSDictionary *parseLevelJsonResponse;
-
 @end
+
 
 @implementation PBBase_Response
 

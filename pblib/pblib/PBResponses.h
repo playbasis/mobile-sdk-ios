@@ -87,6 +87,12 @@ typedef enum
 ///--------------------------------------
 @interface PBBase_Response : NSObject
 
+/** 
+ Raw JSON-format response.
+ If you want to manipulate json-format response yourself, this is the property you will be working with.
+ */
+@property (strong, nonatomic, readonly) NSDictionary* parseLevelJsonResponse;
+
 @end
 
 ///--------------------------------------
