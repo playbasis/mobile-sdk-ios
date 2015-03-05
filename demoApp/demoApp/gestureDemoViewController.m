@@ -40,7 +40,7 @@
     NSLog(@"Swipe right");
     
     // show popup indicating that user has swiped right
-    [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Swiped right" duration:0.2];
+    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Swiped right" duration:0.2];
     
     // send phone event to Playbasis server
     [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"swiperight" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
@@ -61,7 +61,7 @@
     NSLog(@"Swipe left");
     
     // show popup indicating that user has swiped left
-    [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Swiped left" duration:0.2];
+    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Swiped left" duration:0.2];
     
     // send phone event to Playbasis server
     [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"swipeleft" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
@@ -82,7 +82,7 @@
     NSLog(@"Swipe up");
     
     // show popup indicating that user has swiped left
-    [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Swiped up" duration:0.2];
+    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Swiped up" duration:0.2];
     
     // send phone event to Playbasis server
     [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"swipeup" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
@@ -103,7 +103,7 @@
     NSLog(@"Swipe down");
     
     // show popup indicating that user has swiped left
-    [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Swiped down" duration:0.2];
+    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Swiped down" duration:0.2];
     
     // send phone event to Playbasis server
     [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"swipedown" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
@@ -124,7 +124,7 @@
     NSLog(@"Clicked button");
     
     // show popup indicating that user has swiped left
-    [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Clicked button" duration:0.2];
+    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Clicked button" duration:0.2];
     
     // send phone event to Playbasis server
     [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"buttonclick" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
@@ -145,7 +145,7 @@
     NSLog(@"Clicked button");
     
     // show popup indicating that user has swiped left
-    [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Clicked button w/ url" duration:0.2];
+    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Clicked button w/ url" duration:0.2];
     
     // send phone event to Playbasis server
     [[Playbasis sharedPB] ruleForPlayerAsync:USER action:@"buttonclick" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {

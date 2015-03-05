@@ -4110,12 +4110,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     });
 }
 
--(void)showFeedbackStatusUpdateFromView:(UIViewController *)view text:(NSString *)text
+-(void)showFeedbackStatusUpdateWithText:(NSString *)text
 {
-    [self showFeedbackStatusUpdateFromView:view text:text duration:2.0];
+    [self showFeedbackStatusUpdateWithText:text duration:2.0];
 }
 
--(void)showFeedbackStatusUpdateFromView:(UIViewController *)view text:(NSString *)text duration:(NSTimeInterval)duration
+-(void)showFeedbackStatusUpdateWithText:(NSString *)text duration:(NSTimeInterval)duration
 {
     UIView* contentView = [[UIView alloc] init];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -4150,7 +4150,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutBottom) duration:duration];
 }
 
--(void)showFeedbackEventPopupFromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString *)description
+-(void)showFeedbackEventPopupWithImage:(UIImage *)image title:(NSString *)title description:(NSString *)description
 {
     UIView* contentView = [[UIView alloc] init];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -4214,7 +4214,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutCenter)];
 }
 
--(void)showFeedbackEventPopupWithContent:(UIView *)contentView fromView:(UIViewController *)view image:(UIImage *)image title:(NSString *)title description:(NSString *)description
+-(void)showFeedbackEventPopupWithContent:(UIView *)contentView image:(UIImage *)image title:(NSString *)title description:(NSString *)description
 {
     KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeGrowOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
     [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutCenter)];

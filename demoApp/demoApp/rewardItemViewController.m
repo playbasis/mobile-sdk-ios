@@ -75,7 +75,7 @@
                 [[Playbasis sharedPB] hideHUDFromView:self.view];
                 
                 // show status update
-                [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Send code via E-mail Complete!"];
+                [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Send code via E-mail Complete!"];
             });
         }
         else
@@ -115,7 +115,7 @@
                 [[Playbasis sharedPB] hideHUDFromView:self.view];
                 
                 // show status update
-                [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:@"Send code SMS Complete!"];
+                [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Send code SMS Complete!"];
             });
         }
         else
@@ -175,7 +175,7 @@
                             });
                             
                             // show popup event
-                            [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:self.goodsImage.image title:@"Goods recieved!" description:@""];
+                            [[Playbasis sharedPB] showFeedbackEventPopupWithImage:self.goodsImage.image title:@"Goods recieved!" description:@""];
                             
                             // we just break it out now
                             break;

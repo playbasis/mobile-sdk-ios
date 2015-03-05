@@ -75,10 +75,10 @@
                             NSString *text = [NSString stringWithFormat:@"You just got a badge '%@'", rewardData.name];
                             
                             // show status update
-                            [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:text];
+                            [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:text];
                             
                             // show event popup update
-                            [[Playbasis sharedPB] showFeedbackEventPopupFromView:self image:image title:@"Badge" description:text];
+                            [[Playbasis sharedPB] showFeedbackEventPopupWithImage:image title:@"Badge" description:text];
                         });
                     }];
                 }

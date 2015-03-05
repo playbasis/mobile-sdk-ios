@@ -214,7 +214,7 @@
                         self.doSelectedActionButton.enabled = NO;
                         
                         // show update status
-                        [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:[NSString stringWithFormat:@"You did %@.", action]];
+                        [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:[NSString stringWithFormat:@"You did %@.", action]];
                     });
                 }
                 else

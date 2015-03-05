@@ -115,6 +115,8 @@
                 {
                     completion(YES);
                     NSLog(@"Sent to completion block : YES");
+                    
+                    [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Cached quest, and goods-list data in BG." duration:2.0f];
                 }
             }
             else
@@ -176,6 +178,8 @@
                     {
                         completion(YES);
                         NSLog(@"Sent to completion block : YES");
+                        
+                        [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:@"Cached quest, and goods-list data in BG." duration:2.0f];
                     }
                 }
             }

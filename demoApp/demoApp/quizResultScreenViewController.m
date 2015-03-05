@@ -83,7 +83,7 @@
         });
         
         // show update on status
-        [[Playbasis sharedPB] showFeedbackStatusUpdateFromView:self text:statusUpdate];
+        [[Playbasis sharedPB] showFeedbackStatusUpdateWithText:statusUpdate];
     }];
 }
 
