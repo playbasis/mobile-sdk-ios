@@ -23,25 +23,25 @@ PBRequestState;
 
 @interface PBRequestUnit : NSObject
 {
-    NSURLRequest *urlRequest;
-    NSMutableData *receivedData;
-    NSDictionary *jsonResponse;
-    NSUInteger retryCount;
+    NSURLRequest *_urlRequest;
+    NSMutableData *_receivedData;
+    NSDictionary *_jsonResponse;
+    NSUInteger _retryCount;
     
-    pbResponseType responseType;
+    pbResponseType _responseType;
     
     // the following data need not to be serialized
     // either one or another
-    id<PBResponseHandler> responseDelegate;
-    id responseBlock;
+    id<PBResponseHandler> _responseDelegate;
+    id _responseBlock;
 }
 
 @property (nonatomic, readonly) PBRequestState state;
 @property (nonatomic, readonly) BOOL isBlockingCall;
 @property (nonatomic, readonly) BOOL isSyncURLRequest;
 
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)_responseType andDelegate:(id<PBResponseHandler>)delegate;
--(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)_responseType andBlock:(PBResponseBlock)block;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andDelegate:(id<PBResponseHandler>)delegate;
+-(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andBlock:(PBResponseBlock)block;
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
 -(void)dealloc;
