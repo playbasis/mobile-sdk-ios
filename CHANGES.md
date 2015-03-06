@@ -1,4 +1,8 @@
 ## Changes
+
+### 6 March 2015
+- [New] Add device info as custom HTTP header fields for every request. Cache it once, and use for all requests during run-time. 
+
 ### 5 March 2015
 - [Fix] Removed folder path appearing before header file name in #import. This will make it painlessly work when adding Playbasis library to user's project.
 - [Enhancement] Defined Playbasis's error code, and its domain (com.playbasis.iossdk) and use it when needed across the project. Returned via NSError.
@@ -12,6 +16,3 @@
 - [New] Support only for ARC-enabled project.
 - [Fix] Refactor code in PBResponses class.
 - [New] Added macros for outputing debugging message.
-
-### 6 March 2015
-- [New] Add device info as custom HTTP header fields for every request. Cache it once, and use for all requests during run-time. 
