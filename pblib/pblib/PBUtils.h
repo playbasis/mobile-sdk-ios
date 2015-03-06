@@ -22,4 +22,9 @@
  */
 -(id)init;
 
+/**
+ Get platform string.
+ */
+-(NSString *)platformString;
+
 @end

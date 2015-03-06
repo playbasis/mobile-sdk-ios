@@ -85,6 +85,11 @@
  */
 +(Playbasis*)sharedPB;
 
+/**
+ Version of sdk.
+ */
++(NSString *)version;
+
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)init;

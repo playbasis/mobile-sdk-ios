@@ -16,6 +16,27 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
 static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
+/**
+ Internal class use only when setting custom HTTP header fields whenever making a new request.
+ 
+ User should not use this class.
+ */
+@interface _customDeviceInfoHttpHeaderFields : NSObject
+
+@property (nonatomic) CGFloat screenWidth;
+@property (nonatomic) CGFloat screenHeight;
+@property (nonatomic, strong) NSString *os;
+@property (nonatomic, strong) NSString *osVersion;
+@property (nonatomic, strong) NSString *deviceBrand;
+@property (nonatomic, strong) NSString *deviceName;
+@property (nonatomic, strong) NSString *sdkVersion;
+@property (nonatomic, strong) NSString *appBundle;
+
+@end
+
+@implementation _customDeviceInfoHttpHeaderFields
+@end
+
 //
 // additional interface for private methods
 //
@@ -45,6 +66,12 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
      */
     NSString *_intendedLogoutPlayerId;
     BOOL _isIntendedLogoutPlayerIdConfirmed;
+    
+    /**
+     Cached custom HTTP header fields for device information that will be used for all requests made in run-time.
+     Use should not use this variable. It's used internally only.
+     */
+    _customDeviceInfoHttpHeaderFields *_customDeviceInfoHttpHeaderFieldsVar;
 }
 
 /**
@@ -467,8 +494,6 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
     finishDelegate = delegate;
     finishBlock = nil;
     
-    
-    
     return self;
 }
 
@@ -581,6 +606,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return sharedPlaybasis;
 }
 
++(NSString *)version
+{
+    return @"1.0";
+}
+
 -(id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
@@ -616,6 +646,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     _token = nil;
     _apiKeyParam = nil;
     _authDelegate = nil;
+    
+    // set custom device info http headers
+    [self setCustomDeviceInfoHTTPHeaderFields];
     
     // location manager
     _locationManager = [[CLLocationManager alloc] init];
@@ -706,6 +739,51 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // also send update to delegate
     [self.locationUpdatedDelegate locationUpdated:location];
+}
+
+-(void)setCustomDeviceInfoHTTPHeaderFields
+{
+    // create a custom http header fields
+    _customDeviceInfoHttpHeaderFieldsVar = [[_customDeviceInfoHttpHeaderFields alloc] init];
+    
+    // get screen resolution
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    // scale (for retina)
+    CGFloat scale = [UIScreen mainScreen].scale;
+    PBLOG(@"scale : %.2f", scale);
+    // screen width
+    _customDeviceInfoHttpHeaderFieldsVar.screenWidth = screenRect.size.width * scale;
+    PBLOG(@"screenWidth : %.2f", _customDeviceInfoHttpHeaderFieldsVar.screenWidth);
+    
+    // screen height
+    _customDeviceInfoHttpHeaderFieldsVar.screenHeight = screenRect.size.height * scale;
+    PBLOG(@"screenHeight : %.2f", _customDeviceInfoHttpHeaderFieldsVar.screenHeight);
+    
+    // os
+    _customDeviceInfoHttpHeaderFieldsVar.os = @"ios";
+    PBLOG(@"os : %@", _customDeviceInfoHttpHeaderFieldsVar.os);
+    
+    // osVersion
+    _customDeviceInfoHttpHeaderFieldsVar.osVersion = [[UIDevice currentDevice] systemVersion];
+    PBLOG(@"osVersion : %@", _customDeviceInfoHttpHeaderFieldsVar.osVersion);
+    
+    // deviceBrand
+    _customDeviceInfoHttpHeaderFieldsVar.deviceBrand = @"Apple";
+    PBLOG(@"deviceBrand : %@", _customDeviceInfoHttpHeaderFieldsVar.deviceBrand);
+    
+    // deviceName
+    _customDeviceInfoHttpHeaderFieldsVar.deviceName = [[PBUtils sharedInstance] platformString];
+    PBLOG(@"deviceName : %@", _customDeviceInfoHttpHeaderFieldsVar.deviceName);
+
+    // sdkVersion
+    _customDeviceInfoHttpHeaderFieldsVar.sdkVersion = [Playbasis version];
+    PBLOG(@"sdkVersion : %@", _customDeviceInfoHttpHeaderFieldsVar.sdkVersion);
+    
+    // AppBundle
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *appbundleHeaderValue = [NSString stringWithFormat:@"%@-ios", bundleIdentifier];
+    _customDeviceInfoHttpHeaderFieldsVar.appBundle = appbundleHeaderValue;
+    PBLOG(@"App Bundle : %@", _customDeviceInfoHttpHeaderFieldsVar.appBundle);
 }
 
 -(void)loadApiKeysConfig
@@ -3800,35 +3878,24 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // set all relevant headers for the requests
     // set date header
     // note: this is saved for the originality of timestamp for this request being sent later even thoguh it will be save for later dispatching if network cannot be reached
-    NSDate *date = [NSDate date];
     
-    // crete a date formatter
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    // setup format to be http date
-    // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat: @"EEE',' dd MMM yyyy HH:mm:ss zzz"];
     // get http date string
-    NSString *httpDateStr = [dateFormatter stringFromDate:date];
-    
-    PBLOG(@"date: %@", [date description]);
+    NSString *httpDateStr = [[PBUtils sharedInstance].dateFormatter stringFromDate:[NSDate date]];
+
     PBLOG(@"dateStr: %@", httpDateStr);
     
     // set to request's date header
     [request setValue:httpDateStr forHTTPHeaderField:@"Date"];
     
-    // set user's agent header (we can get in the main-thread only)
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-        NSString* userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-        [request setValue:userAgent forHTTPHeaderField:@"Uset-Agent"];
-    });
-    
-    // set appbundle header (custom header)
-    // this is to distinguish the call that it is initiated from mobile
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    NSString *appbundleHeaderValue = [NSString stringWithFormat:@"%@-ios", bundleIdentifier];
-    [request setValue:appbundleHeaderValue forHTTPHeaderField:@"App-Bundle"];
+    // set custom http headers
+    [request setValue: [NSString stringWithFormat:@"%.0f", _customDeviceInfoHttpHeaderFieldsVar.screenHeight] forHTTPHeaderField:@"screenHeight"];
+    [request setValue: [NSString stringWithFormat:@"%.0f", _customDeviceInfoHttpHeaderFieldsVar.screenWidth] forHTTPHeaderField:@"screenWidth"];
+    [request setValue: _customDeviceInfoHttpHeaderFieldsVar.os forHTTPHeaderField:@"os"];
+    [request setValue: _customDeviceInfoHttpHeaderFieldsVar.osVersion forHTTPHeaderField:@"osVersion"];
+    [request setValue: _customDeviceInfoHttpHeaderFieldsVar.deviceBrand forHTTPHeaderField:@"deviceBrand"];
+    [request setValue: _customDeviceInfoHttpHeaderFieldsVar.deviceName forHTTPHeaderField:@"deviceName"];
+    [request setValue: _customDeviceInfoHttpHeaderFieldsVar.sdkVersion forHTTPHeaderField:@"sdkVersion"];
+    [request setValue:_customDeviceInfoHttpHeaderFieldsVar.appBundle forHTTPHeaderField:@"AppBundle"];
     
     // create PBRequestUnit with delegate callback
     PBRequestUnit* pbRequest = nil;
