@@ -55,12 +55,43 @@
     // call utility method of Playbasis to handle and save device token for later use
     [Playbasis saveDeviceToken:deviceToken withKey:@"DeviceToken"];
     
-    NSLog(@"Successfully registered for push notification.");
+    PBLOG(@"Successfully registered for push notification.");
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    NSLog(@"Failed to register device, error: %@", error);
+    PBLOG(@"Failed to register device, error: %@", error);
+}
+
+-(void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
+{
+    // get message
+    NSString *message = [userInfo objectForKey:@"message"];
+    // reply dictionary
+    NSMutableDictionary *replyDict = [NSMutableDictionary dictionary];
+    
+    if([message isEqualToString:@"playerPublic-firstName"])
+    {
+        [[Playbasis sharedPB] playerPublic:USER withBlock:^(PBPlayerPublic_Response *playerResponse, NSURL *url, NSError *error) {
+            if(!error)
+            {
+                // response back with nil (indicating error)
+                [replyDict setValue:playerResponse.playerBasic.firstName forKey:@"response"];
+            }
+            else
+            {
+                // response back with nil (indicating error)
+                [replyDict setValue:nil forKey:@"response"];
+            }
+        }];
+    }
+    else
+    {
+        // response back with nil (indicating error)
+        [replyDict setValue:nil forKey:@"response"];
+    }
+    
+    reply(replyDict);
 }
 
 @end
