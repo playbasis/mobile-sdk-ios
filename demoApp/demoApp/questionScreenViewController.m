@@ -127,7 +127,7 @@
     
     // get the selected index from table view
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    NSLog(@"selected index row: %d", [selectedIndexPath row]);
+    NSLog(@"selected index row: %ld", [selectedIndexPath row]);
     
     // get question-option id from selection
     PBQuestionOption *option = [question_response.question.options.options objectAtIndex: [selectedIndexPath row]];
