@@ -47,6 +47,7 @@
     // reload tableview (for better ux)
     [self.tableView reloadData];
     
+#if PBSampleBuild==0
     // begin requesting to load a next question
     [[Playbasis sharedPB] quizQuestionAsync:qId forPlayer:USER withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
         if(!error)
@@ -76,6 +77,43 @@
             }];
         }
     }];
+#else
+    // get the last questionId
+    if(question_response != nil)
+        lastQuestionId = question_response.question.questionId;
+    else
+        lastQuestionId = @"";
+    
+    // begin requesting to load a next question
+    [[Playbasis sharedPB] quizQuestionAsync:qId lastQuestion:lastQuestionId forPlayer:USER withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
+        if(!error)
+        {
+            // save response
+            question_response = question;
+            
+            // update ui question text
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.questionTextLabel.text = question.question.question;
+                self.questionTextLabel.hidden = false;
+                
+                // reload table data
+                [self.tableView reloadData];
+            });
+            
+            // load image
+            [UIImage startLoadingImageInTheBackgroundWithUrl:question.question.questionImage response:^(UIImage *image) {
+                
+                // update ui question image
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.questionImage.image = image;
+                    
+                    // hide hud
+                    [[Playbasis sharedPB] hideHUDFromView:self.view];
+                });
+            }];
+        }
+    }];
+#endif
 }
 
 - (void)transitionToResultScreen
@@ -89,7 +127,7 @@
     
     // get the selected index from table view
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    NSLog(@"selected index row: %d", [selectedIndexPath row]);
+    NSLog(@"selected index row: %ld", [selectedIndexPath row]);
     
     // get question-option id from selection
     PBQuestionOption *option = [question_response.question.options.options objectAtIndex: [selectedIndexPath row]];

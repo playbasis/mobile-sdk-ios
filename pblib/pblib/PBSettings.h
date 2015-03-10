@@ -33,4 +33,10 @@ static const float pbDelayAmountBeforeNextRequestRetry = 10000;
  */
 #define PBDebugMode 1
 
+/**
+ Sample build
+ Set to 1 to compile for sample build (samples that provided as part of SDK), othwerwise set to 0 to bulid for normal one (your own application).
+ */
+#define PBSampleBuild 1
+
 #endif

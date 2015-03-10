@@ -10,6 +10,7 @@
 #define pblib_PBMacros_h
 
 #import "PBSettings.h"
+#import "PBCommon.h"
 
 /**
  Check against NSNull.
