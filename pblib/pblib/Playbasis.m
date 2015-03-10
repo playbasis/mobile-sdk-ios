@@ -16,6 +16,10 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
 static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
+#if PBSampleBuild==1
+static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
+#endif
+
 /**
  Internal class use only when setting custom HTTP header fields whenever making a new request.
  
@@ -376,6 +380,11 @@ static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 // - quizQuestion
 -(PBRequestUnit *)quizQuestionInternalBase:(NSString *)quizId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+#if PBSampleBuild==1
+// - quizQuestion
+-(PBRequestUnit *)quizQuestionInternalBase:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+#endif
 
 // - quizAnswer
 -(PBRequestUnit *)quizAnswerInternalBase:(NSString *)quizId optionId:(NSString *)optionId forPlayer:(NSString *)playerId ofQuestionId:(NSString *)questionId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -3272,6 +3281,31 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questionFromQuiz andResponse:response];
 }
 
+#if PBSampleBuild==1
+-(PBRequestUnit *)quizQuestion:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId withDelegate:(id<PBQuestion_ResponseHandler>)delegate
+{
+    return [self quizQuestionInternalBase:quizId lastQuestion:lastQuestionId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)quizQuestion:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId withBlock:(PBQuestion_ResponseBlock)block
+{
+    return [self quizQuestionInternalBase:quizId lastQuestion:lastQuestionId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)quizQuestionAsync:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId withDelegate:(id<PBQuestion_ResponseHandler>)delegate
+{
+    return [self quizQuestionInternalBase:quizId lastQuestion:lastQuestionId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)quizQuestionAsync:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId withBlock:(PBQuestion_ResponseBlock)block
+{
+    return [self quizQuestionInternalBase:quizId lastQuestion:lastQuestionId forPlayer:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)quizQuestionInternalBase:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSString *method = [NSString stringWithFormat:@"Quiz/%@/question%@&player_id=%@&question_id=%@", quizId, _apiKeyParam, playerId, lastQuestionId];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questionFromQuiz andResponse:response];
+}
+#endif
+
 -(PBRequestUnit *)quizAnswer:(NSString *)quizId optionId:(NSString *)optionId forPlayer:(NSString *)playerId ofQuestionId:(NSString *)questionId withDelegate:(id<PBQuestionAnswered_ResponseHandler>)delegate
 {
     return [self quizAnswerInternalBase:quizId optionId:optionId forPlayer:playerId ofQuestionId:questionId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
@@ -3838,11 +3872,68 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // create an http request that we will modify its header later on below
     NSMutableURLRequest *request = nil;
     
+    // in case of PBSampleBuild is set to 0, then we go for normal production code (build). Otherwise, we go for sample build.
+#if PBSampleBuild==0
     // set the default mode to sync mode
     NSString *urlRequest = BASE_URL;
     // if it goes to async mode, then set it accordingly
     if(!syncURLRequest)
         urlRequest = BASE_ASYNC_URL;
+#else
+    // set the default mode to sync mode
+    NSString *urlRequest = BASE_URL;
+    
+    if(syncURLRequest)
+    {
+        if(responseType == responseType_rule)
+        {
+            // for engine's rule
+            // sample supports only "click", "like", and "onclick"
+            NSArray *params = [data componentsSeparatedByString:@"&"];
+            for(NSString *paramString in params)
+            {
+                // split string by '='
+                NSArray *paramsSub2 = [paramString componentsSeparatedByString:@"="];
+                
+                // get name of parameter
+                NSString *paramToCheck = paramsSub2[0];
+                
+                // if it's action, then we check for what we support
+                if([paramToCheck isEqualToString:@"action"])
+                {
+                    // get action name
+                    NSString *actionToCheck = paramsSub2[1];
+                    
+                    // check action against what we support
+                    if([actionToCheck isEqualToString:@"like"] ||
+                       [actionToCheck isEqualToString:@"click"] ||
+                       [actionToCheck isEqualToString:@"onclick"])
+                    {
+                        urlRequest = SAMPLE_BASE_URL;
+                        PBLOG(@"Set urlRequest to %@ for rule", SAMPLE_BASE_URL);
+                        
+                        break;
+                    }
+                }
+            }
+        }
+        else if(responseType == responseType_auth ||
+           responseType == responseType_renew ||
+           responseType == responseType_goodsListInfo ||
+           responseType == responseType_goodsInfo ||
+           responseType == responseType_playerPublic ||
+           responseType == responseType_player ||
+           responseType == responseType_questList ||
+           responseType == responseType_questInfo ||
+           responseType == responseType_activeQuizList ||
+           responseType == responseType_questionFromQuiz ||
+           responseType == responseType_questionAnswered)
+        {
+            urlRequest = SAMPLE_BASE_URL;
+            PBLOG(@"Set urlRequest to %@", SAMPLE_BASE_URL);
+        }
+    }
+#endif
     
     id url = nil;
     

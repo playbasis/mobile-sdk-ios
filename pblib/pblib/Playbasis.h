@@ -813,6 +813,13 @@
 -(PBRequestUnit *)quizQuestionAsync:(NSString *)quizId forPlayer:(NSString *)playerId withDelegate:(id<PBQuestion_ResponseHandler>)delegate;
 -(PBRequestUnit *)quizQuestionAsync:(NSString *)quizId forPlayer:(NSString *)playerId withBlock:(PBQuestion_ResponseBlock)block;
 
+#if PBSampleBuild==1
+-(PBRequestUnit *)quizQuestion:(NSString *)quizId lastQuestion:(NSString*)lastQuestionId forPlayer:(NSString *)playerId withDelegate:(id<PBQuestion_ResponseHandler>)delegate;
+-(PBRequestUnit *)quizQuestion:(NSString *)quizId lastQuestion:(NSString*)lastQuestionId forPlayer:(NSString *)playerId withBlock:(PBQuestion_ResponseBlock)block;
+-(PBRequestUnit *)quizQuestionAsync:(NSString *)quizId lastQuestion:(NSString*)lastQuestionId forPlayer:(NSString *)playerId withDelegate:(id<PBQuestion_ResponseHandler>)delegate;
+-(PBRequestUnit *)quizQuestionAsync:(NSString *)quizId lastQuestion:(NSString*)lastQuestionId forPlayer:(NSString *)playerId withBlock:(PBQuestion_ResponseBlock)block;
+#endif
+
 /**
  Answer a question for a given quiz.
  */
