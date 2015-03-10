@@ -4,8 +4,8 @@
 //
 //  Modified code from https://github.com/esromneb/ios-queue-object
 //
-//  Created by haxpor on 1/22/15.
-//  Copyright (c) 2015 Maethee Chongchitnant. All rights reserved.
+//  Created by Playbasis on 1/22/15.
+//  Copyright (c) 2015 Playbasis. All rights reserved.
 //
 
 #import "PBRequestUnit.h"

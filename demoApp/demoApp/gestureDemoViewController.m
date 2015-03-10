@@ -3,7 +3,7 @@
 //  demoApp
 //
 //  Created by haxpor on 2/28/15.
-//  Copyright (c) 2015 Maethee Chongchitnant. All rights reserved.
+//  Copyright (c) 2015 Playbasis. All rights reserved.
 //
 
 #import "gestureDemoViewController.h"

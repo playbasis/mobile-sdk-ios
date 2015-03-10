@@ -2,8 +2,8 @@
 //  InterfaceController.m
 //  demoApp WatchKit Extension
 //
-//  Created by haxpor on 3/10/15.
-//  Copyright (c) 2015 Maethee Chongchitnant. All rights reserved.
+//  Created by Playbasis on 3/10/15.
+//  Copyright (c) 2015 Playbasis. All rights reserved.
 //
 
 #import "InterfaceController.h"
