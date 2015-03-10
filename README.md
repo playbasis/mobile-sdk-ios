@@ -28,4 +28,4 @@ MIT
 [here]:https://www.pbapp.net/login#register
 [API Explorer]:http://doc.playbasis.com/pbapp
 [SDK]:http://playbasis.com/sdk
-[Documentation]:http://doc.playbasis.com
+[Documentation]:http://dev.playbasis.com
