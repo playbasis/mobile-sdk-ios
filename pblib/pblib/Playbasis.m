@@ -16,7 +16,7 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
 static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
-#if PBSampleBuild==1
+#if PBSandBoxEnabled==1
 static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
 #endif
 
@@ -381,7 +381,7 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
 // - quizQuestion
 -(PBRequestUnit *)quizQuestionInternalBase:(NSString *)quizId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
-#if PBSampleBuild==1
+#if PBSandBoxEnabled==1
 // - quizQuestion
 -(PBRequestUnit *)quizQuestionInternalBase:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 #endif
@@ -3281,7 +3281,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questionFromQuiz andResponse:response];
 }
 
-#if PBSampleBuild==1
+#if PBSandBoxEnabled==1
 -(PBRequestUnit *)quizQuestion:(NSString *)quizId lastQuestion:(NSString *)lastQuestionId forPlayer:(NSString *)playerId withDelegate:(id<PBQuestion_ResponseHandler>)delegate
 {
     return [self quizQuestionInternalBase:quizId lastQuestion:lastQuestionId forPlayer:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
@@ -3872,8 +3872,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // create an http request that we will modify its header later on below
     NSMutableURLRequest *request = nil;
     
-    // in case of PBSampleBuild is set to 0, then we go for normal production code (build). Otherwise, we go for sample build.
-#if PBSampleBuild==0
+    // in case of PBSandBoxEnabled is set to 0, then we go for normal (build). Otherwise, we go for sandbox mode.
+#if PBSandBoxEnabled==0
     // set the default mode to sync mode
     NSString *urlRequest = BASE_URL;
     // if it goes to async mode, then set it accordingly

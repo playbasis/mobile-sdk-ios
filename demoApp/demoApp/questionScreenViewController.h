@@ -17,7 +17,7 @@
     // this will be set by prior view controller
     NSString *quizId;
     
-#if PBSampleBuild==1
+#if PBSandBoxEnabled==1
     // for sample build only
     // as it's sandbox for some api, we need to specify last question id to retrieve a next question
     NSString *lastQuestionId;

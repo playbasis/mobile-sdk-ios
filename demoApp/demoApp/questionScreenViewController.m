@@ -47,7 +47,7 @@
     // reload tableview (for better ux)
     [self.tableView reloadData];
     
-#if PBSampleBuild==0
+#if PBSandBoxEnabled==0
     // begin requesting to load a next question
     [[Playbasis sharedPB] quizQuestionAsync:qId forPlayer:USER withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
         if(!error)
