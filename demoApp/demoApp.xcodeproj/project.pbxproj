@@ -814,6 +814,7 @@
 				1EA02C511AAEC54200206B67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1EA02C521AAEC54200206B67 /* Build configuration list for PBXNativeTarget "demoApp WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -822,6 +823,7 @@
 				1EA02C541AAEC54200206B67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C1C75101749D7DB005F3B57 /* Build configuration list for PBXProject "demoApp" */ = {
 			isa = XCConfigurationList;
