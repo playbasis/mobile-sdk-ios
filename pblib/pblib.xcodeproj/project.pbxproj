@@ -6,10 +6,49 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		1E52DDFC1AAFFD970035C9F0 /* framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1E52DDFD1AAFFD970035C9F0 /* Build configuration list for PBXAggregateTarget "framework" */;
+			buildPhases = (
+				1E52DE041AAFFDB20035C9F0 /* ShellScript */,
+			);
+			dependencies = (
+				1E52DE031AAFFDA60035C9F0 /* PBXTargetDependency */,
+				1E52DE011AAFFDA30035C9F0 /* PBXTargetDependency */,
+			);
+			name = framework;
+			productName = framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
 		1E0DE7FE1AA85081002CEB3E /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
 		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
+		1E52DDE41AAFF93B0035C9F0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDE51AAFF94D0035C9F0 /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDE61AAFFA400035C9F0 /* PBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FC1AA85081002CEB3E /* PBCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDE71AAFFA490035C9F0 /* PBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDE81AAFFA4B0035C9F0 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7F81AA810DC002CEB3E /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDE91AAFFA4D0035C9F0 /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDD1F521AA7231F00BED1CA /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDEA1AAFFA510035C9F0 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E887DD71A9B19810077B673 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDEB1AAFFA530035C9F0 /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E2074291A84B069002D77A1 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDEC1AAFFA560035C9F0 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FDA1A7022EA00991CEB /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDED1AAFFA5B0035C9F0 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750617461E6B005F3B57 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDEE1AAFFA5D0035C9F0 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDEF1AAFFA5F0035C9F0 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3AE1B1A717AE0008F17F3 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF01AAFFA620035C9F0 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF11AAFFA660035C9F0 /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF21AAFFA680035C9F0 /* RNCryptor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D61A9C291A00C6C291 /* RNCryptor-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF31AAFFA6A0035C9F0 /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D71A9C291A00C6C291 /* RNCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF41AAFFA6C0035C9F0 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D91A9C291A00C6C291 /* RNCryptorEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF51AAFFA780035C9F0 /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7DB1A9C291A00C6C291 /* RNDecryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF61AAFFA7A0035C9F0 /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7DD1A9C291A00C6C291 /* RNEncryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF71AAFFA7D0035C9F0 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF81AAFFA860035C9F0 /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDF91AAFFA8A0035C9F0 /* pbUserRegistrationFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E52DDFA1AAFFA8D0035C9F0 /* PBUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B9171A8FB1F70007C8A8 /* PBUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
 		1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
 		1E80C7E01A9C291A00C6C291 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
@@ -20,7 +59,6 @@
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */; };
-		1EC5B8FC1A8F3A410007C8A8 /* Playbasis.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; };
 		1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */; };
 		1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */; };
 		1EDA69D41AA148C700F8A13B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */; };
@@ -32,18 +70,22 @@
 		2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		2C1C74F317461E1B005F3B57 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-				1EC5B8FC1A8F3A410007C8A8 /* Playbasis.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+/* Begin PBXContainerItemProxy section */
+		1E52DE001AAFFDA30035C9F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C1C74F417461E1B005F3B57;
+			remoteInfo = pblib;
 		};
-/* End PBXCopyFilesBuildPhase section */
+		1E52DE021AAFFDA60035C9F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EC5B9001A8F3AAD0007C8A8;
+			remoteInfo = pblibResource;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1E0DE7F81AA810DC002CEB3E /* PBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUtils.h; sourceTree = "<group>"; };
@@ -276,6 +318,39 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		1E52DDE31AAFF8D30035C9F0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E52DDEA1AAFFA510035C9F0 /* PBSettings.h in Headers */,
+				1E52DDEB1AAFFA530035C9F0 /* PBResponses.h in Headers */,
+				1E52DDFA1AAFFA8D0035C9F0 /* PBUI.h in Headers */,
+				1E52DDE51AAFF94D0035C9F0 /* PBRequestUnit.h in Headers */,
+				1E52DDEC1AAFFA560035C9F0 /* PBTypes.h in Headers */,
+				1E52DDE81AAFFA4B0035C9F0 /* PBUtils.h in Headers */,
+				1E52DDE91AAFFA4D0035C9F0 /* PBConstants.h in Headers */,
+				1E52DDE71AAFFA490035C9F0 /* PBMacros.h in Headers */,
+				1E52DDE61AAFFA400035C9F0 /* PBCommon.h in Headers */,
+				1E52DDF91AAFFA8A0035C9F0 /* pbUserRegistrationFormViewController.h in Headers */,
+				1E52DDF81AAFFA860035C9F0 /* UIImage+AutoLoader.h in Headers */,
+				1E52DDED1AAFFA5B0035C9F0 /* JSONKit.h in Headers */,
+				1E52DDF21AAFFA680035C9F0 /* RNCryptor-Prefix.pch in Headers */,
+				1E52DDF41AAFFA6C0035C9F0 /* RNCryptorEngine.h in Headers */,
+				1E52DDF31AAFFA6A0035C9F0 /* RNCryptor.h in Headers */,
+				1E52DDF71AAFFA7D0035C9F0 /* MBProgressHUD.h in Headers */,
+				1E52DDF61AAFFA7A0035C9F0 /* RNEncryptor.h in Headers */,
+				1E52DDF51AAFFA780035C9F0 /* RNDecryptor.h in Headers */,
+				1E52DDF11AAFFA660035C9F0 /* RNCryptor+Private.h in Headers */,
+				1E52DDF01AAFFA620035C9F0 /* KLCPopup.h in Headers */,
+				1E52DDEF1AAFFA5F0035C9F0 /* Reachability.h in Headers */,
+				1E52DDEE1AAFFA5D0035C9F0 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
+				1E52DDE41AAFF93B0035C9F0 /* Playbasis.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		1EC5B9001A8F3AAD0007C8A8 /* pblibResource */ = {
 			isa = PBXNativeTarget;
@@ -301,7 +376,8 @@
 			buildPhases = (
 				2C1C74F117461E1B005F3B57 /* Sources */,
 				2C1C74F217461E1B005F3B57 /* Frameworks */,
-				2C1C74F317461E1B005F3B57 /* CopyFiles */,
+				1E52DDE31AAFF8D30035C9F0 /* Headers */,
+				1E52DDFB1AAFFBB60035C9F0 /* Prepare Framework */,
 			);
 			buildRules = (
 			);
@@ -321,6 +397,9 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Maethee Chongchitnant";
 				TargetAttributes = {
+					1E52DDFC1AAFFD970035C9F0 = {
+						CreatedOnToolsVersion = 6.3;
+					};
 					1EC5B9001A8F3AAD0007C8A8 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -340,6 +419,7 @@
 			targets = (
 				2C1C74F417461E1B005F3B57 /* pblib */,
 				1EC5B9001A8F3AAD0007C8A8 /* pblibResource */,
+				1E52DDFC1AAFFD970035C9F0 /* framework */,
 			);
 		};
 /* End PBXProject section */
@@ -357,6 +437,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1E52DDFB1AAFFBB60035C9F0 /* Prepare Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
+		};
+		1E52DE041AAFFDB20035C9F0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"";
+		};
 		1E887DA31A9B03440077B673 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,7 +512,34 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1E52DE011AAFFDA30035C9F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C1C74F417461E1B005F3B57 /* pblib */;
+			targetProxy = 1E52DE001AAFFDA30035C9F0 /* PBXContainerItemProxy */;
+		};
+		1E52DE031AAFFDA60035C9F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1EC5B9001A8F3AAD0007C8A8 /* pblibResource */;
+			targetProxy = 1E52DE021AAFFDA60035C9F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1E52DDFE1AAFFD970035C9F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E52DDFF1AAFFD970035C9F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		1EC5B9061A8F3AAD0007C8A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -492,7 +626,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -523,6 +657,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/pblib.dst;
 				EXECUTABLE_PREFIX = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -535,7 +671,9 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
 			};
 			name = Debug;
@@ -544,6 +682,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/pblib.dst;
 				EXECUTABLE_PREFIX = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -556,7 +696,9 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
 			};
 			name = Release;
@@ -564,6 +706,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1E52DDFD1AAFFD970035C9F0 /* Build configuration list for PBXAggregateTarget "framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E52DDFE1AAFFD970035C9F0 /* Debug */,
+				1E52DDFF1AAFFD970035C9F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1EC5B9051A8F3AAD0007C8A8 /* Build configuration list for PBXNativeTarget "pblibResource" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

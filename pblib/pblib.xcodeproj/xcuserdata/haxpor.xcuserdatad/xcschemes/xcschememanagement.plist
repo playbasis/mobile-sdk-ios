@@ -4,6 +4,21 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Playbasis Aggregator.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Playbasis.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>framework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>pblib.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,6 +32,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1E52DDFC1AAFFD970035C9F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1EC5B9001A8F3AAD0007C8A8</key>
 		<dict>
 			<key>primary</key>

@@ -415,6 +415,9 @@
 					1EA02C3F1AAEC54200206B67 = {
 						CreatedOnToolsVersion = 6.3;
 					};
+					2C1C75141749D7DB005F3B57 = {
+						DevelopmentTeam = XGKHW634KL;
+					};
 				};
 			};
 			buildConfigurationList = 2C1C75101749D7DB005F3B57 /* Build configuration list for PBXProject "demoApp" */;
@@ -769,6 +772,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "demoApp/demoApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -781,7 +786,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "148b724a-fbe7-4deb-9b76-bee56eebe65a";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -790,6 +795,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "demoApp/demoApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
@@ -799,7 +806,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "148b724a-fbe7-4deb-9b76-bee56eebe65a";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
