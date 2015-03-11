@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.playbasis.playbasisdemoapp</string>
+	<string>org.haxpor.playbasisdemoapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,14 +24,14 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2015 Playbasis. All rights reserved.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Require permission to get location when app is in use</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Require permission to get location when app is in use</string>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2015 Playbasis. All rights reserved.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
