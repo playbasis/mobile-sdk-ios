@@ -79,6 +79,16 @@
  */
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
 
+
+/**
+ Set protected resources key used to encrypt / decrypt files inside protectedResources.
+ 
+ Default use "abcdefghijklmnopqrstuvwxyz123456" (without quote). You should change this value.
+ 
+ To set this value, call this method before calling the first call of sharedPB() method.
+ */
++(void)setProtectedResourcesKey:(NSString *)key;
+
 /**
  Get the singleton instance of Playbasis.
  */

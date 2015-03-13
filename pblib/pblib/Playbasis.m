@@ -16,6 +16,13 @@ static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
 static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
+/**
+ Key used to encrypt / decrypt 'apikeys-config.txt' file in protectedResources folder.
+ 
+ Default set to "abcdefghijklmnopqrstuvwxyz123456" (without quote).
+ */
+static NSString *_sProtectedResourcesKey = @"abcdefghijklmnopqrstuvwxyz123456";
+
 #if PBSandBoxEnabled==1
 static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
 #endif
@@ -602,6 +609,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++(void)setProtectedResourcesKey:(NSString *)key
+{
+    _sProtectedResourcesKey = key;
+    PBLOG(@"Newly set protected resources key");
+}
+
 +(Playbasis*)sharedPB
 {
     static Playbasis *sharedPlaybasis = nil;
@@ -610,6 +623,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedPlaybasis = [[self alloc] init];
+        PBLOG(@"--Once creating instance for Playbasis--.");
     });
     
     return sharedPlaybasis;
@@ -693,13 +707,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // start notifier right away
     [_reachability startNotifier];
     
-    // schedule interval call to dispatch request in queue
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
-    
+    // create an empty of request opt-queue
     _requestOptQueue = [NSMutableArray array];
     
     // after queue creation then start checking to load requests from file
     [[self getRequestOperationalQueue] load];
+    
+    // schedule interval call to dispatch request in queue
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
     
     return self;
 }
@@ -805,7 +820,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // error of decrypting data
     NSError *error;
     // decrypt data
-    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:pbProtectedResourcesSharedKey error:&error];
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:_sProtectedResourcesKey error:&error];
     NSAssert(error == nil, @"Decrypting error");
     
     // convert into UTF8-String (json format)
@@ -830,7 +845,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // error of decrypting data
     NSError *error;
     // decrypt data
-    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:pbProtectedResourcesSharedKey error:&error];
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withPassword:_sProtectedResourcesKey error:&error];
     NSAssert(error == nil, @"Decrypting error");
     
     // convert into UTF8-String (json format)

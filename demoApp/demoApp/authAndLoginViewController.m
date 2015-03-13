@@ -120,7 +120,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
 
 -(void)authenticateApp
 {
-    NSLog(@"Begin auth() the app");
+    NSLog(@"About to begin auth() the app");
     
     // authenticate the app
     [[Playbasis sharedPB] authWithDelegate:self];

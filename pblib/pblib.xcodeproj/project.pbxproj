@@ -475,7 +475,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DIRNAME=protectedResources\nENC_KEY=\"abcdefghijklmnopqrstuvwxyz123456\"\n\nINDIR=$PROJECT_DIR/$DIRNAME\nOUTDIR=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/$DIRNAME\n\nif [ ! -d \"$OUTDIR\" ]; then\nmkdir -p \"$OUTDIR\"\nfi\n\nfor file in \"$INDIR\"/*\n                     do\n                     echo \"Encrypting $file\"\n                     \"$PROJECT_DIR/crypt\" -k $ENC_KEY -i \"$file\" -o \"$OUTDIR/`basename \"$file\"`\"\n                     done";
+			shellScript = "DIRNAME=protectedResources\n\n# 256 bit key\n# it needs to be the same as specified in the code, refer to Playbasis's setProtectedResources:key method\nENC_KEY=\"abcdefghijklmnopqrstuvwxyz123456\"\n\nINDIR=$PROJECT_DIR/$DIRNAME\nOUTDIR=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/$DIRNAME\n\nif [ ! -d \"$OUTDIR\" ]; then\nmkdir -p \"$OUTDIR\"\nfi\n\n# crypt usage\n# crypt -k <256-bit-keys> -i <input-file-path> -o <output-file-path>\nfor file in \"$INDIR\"/*\n                     do\n                     echo \"Encrypting $file\"\n                     \"$PROJECT_DIR/crypt\" -k $ENC_KEY -i \"$file\" -o \"$OUTDIR/`basename \"$file\"`\"\n                     done";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -713,6 +713,7 @@
 				1E52DDFF1AAFFD970035C9F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1EC5B9051A8F3AAD0007C8A8 /* Build configuration list for PBXNativeTarget "pblibResource" */ = {
 			isa = XCConfigurationList;
