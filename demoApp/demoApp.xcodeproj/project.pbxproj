@@ -64,13 +64,6 @@
 			remoteGlobalIDString = 1EA02C3F1AAEC54200206B67;
 			remoteInfo = "demoApp WatchKit App";
 		};
-		1EA02C4C1AAEC54200206B67 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C1C750D1749D7DB005F3B57 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1EA02C341AAEC54100206B67;
-			remoteInfo = "demoApp WatchKit Extension";
-		};
 		1EC5B90C1A8F3DE50007C8A8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
@@ -91,6 +84,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2C1C74F417461E1B005F3B57;
 			remoteInfo = pblib;
+		};
+		ECDB6DC41B2ECFE300B670F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1C750D1749D7DB005F3B57 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EA02C341AAEC54100206B67;
+			remoteInfo = "demoApp WatchKit Extension";
+		};
+		ECDB6DC61B2ECFE700B670F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1C750D1749D7DB005F3B57 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EA02C3F1AAEC54200206B67;
+			remoteInfo = "demoApp WatchKit App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -390,9 +397,10 @@
 			buildRules = (
 			);
 			dependencies = (
+				ECDB6DC71B2ECFE700B670F6 /* PBXTargetDependency */,
+				ECDB6DC51B2ECFE300B670F6 /* PBXTargetDependency */,
 				1E304A301A905EFF006F0C7F /* PBXTargetDependency */,
 				2C90D7E91749DC830080C57D /* PBXTargetDependency */,
-				1EA02C4D1AAEC54200206B67 /* PBXTargetDependency */,
 			);
 			name = demoApp;
 			productName = demoApp;
@@ -411,12 +419,14 @@
 				TargetAttributes = {
 					1EA02C341AAEC54100206B67 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 59S6BWV89P;
 					};
 					1EA02C3F1AAEC54200206B67 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 59S6BWV89P;
 					};
 					2C1C75141749D7DB005F3B57 = {
-						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeam = 59S6BWV89P;
 					};
 				};
 			};
@@ -546,15 +556,20 @@
 			target = 1EA02C3F1AAEC54200206B67 /* demoApp WatchKit App */;
 			targetProxy = 1EA02C421AAEC54200206B67 /* PBXContainerItemProxy */;
 		};
-		1EA02C4D1AAEC54200206B67 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1EA02C341AAEC54100206B67 /* demoApp WatchKit Extension */;
-			targetProxy = 1EA02C4C1AAEC54200206B67 /* PBXContainerItemProxy */;
-		};
 		2C90D7E91749DC830080C57D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = pblib;
 			targetProxy = 2C90D7E81749DC830080C57D /* PBXContainerItemProxy */;
+		};
+		ECDB6DC51B2ECFE300B670F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1EA02C341AAEC54100206B67 /* demoApp WatchKit Extension */;
+			targetProxy = ECDB6DC41B2ECFE300B670F6 /* PBXContainerItemProxy */;
+		};
+		ECDB6DC71B2ECFE700B670F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1EA02C3F1AAEC54200206B67 /* demoApp WatchKit App */;
+			targetProxy = ECDB6DC61B2ECFE700B670F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -596,6 +611,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -610,7 +626,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = demoApp_WatchKit_Extension;
 				INFOPLIST_FILE = "demoApp WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -629,6 +645,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -641,7 +658,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = demoApp_WatchKit_Extension;
 				INFOPLIST_FILE = "demoApp WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -659,6 +676,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -678,7 +696,7 @@
 					"../pblib/**",
 				);
 				INFOPLIST_FILE = "demoApp WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -695,6 +713,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -706,7 +725,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = "demoApp WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -781,6 +800,7 @@
 					"../pblib/**",
 				);
 				INFOPLIST_FILE = "demoApp/demoApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -801,6 +821,7 @@
 				GCC_PREFIX_HEADER = "demoApp/demoApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				INFOPLIST_FILE = "demoApp/demoApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
