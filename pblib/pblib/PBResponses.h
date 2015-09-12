@@ -998,6 +998,22 @@ typedef enum
 @end
 
 ///--------------------------------------
+/// RuleEventGoodsRewardData
+///--------------------------------------
+@interface PBRuleEventGoodsRewardData : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSString *goodsId;
+@property (strong, nonatomic, readonly) NSString *image;
+@property (strong, nonatomic, readonly) NSString *name;
+@property (strong, nonatomic, readonly) NSString *description_;
+@property (strong, nonatomic, readonly) NSString *perUser;
+@property (strong, nonatomic, readonly) NSString *quantity;
+
++(PBRuleEventGoodsRewardData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
 /// RuleEventBadgeRewardData
 ///--------------------------------------
 @interface PBRuleEventBadgeRewardData : PBBase_Response

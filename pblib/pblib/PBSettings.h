@@ -29,6 +29,6 @@ static const float pbDelayAmountBeforeNextRequestRetry = 10000;
  Sandbox Enabled
  Set to 1 to use sandbox mode, otherwise use 0 for normal.
  */
-#define PBSandBoxEnabled 1
+#define PBSandBoxEnabled 0
 
 #endif

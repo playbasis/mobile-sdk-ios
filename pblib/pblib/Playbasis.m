@@ -12,9 +12,14 @@
 #import "KLCPopup.h"
 #import "MBProgressHUD.h"
 
+#if QAV2==1
+static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
+static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
+#else
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
 static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
+#endif
 
 /**
  Key used to encrypt / decrypt 'apikeys-config.txt' file in protectedResources folder.

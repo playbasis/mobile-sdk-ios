@@ -3763,6 +3763,49 @@
 @end
 
 ///--------------------------------------
+/// RuleEventGoodsRewardData
+///--------------------------------------
+@implementation PBRuleEventGoodsRewardData
+
+@synthesize goodsId;
+@synthesize image;
+@synthesize name;
+@synthesize description_;
+@synthesize perUser;
+@synthesize quantity;
+
+- (NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods's rule event data : {\r\tgoods_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tper_user : %@\r\tquantity : %@", self.goodsId, self.image, self.name, self.description_, self.perUser, self.quantity];
+    
+    return descriptionString;
+}
+
++(PBRuleEventGoodsRewardData *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+    
+    // create a result object
+    PBRuleEventGoodsRewardData *c = [[PBRuleEventGoodsRewardData alloc] init];
+    
+    // ignore parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
+    c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
+    c->quantity = [c.parseLevelJsonResponse objectForKey:@"quantity"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// RuleEventBadgeRewardData
 ///--------------------------------------
 @implementation PBRuleEventBadgeRewardData
@@ -3848,6 +3891,17 @@
         
         // populate badge's reward data
         PBRuleEventBadgeRewardData *bRewardData = [PBRuleEventBadgeRewardData parseFromDictionary:bRewardDataJson startFromFinalLevel:YES];
+        
+        // set back to result object
+        c->rewardData = bRewardData;
+    }
+    else if([c->rewardType isEqualToString:@"goods"])
+    {
+        // get reward_data json
+        NSDictionary *bRewardDataJson = [c.parseLevelJsonResponse objectForKey:@"reward_data"];
+        
+        // populate goods's reward data
+        PBRuleEventGoodsRewardData *bRewardData = [PBRuleEventGoodsRewardData parseFromDictionary:bRewardDataJson startFromFinalLevel:YES];
         
         // set back to result object
         c->rewardData = bRewardData;
