@@ -2194,7 +2194,7 @@
     NSArray *goodsOwnedsJson = (NSArray*)c.parseLevelJsonResponse;
     
     // temp array to hold all goods-owned
-    NSMutableArray *tempGoodsOwneds = [NSMutableArray array];
+    NSMutableArray<PBPlayerGoodsOwned*> *tempGoodsOwneds = [NSMutableArray array];
     
     for(NSDictionary *goodsOwnedJson in goodsOwnedsJson)
     {
