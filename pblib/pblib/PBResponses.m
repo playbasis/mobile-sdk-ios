@@ -2214,6 +2214,51 @@
 @end
 
 ///--------------------------------------
+/// Player Custom Fields
+///--------------------------------------
+@implementation PBPlayerCustomFields_Response
+
+@synthesize customFields;
+
+-(NSString *)description
+{
+    return [customFields description];
+}
+
++(PBPlayerCustomFields_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+    
+    // create a result response
+    PBPlayerCustomFields_Response *c = [[PBPlayerCustomFields_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        // get 'player'
+        NSDictionary *player = [response objectForKey:@"player"];
+        NSAssert(player != nil, @"goods must not be nil");
+        
+        c.parseLevelJsonResponse = player;
+    }
+    
+    // convert parse json into array
+    c->customFields = [c.parseLevelJsonResponse objectForKey:@"custom"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Reward
 ///--------------------------------------
 @implementation PBReward

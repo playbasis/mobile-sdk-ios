@@ -273,6 +273,7 @@
         case responseType_redeemBadge:
         case responseType_sendEmail:
         case responseType_sendEmailCoupon:
+        case responseType_playerSetCustomFields:
         {
             if(_responseDelegate)
             {
@@ -440,6 +441,32 @@
                 PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_playerGetCustomFields:
+        {
+            if(_responseDelegate)
+            {
+                if([_responseDelegate respondsToSelector:@selector(processResponseWithPlayerCustomFields:withURL:error:)])
+                {
+                    id<PBPlayerCustomFields_ResponseHandler> sd = (id<PBPlayerCustomFields_ResponseHandler>)_responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerCustomFields_Response *response = [PBPlayerCustomFields_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithPlayerCustomFields:response withURL:[_urlRequest URL] error:error];
+                }
+            }
+            else if(_responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerCustomFields_Response *response = [PBPlayerCustomFields_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerCustomFields_ResponseBlock sb = (PBPlayerCustomFields_ResponseBlock)_responseBlock;
                 sb(response, [_urlRequest URL], error);
             }
             

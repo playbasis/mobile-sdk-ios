@@ -24,6 +24,8 @@ typedef enum
     responseType_player,
     responseType_playerList,
     responseType_playerGoodsOwned,
+    responseType_playerSetCustomFields,
+    responseType_playerGetCustomFields,
     responseType_registerUser,
     responseType_updateUser,
     responseType_deleteUser,
@@ -592,6 +594,17 @@ typedef enum
 @property (strong, nonatomic, readonly) NSArray<PBPlayerGoodsOwned*> *goodsOwneds;
 
 +(PBPlayerGoodsOwned_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Player Custom Fields
+///--------------------------------------
+@interface PBPlayerCustomFields_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSDictionary *customFields;
+
++(PBPlayerCustomFields_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

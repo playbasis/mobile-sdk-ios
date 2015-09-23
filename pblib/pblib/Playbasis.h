@@ -232,6 +232,14 @@
 -(PBRequestUnit *)playerDetailAsync:(NSString *)playerId withBlock:(PBPlayerDetailed_ResponseBlock)block;
 
 /**
+ Set player's custom fields (intended for public data).
+ */
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withBlock:(PBResultStatus_ResponseBlock)block;
+
+/**
  Register from the client side as a Playbasis player.
  */
 -(PBRequestUnit *)registerUserWithPlayerId:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;

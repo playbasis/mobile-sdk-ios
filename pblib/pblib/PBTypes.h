@@ -168,6 +168,15 @@ typedef void (^PBPlayerDetailed_ResponseBlock)(PBPlayerDetailed_Response * playe
 typedef void (^PBPlayerGoodsOwned_ResponseBlock)(PBPlayerGoodsOwned_Response * goodsOwneds, NSURL *url, NSError *error);
 
 ///----------------
+/// PlayerCustomFields
+///----------------
+@protocol PBPlayerCustomFields_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerCustomFields:(PBPlayerCustomFields_Response *)playerCustomFields withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerCustomFields_ResponseBlock)(PBPlayerCustomFields_Response * customFields, NSURL *url, NSError *error);
+
+///----------------
 /// PointHistory
 ///----------------
 @protocol PBActionLastPerformedTime_ResponseHandler <NSObject>

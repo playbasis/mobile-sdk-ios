@@ -213,6 +213,9 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
 // - playerDetail
 -(PBRequestUnit *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - playerSetCustomFields
+-(PBRequestUnit *)playerSetCustomFieldsInternalBase:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - registerUserWithPlayerId
 -(PBRequestUnit *)registerUserWithPlayerIdInternalBase:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params;
 
@@ -1228,6 +1231,60 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerDetailed andResponse:response];
+}
+
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerSetCustomFieldsInternalBase:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/custom%@", playerId, _apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&", _token];
+    
+    // form keys
+    BOOL isFirstRound = YES;
+    [data appendString:@"key="];
+    for(NSString *k in keys)
+    {
+        if(!isFirstRound)
+            [data appendFormat:@",%@", k];
+        else
+            [data appendFormat:@"%@", k];
+        
+        isFirstRound = NO;
+    }
+    
+    // form values
+    [data appendString:@"&value="];
+    isFirstRound = YES;
+    for(NSString *k in values)
+    {
+        if(!isFirstRound)
+            [data appendFormat:@",%@", k];
+        else
+            [data appendFormat:@"%@", k];
+        
+        isFirstRound = NO;
+    }
+    
+    // create final data
+    NSString *dataFinal = [NSString stringWithString:data];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_playerSetCustomFields andResponse:response];
 }
 
 //
