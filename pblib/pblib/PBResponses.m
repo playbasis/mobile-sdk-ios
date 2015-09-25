@@ -1041,6 +1041,16 @@
     // ignore parse level flag
     c.parseLevelJsonResponse = [jsonResponse copy];
     
+    // FIXME : Fix others too
+    // check if it's nil return
+    // in this case the backend return nil wrapped up in [], thus we need check as it's NSArray class
+    if([c.parseLevelJsonResponse isKindOfClass:[NSArray class]])
+    {
+        NSArray *array = (NSArray*)c.parseLevelJsonResponse;
+        if (array.count == 0 || array == nil)
+            return nil;
+    }
+    
     // parse
     c->actionId = [c.parseLevelJsonResponse objectForKey:@"action_id"];
     c->actionName = [c.parseLevelJsonResponse objectForKey:@"action_name"];
