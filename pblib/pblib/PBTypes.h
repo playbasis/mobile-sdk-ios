@@ -276,6 +276,15 @@ typedef void (^PBRank_ResponseBlock)(PBRank_Response * rank, NSURL *url, NSError
 typedef void (^PBRanks_ResponseBlock)(PBRanks_Response * ranks, NSURL *url, NSError *error);
 
 ///----------------
+/// Deduct Reward
+///----------------
+@protocol PBDeductReward_ResponseHandler <NSObject>
+-(void)processResponseWithDeductReward:(PBDeductReward_Response*)deductReward withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBDeductReward_ResponseBlock)(PBDeductReward_Response * deductReward, NSURL *url, NSError *error);
+
+///----------------
 /// GoodsInfo
 ///----------------
 @protocol PBGoodsInfo_ResponseHandler <NSObject>

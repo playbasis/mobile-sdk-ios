@@ -1618,6 +1618,52 @@
 @end
 
 ///--------------------------------------
+/// Deduct Reward
+///--------------------------------------
+@implementation PBDeductReward_Response
+
+@synthesize newValue;
+@synthesize oldValue;
+@synthesize valueDeducted;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Deduct Reward : {\r\tnew_value : %ld\r\told_value = %ld\r\tvalue_deducted : %ld\r\t}", self.newValue, self.oldValue, self.valueDeducted];
+    
+    return descriptionString;
+}
+
++(PBDeductReward_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+    
+    // create result response
+    PBDeductReward_Response *c = [[PBDeductReward_Response alloc] init];
+    
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        
+        c.parseLevelJsonResponse = response;
+    }
+
+    c->newValue = [[c.parseLevelJsonResponse objectForKey:@"new_value"] integerValue];
+    c->oldValue = [[c.parseLevelJsonResponse objectForKey:@"old_value"] integerValue];
+    c->valueDeducted = [[c.parseLevelJsonResponse objectForKey:@"value_deducted"] integerValue];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Custom
 ///--------------------------------------
 @implementation PBCustom

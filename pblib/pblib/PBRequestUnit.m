@@ -888,6 +888,32 @@
             
             break;
         }
+        case responseType_deductReward:
+        {
+            if(_responseDelegate)
+            {
+                if([_responseDelegate respondsToSelector:@selector(processResponseWithDeductReward:withURL:error:)])
+                {
+                    id<PBDeductReward_ResponseHandler> sd = (id<PBDeductReward_ResponseHandler>)_responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBDeductReward_Response *response = [PBDeductReward_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithDeductReward:response withURL:[_urlRequest URL] error:error];
+                }
+            }
+            else if(_responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBDeductReward_Response *response = [PBDeductReward_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                
+                PBDeductReward_ResponseBlock sb = (PBDeductReward_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            
+            break;
+        }
         case responseType_goodsInfo:
         {
             if(_responseDelegate)

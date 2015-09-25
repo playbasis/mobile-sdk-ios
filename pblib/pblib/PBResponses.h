@@ -49,6 +49,7 @@ typedef enum
     responseType_redeemBadge,
     responseType_rank,
     responseType_ranks,
+    responseType_deductReward,
     responseType_goodsInfo,
     responseType_goodsListInfo,
     responseType_goodsGroupAvailable,
@@ -452,6 +453,19 @@ typedef enum
 @property (strong, nonatomic) NSDictionary *ranks;
 
 +(PBRanks_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Deduct Reward
+///--------------------------------------
+@interface PBDeductReward_Response : PBBase_Response
+
+@property (nonatomic, readonly) NSInteger newValue;
+@property (nonatomic, readonly) NSInteger oldValue;
+@property (nonatomic, readonly) NSInteger valueDeducted;
+
++(PBDeductReward_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
