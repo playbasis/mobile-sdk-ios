@@ -948,7 +948,7 @@
 -(void)doPlayerAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block;
 
 //--------------------------------------------------
-// UI
+// UI - for KLCPopup
 //--------------------------------------------------
 -(void)showRegistrationFormFromView:(UIViewController *)view withBlock:(PBResponseBlock)block;
 -(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
@@ -956,9 +956,10 @@
 -(void)showFeedbackStatusUpdateWithText:(NSString *)text duration:(NSTimeInterval)duration;
 -(void)showFeedbackEventPopupWithImage:(UIImage *)image title:(NSString *)title description:(NSString*)description;
 -(void)showFeedbackEventPopupWithContent:(UIView *)contentView image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
+-(void)dismissAllFeedbackPopups;
 
 //--------------------------------------------------
-// UI - HUD
+// UI - for MBProgressHUD
 //--------------------------------------------------
 -(void)showHUDFromView:(UIView *)view;
 -(void)showHUDFromView:(UIView *)view withText:(NSString *)text;
