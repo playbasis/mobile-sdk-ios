@@ -549,12 +549,14 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
     {
         // auth failed
         PBLOG(@"Auth failed, error = %@", [error localizedDescription]);
-        return;
+        // not return yet, this will allow user's flow to retry if needed
     }
-    
-    // otherwise, it's okay
-    [pb setToken:auth.token];
-    finished = YES;
+    else
+    {
+        // otherwise, it's okay
+        [pb setToken:auth.token];
+        finished = YES;
+    }
     
     // just relay the response to user's delegate or block
     if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponseWithAuth:withURL:error:)]))
