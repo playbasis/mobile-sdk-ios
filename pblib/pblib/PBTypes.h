@@ -213,6 +213,15 @@ typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, N
 typedef void (^PBActionConfig_ResponseBlock)(PBActionConfig_Response * actionConfigs, NSURL *url, NSError *error);
 
 ///----------------
+/// Rule Detail
+///----------------
+@protocol PBRuleDetail_ResponseHandler <NSObject>
+-(void)processResponseWithRuleDetail:(PBRuleDetail_Response*)reponse withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBRuleDetail_ResponseBlock)(PBRuleDetail_Response * response, NSURL *url, NSError *error);
+
+///----------------
 /// Rule
 ///----------------
 @protocol PBRule_ResponseHandler <NSObject>
@@ -283,6 +292,14 @@ typedef void (^PBRanks_ResponseBlock)(PBRanks_Response * ranks, NSURL *url, NSEr
 @end
 
 typedef void (^PBDeductReward_ResponseBlock)(PBDeductReward_Response * deductReward, NSURL *url, NSError *error);
+
+///----------------
+/// Unique Code
+///----------------
+@protocol PBUniqueCode_ResponseHandler <NSObject>
+-(void)processResponseWithUniqueCode:(PBUniqueCode_Response*)uniqueCode withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBUniqueCode_ResponseBlock)(PBUniqueCode_Response * uniqueCode, NSURL *url, NSError *error);
 
 ///----------------
 /// GoodsInfo

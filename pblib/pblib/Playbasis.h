@@ -532,6 +532,15 @@
 -(PBRequestUnit *)deductRewardFromPlayerAsync_:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
+ Returns generated unique code of player, for referral program.
+ And generate referral url
+ */
+-(PBRequestUnit *)playerUniqueCode:(NSString *)playerId withDelegate:(id<PBUniqueCode_ResponseHandler>) delegate;
+-(PBRequestUnit *)playerUniqueCode:(NSString *)playerId withBlock:(PBUniqueCode_ResponseBlock) block;
+-(PBRequestUnit *)playerUniqueCodeAsync:(NSString *)playerId withDelegate:(id<PBUniqueCode_ResponseHandler>) delegate;
+-(PBRequestUnit *)playerUniqueCodeAsync:(NSString *)playerId withBlock:(PBUniqueCode_ResponseBlock) block;
+
+/**
  Return information of specified badge.
  */
 -(PBRequestUnit *)badge:(NSString *)badgeId withDelegate:(id<PBBadge_ResponseHandler>)delegate;
@@ -599,6 +608,15 @@
 -(PBRequestUnit *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBRule_ResponseBlock)block, ...;
 -(PBRequestUnit *)ruleForPlayerAsync_:(NSString *)playerId action:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block, ...;
 
+/**
+ + Return information about engine rule.
+ + */
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
+
+  
 /**
  Return information about all quests in current site.
  */

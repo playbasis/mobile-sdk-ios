@@ -11,6 +11,12 @@
 #import "PBUtils.h"
 #import "PBMacros.h"
 
+#if QAV2==1
+static NSString * const BASE_URL = @"https://qav2.pbapp.net";
+#else
+static NSString * const BASE_URL = @"https://pbapp.net";
+#endif
+
 ///--------------------------------------
 /// Base - Response
 /// Additional interface for private methods
@@ -1658,6 +1664,46 @@
     c->oldValue = [[c.parseLevelJsonResponse objectForKey:@"old_value"] integerValue];
     c->valueDeducted = [[c.parseLevelJsonResponse objectForKey:@"value_deducted"] integerValue];
     
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Unique Code
+///--------------------------------------
+@implementation PBUniqueCode_Response
+
+@synthesize uniqueCode;
+@synthesize referralURL;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Unique Code : {\r\tunique code : %@\r\t}", self.uniqueCode];
+    
+    return descriptionString;
+}
+
++(PBUniqueCode_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+    
+    PBUniqueCode_Response *c = [[PBUniqueCode_Response alloc] init];
+    
+    if (startFromFinalLevel) {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nit");
+        
+        c.parseLevelJsonResponse = response;
+    }
+    c->uniqueCode = [c.parseLevelJsonResponse objectForKey:@"code"] ;
+    c->referralURL = [NSString stringWithFormat:@"%@/%@/%@", BASE_URL, @"referral",c->uniqueCode];
     return c;
 }
 
@@ -3960,10 +4006,11 @@
 @synthesize rewardType;
 @synthesize value;
 @synthesize rewardData;
+@synthesize index;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Rule's event : {\r\tevent_type : %@\r\treward_type : %@\r\tvalue : %@\r\treward_data : %@\r\t}", self.eventType, self.rewardType, self.value, self.rewardData];
+    NSString *descriptionString = [NSString stringWithFormat:@"Rule's event : {\r\tevent_type : %@\r\treward_type : %@\r\tvalue : %@\r\treward_data : %@\r\tindex : %@\r\t}", self.eventType, self.rewardType, self.value, self.rewardData, self.index];
     
     return descriptionString;
 }
@@ -3983,6 +4030,11 @@
     c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
     c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
     c->value = [c.parseLevelJsonResponse objectForKey:@"value"];
+    if ([c.parseLevelJsonResponse objectForKey:@"index"] != nil) {
+        c->index = [c.parseLevelJsonResponse objectForKey:@"index"];
+    } else {
+        c->index = nil;
+    }
     
     // check to parse reward_data if reward_type matches ones that have
     if([c->rewardType isEqualToString:@"badge"])
@@ -4287,6 +4339,53 @@
     
     // set back list
     c->list = [NSArray arrayWithArray:tempArray];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// Rule Detail - Response
+///--------------------------------------
+
+@implementation PBRuleDetail_Response
+
+@synthesize ruleReward;
+
+-(NSString *)description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Reward List : {\r\tgroup container : %@\r\t}", self.ruleReward];
+    return descriptionString;
+}
+
++(PBRuleDetail_Response *) parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+    // create a result response
+    PBRuleDetail_Response *c = [[PBRuleDetail_Response alloc] init];
+    if(startFromFinalLevel)
+    {
+        c.parseLevelJsonResponse = [jsonResponse copy];
+    }
+    else
+    {
+        // get 'response'
+        NSDictionary *response = [jsonResponse objectForKey:@"response"];
+        NSAssert(response != nil, @"response must not be nil");
+        NSArray *jigsaw_set = [(NSMutableArray *)[response objectForKey:@"jigsaw_set"] copy];
+        for (NSDictionary* item in jigsaw_set) {
+            NSString *category = [item objectForKey:@"category"];
+            if (category != nil ) {
+                if ([category isEqualToString:@"GROUP"]) {
+                    c->ruleReward = [PBRuleRewards_Response parseFromDictionary:[item objectForKey:@"config"] startFromFinalLevel:NO];
+                }
+            }
+        }
+        c.parseLevelJsonResponse = response;
+    }
+    // TODO: Add parse 'events_missions', 'events_quests' ...
     
     return c;
 }
@@ -7143,6 +7242,76 @@
     // parse
     c->success = [[c.parseLevelJsonResponse objectForKey:@"success"] boolValue];
     
+    return c;
+}
+@end
+
+///--------------------------------------
+/// Rule Engine Reward
+///--------------------------------------
+@implementation PBReward_Response
+
+@synthesize rewardName;
+@synthesize itemID;
+@synthesize rewardID;
+@synthesize badgeData;
+@synthesize goodsData;
+@synthesize quantity;
+
++(PBReward_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    //Create response
+    PBReward_Response *c =[[PBReward_Response alloc] init];
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->rewardName = [c.parseLevelJsonResponse objectForKey:@"reward_name"];
+    c->itemID = [c.parseLevelJsonResponse objectForKey:@"item_id"];
+    c->quantity = [[c.parseLevelJsonResponse objectForKey:@"quantity"] integerValue];
+    c->rewardID = [c.parseLevelJsonResponse objectForKey:@"reward_id"];
+    
+    NSDictionary *data = [c.parseLevelJsonResponse objectForKey:@"data"];
+    
+    if (c->rewardName != nil && [c->rewardName isEqualToString:@"badge"]) {
+        c->badgeData = [PBBadge_Response parseFromDictionary:data startFromFinalLevel:YES];
+        c->goodsData = nil;
+    } else if (c->rewardName != nil && [c->rewardName isEqualToString:@"goods"]) {
+        c->goodsData = [PBGoods parseFromDictionary:data startFromFinalLevel:YES];
+        c->badgeData = nil;
+    }
+    return c;
+}
+
+@end
+
+
+///--------------------------------------
+/// Rule Engine Rewards (Group)
+///--------------------------------------
+@implementation PBRuleRewards_Response
+
+@synthesize list;
+
++(PBRuleRewards_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    //Create response
+    PBRuleRewards_Response *c = [[PBRuleRewards_Response alloc] init];
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    NSArray *groupContainer = [c.parseLevelJsonResponse  objectForKey:@"group_container"];
+    c->list = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *item in groupContainer) {
+        [c->list addObject:[PBReward_Response parseFromDictionary:item startFromFinalLevel:YES]];
+    }
     return c;
 }
 
