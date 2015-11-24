@@ -607,6 +607,7 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *goodsId;
 @property (strong, nonatomic, readonly) NSString *image;
 @property (strong, nonatomic, readonly) NSString *name;
+@property (strong, nonatomic, readonly) NSString *code;
 @property (strong, nonatomic, readonly) NSString *description_;
 @property (nonatomic, readonly) NSUInteger amount;
 

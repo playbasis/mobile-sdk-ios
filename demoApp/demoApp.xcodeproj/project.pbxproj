@@ -47,6 +47,7 @@
 		2C1C75321749D7DB005F3B57 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C75301749D7DB005F3B57 /* MainStoryboard.storyboard */; };
 		2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C75341749D7DB005F3B57 /* demoViewController.m */; };
 		2C90D7EA1749DCCD0080C57D /* pblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C90D7E71749D9A00080C57D /* pblib.a */; };
+		ECC87C1D1BFEE97D00798870 /* InventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +173,8 @@
 		2C1C75331749D7DB005F3B57 /* demoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demoViewController.h; sourceTree = "<group>"; };
 		2C1C75341749D7DB005F3B57 /* demoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = demoViewController.m; sourceTree = "<group>"; };
 		2C90D7E21749D9A00080C57D /* pblib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pblib.xcodeproj; path = ../pblib/pblib.xcodeproj; sourceTree = "<group>"; };
+		ECC87C1B1BFEE97D00798870 /* InventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryViewController.h; sourceTree = "<group>"; };
+		ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +316,8 @@
 				1E7A4B861AA00863006F9D61 /* globalCaching.m */,
 				1E5C92CE1AA1C73D00CEDB1A /* gestureDemoViewController.h */,
 				1E5C92CF1AA1C73D00CEDB1A /* gestureDemoViewController.m */,
+				ECC87C1B1BFEE97D00798870 /* InventoryViewController.h */,
+				ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -516,6 +521,7 @@
 				2C1C75251749D7DB005F3B57 /* main.m in Sources */,
 				2C1C75291749D7DB005F3B57 /* demoAppDelegate.m in Sources */,
 				1E9AF5751A783EDE00A6E416 /* questionScreenViewController.m in Sources */,
+				ECC87C1D1BFEE97D00798870 /* InventoryViewController.m in Sources */,
 				1E2074221A848141002D77A1 /* missionViewController.m in Sources */,
 				1E9AF5781A783EFF00A6E416 /* quizResultScreenViewController.m in Sources */,
 				1E9AF5601A774C1800A6E416 /* authAndLoginViewController.m in Sources */,

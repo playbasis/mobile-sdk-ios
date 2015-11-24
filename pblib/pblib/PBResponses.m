@@ -2200,12 +2200,13 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 @synthesize goodsId;
 @synthesize image;
 @synthesize name;
+@synthesize code;
 @synthesize description_;
 @synthesize amount;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Player Goods Owned : {\r\tgoods_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tamount : %lu\r\t}", self.goodsId, self.image, self.name, self.description_, (unsigned long)self.amount];
+    NSString *descriptionString = [NSString stringWithFormat:@"Player Goods Owned : {\r\tgoods_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tcode : %@\r\tamount : %lu\r\t}", self.goodsId, self.image, self.name, self.description_, self.code,(unsigned long)self.amount];
     
     return descriptionString;
 }
@@ -2225,6 +2226,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     c->goodsId = [c.parseLevelJsonResponse objectForKey:@"goods_id"];
     c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
     c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->code = [c.parseLevelJsonResponse objectForKey:@"code"];
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     
     id amount = [c.parseLevelJsonResponse objectForKey:@"amount"];
