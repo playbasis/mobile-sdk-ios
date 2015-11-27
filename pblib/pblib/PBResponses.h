@@ -24,6 +24,8 @@ typedef enum
     responseType_player,
     responseType_playerList,
     responseType_playerGoodsOwned,
+    responseType_playerSetCustomFields,
+    responseType_playerGetCustomFields,
     responseType_registerUser,
     responseType_updateUser,
     responseType_deleteUser,
@@ -47,6 +49,7 @@ typedef enum
     responseType_redeemBadge,
     responseType_rank,
     responseType_ranks,
+    responseType_deductReward,
     responseType_goodsInfo,
     responseType_goodsListInfo,
     responseType_goodsGroupAvailable,
@@ -77,7 +80,9 @@ typedef enum
     responseType_questionFromQuiz,
     responseType_questionAnswered,
     responseType_playersQuizRank,
-    responseType_resetPoint
+    responseType_resetPoint,
+    responseType_uniqueCode,
+    responseType_ruleDetail
 }pbResponseType;
 
 ///--------------------------------------
@@ -454,6 +459,31 @@ typedef enum
 @end
 
 ///--------------------------------------
+/// Deduct Reward
+///--------------------------------------
+@interface PBDeductReward_Response : PBBase_Response
+
+@property (nonatomic, readonly) NSInteger newValue;
+@property (nonatomic, readonly) NSInteger oldValue;
+@property (nonatomic, readonly) NSInteger valueDeducted;
+
++(PBDeductReward_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Unique Code
+///--------------------------------------
+@interface PBUniqueCode_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSString *uniqueCode;
+@property (strong, nonatomic, readonly) NSString *referralURL;
+
++(PBUniqueCode_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
 /// Custom
 ///--------------------------------------
 @interface PBCustom : PBBase_Response
@@ -577,6 +607,7 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *goodsId;
 @property (strong, nonatomic, readonly) NSString *image;
 @property (strong, nonatomic, readonly) NSString *name;
+@property (strong, nonatomic, readonly) NSString *code;
 @property (strong, nonatomic, readonly) NSString *description_;
 @property (nonatomic, readonly) NSUInteger amount;
 
@@ -592,6 +623,17 @@ typedef enum
 @property (strong, nonatomic, readonly) NSArray<PBPlayerGoodsOwned*> *goodsOwneds;
 
 +(PBPlayerGoodsOwned_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Player Custom Fields
+///--------------------------------------
+@interface PBPlayerCustomFields_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSDictionary *customFields;
+
++(PBPlayerCustomFields_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 
@@ -1041,6 +1083,7 @@ typedef enum
 // arbitrary data, it can be anything thus we use id as a data type here
 // certain reward type doesn't have any reward-data, but some has
 @property (strong, nonatomic, readonly) id rewardData;
+@property (nonatomic, readonly) NSNumber* index;
 
 +(PBRuleEvent *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -1112,6 +1155,45 @@ typedef enum
 @property (strong, nonatomic, readonly) NSArray *list;
 
 +(PBRuleEventsQuests *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Rule Engine Reward
+///--------------------------------------
+@interface PBReward_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSString* rewardName;
+@property (strong, nonatomic, readonly) NSString* itemID;
+@property (strong, nonatomic, readonly) NSString* rewardID;
+@property (strong, nonatomic, readonly) PBBadge_Response* badgeData;
+@property (strong, nonatomic, readonly) PBGoods* goodsData;
+@property (nonatomic, readonly) NSInteger quantity;
+
++(PBReward_Response *) parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Rule Engine Rewards (Group)
+///--------------------------------------
+@interface PBRuleRewards_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSMutableArray* list;
+
++(PBRuleRewards_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// Rule Detail - Response
+/// Query rule's details from rule ID
+///--------------------------------------
+@interface PBRuleDetail_Response : PBBase_Response
+
+@property (strong, nonatomic, readonly) PBRuleRewards_Response *ruleReward;
+
++(PBRuleDetail_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
 

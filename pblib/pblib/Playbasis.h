@@ -168,10 +168,10 @@
 /**
  Authenticate and get access token.
  */
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
+-(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
+-(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
+-(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
+-(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
 
 /**
  Secure way to request a new access token, and discard the current one.
@@ -230,6 +230,22 @@
 -(PBRequestUnit *)playerDetail:(NSString *)playerId withBlock:(PBPlayerDetailed_ResponseBlock)block;
 -(PBRequestUnit *)playerDetailAsync:(NSString *)playerId withDelegate:(id<PBPlayerDetailed_ResponseHandler>)delegate;
 -(PBRequestUnit *)playerDetailAsync:(NSString *)playerId withBlock:(PBPlayerDetailed_ResponseBlock)block;
+
+/**
+ Set player's custom fields (intended for public data).
+ */
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values withBlock:(PBResultStatus_ResponseBlock)block;
+
+/**
+ Get player's custom fields.
+ */
+-(PBRequestUnit *)playerCustomFields:(NSString *)playerId withDelegate:(id<PBPlayerCustomFields_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerCustomFields:(NSString *)playerId withBlock:(PBPlayerCustomFields_ResponseBlock)block;
+-(PBRequestUnit *)playerCustomFieldsAsync:(NSString *)playerId withDelegate:(id<PBPlayerCustomFields_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerCustomFieldsAsync:(NSString *)playerId withBlock:(PBPlayerCustomFields_ResponseBlock)block;
 
 /**
  Register from the client side as a Playbasis player.
@@ -500,20 +516,29 @@
 /**
  Deduct reward from a given player.
  */
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBResponseBlock)block;
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBDeductReward_ResponseHandler>)delegate;
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBDeductReward_ResponseBlock)block;
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBDeductReward_ResponseHandler>)delegate;
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBDeductReward_ResponseBlock)block;
 -(PBRequestUnit *)deductRewardFromPlayerAsync_:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBAsyncURLRequestResponseBlock)block;
 /**
  Deduct reward from a given player.
  With optional parameter 'force'.
  */
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBResponseBlock)block;
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBDeductReward_ResponseHandler>)delegate;
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBDeductReward_ResponseBlock)block;
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBDeductReward_ResponseHandler>)delegate;
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBDeductReward_ResponseBlock)block;
 -(PBRequestUnit *)deductRewardFromPlayerAsync_:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBAsyncURLRequestResponseBlock)block;
+
+/**
+ Returns generated unique code of player, for referral program.
+ And generate referral url
+ */
+-(PBRequestUnit *)playerUniqueCode:(NSString *)playerId withDelegate:(id<PBUniqueCode_ResponseHandler>) delegate;
+-(PBRequestUnit *)playerUniqueCode:(NSString *)playerId withBlock:(PBUniqueCode_ResponseBlock) block;
+-(PBRequestUnit *)playerUniqueCodeAsync:(NSString *)playerId withDelegate:(id<PBUniqueCode_ResponseHandler>) delegate;
+-(PBRequestUnit *)playerUniqueCodeAsync:(NSString *)playerId withBlock:(PBUniqueCode_ResponseBlock) block;
 
 /**
  Return information of specified badge.
@@ -583,6 +608,15 @@
 -(PBRequestUnit *)ruleForPlayerAsync:(NSString *)playerId action:(NSString *)action withBlock:(PBRule_ResponseBlock)block, ...;
 -(PBRequestUnit *)ruleForPlayerAsync_:(NSString *)playerId action:(NSString *)action withBlock:(PBAsyncURLRequestResponseBlock)block, ...;
 
+/**
+ + Return information about engine rule.
+ + */
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
+
+  
 /**
  Return information about all quests in current site.
  */
@@ -932,7 +966,7 @@
 -(void)doPlayerAsync:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBResponseBlock)block;
 
 //--------------------------------------------------
-// UI
+// UI - for KLCPopup
 //--------------------------------------------------
 -(void)showRegistrationFormFromView:(UIViewController *)view withBlock:(PBResponseBlock)block;
 -(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
@@ -940,9 +974,10 @@
 -(void)showFeedbackStatusUpdateWithText:(NSString *)text duration:(NSTimeInterval)duration;
 -(void)showFeedbackEventPopupWithImage:(UIImage *)image title:(NSString *)title description:(NSString*)description;
 -(void)showFeedbackEventPopupWithContent:(UIView *)contentView image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
+-(void)dismissAllFeedbackPopups;
 
 //--------------------------------------------------
-// UI - HUD
+// UI - for MBProgressHUD
 //--------------------------------------------------
 -(void)showHUDFromView:(UIView *)view;
 -(void)showHUDFromView:(UIView *)view withText:(NSString *)text;

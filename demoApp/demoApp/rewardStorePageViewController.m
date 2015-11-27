@@ -199,7 +199,12 @@
     rewardItemViewController *contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rewardItemViewController"];
     contentViewController.pageIndex = index;
     contentViewController.goods = goods;
-    contentViewController.image = [_goodsListInfoImages objectAtIndex:index];
+    if([_goodsListInfoImages count]>0)
+    {
+        contentViewController.image = [_goodsListInfoImages objectAtIndex:index];
+    }
+    
+    
     
     return contentViewController;
 }

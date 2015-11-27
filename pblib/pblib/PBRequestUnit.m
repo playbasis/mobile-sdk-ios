@@ -273,6 +273,7 @@
         case responseType_redeemBadge:
         case responseType_sendEmail:
         case responseType_sendEmailCoupon:
+        case responseType_playerSetCustomFields:
         {
             if(_responseDelegate)
             {
@@ -440,6 +441,32 @@
                 PBPlayerList_Response *response = [PBPlayerList_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
                 
                 PBPlayerList_ResponseBlock sb = (PBPlayerList_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_playerGetCustomFields:
+        {
+            if(_responseDelegate)
+            {
+                if([_responseDelegate respondsToSelector:@selector(processResponseWithPlayerCustomFields:withURL:error:)])
+                {
+                    id<PBPlayerCustomFields_ResponseHandler> sd = (id<PBPlayerCustomFields_ResponseHandler>)_responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerCustomFields_Response *response = [PBPlayerCustomFields_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithPlayerCustomFields:response withURL:[_urlRequest URL] error:error];
+                }
+            }
+            else if(_responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerCustomFields_Response *response = [PBPlayerCustomFields_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                
+                PBPlayerCustomFields_ResponseBlock sb = (PBPlayerCustomFields_ResponseBlock)_responseBlock;
                 sb(response, [_urlRequest URL], error);
             }
             
@@ -856,6 +883,32 @@
                 PBRanks_Response *response = [PBRanks_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
                 
                 PBRanks_ResponseBlock sb = (PBRanks_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_deductReward:
+        {
+            if(_responseDelegate)
+            {
+                if([_responseDelegate respondsToSelector:@selector(processResponseWithDeductReward:withURL:error:)])
+                {
+                    id<PBDeductReward_ResponseHandler> sd = (id<PBDeductReward_ResponseHandler>)_responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBDeductReward_Response *response = [PBDeductReward_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    
+                    // execute
+                    [sd processResponseWithDeductReward:response withURL:[_urlRequest URL] error:error];
+                }
+            }
+            else if(_responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBDeductReward_Response *response = [PBDeductReward_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                
+                PBDeductReward_ResponseBlock sb = (PBDeductReward_ResponseBlock)_responseBlock;
                 sb(response, [_urlRequest URL], error);
             }
             
@@ -1612,6 +1665,49 @@
                 PBResetPoint_Response *response = [PBResetPoint_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
                 
                 PBResetPoint_ResponseBlock sb = (PBResetPoint_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            
+            break;
+        }
+        case responseType_uniqueCode:
+        {
+            if(_responseDelegate)
+            {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithUniqueCode:withURL:error:)]) {
+                    id<PBUniqueCode_ResponseHandler> sd = (id<PBUniqueCode_ResponseHandler>)_responseDelegate;
+                    
+                    // parse data (get nil if jsonResponse is nil)
+                    PBUniqueCode_Response *response = [PBUniqueCode_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    
+                    //execute
+                    [sd processResponseWithUniqueCode:response withURL:[_urlRequest URL] error:error];
+                }
+            }
+            else if(_responseBlock)
+            {
+                // parse data (get nil if jsonResponse is nil)
+                PBUniqueCode_Response *response = [PBUniqueCode_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                
+                PBUniqueCode_ResponseBlock sb = (PBUniqueCode_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            break;
+        }
+        case responseType_ruleDetail:
+        {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithRuleDetail:withURL:error:)]) {
+                    id<PBRuleDetail_ResponseHandler> sd = (id<PBRuleDetail_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBRuleDetail_Response *response = [PBRuleDetail_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithRuleDetail:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBRuleDetail_Response *response = [PBRuleDetail_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBRuleDetail_ResponseBlock sb = (PBRuleDetail_ResponseBlock)_responseBlock;
                 sb(response, [_urlRequest URL], error);
             }
             

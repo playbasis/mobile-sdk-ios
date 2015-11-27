@@ -168,6 +168,15 @@ typedef void (^PBPlayerDetailed_ResponseBlock)(PBPlayerDetailed_Response * playe
 typedef void (^PBPlayerGoodsOwned_ResponseBlock)(PBPlayerGoodsOwned_Response * goodsOwneds, NSURL *url, NSError *error);
 
 ///----------------
+/// PlayerCustomFields
+///----------------
+@protocol PBPlayerCustomFields_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerCustomFields:(PBPlayerCustomFields_Response *)playerCustomFields withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBPlayerCustomFields_ResponseBlock)(PBPlayerCustomFields_Response * customFields, NSURL *url, NSError *error);
+
+///----------------
 /// PointHistory
 ///----------------
 @protocol PBActionLastPerformedTime_ResponseHandler <NSObject>
@@ -202,6 +211,15 @@ typedef void (^PBActionTime_ResponseBlock)(PBActionTime_Response * actionTime, N
 @end
 
 typedef void (^PBActionConfig_ResponseBlock)(PBActionConfig_Response * actionConfigs, NSURL *url, NSError *error);
+
+///----------------
+/// Rule Detail
+///----------------
+@protocol PBRuleDetail_ResponseHandler <NSObject>
+-(void)processResponseWithRuleDetail:(PBRuleDetail_Response*)reponse withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBRuleDetail_ResponseBlock)(PBRuleDetail_Response * response, NSURL *url, NSError *error);
 
 ///----------------
 /// Rule
@@ -265,6 +283,23 @@ typedef void (^PBRank_ResponseBlock)(PBRank_Response * rank, NSURL *url, NSError
 @end
 
 typedef void (^PBRanks_ResponseBlock)(PBRanks_Response * ranks, NSURL *url, NSError *error);
+
+///----------------
+/// Deduct Reward
+///----------------
+@protocol PBDeductReward_ResponseHandler <NSObject>
+-(void)processResponseWithDeductReward:(PBDeductReward_Response*)deductReward withURL:(NSURL *)url error:(NSError*)error;
+@end
+
+typedef void (^PBDeductReward_ResponseBlock)(PBDeductReward_Response * deductReward, NSURL *url, NSError *error);
+
+///----------------
+/// Unique Code
+///----------------
+@protocol PBUniqueCode_ResponseHandler <NSObject>
+-(void)processResponseWithUniqueCode:(PBUniqueCode_Response*)uniqueCode withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBUniqueCode_ResponseBlock)(PBUniqueCode_Response * uniqueCode, NSURL *url, NSError *error);
 
 ///----------------
 /// GoodsInfo

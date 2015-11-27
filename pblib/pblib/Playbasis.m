@@ -213,6 +213,12 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
 // - playerDetail
 -(PBRequestUnit *)playerDetailInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+// - playerSetCustomFields
+-(PBRequestUnit *)playerSetCustomFieldsInternalBase:(NSString *)playerId keys:(NSArray<NSString*>*)keys values:(NSArray<NSString*>*)values blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
+// - playerCustomFields
+-(PBRequestUnit *)playerCustomFieldsInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+
 // - registerUserWithPlayerId
 -(PBRequestUnit *)registerUserWithPlayerIdInternalBase:(NSString *)playerId username:(NSString *)username email:(NSString *)email imageUrl:(NSString *)imageUrl blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params;
 
@@ -543,12 +549,14 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
     {
         // auth failed
         PBLOG(@"Auth failed, error = %@", [error localizedDescription]);
-        return;
+        // not return yet, this will allow user's flow to retry if needed
     }
-    
-    // otherwise, it's okay
-    [pb setToken:auth.token];
-    finished = YES;
+    else
+    {
+        // otherwise, it's okay
+        [pb setToken:auth.token];
+        finished = YES;
+    }
     
     // just relay the response to user's delegate or block
     if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponseWithAuth:withURL:error:)]))
@@ -1009,29 +1017,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)authWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // load api-key and api-secret from protected config file
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     [self loadApiKeysConfig];
     
     // relay to the underlying inernal method
-    return [self authWithApiKeyInternalBase:_apiKey apiSecret:[self getApiSecretFromProtectedResources] blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response];
-}
+    return [self authWithApiKeyInternalBase:_apiKey apiSecret:[self getApiSecretFromProtectedResources]  bundleId:bundleIdentifier blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response];
 
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
-{
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
+-(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
+-(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block
 {
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId  blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
+-(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId  blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)authWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block
+{
+    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId  blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)authWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *) bundleId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // save apikey
     _apiKey = apiKey;
@@ -1047,7 +1056,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
     
     NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
+    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@&pkg_name=%@", apiKey, apiSecret, bundleId];
+
     
     // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:_authDelegate];
@@ -1228,6 +1238,84 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *data = [NSString stringWithFormat:@"token=%@", _token];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerDetailed andResponse:response];
+}
+
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerSetCustomFields:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerSetCustomFieldsAsync:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self playerSetCustomFieldsInternalBase:playerId keys:keys values:values blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerSetCustomFieldsInternalBase:(NSString *)playerId keys:(NSArray<NSString *> *)keys values:(NSArray<NSString *> *)values blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/custom%@", playerId, _apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&", _token];
+    
+    // form keys
+    BOOL isFirstRound = YES;
+    [data appendString:@"key="];
+    for(NSString *k in keys)
+    {
+        if(!isFirstRound)
+            [data appendFormat:@",%@", k];
+        else
+            [data appendFormat:@"%@", k];
+        
+        isFirstRound = NO;
+    }
+    
+    // form values
+    [data appendString:@"&value="];
+    isFirstRound = YES;
+    for(NSString *k in values)
+    {
+        if(!isFirstRound)
+            [data appendFormat:@",%@", k];
+        else
+            [data appendFormat:@"%@", k];
+        
+        isFirstRound = NO;
+    }
+    
+    // create final data
+    NSString *dataFinal = [NSString stringWithString:data];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_playerSetCustomFields andResponse:response];
+}
+
+-(PBRequestUnit *)playerCustomFields:(NSString *)playerId withDelegate:(id<PBPlayerCustomFields_ResponseHandler>)delegate
+{
+    return [self playerCustomFieldsInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerCustomFields:(NSString *)playerId withBlock:(PBPlayerCustomFields_ResponseBlock)block
+{
+    return [self playerCustomFieldsInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerCustomFieldsAsync:(NSString *)playerId withDelegate:(id<PBPlayerCustomFields_ResponseHandler>)delegate
+{
+    return [self playerCustomFieldsInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerCustomFieldsAsync:(NSString *)playerId withBlock:(PBPlayerCustomFields_ResponseBlock)block
+{
+    return [self playerCustomFieldsInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerCustomFieldsInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/%@/custom%@", playerId, _apiKeyParam];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerGetCustomFields andResponse:response];
 }
 
 //
@@ -2119,19 +2207,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questRewardHistoryOfPlayer andResponse:response];
 }
 
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBDeductReward_ResponseHandler>)delegate
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBResponseBlock)block
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBDeductReward_ResponseBlock)block
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withDelegate:(id<PBDeductReward_ResponseHandler>)delegate
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBResponseBlock)block
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount withBlock:(PBDeductReward_ResponseBlock)block
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -2142,7 +2230,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)deductRewardFromPlayerInternalBase:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(_token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct_reward%@", playerId, _apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct%@", playerId, _apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&reward=%@&amount=%lu", _token, reward, (unsigned long)amount];
     
     if(!syncUrl)
@@ -2151,22 +2239,22 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deductReward andResponse:response];
 }
 
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBDeductReward_ResponseHandler>)delegate
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount force:force blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBResponseBlock)block
+-(PBRequestUnit *)deductRewardFromPlayer:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBDeductReward_ResponseBlock)block
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount force:force blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withDelegate:(id<PBDeductReward_ResponseHandler>)delegate
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount force:force blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBResponseBlock)block
+-(PBRequestUnit *)deductRewardFromPlayerAsync:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force withBlock:(PBDeductReward_ResponseBlock)block
 {
     return [self deductRewardFromPlayerInternalBase:playerId reward:reward amount:amount force:force blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
@@ -2177,7 +2265,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)deductRewardFromPlayerInternalBase:(NSString *)playerId reward:(NSString *)reward amount:(NSUInteger)amount force:(NSUInteger)force blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSAssert(_token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct_reward%@", playerId, _apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Player/%@/deduct%@", playerId, _apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"token=%@&reward=%@&amount=%lu&force=%lu", _token, reward, (unsigned long)amount, (unsigned long)force];
     
     if(!syncUrl)
@@ -2186,7 +2274,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
     }
     
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deductReward andResponse:response];
 }
 
 -(PBRequestUnit *)questListOfPlayer:(NSString *)playerId withDelegate:(id<PBQuestListOfPlayer_ResponseHandler>)delegate
@@ -2210,6 +2298,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Player/quest%@&player_id=%@", _apiKeyParam, playerId];
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_questListOfPlayer andResponse:response];
+}
+
+-(PBRequestUnit *)playerUniqueCode:(NSString *)playerId withDelegate:(id<PBUniqueCode_ResponseHandler>)delegate
+{
+    return [self playerUniqueCodeInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerUniqueCode:(NSString *)playerId withBlock:(PBUniqueCode_ResponseBlock)block
+{
+    return [self playerUniqueCodeInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerUniqueCodeAsync:(NSString *)playerId withDelegate:(id<PBUniqueCode_ResponseHandler>)delegate
+{
+    return [self playerUniqueCodeInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerUniqueCodeAsync:(NSString *)playerId withBlock:(PBUniqueCode_ResponseBlock)block
+{
+    return [self playerUniqueCodeInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+
+-(PBRequestUnit *)playerUniqueCodeInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSString *method = [NSString stringWithFormat:@"Player/%@/code%@", playerId, _apiKeyParam];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_uniqueCode andResponse:response];
 }
 
 -(PBRequestUnit *)badge:(NSString *)badgeId withDelegate:(id<PBBadge_ResponseHandler>)delegate
@@ -2479,7 +2591,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Engine/rule%@", _apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", _token, playerId, action];
     NSString *dataFinal = nil;
-    
+    /*
     if(params != nil)
     {
         id optionalData;
@@ -2487,7 +2599,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         {
             [data appendFormat:@"&%@", optionalData];
         }
-    }
+    }*/
     
     if(!syncUrl)
     {
@@ -2503,6 +2615,33 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_rule andResponse:response];
+}
+
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate
+{
+    return [self ruleDetailInternalBase:ruleId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block
+{
+    return [self ruleDetailInternalBase:ruleId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate
+{
+    return [self ruleDetailInternalBase:ruleId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block
+{
+    return [self ruleDetailInternalBase:ruleId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+
+-(PBRequestUnit *)ruleDetailInternalBase:ruleId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+        NSString *method = [NSString stringWithFormat:@"Engine/rule/%@%@", ruleId, _apiKeyParam];
+    
+        return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_ruleDetail andResponse:response];
 }
 
 -(PBRequestUnit *)questListWithDelegate:(id<PBQuestList_ResponseHandler>)delegate
@@ -4266,7 +4405,39 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)showFeedbackStatusUpdateWithText:(NSString *)text
 {
-    [self showFeedbackStatusUpdateWithText:text duration:2.0];
+    UIView* contentView = [[UIView alloc] init];
+    contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    contentView.backgroundColor = [UIColor grayColor];
+    contentView.layer.cornerRadius = 12.0;
+    
+    UILabel* statusLabel = [[UILabel alloc] init];
+    statusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    statusLabel.backgroundColor = [UIColor clearColor];
+    statusLabel.textColor = [UIColor whiteColor];
+    statusLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    statusLabel.numberOfLines = 0;  // cover all lines
+    statusLabel.text = text;
+    
+    [contentView addSubview:statusLabel];
+    
+    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, statusLabel);
+    
+    [contentView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[statusLabel]-(10)-|"
+                                             options:NSLayoutFormatAlignAllCenterX
+                                             metrics:nil
+                                               views:views]];
+    
+    [contentView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(36)-[statusLabel]-(36)-|"
+                                             options:0
+                                             metrics:nil
+                                               views:views]];
+    
+    // save to persistent klcpopup for us to close it later
+    KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeClear dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+    // show it permanently, will required user to close it later
+    [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutBottom) duration:0.0];
 }
 
 -(void)showFeedbackStatusUpdateWithText:(NSString *)text duration:(NSTimeInterval)duration
@@ -4372,6 +4543,11 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     KLCPopup* popup = [KLCPopup popupWithContentView:contentView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeGrowOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
     [popup showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutCenter)];
+}
+
+-(void)dismissAllFeedbackPopups
+{
+    [KLCPopup dismissAllPopups];
 }
 
 - (void)klcPopup_dismissButtonPressed:(id)sender
