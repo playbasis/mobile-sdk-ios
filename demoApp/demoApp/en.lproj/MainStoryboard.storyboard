@@ -592,6 +592,71 @@
             </objects>
             <point key="canvasLocation" x="317" y="698"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="CqK-2X-94r">
+            <objects>
+                <viewController id="jKt-mi-NhJ" customClass="ProfileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VBw-gt-Zhu"/>
+                        <viewControllerLayoutGuide type="bottom" id="4VO-qg-Qhd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yex-BI-t8q">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x8h-OP-ONA">
+                                <rect key="frame" x="23" y="163" width="280" height="392"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7M-DD-ZEh">
+                                <rect key="frame" x="23" y="125" width="109" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Profile Info">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonClick:" destination="2vp-Gq-U7X" eventType="touchUpInside" id="S7N-bl-9gW"/>
+                                    <action selector="getProfileInfo:" destination="jKt-mi-NhJ" eventType="touchDown" id="oCA-bq-xJh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profile Demo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4Q-da-dJC">
+                                <rect key="frame" x="109" y="86" width="102" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w61-GO-JKP">
+                                <rect key="frame" x="191" y="125" width="109" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Goods Info">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonClick:" destination="2vp-Gq-U7X" eventType="touchUpInside" id="hJm-Ee-pIr"/>
+                                    <action selector="getGoodsInfo:" destination="jKt-mi-NhJ" eventType="touchDown" id="ICl-ER-roR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Y6E-uF-sf4"/>
+                    <connections>
+                        <outlet property="detailView" destination="x8h-OP-ONA" id="ZSL-os-5np"/>
+                        <outlet property="levelBt" destination="w61-GO-JKP" id="e4S-tl-Whk"/>
+                        <outlet property="profileInfoBt" destination="T7M-DD-ZEh" id="M8J-0X-Jh3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ay-vU-9HK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702" y="698"/>
+        </scene>
         <!--Inventory View Controller-->
         <scene sceneID="ZEd-AS-Vva">
             <objects>
@@ -612,7 +677,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Inventory Demo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kul-Kt-3Lb">
-                                <rect key="frame" x="100" y="88" width="121" height="21"/>
+                                <rect key="frame" x="100" y="90" width="121" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -642,7 +707,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCw-LD-jcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="752" y="384"/>
+            <point key="canvasLocation" x="702" y="-44"/>
         </scene>
         <!--Badge Demo Screen-->
         <scene sceneID="UCj-YA-WwD">
@@ -1344,6 +1409,17 @@
                                 </state>
                                 <connections>
                                     <segue destination="Yds-9U-2lP" kind="push" id="nUH-kS-lMt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4X-Wa-AWa">
+                                <rect key="frame" x="113" y="368" width="95" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Profile Demo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="jKt-mi-NhJ" kind="push" id="S2s-US-tYk"/>
                                 </connections>
                             </button>
                         </subviews>
