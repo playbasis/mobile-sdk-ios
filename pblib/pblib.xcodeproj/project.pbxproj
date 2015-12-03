@@ -55,7 +55,6 @@
 		1E80C7E11A9C291A00C6C291 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
 		1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
 		1E80C7E61A9C298800C6C291 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */; };
-		1E887DA41A9B03540077B673 /* protectedResources in Resources */ = {isa = PBXBuildFile; fileRef = 1ED6CC2A1A9AE587000D8FB0 /* protectedResources */; };
 		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
 		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */; };
@@ -429,7 +428,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E887DA41A9B03540077B673 /* protectedResources in Resources */,
 				1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
