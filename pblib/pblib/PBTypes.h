@@ -535,4 +535,11 @@ typedef void (^PBQuizPendings_ResponseBlock)(PBQuizPendings_Response * response,
 
 typedef void (^PBResetPoint_ResponseBlock)(PBResetPoint_Response * response, NSURL *url, NSError *error);
 
+///----------------
+/// Store Organise
+///----------------
+@protocol PBStoreOrganize_ResponseHandler <NSObject>
+-(void)processResponseWithOrganizeList:(PBStoreOrganize_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBStoreOrganize_ResponseBlock)(PBStoreOrganize_Response * response, NSURL *url, NSError *error);
 #endif

@@ -82,7 +82,13 @@ typedef enum
     responseType_playersQuizRank,
     responseType_resetPoint,
     responseType_uniqueCode,
-    responseType_ruleDetail
+    responseType_ruleDetail,
+    responseType_storeOrganize,
+    responseType_nodeOrganize,
+    responseType_saleHistory,
+    responseType_playerRole,
+    responseType_associated,
+    responseType_content
 }pbResponseType;
 
 ///--------------------------------------
@@ -1913,6 +1919,125 @@ typedef enum
 +(PBResetPoint_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
 @end
+///--------------------------------------
+/// PBOrganize - Parent
+///--------------------------------------
+@interface PBParentOrganize : PBBase_Response
+@property (strong, readonly) NSString *_id;
+@property (strong, readonly) NSString *name;
+
++(PBParentOrganize *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+///--------------------------------------
+/// PBOrganize
+///--------------------------------------
+
+@interface PBStoreOrganize : PBBase_Response
+@property (strong, readonly) NSString *_id;
+@property (strong, readonly) NSString *name;
+@property (strong, readonly) NSString *description;
+@property (nonatomic ,readonly) BOOL status;
+@property (strong, readonly) NSString *slug;
+@property (strong, readonly) NSString *date_added;
+@property (strong, readonly) NSString *date_modified;
+@property (strong, readonly) PBParentOrganize *parent;
+
++(PBStoreOrganize *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+///--------------------------------------
+/// PBOrganize - Response
+///--------------------------------------
+@interface PBStoreOrganize_Response : PBBase_Response
+@property (strong, nonatomic, readonly) NSMutableArray<PBStoreOrganize*> *list;
++(PBStoreOrganize_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
+///--------------------------------------
+/// PBNodeOrganize
+///--------------------------------------
+@interface PBNodeOrganize: PBBase_Response
+@property (strong, readonly) NSString *_id;
+@property (strong, readonly) NSString *name;
+@property (strong, readonly) NSString *description;
+@property (nonatomic ,readonly) BOOL status;
+@property (strong, readonly) NSString *slug;
+@property (strong, readonly) NSString *date_added;
+@property (strong, readonly) NSString *date_modified;
+@property (strong, readonly) PBParentOrganize *organize;
+@property (strong, readonly) PBParentOrganize *parent;
+
++(PBNodeOrganize *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+@end
+
+///--------------------------------------
+/// PBNodeOrganize - Response
+///--------------------------------------
+@interface PBNodeOrganize_Response : PBBase_Response
+@property (strong, nonatomic, readonly) PBNodeOrganize *result;
+
++(PBNodeOrganize_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+///--------------------------------------
+/// Associated - Response
+///--------------------------------------
+@interface PBAssociated_Response : PBBase_Response
+@property (strong, readonly) NSString *node_id;
+@property (strong, readonly) NSString *name;
+
++(PBAssociated_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+@end
+///--------------------------------------
+/// PlayerRole - Parent
+///--------------------------------------
+@interface PBParentRole : PBBase_Response
+@property (strong, readonly) NSString *role;
+@property (strong, readonly) NSString *join_date;
+@end
+///--------------------------------------
+/// PlayerRole - Response
+///--------------------------------------
+@interface PBPlayerRole_Response : PBBase_Response
+@property (strong, readonly) NSString *organize_type;
+@property (strong, readonly) PBParentRole *roles;
+@end
+
+///--------------------------------------
+/// SaleHistory
+///--------------------------------------
+@interface PBSaleHistory : PBBase_Response
+
+@property (strong, nonatomic, readonly) NSArray *list;
++(PBSaleHistory *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+@end
+
+///--------------------------------------
+/// Content
+///--------------------------------------
+@interface PBContent : PBBase_Response
+@property (strong, readonly) NSString *name;
+@property (strong, readonly) NSString *detail;
+@property (strong, readonly) NSString *date_start;
+@property (strong, readonly) NSString *date_end;
+@property (strong, readonly) NSString *image;
+@property (strong, readonly) NSString *category;
+
++(PBContent *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+@end
+
+///--------------------------------------
+/// Content - Response
+///--------------------------------------
+@interface PBContent_Response : PBBase_Response
+@property (strong, nonatomic, readonly) PBContent *result;
+
++(PBContent_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+
+@end
+
 
 ///--------------------------------------
 /// ManualSetResultStatus - Response

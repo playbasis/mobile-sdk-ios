@@ -47,6 +47,7 @@
 		2C1C75321749D7DB005F3B57 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C75301749D7DB005F3B57 /* MainStoryboard.storyboard */; };
 		2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C75341749D7DB005F3B57 /* demoViewController.m */; };
 		2C90D7EA1749DCCD0080C57D /* pblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C90D7E71749D9A00080C57D /* pblib.a */; };
+		EC4122A81C3FC85B00D81EC3 /* storeOrganizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4122A71C3FC85B00D81EC3 /* storeOrganizationViewController.m */; };
 		ECC87C1D1BFEE97D00798870 /* InventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +174,8 @@
 		2C1C75331749D7DB005F3B57 /* demoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demoViewController.h; sourceTree = "<group>"; };
 		2C1C75341749D7DB005F3B57 /* demoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = demoViewController.m; sourceTree = "<group>"; };
 		2C90D7E21749D9A00080C57D /* pblib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pblib.xcodeproj; path = ../pblib/pblib.xcodeproj; sourceTree = "<group>"; };
+		EC4122A61C3FC85B00D81EC3 /* storeOrganizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = storeOrganizationViewController.h; sourceTree = "<group>"; };
+		EC4122A71C3FC85B00D81EC3 /* storeOrganizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = storeOrganizationViewController.m; sourceTree = "<group>"; };
 		ECC87C1B1BFEE97D00798870 /* InventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryViewController.h; sourceTree = "<group>"; };
 		ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -318,6 +321,11 @@
 				1E5C92CF1AA1C73D00CEDB1A /* gestureDemoViewController.m */,
 				ECC87C1B1BFEE97D00798870 /* InventoryViewController.h */,
 				ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */,
+				ECEC9A391C04256100D87C1F /* ProfileViewController.h */,
+				ECEC9A3A1C04256100D87C1F /* ProfileViewController.m */,
+				EC4122A61C3FC85B00D81EC3 /* storeOrganizationViewController.h */,
+				EC4122A71C3FC85B00D81EC3 /* storeOrganizationViewController.m */,
+
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -531,6 +539,8 @@
 				1E304A5A1A918E07006F0C7F /* rewardItemViewController.m in Sources */,
 				1E304A4D1A9139D5006F0C7F /* missionPageViewController.m in Sources */,
 				1E83D4B91A7A1A8A00D2670C /* questDemoViewController.m in Sources */,
+				EC4122A81C3FC85B00D81EC3 /* storeOrganizationViewController.m in Sources */,
+				ECEC9A3B1C04256100D87C1F /* ProfileViewController.m in Sources */,
 				2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */,
 				1E304A571A918D8D006F0C7F /* rewardStorePageViewController.m in Sources */,
 				1E9AF5721A783EC900A6E416 /* quizScreenViewController.m in Sources */,

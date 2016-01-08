@@ -7318,4 +7318,93 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 }
 
 @end
+///--------------------------------------
+/// PBParentOrganize
+///--------------------------------------
+@implementation PBParentOrganize
+@synthesize _id;
+@synthesize name;
 
++(PBParentOrganize *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    PBParentOrganize *c =[[PBParentOrganize alloc] init];
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    c->_id =[c.parseLevelJsonResponse objectForKey:@"id"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    return c;
+}
+
+
+@end
+///--------------------------------------
+/// StoreOrganization
+///--------------------------------------
+@implementation PBStoreOrganize
+@synthesize _id;
+@synthesize name;
+@synthesize description;
+@synthesize status;
+@synthesize slug;
+@synthesize date_added;
+@synthesize date_modified;
+@synthesize parent;
+
++(PBStoreOrganize *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    //Create response
+    PBStoreOrganize *c =[[PBStoreOrganize alloc] init];
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->_id = [c.parseLevelJsonResponse objectForKey:@"_id"];
+    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->description = [c.parseLevelJsonResponse objectForKey:@"description"];
+    c->status = [c.parseLevelJsonResponse objectForKey:@"status"];
+    c->slug = [c.parseLevelJsonResponse objectForKey:@"slug"];
+    c->date_added = [c.parseLevelJsonResponse objectForKey:@"date_added"];
+    c->date_modified = [c.parseLevelJsonResponse objectForKey:@"date_modified"];
+    c->parent = [PBParentOrganize parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"parent"] startFromFinalLevel:YES];
+    
+    
+    return c;
+
+}
+@end
+///--------------------------------------
+/// StoreOrganization - Response
+///--------------------------------------
+@implementation PBStoreOrganize_Response
+@synthesize list;
++(PBStoreOrganize_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    //Create response
+    PBStoreOrganize_Response *c = [[PBStoreOrganize_Response alloc] init];
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
+    NSArray *results = [response objectForKey:@"results"];
+    c->list = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *item in results) {
+        PBStoreOrganize *org = [[PBStoreOrganize alloc]init];
+        org = [PBStoreOrganize parseFromDictionary:item startFromFinalLevel:YES];
+        [c->list addObject:org];
+        //[c->list addObject:[PBStoreOrganize parseFromDictionary:item startFromFinalLevel:YES]];
+    }
+    return c;
+}
+
+
+@end

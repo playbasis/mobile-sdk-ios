@@ -1713,6 +1713,44 @@
             
             break;
         }
+        case responseType_storeOrganize:
+        {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithOrganizeList:withURL:error:)]) {
+                    id<PBStoreOrganize_ResponseHandler> sd = (id<PBStoreOrganize_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBStoreOrganize_Response *response = [PBStoreOrganize_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithOrganizeList:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBStoreOrganize_Response *response = [PBStoreOrganize_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBStoreOrganize_ResponseBlock sb = (PBStoreOrganize_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            break;
+        }
+        case responseType_nodeOrganize:
+        {
+            break;
+        }
+        case responseType_saleHistory:
+        {
+            break;
+        }
+        case responseType_associated:
+        {
+            break;
+        }
+        case responseType_content:
+        {
+            break;
+        }
+        case responseType_playerRole:
+        {
+            break;
+        }
     }
 }
 
