@@ -572,7 +572,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7M-DD-ZEh">
-                                <rect key="frame" x="23" y="125" width="109" height="30"/>
+                                <rect key="frame" x="0.0" y="125" width="109" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Profile Info">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -589,7 +589,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w61-GO-JKP">
-                                <rect key="frame" x="191" y="125" width="109" height="30"/>
+                                <rect key="frame" x="102" y="125" width="109" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Goods Info">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -632,7 +632,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntS-fq-nbb">
-                                <rect key="frame" x="20" y="123" width="109" height="30"/>
+                                <rect key="frame" x="0.0" y="123" width="109" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="List organize">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -642,36 +642,83 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ef-hC-J4A">
-                                <rect key="frame" x="191" y="123" width="109" height="30"/>
+                                <rect key="frame" x="106" y="123" width="94" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="List node">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="listNode:" destination="e6T-CQ-hcG" eventType="touchDown" id="yP6-Nf-O4i"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TqD-ss-9YY">
-                                <rect key="frame" x="20" y="156" width="280" height="392"/>
+                                <rect key="frame" x="20" y="206" width="280" height="342"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nt8-CA-zJY">
+                                <rect key="frame" x="191" y="123" width="109" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Find Child">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="childNode:" destination="e6T-CQ-hcG" eventType="touchDown" id="1bv-kj-Bb2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgS-nq-OR6">
+                                <rect key="frame" x="0.0" y="154" width="109" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Get Associate">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="associatedNode:" destination="e6T-CQ-hcG" eventType="touchDown" id="yua-a6-hrL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-As-BhR">
+                                <rect key="frame" x="113" y="154" width="94" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Sale History">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saleHistory:" destination="e6T-CQ-hcG" eventType="touchDown" id="S7r-HI-Ggd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0s-s9-A3c">
+                                <rect key="frame" x="215" y="154" width="94" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Sale Board">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saleBoard:" destination="e6T-CQ-hcG" eventType="touchDown" id="2NI-Ua-ubW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="vhE-j7-RJN"/>
                     <connections>
+                        <outlet property="associated" destination="VgS-nq-OR6" id="rjd-En-D7o"/>
+                        <outlet property="child" destination="Nt8-CA-zJY" id="adV-Wn-GlI"/>
                         <outlet property="detailView" destination="TqD-ss-9YY" id="nYb-Fx-aol"/>
                         <outlet property="listNode" destination="7ef-hC-J4A" id="9kB-PQ-fAb"/>
                         <outlet property="listOrganize" destination="ntS-fq-nbb" id="nl9-fe-bWO"/>
+                        <outlet property="saleBoard" destination="a0s-s9-A3c" id="10u-B5-XES"/>
+                        <outlet property="saleHistory" destination="Lgf-As-BhR" id="YFp-gH-Wl1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KNK-bW-ikh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="662" y="734"/>
         </scene>
-        <!--View Controller-->
+        <!--Leader Board View Controller-->
         <scene sceneID="AAD-It-6bL">
             <objects>
-                <viewController id="t6w-es-01D" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="leaderBoard" id="t6w-es-01D" customClass="leaderBoardViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FQt-TV-myz"/>
                         <viewControllerLayoutGuide type="bottom" id="kqp-tB-D4p"/>
@@ -692,6 +739,9 @@
                                 <state key="normal" title="leaderboard">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="leaderBoard:" destination="t6w-es-01D" eventType="touchDown" id="OnD-nu-3YD"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ly7-jg-ufS">
                                 <rect key="frame" x="146" y="124" width="160" height="30"/>
@@ -699,6 +749,9 @@
                                 <state key="normal" title="leaderboard by action">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="leaderBoardByAction:" destination="t6w-es-01D" eventType="touchDown" id="sU4-58-zcT"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CFB-Bj-vea">
                                 <rect key="frame" x="20" y="162" width="280" height="392"/>
@@ -710,6 +763,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="g3k-fb-VzZ"/>
+                    <connections>
+                        <outlet property="detailView" destination="CFB-Bj-vea" id="ZVP-cD-ugf"/>
+                        <outlet property="leaderBoard" destination="nmj-vr-S11" id="1rh-bR-ZEG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a5x-Wm-l4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -735,7 +792,6 @@
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Inventory Demo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kul-Kt-3Lb">
                                 <rect key="frame" x="100" y="88" width="121" height="21"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -762,7 +818,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCw-LD-jcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="752" y="384"/>
+            <point key="canvasLocation" x="721" y="-44"/>
         </scene>
         <!--Badge Demo Screen-->
         <scene sceneID="UCj-YA-WwD">
@@ -1448,6 +1504,16 @@
                                     <segue destination="t6w-es-01D" kind="push" id="scL-LO-B47"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDz-7D-4ta">
+                                <rect key="frame" x="131" y="482" width="59" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Content">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="w0o-dT-IE4" kind="push" id="32q-bx-v4F"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -1482,6 +1548,64 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dO4-uR-9Bd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-103" y="-44"/>
+        </scene>
+        <!--Content View Controller-->
+        <scene sceneID="dxo-Je-DlL">
+            <objects>
+                <viewController storyboardIdentifier="contentView" id="w0o-dT-IE4" customClass="contentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tWX-7I-jZw"/>
+                        <viewControllerLayoutGuide type="bottom" id="muj-e8-WEG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eSR-BK-Jax">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Content" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0G0-EY-oJA">
+                                <rect key="frame" x="96" y="88" width="129" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYh-iS-5ry">
+                                <rect key="frame" x="20" y="124" width="109" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Get Content">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getContent:" destination="w0o-dT-IE4" eventType="touchDown" id="IeQ-sM-wKz"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-1v-8QT">
+                                <rect key="frame" x="20" y="162" width="280" height="392"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nH2-SX-fcH">
+                                <rect key="frame" x="158" y="124" width="109" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Player Auth">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playerAuth:" destination="w0o-dT-IE4" eventType="touchDown" id="8sm-zx-abt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JBl-g6-bfd"/>
+                    <connections>
+                        <outlet property="detailView" destination="E0k-1v-8QT" id="G32-va-JrY"/>
+                        <outlet property="getContent" destination="tYh-iS-5ry" id="ttC-Im-Mhg"/>
+                        <outlet property="playerAuth" destination="nH2-SX-fcH" id="una-xA-Urb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wV3-EP-vy6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1375" y="734"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

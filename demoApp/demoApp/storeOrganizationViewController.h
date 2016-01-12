@@ -12,4 +12,8 @@
 @property (strong,nonatomic) IBOutlet UITextView *detailView;
 @property (strong,nonatomic) IBOutlet UIButton *listOrganize;
 @property (strong,nonatomic) IBOutlet UIButton *listNode;
+@property (strong,nonatomic) IBOutlet UIButton *child;
+@property (strong,nonatomic) IBOutlet UIButton *associated;
+@property (strong,nonatomic) IBOutlet UIButton *saleHistory;
+@property (strong,nonatomic) IBOutlet UIButton *saleBoard;
 @end

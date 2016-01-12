@@ -1733,22 +1733,129 @@
         }
         case responseType_nodeOrganize:
         {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithOrganizeList:withURL:error:)]) {
+                    id<PBNodeOrganize_ResponseHandler> sd = (id<PBNodeOrganize_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBNodeOrganize_Response *response = [PBNodeOrganize_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithNodeList:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBNodeOrganize_Response *response = [PBNodeOrganize_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBNodeOrganize_ResponseBlock sb = (PBNodeOrganize_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            break;
+        }
+        case responseType_leaderBoard:
+        {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithLeaderBoard:withURL:error:)]) {
+                    id<PBLeaderBoard_ResponseHandler> sd = (id<PBLeaderBoard_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBLeaderBoard_Response *response = [PBLeaderBoard_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithLeaderBoard:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBLeaderBoard_Response *response = [PBLeaderBoard_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBLeaderBoard_ResponseBlock sb = (PBLeaderBoard_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
             break;
         }
         case responseType_saleHistory:
         {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithSaleHistory:withURL:error:)]) {
+                    id<PBSaleHistory_ResponseHandler> sd = (id<PBSaleHistory_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBSaleHistory_Response *response = [PBSaleHistory_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithSaleHistory:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBSaleHistory_Response *response = [PBSaleHistory_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBSaleHistory_ResponseBlock sb = (PBSaleHistory_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            break;
+        }
+        case responseType_saleBoard:
+        {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithSaleBoard:withURL:error:)]) {
+                    id<PBSaleBoard_ResponseHandler> sd = (id<PBSaleBoard_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBSaleBoard_Response *response = [PBSaleBoard_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithSaleBoard:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBSaleBoard_Response *response = [PBSaleBoard_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBSaleBoard_ResponseBlock sb = (PBSaleBoard_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
             break;
         }
         case responseType_associated:
         {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithAssociatedNode:withURL:error:)]) {
+                    id<PBAssociatedNode_ResponseHandler> sd = (id<PBAssociatedNode_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBAssociatedNode_Response *response = [PBAssociatedNode_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithAssociatedNode:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBAssociatedNode_Response *response = [PBAssociatedNode_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBAssociatedNode_ResponseBlock sb = (PBAssociatedNode_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
             break;
+
         }
         case responseType_content:
         {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithContent:withURL:error:)]) {
+                    id<PBContent_ResponseHandler> sd = (id<PBContent_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBContent_Response *response = [PBContent_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithContent:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBContent_Response *response = [PBContent_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBContent_ResponseBlock sb = (PBContent_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
             break;
         }
         case responseType_playerRole:
         {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithPlayerRole:withURL:error:)]) {
+                    id<PBPlayerRole_ResponseHandler> sd = (id<PBPlayerRole_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerRole_Response *response = [PBPlayerRole_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithPlayerRole:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerRole_Response *response = [PBPlayerRole_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBPlayerRole_ResponseBlock sb = (PBPlayerRole_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
             break;
         }
     }
