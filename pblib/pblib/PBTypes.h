@@ -535,4 +535,68 @@ typedef void (^PBQuizPendings_ResponseBlock)(PBQuizPendings_Response * response,
 
 typedef void (^PBResetPoint_ResponseBlock)(PBResetPoint_Response * response, NSURL *url, NSError *error);
 
+///----------------
+/// Store Organise
+///----------------
+@protocol PBStoreOrganize_ResponseHandler <NSObject>
+-(void)processResponseWithOrganizeList:(PBStoreOrganize_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBStoreOrganize_ResponseBlock)(PBStoreOrganize_Response * response, NSURL *url, NSError *error);
+
+
+///----------------
+/// Node Organise
+///----------------
+@protocol PBNodeOrganize_ResponseHandler <NSObject>
+-(void)processResponseWithNodeList:(PBNodeOrganize_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBNodeOrganize_ResponseBlock)(PBNodeOrganize_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// Sale History
+///----------------
+@protocol PBSaleHistory_ResponseHandler <NSObject>
+-(void)processResponseWithSaleHistory:(PBSaleHistory_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBSaleHistory_ResponseBlock)(PBSaleHistory_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// Sale Board
+///----------------
+@protocol PBSaleBoard_ResponseHandler <NSObject>
+-(void)processResponseWithSaleBoard:(PBSaleBoard_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBSaleBoard_ResponseBlock)(PBSaleBoard_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// LeaderBoard
+///----------------
+@protocol PBLeaderBoard_ResponseHandler <NSObject>
+-(void)processResponseWithLeaderBoard:(PBLeaderBoard_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBLeaderBoard_ResponseBlock)(PBLeaderBoard_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// Player Role
+///----------------
+@protocol PBPlayerRole_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerRole:(PBPlayerRole_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBPlayerRole_ResponseBlock)(PBPlayerRole_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// Content
+///----------------
+@protocol PBContent_ResponseHandler <NSObject>
+-(void)processResponseWithContent:(PBContent_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBContent_ResponseBlock)(PBContent_Response * response, NSURL *url, NSError *error);
+
+///----------------
+/// AssociatedNode
+///----------------
+@protocol PBAssociatedNode_ResponseHandler <NSObject>
+-(void)processResponseWithAssociatedNode:(PBAssociatedNode_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBAssociatedNode_ResponseBlock)(PBAssociatedNode_Response * response, NSURL *url, NSError *error);
 #endif
