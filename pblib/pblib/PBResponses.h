@@ -2043,7 +2043,7 @@ typedef enum
 /// SaleHistory Board
 ///--------------------------------------
 @interface PBSaleBoard_Response : PBBase_Response
-@property (strong, nonatomic, readonly) NSMutableArray<PBSaleBoard*> *list;
+@property (strong, nonatomic, readonly) NSMutableArray *list;
 +(PBSaleBoard_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
 

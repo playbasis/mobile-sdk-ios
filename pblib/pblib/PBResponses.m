@@ -7594,8 +7594,6 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     }
     //Create response
     PBSaleHistory_Response *c = [[PBSaleHistory_Response alloc] init];
-    NSMutableArray *years = [[NSMutableArray alloc]init];
-    // ignore parse level
     c.parseLevelJsonResponse = [jsonResponse copy];
     c->list = [c.parseLevelJsonResponse  objectForKey:@"response"];
     return c;
@@ -7646,6 +7644,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     // ignore parse level
     c.parseLevelJsonResponse = [jsonResponse copy];
     NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
+    c->list = [[NSMutableArray alloc]init];
     for (NSDictionary *item in response) {
         PBSaleBoard *obj = [[PBSaleBoard alloc]init];
         obj = [PBSaleBoard parseFromDictionary:item startFromFinalLevel:YES];
@@ -7700,6 +7699,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     c.parseLevelJsonResponse = [jsonResponse copy];
     NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
     NSArray *results = [response objectForKey:@"leaderboard"];
+    c->list = [[NSMutableArray alloc]init];
     for (NSDictionary *item in results) {
         PBLeaderBoard *obj = [[PBLeaderBoard alloc]init];
         obj = [PBLeaderBoard parseFromDictionary:item startFromFinalLevel:YES];
@@ -7755,6 +7755,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     c.parseLevelJsonResponse = [jsonResponse copy];
     NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
     NSArray *results = [response objectForKey:@"result"];
+    c->list = [[NSMutableArray alloc]init];
     for (NSDictionary *item in results) {
         PBContent *obj = [[PBContent alloc]init];
         obj = [PBContent parseFromDictionary:item startFromFinalLevel:YES];

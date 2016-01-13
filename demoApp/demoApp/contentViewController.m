@@ -11,6 +11,7 @@
 @implementation contentViewController
 -(IBAction)getContent:(id)sender
 {
+    
         [[Playbasis sharedPB]getContent:nil withBlock:^(PBContent_Response *response, NSURL *url, NSError *error) {
             
             [_detailView setText:[NSString stringWithFormat:@"%@",[response parseLevelJsonResponse]]];
