@@ -436,7 +436,7 @@
 						CreatedOnToolsVersion = 6.3;
 					};
 					2C1C75141749D7DB005F3B57 = {
-						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeam = 59S6BWV89P;
 					};
 				};
 			};

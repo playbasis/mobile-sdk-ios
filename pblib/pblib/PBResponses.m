@@ -7564,16 +7564,20 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 /// SaleHistory
 ///--------------------------------------
 @implementation PBSaleHistory
+@synthesize year;
+@synthesize month;
 @synthesize amount;
 @synthesize previous_amount;
 @synthesize percent_changed;
-+(PBSaleHistory *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
++(PBSaleHistory *)parseFromDictionary:(const NSDictionary *)jsonResponse year:(NSString *)year month:(NSString *)month startFromFinalLevel:(BOOL)startFromFinalLevel
 {
     if(PB_IS_NIL_OR_NSNull(jsonResponse)){
         return nil;
     }
     PBSaleHistory *c =[[PBSaleHistory alloc] init];
     c.parseLevelJsonResponse = [jsonResponse copy];
+    c->year = year;
+    c->month = month;
     c->amount =[c.parseLevelJsonResponse objectForKey:@"amount"];
     c->previous_amount = [c.parseLevelJsonResponse objectForKey:@"previous_amount"];
     c->percent_changed = [c.parseLevelJsonResponse objectForKey:@"percent_changed"];
@@ -7595,7 +7599,17 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     //Create response
     PBSaleHistory_Response *c = [[PBSaleHistory_Response alloc] init];
     c.parseLevelJsonResponse = [jsonResponse copy];
-    c->list = [c.parseLevelJsonResponse  objectForKey:@"response"];
+    NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
+    c->list = [[NSMutableArray alloc]init];
+    for (NSString *year in response) {
+        NSDictionary *month_list = [response objectForKey:year];
+        for (NSString *month in month_list) {
+            NSDictionary *detail = [month_list objectForKey:month];
+            PBSaleHistory *obj = [[PBSaleHistory alloc]init];
+            obj = [PBSaleHistory parseFromDictionary:detail year:year month:month startFromFinalLevel:YES];
+            [c->list addObject:obj];
+        }
+    }
     return c;
 }
 
@@ -7660,24 +7674,19 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 /// LeaderBoard
 ///--------------------------------------
 @implementation PBLeaderBoard
-@synthesize player_id;
-@synthesize name;
-@synthesize amount;
-@synthesize percent_changed;
-@synthesize previous_amount;
+@synthesize rank;
 +(PBLeaderBoard *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
 {
     if(PB_IS_NIL_OR_NSNull(jsonResponse)){
         return nil;
     }
     PBLeaderBoard *c =[[PBLeaderBoard alloc] init];
-    // ignore parse level
     c.parseLevelJsonResponse = [jsonResponse copy];
-    c->player_id =[c.parseLevelJsonResponse objectForKey:@"player_id"];
-    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
-    c->amount =[c.parseLevelJsonResponse objectForKey:@"amount"];
-    c->percent_changed = [c.parseLevelJsonResponse objectForKey:@"percent_changed"];
-    c->previous_amount =[c.parseLevelJsonResponse objectForKey:@"previous_amount"];
+    NSArray *allKey = [c.parseLevelJsonResponse allKeys];
+    c->rank = [[NSMutableDictionary alloc]init];
+    for (NSString *key in allKey) {
+        [c->rank setObject:[c.parseLevelJsonResponse objectForKey:key] forKey:key];
+    }
     return c;
 }
 @end
@@ -7695,7 +7704,6 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     //Create response
     PBLeaderBoard_Response *c = [[PBLeaderBoard_Response alloc] init];
     
-    // ignore parse level
     c.parseLevelJsonResponse = [jsonResponse copy];
     NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
     NSArray *results = [response objectForKey:@"leaderboard"];
@@ -7703,6 +7711,85 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     for (NSDictionary *item in results) {
         PBLeaderBoard *obj = [[PBLeaderBoard alloc]init];
         obj = [PBLeaderBoard parseFromDictionary:item startFromFinalLevel:YES];
+        
+        [c->list addObject:obj];
+    }
+    return c;
+}
+
+
+@end
+
+///--------------------------------------
+/// LeaderBoardByAction
+///--------------------------------------
+@implementation PBLeaderBoardByAction
+/*
+@synthesize name;
+@synthesize amount;
+@synthesize percent_changed;
+@synthesize previous_amount;
+@synthesize player;*/
+@synthesize rank;
++(PBLeaderBoardByAction *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    PBLeaderBoardByAction *c =[[PBLeaderBoardByAction alloc] init];
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    /*c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->amount =[c.parseLevelJsonResponse objectForKey:@"amount"];
+    c->percent_changed = [c.parseLevelJsonResponse objectForKey:@"percent_changed"];
+    c->previous_amount =[c.parseLevelJsonResponse objectForKey:@"previous_amount"];
+    c->player = [PBPlayerBasic parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"players"] startFromFinalLevel:YES];*/
+    NSArray *allKey = [c.parseLevelJsonResponse allKeys];
+    c->rank = [[NSMutableDictionary alloc]init];
+    for (NSString *key in allKey) {
+        if([key isEqualToString:@"players"])
+        {
+            
+            NSMutableDictionary *data = [c.parseLevelJsonResponse objectForKey:key] ;
+            for (NSDictionary *item in data) {
+                PBPlayerBasic *player = [[PBPlayerBasic alloc]init];
+                player = [PBPlayerBasic parseFromDictionary:item startFromFinalLevel:YES];
+                [c->rank setObject:player forKey:key];
+
+            }
+            
+        }else
+        {
+            [c->rank setObject:[c.parseLevelJsonResponse objectForKey:key] forKey:key];
+        }
+        
+    }
+
+    return c;
+}
+@end
+
+///--------------------------------------
+/// LeaderBoardByAction - Response
+///--------------------------------------
+@implementation PBLeaderBoardByAction_Response
+@synthesize list;
++(PBLeaderBoardByAction_Response *)parseFromDictionary:(const NSDictionary *)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if(PB_IS_NIL_OR_NSNull(jsonResponse)){
+        return nil;
+    }
+    //Create response
+    PBLeaderBoardByAction_Response *c = [[PBLeaderBoardByAction_Response alloc] init];
+    
+    // ignore parse level
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    NSMutableDictionary *response = [c.parseLevelJsonResponse  objectForKey:@"response"];
+    NSArray *results = [response objectForKey:@"leaderboard"];
+    c->list = [[NSMutableArray alloc]init];
+    for (NSDictionary *item in results) {
+        PBLeaderBoardByAction *obj = [[PBLeaderBoardByAction alloc]init];
+        obj = [PBLeaderBoardByAction parseFromDictionary:item startFromFinalLevel:YES];
         [c->list addObject:obj];
     }
     return c;

@@ -21,8 +21,12 @@
     NSMutableDictionary *options = [[NSMutableDictionary alloc]init];
     [options setObject:@"20" forKey:@"limit"];
     [[Playbasis sharedPB]leaderBoardByAction:@"567c05705e232a214f8b563e" action:@"sell" parameter:@"amount" options:options withBlock:^(PBLeaderBoard_Response *response, NSURL *url, NSError *error) {
-        
-       [_detailView setText:[NSString stringWithFormat:@"%@",[response parseLevelJsonResponse]]];
+        NSMutableArray<PBLeaderBoardByAction*> *temp = [response list];
+        NSString *prints = @"";
+        for (PBLeaderBoardByAction *item in temp) {
+            prints = [prints stringByAppendingString:[NSString stringWithFormat:@"%@",item.rank]];
+        }
+        [_detailView setText:prints];
     }];
 }
 @end

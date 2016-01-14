@@ -90,7 +90,8 @@ typedef enum
     responseType_playerRole,
     responseType_associated,
     responseType_content,
-    responseType_leaderBoard
+    responseType_leaderBoard,
+    responseType_leaderBoardByAction
 }pbResponseType;
 
 ///--------------------------------------
@@ -2015,16 +2016,19 @@ typedef enum
 /// SaleHistory
 ///--------------------------------------
 @interface PBSaleHistory : PBBase_Response
+@property (strong,readonly) NSString *year;
+@property (strong,readonly) NSString *month;
 @property (strong,readonly) NSString *amount;
 @property (strong,readonly) NSString *previous_amount;
 @property (strong,readonly) NSString *percent_changed;
++(PBSaleHistory *)parseFromDictionary:(const NSDictionary *)jsonResponse year:(NSString *)year month:(NSString *)month startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
 
 ///--------------------------------------
 /// SaleHistory Response
 ///--------------------------------------
 @interface PBSaleHistory_Response : PBBase_Response
-@property (strong, nonatomic, readonly) NSMutableDictionary *list;
+@property (strong, nonatomic, readonly) NSMutableArray<PBSaleHistory*>  *list;
 +(PBSaleHistory_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
 
@@ -2046,16 +2050,11 @@ typedef enum
 @property (strong, nonatomic, readonly) NSMutableArray *list;
 +(PBSaleBoard_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
-
 ///--------------------------------------
 /// LeaderBoard
 ///--------------------------------------
 @interface PBLeaderBoard : PBBase_Response
-@property (strong, readonly) NSString *player_id;
-@property (strong, readonly) NSString *name;
-@property (strong, readonly) NSString *amount;
-@property (strong, readonly) NSString *previous_amount;
-@property (strong, readonly) NSString *percent_changed;
+@property (strong, readonly) NSMutableDictionary *rank;
 
 +(PBLeaderBoard *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
@@ -2064,9 +2063,32 @@ typedef enum
 /// LeaderBoard - Response
 ///--------------------------------------
 @interface PBLeaderBoard_Response : PBBase_Response
-@property (strong, readonly) NSMutableArray<PBLeaderBoard*> *list;
+@property (strong, readonly) NSMutableArray *list;
 
 +(PBLeaderBoard_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+@end
+///--------------------------------------
+/// LeaderBoardByAction
+///--------------------------------------
+@interface PBLeaderBoardByAction : PBBase_Response
+/*
+@property (strong, readonly) NSString *name;
+@property (strong, readonly) NSString *amount;
+@property (strong, readonly) NSString *previous_amount;
+@property (strong, readonly) NSString *percent_changed;
+@property (strong, readonly) PBPlayerBasic *player;*/
+@property (strong, readonly) NSMutableDictionary *rank;
+
++(PBLeaderBoardByAction *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
+@end
+
+///--------------------------------------
+/// LeaderBoardByAction - Response
+///--------------------------------------
+@interface PBLeaderBoardByAction_Response : PBBase_Response
+@property (strong, readonly) NSMutableArray<PBLeaderBoardByAction*> *list;
+
++(PBLeaderBoardByAction_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
 ///--------------------------------------
 /// Content

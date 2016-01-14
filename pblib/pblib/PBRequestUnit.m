@@ -1767,6 +1767,24 @@
             }
             break;
         }
+        case responseType_leaderBoardByAction:
+        {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithLeaderBoardByAction:withURL:error:)]) {
+                    id<PBLeaderBoardByAction_ResponseHandler> sd = (id<PBLeaderBoardByAction_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBLeaderBoardByAction_Response *response = [PBLeaderBoardByAction_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithLeaderBoardByAction:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBLeaderBoardByAction_Response *response = [PBLeaderBoardByAction_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBLeaderBoardByAction_ResponseBlock sb = (PBLeaderBoardByAction_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            break;
+        }
         case responseType_saleHistory:
         {
             if (_responseDelegate) {

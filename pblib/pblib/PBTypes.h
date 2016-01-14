@@ -577,6 +577,15 @@ typedef void (^PBSaleBoard_ResponseBlock)(PBSaleBoard_Response * response, NSURL
 typedef void (^PBLeaderBoard_ResponseBlock)(PBLeaderBoard_Response * response, NSURL *url, NSError *error);
 
 ///----------------
+/// LeaderBoardByAction
+///----------------
+@protocol PBLeaderBoardByAction_ResponseHandler <NSObject>
+-(void)processResponseWithLeaderBoardByAction:(PBLeaderBoardByAction_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBLeaderBoardByAction_ResponseBlock)(PBLeaderBoardByAction_Response * response, NSURL *url, NSError *error);
+
+
+///----------------
 /// Player Role
 ///----------------
 @protocol PBPlayerRole_ResponseHandler <NSObject>
