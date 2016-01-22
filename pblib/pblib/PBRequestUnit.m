@@ -1876,6 +1876,24 @@
             }
             break;
         }
+        case responseType_playerListFromNode:
+        {
+            if (_responseDelegate) {
+                if ([_responseDelegate respondsToSelector:@selector(processResponseWithPlayerListFromNode:withURL:error:)]) {
+                    id<PBPlayerListFromNode_ResponseHandler> sd = (id<PBPlayerListFromNode_ResponseHandler>)_responseDelegate;
+                    // parse data (get nil if jsonResponse is nil)
+                    PBPlayerListFromNode_Response *response = [PBPlayerListFromNode_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                    //execute
+                    [sd processResponseWithPlayerListFromNode:response withURL:[_urlRequest URL] error:error];
+                }
+            } else if (_responseBlock) {
+                // parse data (get nil if jsonResponse is nil)
+                PBPlayerListFromNode_Response *response = [PBPlayerListFromNode_Response parseFromDictionary:jsonResponse startFromFinalLevel:NO];
+                PBPlayerListFromNode_ResponseBlock sb = (PBPlayerListFromNode_ResponseBlock)_responseBlock;
+                sb(response, [_urlRequest URL], error);
+            }
+            break;
+        }
     }
 }
 

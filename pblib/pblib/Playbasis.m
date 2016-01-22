@@ -15,6 +15,9 @@
 #if QAV2==1
 static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
 static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
+#elif QAV2==2
+static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
+static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
 #else
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -2740,7 +2743,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
-
+-(PBRequestUnit *)playerListFromNode:(NSString *)node_id role:(NSString *)role withDelegate:(id<PBPlayerListFromNode_ResponseHandler>)delegate
+{
+    return [self playerListFromNodeInternalBase:node_id role:role blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerListFromNode:(NSString *)node_id role:(NSString *)role withBlock:(PBPlayerListFromNode_ResponseBlock)block
+{
+    return [self playerListFromNodeInternalBase:node_id role:role blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerListFromNodeAsync:(NSString *)node_id role:(NSString *)role withDelegate:(id<PBPlayerListFromNode_ResponseHandler>)delegate
+{
+    return [self playerListFromNodeInternalBase:node_id role:role blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)playerListFromNodeAsync:(NSString *)node_id role:(NSString *)role  withBlock:(PBPlayerListFromNode_ResponseBlock)block
+{
+    return [self playerListFromNodeInternalBase:node_id role:role blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerListFromNodeAsync_:(NSString *)node_id role:(NSString *)role withBlock:(PBPlayerListFromNode_ResponseBlock)block
+{
+    return [self playerListFromNodeInternalBase:node_id role:role blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)playerListFromNodeInternalBase:(NSString *)node_id role:(NSString *)role blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    
+    NSString *method = [NSString stringWithFormat:@"StoreOrg/players/%@%@",node_id,_apiKeyParam];
+    method = role == nil? method : [method stringByAppendingString:[NSString stringWithFormat:@"&role=%@",role]];
+    NSString *data = nil;
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerListFromNode andResponse:response];
+    
+    
+}
 -(PBRequestUnit *)saleHistory:(NSString *)node_id count:(NSString *)count options:(NSMutableDictionary *)options withDelegate:(id<PBSaleHistory_ResponseHandler>)delegate
 {
     return [self saleHistoryInternalBase:node_id count:count options:options blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
@@ -3030,6 +3068,141 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerRole andResponse:response];
 }
+///////Add Player to Node
+-(PBRequestUnit *)addPlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self addPlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)addPlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self addPlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)addPlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self addPlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)addPlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self addPlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)addPlayerToNodeInternalBase:(NSString *)nodeId playerId:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"StoreOrg/nodes/%@/addPlayer/%@%@", nodeId,playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+}
+///////Remove Player to Node
+-(PBRequestUnit *)removePlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self removePlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)removePlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self removePlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)removePlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self removePlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)removePlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block
+{
+    return [self removePlayerToNodeInternalBase:nodeId playerId:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)removePlayerToNodeInternalBase:(NSString *)nodeId playerId:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    
+    //removePlayer/:player_id
+
+    NSString *method = [NSString stringWithFormat:@"StoreOrg/nodes/%@/removePlayer/%@%@", nodeId,playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+
+
+}
+
+///////Set Player Role.
+-(PBRequestUnit *)setPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self setPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)setPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block
+{
+    return [self setPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)setPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self setPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)setPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block
+{
+    return [self setPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)setPlayerRoleInternalBase:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    
+    NSString *method = [NSString stringWithFormat:@"StoreOrg/nodes/%@/setPlayerRole/%@%@", nodeId,playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&role=%@", _token,role];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+
+
+}
+
+///////UnSet Player Role.
+-(PBRequestUnit *)unsetPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self unsetPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)unsetPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block
+{
+    return [self unsetPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)unsetPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self unsetPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)unsetPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block
+{
+    return [self unsetPlayerRoleInternalBase:nodeId playerId:playerId role:role blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)unsetPlayerRoleInternalBase:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+
+    //unsetPlayerRole/:player_id
+
+    NSString *method = [NSString stringWithFormat:@"StoreOrg/nodes/%@/unsetPlayerRole/%@%@", nodeId,playerId, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&role=%@", _token,role];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+
+
+}
+
+/////// upload photo for player
+-(PBRequestUnit *)uploadImageAsync:(NSData *)image withBlock:(PBResponseBlock)block
+{
+    return [self uploadImageInternalBase:image blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)uploadImageInternalBase:(NSData *)image blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    
+    //unsetPlayerRole/:player_id
+    
+    NSString *method = [NSString stringWithFormat:@"File/upload/"];
+    NSString *data = [NSString stringWithFormat:@"token=%@&image=%@", _token,image];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+}
+
+
 //
 // @param	...[vararg]     Varargs of String for additional parameters to be sent to the rule method.
 // 							Each element is a string in the format of key=value, for example: url=playbasis.com

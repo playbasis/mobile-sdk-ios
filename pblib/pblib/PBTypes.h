@@ -594,6 +594,15 @@ typedef void (^PBLeaderBoardByAction_ResponseBlock)(PBLeaderBoardByAction_Respon
 typedef void (^PBPlayerRole_ResponseBlock)(PBPlayerRole_Response * response, NSURL *url, NSError *error);
 
 ///----------------
+/// PlayerListFromNode
+///----------------
+@protocol PBPlayerListFromNode_ResponseHandler <NSObject>
+-(void)processResponseWithPlayerListFromNode:(PBPlayerListFromNode_Response*)response withURL:(NSURL *)url error:(NSError*)error;
+@end
+typedef void (^PBPlayerListFromNode_ResponseBlock)(PBPlayerListFromNode_Response * response, NSURL *url, NSError *error);
+
+
+///----------------
 /// Content
 ///----------------
 @protocol PBContent_ResponseHandler <NSObject>

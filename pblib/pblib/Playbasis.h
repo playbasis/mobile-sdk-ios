@@ -1034,6 +1034,48 @@ Get Child
 -(PBRequestUnit *)playerRoleAsync:(NSString *)playerId nodeId:(NSString *)node withBlock:(PBPlayerRole_ResponseBlock)block;
 
 /**
+ Get Player List From Node
+ */
+-(PBRequestUnit *)playerListFromNode:(NSString *)node_id role:(NSString *)role withDelegate:(id<PBPlayerListFromNode_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerListFromNode:(NSString *)node_id role:(NSString *)role withBlock:(PBPlayerListFromNode_ResponseBlock)block;
+-(PBRequestUnit *)playerListFromNodeAsync:(NSString *)node_id role:(NSString *)role withDelegate:(id<PBPlayerListFromNode_ResponseHandler>)delegate;
+-(PBRequestUnit *)playerListFromNodeAsync:(NSString *)node_id role:(NSString *)role withBlock:(PBPlayerListFromNode_ResponseBlock)block;
+
+/**
+Add Player for Node.
+*/
+-(PBRequestUnit *)addPlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)addPlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)addPlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)addPlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+/**
+ Remove Player for Node.
+ */
+-(PBRequestUnit *)removePlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)removePlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)removePlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)removePlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+/**
+ Set Player Role.
+ */
+-(PBRequestUnit *)setPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)setPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)setPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)setPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block;
+
+/**
+ UnSet Player Role.
+ */
+-(PBRequestUnit *)unsetPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)unsetPlayerRole:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)unsetPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)unsetPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block;
+
+
+
+/**
  Player Auth
  */
 -(PBRequestUnit *)playerAuthForPlayerId:(NSString *)password options:(NSMutableDictionary *)options withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
@@ -1047,6 +1089,10 @@ Get Child
  */
 -(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate;
 
+/**
+ Upload photo
+ */
+-(PBRequestUnit *)uploadImageAsync:(NSData *)image withBlock:(PBResponseBlock)block;
 /**
  Track player with an action.
  */

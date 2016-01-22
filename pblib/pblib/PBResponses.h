@@ -91,7 +91,8 @@ typedef enum
     responseType_associated,
     responseType_content,
     responseType_leaderBoard,
-    responseType_leaderBoardByAction
+    responseType_leaderBoardByAction,
+    responseType_playerListFromNode
 }pbResponseType;
 
 ///--------------------------------------
@@ -2016,6 +2017,7 @@ typedef enum
 /// SaleHistory
 ///--------------------------------------
 @interface PBSaleHistory : PBBase_Response
+@property (strong,readonly) NSString *keys;
 @property (strong,readonly) NSString *year;
 @property (strong,readonly) NSString *month;
 @property (strong,readonly) NSString *amount;
@@ -2112,6 +2114,15 @@ typedef enum
 
 +(PBContent_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
+@end
+
+///--------------------------------------
+/// PlayerListFromNode - Response
+///--------------------------------------
+@interface PBPlayerListFromNode_Response : PBBase_Response
+@property (strong, readonly) NSMutableArray *list;
+
++(PBPlayerListFromNode_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 @end
 
 

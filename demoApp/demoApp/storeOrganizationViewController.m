@@ -47,7 +47,7 @@
 -(IBAction)saleHistory:(id)sender
 {
     [[Playbasis sharedPB]saleHistory:@"567c05705e232a214f8b563e" count:@"6" options:nil withBlock:^(PBSaleHistory_Response *response, NSURL *url, NSError *error) {
-        [_detailView setText:[NSString stringWithFormat:@"%@",[response parseLevelJsonResponse]]];
+        [_detailView setText:[NSString stringWithFormat:@"%@",response.list ]];
         
     }];
     
