@@ -14,7 +14,7 @@
 #if QAV2==1
 static NSString * const BASE_URL = @"https://qav2.pbapp.net";
 #elif QAV2==2
-static NSString * const BASE_URL = @"https://qav2.pbapp.net";
+static NSString * const BASE_URL = @"https://starhub.playbasis.com";
 #else
 static NSString * const BASE_URL = @"https://pbapp.net";
 #endif
@@ -4356,7 +4356,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 @implementation PBRuleDetail_Response
 
 @synthesize ruleReward;
-
+@synthesize state;
 -(NSString *)description
 {
     NSString *descriptionString = [NSString stringWithFormat:@"Reward List : {\r\tgroup container : %@\r\t}", self.ruleReward];
@@ -4369,6 +4369,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
         return nil;
     // create a result response
     PBRuleDetail_Response *c = [[PBRuleDetail_Response alloc] init];
+    c->state = [[NSMutableDictionary alloc]init];
     if(startFromFinalLevel)
     {
         c.parseLevelJsonResponse = [jsonResponse copy];
@@ -4385,6 +4386,11 @@ static NSString * const BASE_URL = @"https://pbapp.net";
                 if ([category isEqualToString:@"GROUP"]) {
                     c->ruleReward = [PBRuleRewards_Response parseFromDictionary:[item objectForKey:@"config"] startFromFinalLevel:NO];
                 }
+            }
+            NSMutableDictionary *state = [item objectForKey:@"state"];
+            if(state != NULL)
+            {
+                c->state = state;
             }
         }
         c.parseLevelJsonResponse = response;
@@ -7809,7 +7815,8 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 /// Content
 ///--------------------------------------
 @implementation PBContent
-@synthesize name;
+@synthesize title;
+@synthesize summary;
 @synthesize detail;
 @synthesize date_start;
 @synthesize date_end;
@@ -7823,7 +7830,8 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     PBContent *c =[[PBContent alloc] init];
     // ignore parse level
     c.parseLevelJsonResponse = [jsonResponse copy];
-    c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
+    c->title = [c.parseLevelJsonResponse objectForKey:@"title"];
+    c->summary = [c.parseLevelJsonResponse objectForKey:@"summary"];
     c->detail =[c.parseLevelJsonResponse objectForKey:@"detail"];
     c->date_start =[c.parseLevelJsonResponse objectForKey:@"date_start"];
     c->date_end = [c.parseLevelJsonResponse objectForKey:@"date_end"];

@@ -1202,6 +1202,7 @@ typedef enum
 @interface PBRuleDetail_Response : PBBase_Response
 
 @property (strong, nonatomic, readonly) PBRuleRewards_Response *ruleReward;
+@property (strong, nonatomic, readonly) NSMutableDictionary *state;
 
 +(PBRuleDetail_Response *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -2096,7 +2097,8 @@ typedef enum
 /// Content
 ///--------------------------------------
 @interface PBContent : PBBase_Response
-@property (strong, readonly) NSString *name;
+@property (strong, readonly) NSString *title;
+@property (strong, readonly) NSString *summary;
 @property (strong, readonly) NSString *detail;
 @property (strong, readonly) NSString *date_start;
 @property (strong, readonly) NSString *date_end;

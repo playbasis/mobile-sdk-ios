@@ -1073,8 +1073,6 @@ Add Player for Node.
 -(PBRequestUnit *)unsetPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)unsetPlayerRoleAsync:(NSString *)nodeId playerId:(NSString *)playerId role:(NSString *)role withBlock:(PBResponseBlock)block;
 
-
-
 /**
  Player Auth
  */
@@ -1083,6 +1081,15 @@ Add Player for Node.
 -(PBRequestUnit *)playerAuthForPlayerIdAsync:(NSString *)password options:(NSMutableDictionary *)options withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
 -(PBRequestUnit *)playerAuthForPlayerIdAsync:(NSString *)password options:(NSMutableDictionary *)options withBlock:(PBPlayer_ResponseBlock)block;
 -(PBRequestUnit *)playerAuthForPlayerIdAsync_:(NSString *)password options:(NSMutableDictionary *)options withBlock:(PBPlayer_ResponseBlock)block;
+
+/**
+Forgot Password
+ */
+-(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)forgotPasswordForEmailAsync:(NSString *)email withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)forgotPasswordForEmailAsync:(NSString *)email withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)forgotPasswordForEmailAsync_:(NSString *)email withBlock:(PBResponseBlock)block;
 
 /**
  Register device for push notification.

@@ -16,8 +16,8 @@
 static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
 static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
 #elif QAV2==2
-static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
-static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
+static NSString * const BASE_URL = @"https://starhub-api.playbasis.com/";
+static NSString * const BASE_ASYNC_URL = @"https://starhub-api.playbasis.com/async/call";
 #else
 static NSString * const BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
@@ -4467,7 +4467,31 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", _token, deviceToken];
     return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
 }
+-(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self forgotPasswordForEmailInternalBase:email blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withBlock:(PBResponseBlock)block
+{
+    return [self forgotPasswordForEmailInternalBase:email blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)forgotPasswordForEmailAsync:(NSString *)email withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self forgotPasswordForEmailInternalBase:email blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)forgotPasswordForEmailAsync:(NSString *)email withBlock:(PBResponseBlock)block
+{
+    return [self forgotPasswordForEmailInternalBase:email blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)forgotPasswordForEmailInternalBase:(NSString *)email blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Player/password/email%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&email=%@", _token,email];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    
+}
 -(void)trackPlayer:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController *)view withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     // it's always async url request, thus non-blocking call
