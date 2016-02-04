@@ -611,10 +611,10 @@
 /**
  + Return information about engine rule.
  + */
--(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
--(PBRequestUnit *)ruleDetailForPlayer:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
--(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
--(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)playeId ruleId:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
+-(PBRequestUnit *)ruleDetailForPlayer:(NSString *)playeId ruleId:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)playeId ruleId:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
+-(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)playeId ruleId:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
 
   
 /**
@@ -1092,10 +1092,32 @@ Forgot Password
 -(PBRequestUnit *)forgotPasswordForEmailAsync_:(NSString *)email withBlock:(PBResponseBlock)block;
 
 /**
+ Request OTP
+ */
+-(PBRequestUnit *)requestOTP:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)requestOTP:(NSString *)player_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)requestOTPAsync:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)requestOTPAsync:(NSString *)player_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)requestOTPAsync_:(NSString *)player_id withBlock:(PBResponseBlock)block;
+
+/**
+ Prefer OTP
+ */
+-(PBRequestUnit *)preferOTP:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)preferOTP:(NSString *)player_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)preferOTPAsync:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)preferOTPAsync:(NSString *)player_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)preferOTPAsync_:(NSString *)player_id withBlock:(PBResponseBlock)block;
+
+/**
  Register device for push notification.
  */
 -(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate;
 
+
+/**
+ ()
+ */
 /**
  Upload photo
  */
