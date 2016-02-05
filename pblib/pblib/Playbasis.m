@@ -2898,6 +2898,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *role = [options objectForKey:@"role"];
     NSString *player_id = [options objectForKey:@"player_id"];
     NSString *limit = [options objectForKey:@"limit"];
+    NSString *under_org = [options objectForKey:@"under_org"];
     
     NSString *method =  [NSString stringWithFormat:@"StoreOrg/rankPeer/%@/%@%@",node_id,rank,_apiKeyParam];
     
@@ -2906,6 +2907,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     method = role  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&role=%@",role]];
     method = player_id  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&player_id=%@",player_id]];
     method = limit  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&limit=%@",limit]];
+    method = under_org  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&under_org=%@",under_org]];
     
     NSString *data = nil;
     
@@ -2945,9 +2947,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *year = [options objectForKey:@"year"];
     NSString *player_id = [options objectForKey:@"player_id"];
     NSString *limit = [options objectForKey:@"limit"];
+    NSString *role = [options objectForKey:@"role"];
     
     NSString *method =  [NSString stringWithFormat:@"StoreOrg/rankPeerByAccAction/%@/%@/%@%@",node_id,action,parameter,_apiKeyParam];
-    
+    method = role  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&role=%@",role]];
     method = month == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&month=%@",month]];
     method = year  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&year=%@",year]];
     method = player_id  == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&player_id=%@",player_id]];
