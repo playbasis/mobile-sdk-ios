@@ -1017,6 +1017,15 @@ Get Child
 -(PBRequestUnit *)getContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 
 /**
+ GetContent Category
+ */
+-(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)getContentCategoryAsync:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)getContentCategoryAsync:(NSMutableDictionary *)options  withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)getContentCategoryAsync_:(NSMutableDictionary *)options withBlock:(PBResponseBlock)block;
+
+/**
  Get Associated Node
  */
 -(PBRequestUnit *)getAssociatedNode:(NSString *)playerId withDelegate:(id<PBAssociatedNode_ResponseHandler>)delegate;

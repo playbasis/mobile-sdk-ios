@@ -3023,7 +3023,58 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
-
+//// Get Content Category
+-(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self getContentCategoryInternalBase:options blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withBlock:(PBResponseBlock)block
+{
+    return [self getContentCategoryInternalBase:options blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)getContentCategoryAsync:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self getContentCategoryInternalBase:options blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)getContentCategoryAsync:(NSMutableDictionary *)options  withBlock:(PBResponseBlock)block
+{
+    return [self getContentCategoryInternalBase:options blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)getContentCategoryInternalBase:(NSMutableDictionary *)options withBlock:(PBResponseBlock)block
+{
+    return [self getContentInternalBase:options blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)getContentCategoryInternalBase:(NSMutableDictionary *)options blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    //getList organizations/StoreOrg/organizes
+    NSString *method = [NSString stringWithFormat:@"Category%@", _apiKeyParam];
+    
+    NSString *_id = [options objectForKey:@"_id"];
+    NSString *date_check = [options objectForKey:@"date_check"];
+    NSString *sort = [options objectForKey:@"sort"];
+    NSString *order = [options objectForKey:@"order"];
+    NSString *offset = [options objectForKey:@"offset"];
+    NSString *limit = [options objectForKey:@"limit"];
+    
+    
+    method = _id == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&id=%@",_id]];
+    method = date_check == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&date_check=%@",date_check]];
+    method = sort == nil? method : [method stringByAppendingString:[NSString stringWithFormat:@"&sort=%@",sort]];
+    method = order == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&order=%@",order]];
+    method = offset == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&offset=%@",offset]];
+    method = limit == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&limit=%@",limit]];
+    
+    NSString *data = nil;
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_normal andResponse:response];
+    
+    
+}
 //// Get Player Associate Node
 -(PBRequestUnit *)getAssociatedNode:(NSString *)playerId withDelegate:(id<PBAssociatedNode_ResponseHandler>)delegate
 {
