@@ -22,6 +22,11 @@
     // call class method of Playbasis to handle native thing of trying to registering device for push notification for us
     [Playbasis registerDeviceForPushNotification];
     
+    CGRect winSize = [[UIScreen mainScreen] bounds];
+    CGFloat height = winSize.size.height;
+    CGFloat width = winSize.size.width;
+    NSLog(@"width: %f, height: %f", width, height);
+    
     return YES;
 }
 							

@@ -33,6 +33,7 @@
 		1EA02C4E1AAEC54200206B67 /* demoApp WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EA02C351AAEC54100206B67 /* demoApp WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1EA3AE1F1A717EBB008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */; };
 		1EC5B90E1A8F3E0E0007C8A8 /* pblibResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */; };
+		1ED390771C69B8700072DBDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED390761C69B8700072DBDB /* Images.xcassets */; };
 		1EDA69D31AA13D6300F8A13B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D21AA13D6300F8A13B /* CoreLocation.framework */; };
 		1EDA69D81AA1510100F8A13B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D71AA1510100F8A13B /* CoreMotion.framework */; };
 		2C1C75191749D7DB005F3B57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C75181749D7DB005F3B57 /* UIKit.framework */; };
@@ -41,9 +42,6 @@
 		2C1C75231749D7DB005F3B57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C75211749D7DB005F3B57 /* InfoPlist.strings */; };
 		2C1C75251749D7DB005F3B57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C75241749D7DB005F3B57 /* main.m */; };
 		2C1C75291749D7DB005F3B57 /* demoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C75281749D7DB005F3B57 /* demoAppDelegate.m */; };
-		2C1C752B1749D7DB005F3B57 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C752A1749D7DB005F3B57 /* Default.png */; };
-		2C1C752D1749D7DB005F3B57 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C752C1749D7DB005F3B57 /* Default@2x.png */; };
-		2C1C752F1749D7DB005F3B57 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C752E1749D7DB005F3B57 /* Default-568h@2x.png */; };
 		2C1C75321749D7DB005F3B57 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1C75301749D7DB005F3B57 /* MainStoryboard.storyboard */; };
 		2C1C75351749D7DB005F3B57 /* demoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C75341749D7DB005F3B57 /* demoViewController.m */; };
 		2C90D7EA1749DCCD0080C57D /* pblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C90D7E71749D9A00080C57D /* pblib.a */; };
@@ -155,6 +153,7 @@
 		1EA02C481AAEC54200206B67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		1EA02C4A1AAEC54200206B67 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1EA3AE1E1A717EBB008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1ED390761C69B8700072DBDB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1EDA69D21AA13D6300F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1EDA69D71AA1510100F8A13B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2C1C75151749D7DB005F3B57 /* demoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,9 +166,6 @@
 		2C1C75261749D7DB005F3B57 /* demoApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "demoApp-Prefix.pch"; sourceTree = "<group>"; };
 		2C1C75271749D7DB005F3B57 /* demoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demoAppDelegate.h; sourceTree = "<group>"; };
 		2C1C75281749D7DB005F3B57 /* demoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = demoAppDelegate.m; sourceTree = "<group>"; };
-		2C1C752A1749D7DB005F3B57 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		2C1C752C1749D7DB005F3B57 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		2C1C752E1749D7DB005F3B57 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2C1C75311749D7DB005F3B57 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		2C1C75331749D7DB005F3B57 /* demoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demoViewController.h; sourceTree = "<group>"; };
 		2C1C75341749D7DB005F3B57 /* demoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = demoViewController.m; sourceTree = "<group>"; };
@@ -323,6 +319,7 @@
 				ECC87C1C1BFEE97D00798870 /* InventoryViewController.m */,
 				ECEC9A391C04256100D87C1F /* ProfileViewController.h */,
 				ECEC9A3A1C04256100D87C1F /* ProfileViewController.m */,
+				1ED390761C69B8700072DBDB /* Images.xcassets */,
 			);
 			path = demoApp;
 			sourceTree = "<group>";
@@ -336,9 +333,6 @@
 				2C1C75211749D7DB005F3B57 /* InfoPlist.strings */,
 				2C1C75241749D7DB005F3B57 /* main.m */,
 				2C1C75261749D7DB005F3B57 /* demoApp-Prefix.pch */,
-				2C1C752A1749D7DB005F3B57 /* Default.png */,
-				2C1C752C1749D7DB005F3B57 /* Default@2x.png */,
-				2C1C752E1749D7DB005F3B57 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -496,13 +490,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED390771C69B8700072DBDB /* Images.xcassets in Resources */,
 				1EC5B90E1A8F3E0E0007C8A8 /* pblibResource.bundle in Resources */,
 				2C1C75231749D7DB005F3B57 /* InfoPlist.strings in Resources */,
 				1E304A521A915FBC006F0C7F /* complete.png in Resources */,
-				2C1C752B1749D7DB005F3B57 /* Default.png in Resources */,
 				1E304A531A915FBC006F0C7F /* notcomplete.png in Resources */,
-				2C1C752D1749D7DB005F3B57 /* Default@2x.png in Resources */,
-				2C1C752F1749D7DB005F3B57 /* Default-568h@2x.png in Resources */,
 				2C1C75321749D7DB005F3B57 /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -783,6 +775,8 @@
 		2C1C75391749D7DB005F3B57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -806,6 +800,8 @@
 		2C1C753A1749D7DB005F3B57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
