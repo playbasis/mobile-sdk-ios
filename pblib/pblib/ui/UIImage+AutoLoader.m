@@ -18,7 +18,13 @@
         // create a url
         NSURL *url = [NSURL URLWithString:imageUrl];
         // start loading
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
+        NSError *error;
+        NSData *imageData = [NSData dataWithContentsOfURL:url options:NSDataReadingMapped error:&error];
+        
+        if (error != nil)
+        {
+            NSLog(@"error loading image: %@", [error localizedDescription]);
+        }
         
         // return via response block
         response([[UIImage alloc] initWithData:imageData]);

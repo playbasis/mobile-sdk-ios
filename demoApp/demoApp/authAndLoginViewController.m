@@ -123,7 +123,8 @@ static const NSTimeInterval kWaitingTime = 0.15f;
     NSLog(@"About to begin auth() the app");
     
     // authenticate the app
-    [[Playbasis sharedPB] authWithDelegate:self];
+    // TODO: Insert your apikey, and secret here ...
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"Demo App" andDelegate:self];
 }
 
 -(void)transitionToMainMenuScreen
