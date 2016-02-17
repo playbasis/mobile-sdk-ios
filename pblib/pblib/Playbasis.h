@@ -1119,6 +1119,15 @@ Forgot Password
 -(PBRequestUnit *)preferOTPAsync_:(NSString *)player_id withBlock:(PBResponseBlock)block;
 
 /**
+Send Email
+ */
+-(PBRequestUnit *)sendEmail:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)sendEmail:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)sendEmailAsync:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)sendEmailAsync:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block;
+
+
+/**
  Register device for push notification.
  */
 -(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate;

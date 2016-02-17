@@ -3238,6 +3238,37 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 
 }
+///////Send Email.
+-(PBRequestUnit *)sendEmail:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self sendEmailInternalBase:from to:to bcc:bcc subject:subject message:message blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+
+}
+-(PBRequestUnit *)sendEmail:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self sendEmailInternalBase:from to:to bcc:bcc subject:subject message:message blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)sendEmailAsync:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self sendEmailInternalBase:from to:to bcc:bcc subject:subject message:message blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)sendEmailAsync:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block
+{
+    return [self sendEmailInternalBase:from to:to bcc:bcc subject:subject message:message blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)sendEmailInternalBase:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    
+    //unsetPlayerRole/:player_id
+    
+    NSString *method = [NSString stringWithFormat:@"Email/sendTo%@",_apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&from=%@&to=%@&bcc=%@&subject=%@&message=%@", _token,from,to,bcc,subject,message];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
+    
+    
+}
 
 /////// upload photo for player
 -(PBRequestUnit *)uploadImageAsync:(NSData *)image withBlock:(PBResponseBlock)block
