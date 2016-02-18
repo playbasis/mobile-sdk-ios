@@ -2467,25 +2467,28 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsInfo andResponse:response];
 }
 
--(PBRequestUnit *)goodsListWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate
+-(PBRequestUnit *)goodsList:(NSString *)playerId withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate
 {
-    return [self goodsListInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self goodsListInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)goodsListWithBlock:(PBGoodsListInfo_ResponseBlock)block
+-(PBRequestUnit *)goodsList:(NSString *)playerId withBlock:(PBGoodsListInfo_ResponseBlock)block
 {
-    return [self goodsListInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self goodsListInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate
+-(PBRequestUnit *)goodsListAsync:(NSString *)playerId withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate
 {
-    return [self goodsListInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self goodsListInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block
+-(PBRequestUnit *)goodsListAsync:(NSString *)playerId withBlock:(PBGoodsListInfo_ResponseBlock)block
 {
-    return [self goodsListInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self goodsListInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)goodsListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequestUnit *)goodsListInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Goods%@", _apiKeyParam];
+    if (![playerId isEqual:@""]) {
+        method = [method stringByAppendingString:[NSString stringWithFormat:@"&player_id=%@",playerId]];
+    }
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_goodsListInfo andResponse:response];
 }

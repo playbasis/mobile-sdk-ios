@@ -567,10 +567,17 @@
 /**
  Return information about all available goods on the current site.
  */
+/*
 -(PBRequestUnit *)goodsListWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
 -(PBRequestUnit *)goodsListWithBlock:(PBGoodsListInfo_ResponseBlock)block;
 -(PBRequestUnit *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
--(PBRequestUnit *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block;
+-(PBRequestUnit *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block;*/
+
+-(PBRequestUnit *)goodsList:(NSString *)playerId withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+-(PBRequestUnit *)goodsList:(NSString *)playerId withBlock:(PBGoodsListInfo_ResponseBlock)block;
+-(PBRequestUnit *)goodsListAsync:(NSString *)playerId withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+-(PBRequestUnit *)goodsListAsync:(NSString *)playerId withBlock:(PBGoodsListInfo_ResponseBlock)block;
+
 
 /**
  Find number of available goods given group.
