@@ -3475,10 +3475,11 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 @synthesize siteId;
 @synthesize dateModified;
 @synthesize questId;
+@synthesize num_mission;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tdate_modified : %@\r\tquest_id : %@\r\t}", self.questName, self.description_, self.hint, self.image, self.missionOrder ? @"YES" : @"NO", self.status, (unsigned long)self.sortOrder, self.rewards, self.missions, self.dateAdded, self.clientId, self.siteId, self.dateModified, self.questId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tdate_modified : %@\r\tquest_id : %@\r\tnum_mission : %@\r\t}", self.questName, self.description_, self.hint, self.image, self.missionOrder ? @"YES" : @"NO", self.status, (unsigned long)self.sortOrder, self.rewards, self.missions, self.dateAdded, self.clientId, self.siteId, self.dateModified, self.questId,self.num_mission];
     
     return descriptionString;
 }
@@ -3515,6 +3516,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     c->clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
     c->siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
     c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
+    c->num_mission = [[NSDictionary alloc]initWithDictionary:[c.parseLevelJsonResponse objectForKey:@"num_missions"]];
     
     return c;
 }

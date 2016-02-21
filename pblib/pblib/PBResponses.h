@@ -955,6 +955,7 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *siteId;
 @property (strong, nonatomic, readonly) NSDate *dateModified;
 @property (strong, nonatomic, readonly) NSString *questId;
+@property (strong, nonatomic, readonly) NSDictionary *num_mission;
 
 +(PBQuest *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

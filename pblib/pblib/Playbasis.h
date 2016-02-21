@@ -481,10 +481,10 @@
 /**
  Return list of quest that player has joined.
  */
--(PBRequestUnit *)questListOfPlayer:(NSString *)playerId withDelegate:(id<PBQuestListOfPlayer_ResponseHandler>)delegate;
--(PBRequestUnit *)questListOfPlayer:(NSString *)playerId withBlock:(PBQuestListOfPlayer_ResponseBlock)block;
--(PBRequestUnit *)questListOfPlayerAsync:(NSString *)playerId withDelegate:(id<PBQuestListOfPlayer_ResponseHandler>)delegate;
--(PBRequestUnit *)questListOfPlayerAsync:(NSString *)playerId withBlock:(PBQuestListOfPlayer_ResponseBlock)block;
+-(PBRequestUnit *)questListOfPlayer:(NSString *)playerId filter:(NSString *)filter withDelegate:(id<PBQuestListOfPlayer_ResponseHandler>)delegate;
+-(PBRequestUnit *)questListOfPlayer:(NSString *)playerId filter:(NSString *)filter withBlock:(PBQuestListOfPlayer_ResponseBlock)block;
+-(PBRequestUnit *)questListOfPlayerAsync:(NSString *)playerId filter:(NSString *)filter withDelegate:(id<PBQuestListOfPlayer_ResponseHandler>)delegate;
+-(PBRequestUnit *)questListOfPlayerAsync:(NSString *)playerId filter:(NSString *)filter withBlock:(PBQuestListOfPlayer_ResponseBlock)block;
 
 /**
  Return quest reward history of player.
