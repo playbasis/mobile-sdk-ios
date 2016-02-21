@@ -4616,28 +4616,29 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
 }
 
--(PBRequestUnit *)preferOTP:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequestUnit *)performOTP:(NSString *)player_id code:(NSString *)code withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self preferOTPInternalBase:player_id blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self performOTPInternalBase:player_id code:code blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)preferOTP:(NSString *)player_id withBlock:(PBResponseBlock)block
+-(PBRequestUnit *)performOTP:(NSString *)player_id code:(NSString *)code withBlock:(PBResponseBlock)block
 {
-    return [self preferOTPInternalBase:player_id blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self performOTPInternalBase:player_id code:code blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)preferOTPAsync:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate
+-(PBRequestUnit *)performOTPAsync:(NSString *)player_id code:(NSString *)code withDelegate:(id<PBResponseHandler>)delegate
 {
-    return [self preferOTPInternalBase:player_id blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self performOTPInternalBase:player_id code:code blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)preferOTPAsync:(NSString *)player_id withBlock:(PBResponseBlock)block
+-(PBRequestUnit *)performOTPAsync:(NSString *)player_id code:(NSString *)code withBlock:(PBResponseBlock)block
 {
-    return [self preferOTPInternalBase:player_id blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self performOTPInternalBase:player_id code:code blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)preferOTPInternalBase:(NSString *)player_id blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequestUnit *)performOTPInternalBase:(NSString *)player_id code:(NSString *)code blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 
 {
     NSAssert(_token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/auth/%@/verifyOTPCode%@",player_id, _apiKeyParam];
-    NSString *data = nil;
+    NSString *data = [NSString stringWithFormat:@"token=%@&code=%@", _token,code];
+
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
     
 }

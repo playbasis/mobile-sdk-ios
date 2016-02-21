@@ -1119,11 +1119,11 @@ Forgot Password
 /**
  Prefer OTP
  */
--(PBRequestUnit *)preferOTP:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)preferOTP:(NSString *)player_id withBlock:(PBResponseBlock)block;
--(PBRequestUnit *)preferOTPAsync:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)preferOTPAsync:(NSString *)player_id withBlock:(PBResponseBlock)block;
--(PBRequestUnit *)preferOTPAsync_:(NSString *)player_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)performOTP:(NSString *)player_id code:(NSString *)code withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)performOTP:(NSString *)player_id code:(NSString *)code withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)performOTPAsync:(NSString *)player_id code:(NSString *)code withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)performOTPAsync:(NSString *)player_id code:(NSString *)code withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)performOTPAsync_:(NSString *)player_id code:(NSString *)code withBlock:(PBResponseBlock)block;
 
 /**
 Send Email
