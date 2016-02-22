@@ -473,7 +473,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DIRNAME=protectedResources\n\n# 256 bit key\n# it needs to be the same as specified in the code, refer to Playbasis's setProtectedResources:key method\nENC_KEY=\"abcdefghijklmnopqrstuvwxyz123456\"\n\nINDIR=$PROJECT_DIR/$DIRNAME\nOUTDIR=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/$DIRNAME\n\nif [ ! -d \"$OUTDIR\" ]; then\nmkdir -p \"$OUTDIR\"\nfi\n\n# crypt usage\n# crypt -k <256-bit-keys> -i <input-file-path> -o <output-file-path>\nfor file in \"$INDIR\"/*\n                     do\n                     echo \"Encrypting $file\"\n                     \"$PROJECT_DIR/crypt\" -k $ENC_KEY -i \"$file\" -o \"$OUTDIR/`basename \"$file\"`\"\n                     done";
+			shellScript = "DIRNAME=protectedResources\n\n# 256 bit key\n# it needs to be the same as specified in the code, refer to Playbasis's setProtectedResources:key method\nENC_KEY=\"playbasis_2016*\"\n\nINDIR=$PROJECT_DIR/$DIRNAME\nOUTDIR=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/$DIRNAME\n\nif [ ! -d \"$OUTDIR\" ]; then\nmkdir -p \"$OUTDIR\"\nfi\n\n# crypt usage\n# crypt -k <256-bit-keys> -i <input-file-path> -o <output-file-path>\nfor file in \"$INDIR\"/*\n                     do\n                     echo \"Encrypting $file\"\n                     \"$PROJECT_DIR/crypt\" -k $ENC_KEY -i \"$file\" -o \"$OUTDIR/`basename \"$file\"`\"\n                     done";
 		};
 /* End PBXShellScriptBuildPhase section */
 

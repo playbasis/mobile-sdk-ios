@@ -17,7 +17,7 @@
     // Override point for customization after application launch.
     
     // immediately set protected resource key to use in encrypt / decrypt process of files inside protectedResources folder inside the bundle
-    [Playbasis setProtectedResourcesKey:@"abcdefghijklmnopqrstuvwxyz123456"];
+    [Playbasis setProtectedResourcesKey:@"playbasis_2016*"];
     
     // call class method of Playbasis to handle native thing of trying to registering device for push notification for us
     [Playbasis registerDeviceForPushNotification];
