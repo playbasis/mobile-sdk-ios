@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Playbasis.h"
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler>
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler>
 
 @end
 
@@ -47,6 +47,11 @@
 }
 
 - (void)processResponseWithPlayerDetailedPublic:(PBPlayerDetailedPublic_Response *)playerDetailedPublic withURL:(NSURL *)url error:(NSError *)error
+{
+    XCTAssertEqual(error, nil, @"error must be nil");
+}
+
+- (void)processResponseWithPlayerDetailed:(PBPlayerDetailed_Response *)playerDetailed withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
 }
@@ -324,6 +329,43 @@
     [self testAuthenticationViaProtectedResources_block];
     
     [[Playbasis sharedPB] playerDetailPublicAsync:@"haxpor" withBlock:^(PBPlayerDetailedPublic_Response *playerDetailedPublic, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+#pragma mark Player Detail
+- (void)testPlayerDetail_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerDetail:@"haxpor" withDelegate:self];
+}
+
+- (void)testPlayerDetail_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerDetail:@"haxpor" withBlock:^(PBPlayerDetailed_Response *playerDetailed, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPlayerDetail_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerDetailAsync:@"haxpor" withDelegate:self];
+}
+
+- (void)testPlayerDetail_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerDetailAsync:@"haxpor" withBlock:^(PBPlayerDetailed_Response *playerDetailed, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
     }];
 }
