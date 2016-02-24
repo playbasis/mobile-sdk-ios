@@ -165,6 +165,11 @@
 -(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block;
 
+-(PBRequestUnit *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)authWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+
 /**
  Authenticate and get access token.
  */

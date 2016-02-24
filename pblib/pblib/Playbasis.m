@@ -191,6 +191,7 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
  */
 // - auth (via protected config file)
 -(PBRequestUnit *)authWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+-(PBRequestUnit *)authWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response bundle:(NSBundle*)bundle;
 
 // - auth
 -(PBRequestUnit *)authWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
@@ -825,9 +826,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 -(void)loadApiKeysConfig
 {
-    // get pb's bundle and locate 
+    // get pb's bundle and locate
     NSBundle *pbBundle = [self getPBResourceBundle];
-    NSString *path = [pbBundle pathForResource:@"apikeys-config" ofType:@"txt" inDirectory:@"protectedResources"];
+    [self loadApiKeysConfig:pbBundle];
+}
+
+-(void)loadApiKeysConfig:(NSBundle*)bundle
+{
+    NSString *path = [bundle pathForResource:@"apikeys-config" ofType:@"txt" inDirectory:@"protectedResources"];
     NSData *encryptedData = [NSData dataWithContentsOfFile:path];
     
     // error of decrypting data
@@ -852,7 +858,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     // get pb's bundle and locate
     NSBundle *pbBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle]  URLForResource:@"pblibResource" withExtension:@"bundle"]];
-    NSString *path = [pbBundle pathForResource:@"apikeys-config" ofType:@"txt" inDirectory:@"protectedResources"];
+    return [self getApiSecretFromProtectedResources:pbBundle];
+}
+
+-(NSString *)getApiSecretFromProtectedResources:(NSBundle*)bundle
+{
+    NSString *path = [bundle pathForResource:@"apikeys-config" ofType:@"txt" inDirectory:@"protectedResources"];
     NSData *encryptedData = [NSData dataWithContentsOfFile:path];
     
     // error of decrypting data
@@ -1022,8 +1033,33 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // relay to the underlying inernal method
     return [self authWithApiKeyInternalBase:_apiKey apiSecret:[self getApiSecretFromProtectedResources]  bundleId:bundleIdentifier blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response];
-
 }
+
+-(PBRequestUnit *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle
+{
+    return [self authWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:YES withResponse:delegate bundle:bundle];
+}
+-(PBRequestUnit *)authWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle
+{
+    return [self authWithBlockingCallInternalBase:YES syncUrl:YES useDelegate:NO withResponse:block bundle:bundle];
+}
+-(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle
+{
+    return [self authWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:YES withResponse:delegate bundle:bundle];
+}
+-(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle
+{
+    return [self authWithBlockingCallInternalBase:NO syncUrl:YES useDelegate:NO withResponse:block bundle:bundle];
+}
+-(PBRequestUnit *)authWithBlockingCallInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response bundle:(NSBundle *)bundle
+{
+    // load api keys from input bundle
+    [self loadApiKeysConfig:bundle];
+    
+    // relay to the underlying inernal method
+    return [self authWithApiKeyInternalBase:_apiKey apiSecret:[self getApiSecretFromProtectedResources:bundle]  bundleId:[bundle bundleIdentifier] blockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withResponse:response];
+}
+
 -(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
     return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
