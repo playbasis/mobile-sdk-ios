@@ -1116,6 +1116,23 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self renewWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources] andBlock:block];
 }
 
+-(PBRequestUnit *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle *)bundle
+{
+    return [self renewWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources:bundle] andDelegate:delegate];
+}
+-(PBRequestUnit *)renewWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle *)bundle
+{
+    return [self renewWithApiKey:_apiKey apiSecret:[self getApiSecretFromProtectedResources:bundle] andBlock:block];
+}
+-(PBRequestUnit *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle *)bundle
+{
+    return [self renewWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources:bundle] andDelegate:delegate];
+}
+-(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle *)bundle
+{
+    return [self renewWithApiKeyAsync:_apiKey apiSecret:[self getApiSecretFromProtectedResources:bundle] andBlock:block];
+}
+
 -(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
 {
     return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];

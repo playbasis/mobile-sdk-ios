@@ -187,6 +187,14 @@
 -(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block;
 
 /**
+ This set of api calls allow input of bundle.
+ */
+-(PBRequestUnit *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)renewWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+
+/**
  Request a new access token, and discard the current one.
  */
 -(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;

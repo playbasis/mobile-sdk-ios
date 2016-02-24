@@ -31,7 +31,7 @@
     XCTAssertEqual(error, nil, @"error must be nil");
 }
 
-#pragma mark Authentication
+#pragma mark Authentication with protected resources
 - (void)testAuthenticationViaProtectedResources_delegate {
     // set key to decrypt protected resource
     [Playbasis setProtectedResourcesKey:@"playbasis_2016*"];
@@ -76,13 +76,76 @@
     } bundle:bundle];
 }
 
-- (void)testAuthenticationViaDirectSettingKeys {
+#pragma mark Authentication with direct setting keys
+- (void)testAuthenticationViaDirectSettingKeys_delegate {
+    NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
+    
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250"  apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andDelegate:self];
+}
+
+- (void)testAuthenticationViaDirectSettingKeys_delegateAsync {
+    NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
+    
+    [[Playbasis sharedPB] authWithApiKeyAsync:@"1012718250"  apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andDelegate:self];
+}
+
+- (void)testAuthenticationViaDirectSettingKeys_block {
     NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
     
     [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
         
         XCTAssertEqual(error, nil, @"error must be nil");
     }];
+}
+
+- (void)testAuthenticationViaDirectSettingKeys_blockAsync {
+    NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
+    
+    [[Playbasis sharedPB] authWithApiKeyAsync:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+#pragma mark Renew
+- (void)testRenew_delegate {
+    // before testing renew, we need to authen first
+    [self testAuthenticationViaProtectedResources_delegate];
+    
+    NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
+    
+    [[Playbasis sharedPB] renewWithDelegate:self bundle:bundle];
+}
+
+- (void)testRenew_block {
+    // before testing renew, we need to authen first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
+    
+    [[Playbasis sharedPB] renewWithBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    } bundle:bundle];
+}
+
+- (void)testRenew_delegateAsync {
+    // before testing renew, we need to authen first
+    [self testAuthenticationViaProtectedResources_delegate];
+    
+    NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
+    
+    [[Playbasis sharedPB] renewWithDelegateAsync:self bundle:bundle];
+}
+
+- (void)testRenew_blockAsync {
+    // before testing renew, we need to authen first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
+    
+    [[Playbasis sharedPB] renewWithBlockAsync:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    } bundle:bundle];
 }
 
 @end
