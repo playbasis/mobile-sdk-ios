@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Playbasis.h"
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler>
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler>
 
 @end
 
@@ -37,6 +37,11 @@
 }
 
 - (void)processResponseWithPlayer:(PBPlayer_Response *)playerResponse withURL:(NSURL *)url error:(NSError *)error
+{
+    XCTAssertEqual(error, nil, @"error must be nil");
+}
+
+- (void)processResponseWithPlayerList:(PBPlayerList_Response *)playerList withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
 }
@@ -240,6 +245,43 @@
     [self testAuthenticationViaProtectedResources_block];
     
     [[Playbasis sharedPB] playerAsync:@"haxpor" withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+#pragma mark Player List
+- (void)testPlayerList_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerList:@"haxpor" withDelegate:self];
+}
+
+- (void)testPlayerList_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerList:@"haxpor" withBlock:^(PBPlayerList_Response *playerList, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPlayerList_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerListAsync:@"haxpor" withDelegate:self];
+}
+
+- (void)testPlayerList_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerListAsync:@"haxpor" withBlock:^(PBPlayerList_Response *playerList, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
     }];
 }
