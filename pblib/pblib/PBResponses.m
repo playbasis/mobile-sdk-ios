@@ -2348,8 +2348,14 @@ static NSString * const BASE_URL = @"https://pbapp.net";
         NSAssert(response != nil, @"response must not be nil");
         
         // get 'player'
-        NSDictionary *player = [response objectForKey:@"player"];
+        id player = [response objectForKey:@"player"];
         NSAssert(player != nil, @"goods must not be nil");
+        
+        // if player has no underlying properties, then it will be treated as NSArray, thus convert it into NSDictionary for processing
+        if ([player isKindOfClass:[NSArray class]])
+        {
+            player = [NSDictionary dictionary];
+        }
         
         c.parseLevelJsonResponse = player;
     }
