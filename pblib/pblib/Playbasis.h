@@ -278,11 +278,11 @@
  Tell Playbasis system that player has logged in.
  It uses delegate callback.
  */
--(PBRequestUnit *)loginPlayer:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)loginPlayer:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)loginPlayerAsync:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)loginPlayerAsync:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)loginPlayerAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block;
+-(PBRequestUnit *)loginPlayer:(NSString *)playerId options:(NSMutableDictionary *)options withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)loginPlayer:(NSString *)playerId options:(NSMutableDictionary *)options withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequestUnit *)loginPlayerAsync:(NSString *)playerId options:(NSMutableDictionary *)options withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)loginPlayerAsync:(NSString *)playerId options:(NSMutableDictionary *)options withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequestUnit *)loginPlayerAsync_:(NSString *)playerId options:(NSMutableDictionary *)options withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Tell Playbasis system that player has logged out.
