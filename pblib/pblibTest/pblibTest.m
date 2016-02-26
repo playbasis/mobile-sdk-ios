@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Playbasis.h"
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler>
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler>
 
 @end
 
@@ -58,7 +58,13 @@
 
 - (void)processResponseWithPlayerCustomFields:(PBPlayerCustomFields_Response *)playerCustomFields withURL:(NSURL *)url error:(NSError *)error
 {
-    XCTAssertEqual(error, nil, "@error must be nil");
+    XCTAssertEqual(error, nil, @"error must be nil");
+}
+
+- (void)processResponseWithResultStatus:(PBResultStatus_Response *)result withURL:(NSURL *)url error:(NSError *)error
+{
+    XCTAssertEqual(error, nil, @"error must be nil");
+    XCTAssertEqual(result.success, YES, @"result must be success");
 }
 
 #pragma mark Authentication with protected resources
@@ -408,6 +414,43 @@
     [self testAuthenticationViaProtectedResources_block];
     
     [[Playbasis sharedPB] playerCustomFieldsAsync:@"haxpor" withBlock:^(PBPlayerCustomFields_Response *customFields, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+#pragma mark Player's set custom fields
+- (void)testPlayerSetCustomFields_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerSetCustomFields:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withDelegate:self];
+}
+
+- (void)testPlayerSetCustomFields_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerSetCustomFields:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPlayerSetCustomFields_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerSetCustomFieldsAsync:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withDelegate:self];
+}
+
+- (void)testPlayerSetCustomFields_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] playerSetCustomFieldsAsync:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
     }];
 }
