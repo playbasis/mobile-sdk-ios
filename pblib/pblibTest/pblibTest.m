@@ -9,7 +9,21 @@
 #import <XCTest/XCTest.h>
 #import "Playbasis.h"
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler>
+#define ADD_PLAYER_ID "haxpor1"
+#define ADD_PLAYER_EMAIL "haxpor1@gmail.com"
+#define ASYNC_CALL_WAIT_DURATION 6.0
+
+typedef NS_ENUM(NSInteger, RequestTagId) {
+    Normal,
+    RegisterPlayerId,
+    DeletePlayerId
+};
+
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler>
+{
+    RequestTagId tagId;
+    XCTestExpectation *expectation;
+}
 
 @end
 
@@ -18,11 +32,22 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    NSLog(@"tear up");
+    
+    // set tag to Normal
+    tagId = Normal;
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    
+    NSLog(@"tear down");
+    
+    // clear tag to be Normal
+    tagId = Normal;
+    expectation = nil;
 }
 
 #pragma mark Delegate
@@ -63,8 +88,32 @@
 
 - (void)processResponseWithResultStatus:(PBResultStatus_Response *)result withURL:(NSURL *)url error:(NSError *)error
 {
+    if (error)
+    {
+        NSLog(@"Response result with error %@", [error localizedDescription]);
+    }
+    
     XCTAssertEqual(error, nil, @"error must be nil");
     XCTAssertEqual(result.success, YES, @"result must be success");
+    
+    // if it's register user request then delete that user to allow other type of call of register user requests to be tested
+    if (tagId == RegisterPlayerId)
+    {
+        [self subtestDeleteUser_delegateAsync];
+        
+        NSLog(@"Made call to deletePlayerId");
+    }
+    else if (tagId == DeletePlayerId)
+    {
+        [expectation fulfill];
+        
+        // clear expectation
+        expectation = nil;
+        
+        NSLog(@"fullfilled expectation for delegateForPlayerId");
+    }
+    
+    NSLog(@"called processResponseWithResultStatus");
 }
 
 #pragma mark Authentication with protected resources
@@ -452,6 +501,135 @@
     
     [[Playbasis sharedPB] playerSetCustomFieldsAsync:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+#pragma mark Register user
+- (void)testRegisterUserWithPlayerId_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    tagId = RegisterPlayerId;
+    
+    // make sure to use unique playerId, and e-mail here
+    [[Playbasis sharedPB] registerUserWithPlayerId:@ADD_PLAYER_ID username:@ADD_PLAYER_ID email:@ADD_PLAYER_EMAIL imageUrl:nil andDelegate:self , nil];
+    
+    NSLog(@"finished calling registerd");
+}
+
+- (void)testRegisterUserThenDeleteWithPlayerId_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    tagId = RegisterPlayerId;
+    
+    [[Playbasis sharedPB] registerUserWithPlayerId:@ADD_PLAYER_ID username:@ADD_PLAYER_ID email:@ADD_PLAYER_EMAIL imageUrl:nil andBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        
+        [self subtestDeleteUser_block];
+    }, nil];
+}
+
+- (void)testRegisterUserThenDeleteWithPlayerId_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    tagId = RegisterPlayerId;
+    
+    // create expectation
+    expectation = [self expectationWithDescription:@"registerWithPlayerId - delegateAsync"];
+    
+    [[Playbasis sharedPB] registerUserWithPlayerIdAsync:@ADD_PLAYER_ID username:@ADD_PLAYER_ID email:@ADD_PLAYER_EMAIL imageUrl:nil andDelegate:self, nil];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+    
+    NSLog(@"finished calling request");
+}
+
+- (void)testRegisterUserWithPlayerId_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"registerUserWithPlayerId - blockAsync"];
+    
+    [[Playbasis sharedPB] registerUserWithPlayerIdAsync:@ADD_PLAYER_ID username:@ADD_PLAYER_ID email:@ADD_PLAYER_EMAIL imageUrl:nil andBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        
+        [self subtestDeleteUser_blockAsync];
+    }, nil];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testRegisterUserWithPlayerId_blockAsync_
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"registerUserWithPlayerId - blockAsync_"];
+    
+    [[Playbasis sharedPB] registerUserWithPlayerIdAsync_:@ADD_PLAYER_ID username:@ADD_PLAYER_ID email:@ADD_PLAYER_EMAIL imageUrl:nil andBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        
+        [self subtestDeleteUser_blockAsync_];
+    }, nil];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+#pragma mark Delete user (no need to test individually, it will be automatically called by testRegisterUserWithPlayerId... methods
+- (void)subtestDeleteUser_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] deleteUserWithPlayerId:@ADD_PLAYER_ID withDelegate:self];
+}
+
+- (void)subtestDeleteUser_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] deleteUserWithPlayerId:@ADD_PLAYER_ID withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)subtestDeleteUser_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    // change type of request
+    tagId = DeletePlayerId;
+    
+    [[Playbasis sharedPB] deleteUserWithPlayerIdAsync:@ADD_PLAYER_ID withDelegate:self];
+}
+
+- (void)subtestDeleteUser_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] deleteUserWithPlayerIdAsync:@ADD_PLAYER_ID withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+}
+
+- (void)subtestDeleteUser_blockAsync_
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] deleteUserWithPlayerIdAsync_:@ADD_PLAYER_ID withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
 }
 
