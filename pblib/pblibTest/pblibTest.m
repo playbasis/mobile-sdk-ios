@@ -54,36 +54,50 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
 - (void)processResponseWithAuth:(PBAuth_Response *)auth withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithPlayerPublic:(PBPlayerPublic_Response *)playerResponse withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithPlayer:(PBPlayer_Response *)playerResponse withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithPlayerList:(PBPlayerList_Response *)playerList withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithPlayerDetailedPublic:(PBPlayerDetailedPublic_Response *)playerDetailedPublic withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithPlayerDetailed:(PBPlayerDetailed_Response *)playerDetailed withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithPlayerCustomFields:(PBPlayerCustomFields_Response *)playerCustomFields withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 - (void)processResponseWithResultStatus:(PBResultStatus_Response *)result withURL:(NSURL *)url error:(NSError *)error
@@ -100,8 +114,6 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     if (tagId == RegisterPlayerId)
     {
         [self subtestDeleteUser_delegateAsync];
-        
-        NSLog(@"Made call to deletePlayerId");
     }
     else if (tagId == DeletePlayerId)
     {
@@ -109,11 +121,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
         
         // clear expectation
         expectation = nil;
-        
-        NSLog(@"fullfilled expectation for delegateForPlayerId");
     }
-    
-    NSLog(@"called processResponseWithResultStatus");
+    else
+    {
+        [expectation fulfill];
+    }
 }
 
 #pragma mark Authentication with protected resources
@@ -146,10 +158,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // set key to decrypt protected resource
     [Playbasis setProtectedResourcesKey:@"playbasis_2016*"];
     
+    expectation = [self expectationWithDescription:@"authenticate - delegateAsync"];
+    
     NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
     NSLog(@"path : %@", [bundle resourcePath]);
     
     [[Playbasis sharedPB] authWithDelegateAsync:self bundle:bundle];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testAuthenticationViaProtectedResources_blockAsync
@@ -157,12 +173,17 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // set key to decrypt protected resource
     [Playbasis setProtectedResourcesKey:@"playbasis_2016*"];
     
+    expectation = [self expectationWithDescription:@"authenticate - blockAsync"];
+    
     NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
     NSLog(@"path : %@", [bundle resourcePath]);
     
     [[Playbasis sharedPB] authWithBlockAsync:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     } bundle:bundle];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Authentication with direct setting keys
@@ -177,7 +198,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
 {
     NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
     
+    expectation = [self expectationWithDescription:@"authenticateViaDirectSettingKeys - delegate"];
+    
     [[Playbasis sharedPB] authWithApiKeyAsync:@"1012718250"  apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testAuthenticationViaDirectSettingKeys_block
@@ -185,7 +210,6 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
     
     [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
-        
         XCTAssertEqual(error, nil, @"error must be nil");
     }];
 }
@@ -194,10 +218,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
 {
     NSString *bundleIdentifier = [[NSBundle bundleForClass:[self class]] bundleIdentifier];
     
+    expectation = [self expectationWithDescription:@"authenticateViaDirectSettingKeys - blockAsync"];
+    
     [[Playbasis sharedPB] authWithApiKeyAsync:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:bundleIdentifier andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
-        
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Renew
@@ -228,9 +256,13 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // before testing renew, we need to authen first
     [self testAuthenticationViaProtectedResources_delegate];
     
+    expectation = [self expectationWithDescription:@"renew - delegate"];
+    
     NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
     
     [[Playbasis sharedPB] renewWithDelegateAsync:self bundle:bundle];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testRenew_blockAsync
@@ -238,11 +270,16 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // before testing renew, we need to authen first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"renew - blockAsync"];
+    
     NSBundle *bundle = [NSBundle bundleWithURL: [[NSBundle bundleForClass:[self class]] URLForResource:@"pblibResource" withExtension:@"bundle"]];
     
     [[Playbasis sharedPB] renewWithBlockAsync:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     } bundle:bundle];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player Public
@@ -269,7 +306,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"getPlayerPublicInfo - delegateAsync"];
+    
     [[Playbasis sharedPB] playerPublicAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testGetPlayerPublicInfo_blockAsync
@@ -277,9 +318,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"getPlayerPublicInfo - blockAsync"];
+    
     [[Playbasis sharedPB] playerPublicAsync:@"haxpor" withBlock:^(PBPlayerPublic_Response *playerResponse, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player (private and public)
@@ -306,7 +352,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"getPlayerInfo - delegateAsync"];
+    
     [[Playbasis sharedPB] playerAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testGetPlayerInfo_blockAsync
@@ -314,9 +364,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"getPlayerInfo - blockAsync"];
+    
     [[Playbasis sharedPB] playerAsync:@"haxpor" withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player List
@@ -343,7 +398,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerList - delegateAsybc"];
+    
     [[Playbasis sharedPB] playerListAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testPlayerList_blockAsync
@@ -351,9 +410,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerList - blockAsync"];
+    
     [[Playbasis sharedPB] playerListAsync:@"haxpor" withBlock:^(PBPlayerList_Response *playerList, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player Detail Public
@@ -380,7 +444,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerDetailPublic - delegateAsync"];
+    
     [[Playbasis sharedPB] playerDetailPublicAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testPlayerDetailPublic_blockAsync
@@ -388,9 +456,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerDetailPublic - blockAsync"];
+    
     [[Playbasis sharedPB] playerDetailPublicAsync:@"haxpor" withBlock:^(PBPlayerDetailedPublic_Response *playerDetailedPublic, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player Detail
@@ -417,7 +490,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerDetail - delegateAsync"];
+    
     [[Playbasis sharedPB] playerDetailAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testPlayerDetail_blockAsync
@@ -425,9 +502,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerDetail - blockAsync"];
+    
     [[Playbasis sharedPB] playerDetailAsync:@"haxpor" withBlock:^(PBPlayerDetailed_Response *playerDetailed, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player's get custom fields
@@ -454,7 +536,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerGetCustomFields - delgateAsync"];
+    
     [[Playbasis sharedPB] playerCustomFieldsAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testPlayerGetCustomFields_blockAsync
@@ -462,9 +548,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerGetCustomFields - blockAsync"];
+    
     [[Playbasis sharedPB] playerCustomFieldsAsync:@"haxpor" withBlock:^(PBPlayerCustomFields_Response *customFields, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Player's set custom fields
@@ -491,7 +582,11 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerSetCustomFields - delegateAsync"];
+    
     [[Playbasis sharedPB] playerSetCustomFieldsAsync:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 - (void)testPlayerSetCustomFields_blockAsync
@@ -499,9 +594,14 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
+    expectation = [self expectationWithDescription:@"playerSetCustomFields - blockAsync"];
+    
     [[Playbasis sharedPB] playerSetCustomFieldsAsync:@"haxpor" keys:@[@"test1"] values:@[@"test1Value"] withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
 #pragma mark Register user
