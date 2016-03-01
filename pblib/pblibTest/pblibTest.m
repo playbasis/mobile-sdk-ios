@@ -733,4 +733,65 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     }];
 }
 
+#pragma mark Login player
+- (void)testLoginPlayer_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] loginPlayer:@"haxpor" withDelegate:self];
+}
+
+- (void)testLoginPlayer_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] loginPlayer:@"haxpor" withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testLoginPlayer_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"loginPlayer - delegateAsync"];
+    
+    [[Playbasis sharedPB] loginPlayerAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testLoginPlayer_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"loginPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] loginPlayerAsync:@"haxpor" withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testLoginPlayer_blockAsync_
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"loginPlayer - blockAsync_"];
+    
+    [[Playbasis sharedPB] loginPlayerAsync_:@"haxpor" withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
 @end
