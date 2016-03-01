@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     DeletePlayerId
 };
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler>
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler, PBPoints_ResponseHandler>
 {
     RequestTagId tagId;
     XCTestExpectation *expectation;
@@ -126,6 +126,13 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     {
         [expectation fulfill];
     }
+}
+
+- (void)processResponseWithPoints:(PBPoints_Response *)points withURL:(NSURL *)url error:(NSError *)error
+{
+    XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
 }
 
 #pragma mark Authentication with protected resources
@@ -848,6 +855,52 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     expectation = [self expectationWithDescription:@"logoutPlayer - blockAsync"];
     
     [[Playbasis sharedPB] logoutPlayerAsync_:@"haxpor" withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+#pragma mark Points of player
+- (void)testPointsOfPlayer_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointsOfPlayer:@"haxpor" withDelegate:self];
+}
+
+- (void)testPointsOfPlayer_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointsOfPlayer:@"haxpor" withBlock:^(PBPoints_Response *points, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPointsOfPlayer_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointsOfPlayer - delegateAsync"];
+    
+    [[Playbasis sharedPB] pointsOfPlayerAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testPointsOfPlayer_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointsOfPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] pointsOfPlayerAsync:@"haxpor" withBlock:^(PBPoints_Response *points, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
         [expectation fulfill];
     }];
