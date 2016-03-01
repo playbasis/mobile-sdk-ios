@@ -794,4 +794,65 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
+#pragma mark Logout Player
+- (void)testLogoutPlayer_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] logoutPlayer:@"haxpor" withDelegate:self];
+}
+
+- (void)testLogoutPlayer_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] logoutPlayer:@"haxpor" withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testLogoutPlayer_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"logoutPlayer - delegateAsync"];
+    
+    [[Playbasis sharedPB] logoutPlayerAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testLogoutPlayer_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"logoutPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] logoutPlayerAsync:@"haxpor" withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testLogoutPlayer_delegateAsync_
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"logoutPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] logoutPlayerAsync_:@"haxpor" withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
 @end
