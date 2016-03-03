@@ -1060,6 +1060,52 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
+#pragma mark Point history of player (with forPoint, and limit)
+- (void)testPointHistoryOfPlayerWithForpointAndLimit_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayer:@"haxpor" forPoint:@"exp" withLimit:5 andDelegate:self];
+}
+
+- (void)testPointHistoryOfPlayerWithForpointAndLimit_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayer:@"haxpor" forPoint:@"exp" withLimit:5 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPointHistoryOfPlayerWithForpointAndLimit_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointHistoryOfPlayer (with forPoint, and limit) - delegateAsync"];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayerAsync:@"haxpor" forPoint:@"exp" withLimit:5 andDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testPointHistoryOfPlayerWithForpointAndLimit_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointHistoryOfPlayer (with forPoint, and limit) - blockAsync"];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayerAsync:@"haxpor" forPoint:@"exp" withLimit:5 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
 #pragma mark Point history of player (with offset)
 - (void)testPointHistoryOfPlayerWithOffset_delegate
 {
