@@ -1014,4 +1014,50 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
+#pragma mark Point history of player (with offset)
+- (void)testPointHistoryOfPlayerWithOffset_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayer:@"haxpor" forPoint:@"exp" offset:0 andDelegate:self];
+}
+
+- (void)testPointHistoryOfPlayerWithOffset_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayer:@"haxpor" forPoint:@"exp" offset:0 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPointHistoryOfPlayerWithOffset_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointHistoryOfPlayer - delegateAsync"];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayerAsync:@"haxpor" forPoint:@"exp" offset:0 andDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testPointHistoryOfPlayerWithOffset_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointHistoryOfPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayerAsync:@"haxpor" forPoint:@"exp" offset:0 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
 @end
