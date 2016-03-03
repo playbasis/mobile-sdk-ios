@@ -968,7 +968,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
-#pragma mark Point history of player
+#pragma mark Point history of player (with forPoint)
 - (void)testPointHistoryOfPlayer_delegate
 {
     // authenticate app first
@@ -1060,7 +1060,53 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
-#pragma mark Point history of player (forPoint, and with offset)
+#pragma mark Point history of player (with offset)
+- (void)testPointHistoryOfPlayerWithOffset_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayer:@"haxpor" offset:0 andDelegate:self];
+}
+
+- (void)testPointHistoryOfPlayerWithOffset_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayer:@"haxpor" offset:0 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testPointHistoryOfPlayerWithOffset_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointHistoryOfPlayer (with offset) - delegateAsync"];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayerAsync:@"haxpor" offset:0 andDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testPointHistoryOfPlayerWithOffset_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"pointHistoryOfPlayer (with offset) - blockAsync"];
+    
+    [[Playbasis sharedPB] pointHistoryOfPlayerAsync:@"haxpor" offset:0 andBlock:^(PBPointHistory_Response *pointHistory, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+#pragma mark Point history of player (with forPoint, and offset)
 - (void)testPointHistoryOfPlayerWithForPointAndOffset_delegate
 {
     // authenticate app first
