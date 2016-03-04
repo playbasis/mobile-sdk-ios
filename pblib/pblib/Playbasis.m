@@ -3013,6 +3013,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *order = [options objectForKey:@"order"];
     NSString *offset = [options objectForKey:@"offset"];
     NSString *limit = [options objectForKey:@"limit"];
+    NSString *fullHtml = [options objectForKey:@"full_html"];
     
     
     method = _id == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&id=%@",_id]];
@@ -3023,6 +3024,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     method = order == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&order=%@",order]];
     method = offset == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&offset=%@",offset]];
     method = limit == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&limit=%@",limit]];
+    method = fullHtml == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&full_html=%@",fullHtml]];
     
     NSString *data = nil;
     
@@ -3359,7 +3361,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *method = [NSString stringWithFormat:@"Engine/rule%@", _apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&player_id=%@&action=%@", _token, playerId, action];
     NSString *dataFinal = nil;
-    /*
+    
     if(params != nil)
     {
         id optionalData;
@@ -3367,7 +3369,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         {
             [data appendFormat:@"&%@", optionalData];
         }
-    }*/
+    }
     
     if(!syncUrl)
     {
@@ -4558,18 +4560,33 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
+-(PBRequestUnit *)registerForPushNotificationPlayerId:(NSString *)playerId options:(NSDictionary *)options withBlock:(PBResponseBlock)block
+{
+    return [self registerForPushNotificationPlayerInternalBase:playerId options:options blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)registerForPushNotificationPlayerInternalBase:(NSString *)playerId options:(NSDictionary *)options blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 
--(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate
 {
     NSAssert(_token, @"access token is nil");
     
     // get device token from what we save in NSUserDefaults
-    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
-    NSAssert(deviceToken, @"device token is nil");
+    //NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
+    //NSAssert(deviceToken, @"device token is nil");
     
-    NSString *method = [NSString stringWithFormat:@"Push/registerdevice%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&device_token=%@", _token, deviceToken];
-    return [self call:method withData:data syncURLRequest:YES andDelegate:delegate];
+    NSString *method = [NSString stringWithFormat:@"Push/deviceRegistration%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
+    
+    NSString *device_token = [options objectForKey:@"device_token"];
+    NSString *device_description = [options objectForKey:@"device_description"];
+    NSString *device_name = [options objectForKey:@"device_name"];
+    NSString *os_type = @"IOS";
+    
+    data = device_token == nil ? data : [data stringByAppendingString:[NSString stringWithFormat:@"&device_token=%@",device_token]];
+    data = device_description == nil ? data : [data stringByAppendingString:[NSString stringWithFormat:@"&device_description=%@",device_description]];
+    data = device_name == nil ? data : [data stringByAppendingString:[NSString stringWithFormat:@"&device_name=%@",device_name]];
+    data = os_type == nil ? data : [data stringByAppendingString:[NSString stringWithFormat:@"&os_type=%@",os_type]];
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 -(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withDelegate:(id<PBResponseHandler>)delegate
 {
@@ -4617,7 +4634,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     NSAssert(_token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Player/auth/%@/requestOTPCode%@",player_id , _apiKeyParam];
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil andResponse:response];
+    NSString *data = [NSString stringWithFormat:@"token=%@&", _token];
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
     
 }
 

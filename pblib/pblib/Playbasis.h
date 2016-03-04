@@ -1137,8 +1137,7 @@ Send Email
 /**
  Register device for push notification.
  */
--(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate;
-
+-(PBRequestUnit *)registerForPushNotificationPlayerId:(NSString *)playerId options:(NSDictionary *)options withBlock:(PBResponseBlock)block;
 
 /**
  ()
