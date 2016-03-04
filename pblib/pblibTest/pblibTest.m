@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     DeletePlayerId
 };
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler, PBPoints_ResponseHandler, PBPoint_ResponseHandler, PBPointHistory_ResponseHandler, PBActionTime_ResponseHandler, PBLastAction_ResponseHandler, PBActionLastPerformedTime_ResponseHandler>
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler, PBPoints_ResponseHandler, PBPoint_ResponseHandler, PBPointHistory_ResponseHandler, PBActionTime_ResponseHandler, PBLastAction_ResponseHandler, PBActionLastPerformedTime_ResponseHandler, PBActionCount_ResponseHandler>
 {
     RequestTagId tagId;
     XCTestExpectation *expectation;
@@ -164,6 +164,13 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
 }
 
 - (void)processResponseWithActionLastPerformedTime:(PBActionLastPerformedTime_Response *)response withURL:(NSURL *)url error:(NSError *)error
+{
+    XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
+}
+
+- (void)processResponseWithActionCount:(PBActionCount_Response *)actionCount withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
     
@@ -1397,6 +1404,52 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     
     [[Playbasis sharedPB] actionLastPerformedTimeForPlayerAsync:@"haxpor" action:@"login" withBlock:^(PBActionLastPerformedTime_Response *response, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+#pragma mark Action performed count for player
+- (void)testActionPerformedCountForPlayer_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] actionPerformedCountForPlayer:@"haxpor" action:@"login" withDelegate:self];
+}
+
+- (void)testActionPerformedCountForPlayer_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] actionPerformedCountForPlayer:@"haxpor" action:@"login" withBlock:^(PBActionCount_Response *actionCount, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error msut be nil");
+    }];
+}
+
+- (void)testActionPerformedCountForPlayer_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"actionPerformedCountForPlayer - delegateAsync"];
+    
+    [[Playbasis sharedPB] actionPerformedCountForPlayerAsync:@"haxpor" action:@"login" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testActionPerformedCountForPlayer_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"actionPerformedCountForPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] actionPerformedCountForPlayerAsync:@"haxpor" action:@"login" withBlock:^(PBActionCount_Response *actionCount, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error mustbe nil");
         [expectation fulfill];
     }];
     
