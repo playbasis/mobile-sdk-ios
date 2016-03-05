@@ -4574,7 +4574,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     //NSAssert(deviceToken, @"device token is nil");
     
     NSString *method = [NSString stringWithFormat:@"Push/deviceRegistration%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
+    NSString *data = [NSString stringWithFormat:@"token=%@&player_id=%@", _token,playerId];
     
     NSString *device_token = [options objectForKey:@"device_token"];
     NSString *device_description = [options objectForKey:@"device_description"];
