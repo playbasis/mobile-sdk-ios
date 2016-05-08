@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     DeletePlayerId
 };
 
-@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler, PBPoints_ResponseHandler, PBPoint_ResponseHandler, PBPointHistory_ResponseHandler, PBActionTime_ResponseHandler, PBLastAction_ResponseHandler, PBActionLastPerformedTime_ResponseHandler, PBActionCount_ResponseHandler>
+@interface pblibTest : XCTestCase <PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler, PBPlayer_ResponseHandler, PBPlayerList_ResponseHandler, PBPlayerDetailedPublic_ResponseHandler, PBPlayerDetailed_ResponseHandler, PBPlayerCustomFields_ResponseHandler, PBResultStatus_ResponseHandler, PBResultStatus_ResponseHandler, PBPoints_ResponseHandler, PBPoint_ResponseHandler, PBPointHistory_ResponseHandler, PBActionTime_ResponseHandler, PBLastAction_ResponseHandler, PBActionLastPerformedTime_ResponseHandler, PBActionCount_ResponseHandler, PBPlayerBadges_ResponseHandler>
 {
     RequestTagId tagId;
     XCTestExpectation *expectation;
@@ -171,6 +171,13 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
 }
 
 - (void)processResponseWithActionCount:(PBActionCount_Response *)actionCount withURL:(NSURL *)url error:(NSError *)error
+{
+    XCTAssertEqual(error, nil, @"error must be nil");
+    
+    [expectation fulfill];
+}
+
+- (void)processResponseWithPlayerBadges:(PBPlayerBadges_Response *)badges withURL:(NSURL *)url error:(NSError *)error
 {
     XCTAssertEqual(error, nil, @"error must be nil");
     
@@ -1449,7 +1456,53 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     expectation = [self expectationWithDescription:@"actionPerformedCountForPlayer - blockAsync"];
     
     [[Playbasis sharedPB] actionPerformedCountForPlayerAsync:@"haxpor" action:@"login" withBlock:^(PBActionCount_Response *actionCount, NSURL *url, NSError *error) {
-        XCTAssertEqual(error, nil, @"error mustbe nil");
+        XCTAssertEqual(error, nil, @"error must be nil");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+#pragma mark All badges that player has earned
+- (void)testBadgeOwnedForPlayer_delegate
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] badgeOwnedForPlayer:@"haxpor" withDelegate:self];
+}
+
+- (void)testBadgeOwnedForPlayer_block
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    [[Playbasis sharedPB] badgeOwnedForPlayer:@"haxpor" withBlock:^(PBPlayerBadges_Response *badges, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
+    }];
+}
+
+- (void)testBadgeOwnedForPlayer_delegateAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"badgeOwnedForPlayer - delegateAsync"];
+    
+    [[Playbasis sharedPB] badgeOwnedForPlayerAsync:@"haxpor" withDelegate:self];
+    
+    [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
+}
+
+- (void)testBageOwnedForPlayer_blockAsync
+{
+    // authenticate app first
+    [self testAuthenticationViaProtectedResources_block];
+    
+    expectation = [self expectationWithDescription:@"badgeOwnedForPlayer - blockAsync"];
+    
+    [[Playbasis sharedPB] badgeOwnedForPlayerAsync:@"haxpor" withBlock:^(PBPlayerBadges_Response *badges, NSURL *url, NSError *error) {
+        XCTAssertEqual(error, nil, @"error must be nil");
         [expectation fulfill];
     }];
     
