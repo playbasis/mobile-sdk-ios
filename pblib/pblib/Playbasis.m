@@ -3202,6 +3202,41 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
 }
+// Delete Content
+-(PBRequestUnit *)deleteContent:(NSString *)content_id withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self deleteContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)deleteContent:(NSString *)content_id withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self deleteContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentAsync:(NSString *)content_id withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self deleteContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)deleteContentAsync:(NSString *)content_id withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self deleteContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentAsync_:(NSString *)content_id withBlock:(PBAsyncURLRequestResponseBlock)block
+{
+    return [self deleteContentInternalBase:content_id blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentInternalBase:(NSString *)content_id blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/%@/delete%@", content_id, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deleteUser andResponse:response];
+}
+
 //// Get Content Category
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate
 {

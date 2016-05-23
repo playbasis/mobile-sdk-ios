@@ -1042,6 +1042,15 @@ Get Child
 -(PBRequestUnit *)updateContentAsync_:(NSString *)content_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
 
 /**
+ Delete Content
+ */
+-(PBRequestUnit *)deleteContent:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)deleteContent:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)deleteContentAsync:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)deleteContentAsync:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)deleteContentAsync_:(NSString *)content_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+/**
  GetContent Category
  */
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate;
