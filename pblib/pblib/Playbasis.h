@@ -1024,6 +1024,15 @@ Get Child
 -(PBRequestUnit *)getContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 
 /**
+ Create Content
+ */
+-(PBRequestUnit *)createContentWithTitle:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)createContentWithTitle:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)createContentWithTitleAsync:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)createContentWithTitleAsync:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)createContentWithTitleAsync_:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+/**
  GetContent Category
  */
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate;

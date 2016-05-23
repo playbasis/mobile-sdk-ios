@@ -3037,6 +3037,86 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
+//
+// @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
+// 							Each element is a string in the format of key=value, for example: category=news
+// 							The following keys are supported:
+// 							- image
+// 							- status
+// 							- date_start    format YYYY-MM-DD (ex.1982-09-29)
+//							- date_end      format YYYY-MM-DD (ex.1982-09-29)
+// 							- player_id
+// 							- pin
+// 							- tags          Specific tag(s) to add (e.g. foo,bar)
+// 							- key           custom field keys separated by comma
+//                          - value         custom field values separated by comma
+
+-(PBRequestUnit *)createContentWithTitle:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitle:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleAsync:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleAsync:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleAsync_:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleInternalBase:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/addContent%@", _apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&title=%@&summary=%@&detail=%@", _token, title, summary, detail];
+    
+    // create data final that will be used at the end of the process
+    NSString *dataFinal = nil;
+    
+    if(params != nil)
+    {
+        id optionalData;
+        while ((optionalData = va_arg(params, NSString *)))
+        {
+            [data appendFormat:@"&%@", optionalData];
+        }
+    }
+    
+    if(syncUrl)
+    {
+        // create a data final
+        dataFinal = [NSString stringWithString:data];
+    }
+    else
+    {
+        // form async url request data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
+}
 //// Get Content Category
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate
 {
