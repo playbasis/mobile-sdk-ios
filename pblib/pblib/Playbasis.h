@@ -1015,13 +1015,22 @@ Get Child
 -(PBRequestUnit *)childNodeListAsync_:(NSString *)node_id layer:(NSString *)layer withBlock:(PBNodeOrganize_ResponseBlock)block;
 
 /**
- GetContent
+ Get Content
  */
 -(PBRequestUnit *)getContent:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
 -(PBRequestUnit *)getContent:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 -(PBRequestUnit *)getContentAsync:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
 -(PBRequestUnit *)getContentAsync:(NSMutableDictionary *)options  withBlock:(PBContent_ResponseBlock)block;
 -(PBRequestUnit *)getContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
+
+/**
+Count Content options : category , player_exclude
+ */
+-(PBRequestUnit *)countContent:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
+-(PBRequestUnit *)countContent:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
+-(PBRequestUnit *)countContentAsync:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
+-(PBRequestUnit *)countContentAsync:(NSMutableDictionary *)options  withBlock:(PBContent_ResponseBlock)block;
+-(PBRequestUnit *)countContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 
 /**
  Create Content
@@ -1049,6 +1058,34 @@ Get Child
 -(PBRequestUnit *)deleteContentAsync:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
 -(PBRequestUnit *)deleteContentAsync:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
 -(PBRequestUnit *)deleteContentAsync_:(NSString *)content_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+/**
+ Action Like
+ */
+-(PBRequestUnit *)actionLikeContent:(NSString *)content_id player_id:(NSString *)player_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)actionLikeContent:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)actionLikeContentAsync:(NSString *)content_id player_id:(NSString *)player_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)actionLikeContentAsync:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)actionLikeContentAsync_:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+/**
+ Action DisLike
+ */
+-(PBRequestUnit *)actionDisLikeContent:(NSString *)content_id player_id:(NSString *)player_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)actionDisLikeContent:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)actionDisLikeContentAsync:(NSString *)content_id player_id:(NSString *)player_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)actionDisLikeContentAsync:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)actionDisLikeContentAsync_:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+/**
+ Give Feedback
+ */
+-(PBRequestUnit *)giveFeedbackContent:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)giveFeedbackContent:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)giveFeedbackContentAsync:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)giveFeedbackContentAsync:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)giveFeedbackContentAsync_:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
 
 /**
  GetContent Category
