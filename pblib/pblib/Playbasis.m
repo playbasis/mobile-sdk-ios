@@ -3037,6 +3037,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
+//// Create Content
 //
 // @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
 // 							Each element is a string in the format of key=value, for example: category=news
@@ -3091,6 +3092,90 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSAssert(_token, @"access token is nil");
     NSString *method = [NSString stringWithFormat:@"Content/addContent%@", _apiKeyParam];
     NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&title=%@&summary=%@&detail=%@", _token, title, summary, detail];
+    
+    // create data final that will be used at the end of the process
+    NSString *dataFinal = nil;
+    
+    if(params != nil)
+    {
+        id optionalData;
+        while ((optionalData = va_arg(params, NSString *)))
+        {
+            [data appendFormat:@"&%@", optionalData];
+        }
+    }
+    
+    if(syncUrl)
+    {
+        // create a data final
+        dataFinal = [NSString stringWithString:data];
+    }
+    else
+    {
+        // form async url request data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
+}
+//// Update Content
+//
+// @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
+// 							Each element is a string in the format of key=value, for example: title = sample title
+// 							The following keys are supported:
+//                          - summary
+//                          - detail
+//                          - category
+// 							- image
+// 							- status
+// 							- date_start    format YYYY-MM-DD (ex.1982-09-29)
+//							- date_end      format YYYY-MM-DD (ex.1982-09-29)
+// 							- player_id
+// 							- pin
+// 							- tags          Specific tag(s) to add (e.g. foo,bar)
+// 							- key           custom field keys separated by comma
+//                          - value         custom field values separated by comma
+
+-(PBRequestUnit *)updateContent:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self updateContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContent:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self updateContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentAsync:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self updateContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentAsync:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self updateContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentAsync_:(NSString *)content_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self updateContentInternalBase:content_id blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentInternalBase:(NSString *)content_id blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/%@/update%@", content_id,_apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", _token];
     
     // create data final that will be used at the end of the process
     NSString *dataFinal = nil;

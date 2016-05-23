@@ -1033,6 +1033,15 @@ Get Child
 -(PBRequestUnit *)createContentWithTitleAsync_:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
 
 /**
+ Update Content
+ */
+-(PBRequestUnit *)updateContent:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)updateContent:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)updateContentAsync:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)updateContentAsync:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)updateContentAsync_:(NSString *)content_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+/**
  GetContent Category
  */
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate;
