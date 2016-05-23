@@ -4074,7 +4074,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizListOfPlayerInternalBase:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/list?player_id=%@", playerId];
+    NSString *method = [NSString stringWithFormat:@"Quiz/list?player_id=%@%@", playerId,_apiKeyParam];
     
     if(![type isEqualToString:@""])
     {
@@ -4085,7 +4085,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         method = [method stringByAppendingString:[NSString stringWithFormat:@"&tags=%@",tags]];
     }
     
-    method = [method stringByAppendingString:[NSString stringWithFormat:@"&api_key=%@",_apiKeyParam]];
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_activeQuizList andResponse:response];
 }
 
