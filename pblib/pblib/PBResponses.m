@@ -5803,7 +5803,15 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     // parse
     c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
     c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c->weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
+    id weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
+    if ([weight respondsToSelector:@selector(integerValue)])
+    {
+        c->weight = (int)[weight integerValue];
+    }
+    else
+    {
+        c->weight = 0;
+    }
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     c->descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
     c->quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];
