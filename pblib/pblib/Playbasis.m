@@ -3489,6 +3489,81 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
 }
+//// Give Feedback Content
+//
+// @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
+// 							Each element is a string in the format of key=value, for example:
+// 							The following keys are supported:
+// 							- key           custom field keys separated by comma
+//                          - value         custom field values separated by comma
+
+-(PBRequestUnit *)giveFeedbackContent:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self giveFeedbackContentInternalBase:content_id player_id:player_id feedback:feedback blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)giveFeedbackContent:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self giveFeedbackContentInternalBase:content_id player_id:player_id feedback:feedback blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)giveFeedbackContentAsync:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self giveFeedbackContentInternalBase:content_id player_id:player_id feedback:feedback blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)giveFeedbackContentAsync:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self giveFeedbackContentInternalBase:content_id player_id:player_id feedback:feedback blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)giveFeedbackContentAsync_:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self giveFeedbackContentInternalBase:content_id player_id:player_id feedback:feedback blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)giveFeedbackContentInternalBase:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/%@/player/%@/feedback%@",content_id,player_id,_apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", _token];
+    
+    // create data final that will be used at the end of the process
+    NSString *dataFinal = nil;
+    
+    if(params != nil)
+    {
+        id optionalData;
+        while ((optionalData = va_arg(params, NSString *)))
+        {
+            [data appendFormat:@"&%@", optionalData];
+        }
+    }
+    
+    if(syncUrl)
+    {
+        // create a data final
+        dataFinal = [NSString stringWithString:data];
+    }
+    else
+    {
+        // form async url request data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
+}
+
 //// Get Player Associate Node
 -(PBRequestUnit *)getAssociatedNode:(NSString *)playerId withDelegate:(id<PBAssociatedNode_ResponseHandler>)delegate
 {

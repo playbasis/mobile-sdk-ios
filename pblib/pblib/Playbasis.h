@@ -1077,6 +1077,17 @@ Count Content options : category , player_exclude
 -(PBRequestUnit *)actionDisLikeContentAsync:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBResultStatus_ResponseBlock)block, ...;
 -(PBRequestUnit *)actionDisLikeContentAsync_:(NSString *)content_id player_id:(NSString *)player_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
 
+/**
+ Give Feedback
+ */
+-(PBRequestUnit *)giveFeedbackContent:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)giveFeedbackContent:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)giveFeedbackContentAsync:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...;
+-(PBRequestUnit *)giveFeedbackContentAsync:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBResultStatus_ResponseBlock)block, ...;
+-(PBRequestUnit *)giveFeedbackContentAsync_:(NSString *)content_id player_id:(NSString *)player_id feedback:(NSString *)feedback andBlock:(PBAsyncURLRequestResponseBlock)block, ...;
+
+
+/**
  GetContent Category
  */
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate;
