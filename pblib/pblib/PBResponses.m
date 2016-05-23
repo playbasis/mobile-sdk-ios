@@ -5784,7 +5784,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %@\r\tdescription : %@\r\tdescription_image : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.descriptionImage, self.quizId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %d\r\tdescription : %@\r\tdescription_image : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.descriptionImage, self.quizId];
     
     return descriptionString;
 }

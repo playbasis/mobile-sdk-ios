@@ -821,12 +821,14 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					libs,
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -853,6 +855,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -875,6 +878,7 @@
 				1EC065F01C7D04630066A29D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1EC5B9051A8F3AAD0007C8A8 /* Build configuration list for PBXNativeTarget "pblibResource" */ = {
 			isa = XCConfigurationList;
