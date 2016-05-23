@@ -4056,26 +4056,36 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_activeQuizList andResponse:response];
 }
 
--(PBRequestUnit *)quizListOfPlayer:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
+-(PBRequestUnit *)quizListOfPlayer:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
 {
-    return [self quizListOfPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self quizListOfPlayerInternalBase:playerId type:type tags:tags blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)quizListOfPlayer:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block
+-(PBRequestUnit *)quizListOfPlayer:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags withBlock:(PBActiveQuizList_ResponseBlock)block
 {
-    return [self quizListOfPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+    return [self quizListOfPlayerInternalBase:playerId type:type tags:tags blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)quizListOfPlayerAsync:(NSString *)playerId withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
+-(PBRequestUnit *)quizListOfPlayerAsync:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags withDelegate:(id<PBActiveQuizList_ResponseHandler>)delegate
 {
-    return [self quizListOfPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+    return [self quizListOfPlayerInternalBase:playerId type:type tags:tags blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
 }
--(PBRequestUnit *)quizListOfPlayerAsync:(NSString *)playerId withBlock:(PBActiveQuizList_ResponseBlock)block
+-(PBRequestUnit *)quizListOfPlayerAsync:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags withBlock:(PBActiveQuizList_ResponseBlock)block
 {
-    return [self quizListOfPlayerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+    return [self quizListOfPlayerInternalBase:playerId type:type tags:tags blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
 }
--(PBRequestUnit *)quizListOfPlayerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+-(PBRequestUnit *)quizListOfPlayerInternalBase:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/list%@&player_id=%@", _apiKeyParam, playerId];
+    NSString *method = [NSString stringWithFormat:@"Quiz/list?player_id=%@", playerId];
     
+    if(![type isEqualToString:@""])
+    {
+        method = [method stringByAppendingString:[NSString stringWithFormat:@"&type=%@",type]];
+    }
+    if(![tags isEqualToString:@""])
+    {
+        method = [method stringByAppendingString:[NSString stringWithFormat:@"&tags=%@",tags]];
+    }
+    
+    method = [method stringByAppendingString:[NSString stringWithFormat:@"&api_key=%@",_apiKeyParam]];
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_activeQuizList andResponse:response];
 }
 
