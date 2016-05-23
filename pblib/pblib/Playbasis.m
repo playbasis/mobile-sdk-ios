@@ -3046,6 +3046,206 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
+//// Create Content
+//
+// @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
+// 							Each element is a string in the format of key=value, for example: category=news
+// 							The following keys are supported:
+// 							- image
+// 							- status
+// 							- date_start    format YYYY-MM-DD (ex.1982-09-29)
+//							- date_end      format YYYY-MM-DD (ex.1982-09-29)
+// 							- player_id
+// 							- pin
+// 							- tags          Specific tag(s) to add (e.g. foo,bar)
+// 							- key           custom field keys separated by comma
+//                          - value         custom field values separated by comma
+
+-(PBRequestUnit *)createContentWithTitle:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitle:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleAsync:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleAsync:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleAsync_:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail andBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self createContentWithTitleInternalBase:title summary:summary detail:detail blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)createContentWithTitleInternalBase:(NSString *)title summary:(NSString *)summary detail:(NSString *)detail blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/addContent%@", _apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@&title=%@&summary=%@&detail=%@", _token, title, summary, detail];
+    
+    // create data final that will be used at the end of the process
+    NSString *dataFinal = nil;
+    
+    if(params != nil)
+    {
+        id optionalData;
+        while ((optionalData = va_arg(params, NSString *)))
+        {
+            [data appendFormat:@"&%@", optionalData];
+        }
+    }
+    
+    if(syncUrl)
+    {
+        // create a data final
+        dataFinal = [NSString stringWithString:data];
+    }
+    else
+    {
+        // form async url request data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
+}
+//// Update Content
+//
+// @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
+// 							Each element is a string in the format of key=value, for example: title = sample title
+// 							The following keys are supported:
+//                          - summary
+//                          - detail
+//                          - category
+// 							- image
+// 							- status
+// 							- date_start    format YYYY-MM-DD (ex.1982-09-29)
+//							- date_end      format YYYY-MM-DD (ex.1982-09-29)
+// 							- player_id
+// 							- pin
+// 							- tags          Specific tag(s) to add (e.g. foo,bar)
+// 							- key           custom field keys separated by comma
+//                          - value         custom field values separated by comma
+
+-(PBRequestUnit *)updateContent:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self updateContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContent:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self updateContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentAsync:(NSString *)content_id andDelegate:(id<PBResultStatus_ResponseHandler>)delegate, ...
+{
+    va_list argumentList;
+    va_start(argumentList, delegate);
+    return [self updateContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentAsync:(NSString *)content_id andBlock:(PBResultStatus_ResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self updateContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentAsync_:(NSString *)content_id andBlock:(PBAsyncURLRequestResponseBlock)block, ...
+{
+    va_list argumentList;
+    va_start(argumentList, block);
+    return [self updateContentInternalBase:content_id blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block withParams:argumentList];
+    va_end(argumentList);
+}
+-(PBRequestUnit *)updateContentInternalBase:(NSString *)content_id blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response withParams:(va_list)params
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/%@/update%@", content_id,_apiKeyParam];
+    NSMutableString *data = [NSMutableString stringWithFormat:@"token=%@", _token];
+    
+    // create data final that will be used at the end of the process
+    NSString *dataFinal = nil;
+    
+    if(params != nil)
+    {
+        id optionalData;
+        while ((optionalData = va_arg(params, NSString *)))
+        {
+            [data appendFormat:@"&%@", optionalData];
+        }
+    }
+    
+    if(syncUrl)
+    {
+        // create a data final
+        dataFinal = [NSString stringWithString:data];
+    }
+    else
+    {
+        // form async url request data
+        dataFinal = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:dataFinal responseType:responseType_registerUser andResponse:response];
+}
+// Delete Content
+-(PBRequestUnit *)deleteContent:(NSString *)content_id withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self deleteContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)deleteContent:(NSString *)content_id withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self deleteContentInternalBase:content_id blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentAsync:(NSString *)content_id withDelegate:(id<PBResultStatus_ResponseHandler>)delegate
+{
+    return [self deleteContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)deleteContentAsync:(NSString *)content_id withBlock:(PBResultStatus_ResponseBlock)block
+{
+    return [self deleteContentInternalBase:content_id blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentAsync_:(NSString *)content_id withBlock:(PBAsyncURLRequestResponseBlock)block
+{
+    return [self deleteContentInternalBase:content_id blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentInternalBase:(NSString *)content_id blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/%@/delete%@", content_id, _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deleteUser andResponse:response];
+}
+
 //// Get Content Category
 -(PBRequestUnit *)getContentCategory:(NSMutableDictionary *)options withDelegate:(id<PBResponseHandler>)delegate
 {
