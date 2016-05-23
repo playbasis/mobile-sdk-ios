@@ -3046,6 +3046,49 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
+//// Count Content
+-(PBRequestUnit *)countContent:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate
+{
+    return [self countContentInternalBase:options blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)countContent:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block
+{
+    return [self countContentInternalBase:options blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)countContentAsync:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate
+{
+    return [self countContentInternalBase:options blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)countContentAsync:(NSMutableDictionary *)options  withBlock:(PBContent_ResponseBlock)block
+{
+    return [self countContentInternalBase:options blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)countContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block
+{
+    return [self countContentInternalBase:options blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)countContentInternalBase:(NSMutableDictionary *)options blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    //getList organizations/StoreOrg/organizes
+    NSString *method = [NSString stringWithFormat:@"Content/count%@", _apiKeyParam];
+    
+    NSString *category = [options objectForKey:@"category"];
+    NSString *player_exclude = [options objectForKey:@"player_exclude"];
+    
+    method = category == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&category=%@",category]];
+    method = player_exclude == nil ? method : [method stringByAppendingString:[NSString stringWithFormat:@"&player_exclude=%@",player_exclude]];
+    
+    NSString *data = nil;
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_content andResponse:response];
+    
+    
+}
 //// Create Content
 //
 // @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.

@@ -1015,13 +1015,22 @@ Get Child
 -(PBRequestUnit *)childNodeListAsync_:(NSString *)node_id layer:(NSString *)layer withBlock:(PBNodeOrganize_ResponseBlock)block;
 
 /**
- GetContent
+ Get Content
  */
 -(PBRequestUnit *)getContent:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
 -(PBRequestUnit *)getContent:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 -(PBRequestUnit *)getContentAsync:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
 -(PBRequestUnit *)getContentAsync:(NSMutableDictionary *)options  withBlock:(PBContent_ResponseBlock)block;
 -(PBRequestUnit *)getContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
+
+/**
+Count Content options : category , player_exclude
+ */
+-(PBRequestUnit *)countContent:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
+-(PBRequestUnit *)countContent:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
+-(PBRequestUnit *)countContentAsync:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
+-(PBRequestUnit *)countContentAsync:(NSMutableDictionary *)options  withBlock:(PBContent_ResponseBlock)block;
+-(PBRequestUnit *)countContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 
 /**
  Create Content
