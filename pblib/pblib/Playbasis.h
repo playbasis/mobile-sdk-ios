@@ -287,11 +287,11 @@
 /**
  Tell Playbasis system that player has logged out.
  */
--(PBRequestUnit *)logoutPlayer:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)logoutPlayer:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)logoutPlayerAsync:(NSString *)playerId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)logoutPlayerAsync:(NSString *)playerId withBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)logoutPlayerAsync_:(NSString *)playerId withBlock:(PBAsyncURLRequestResponseBlock)block;
+-(PBRequestUnit *)logoutPlayer:(NSString *)playerId sessionId:(NSString *)sessionId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)logoutPlayer:(NSString *)playerId sessionId:(NSString *)sessionId withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequestUnit *)logoutPlayerAsync:(NSString *)playerId sessionId:(NSString *)sessionId withDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+-(PBRequestUnit *)logoutPlayerAsync:(NSString *)playerId sessionId:(NSString *)sessionId withBlock:(PBResultStatus_ResponseBlock)block;
+-(PBRequestUnit *)logoutPlayerAsync_:(NSString *)playerId sessionId:(NSString *)sessionId withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
  Returns information about all point-based rewards that a player currently have.
@@ -573,10 +573,10 @@
 -(PBRequestUnit *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
 -(PBRequestUnit *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block;*/
 
--(PBRequestUnit *)goodsList:(NSString *)playerId withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
--(PBRequestUnit *)goodsList:(NSString *)playerId withBlock:(PBGoodsListInfo_ResponseBlock)block;
--(PBRequestUnit *)goodsListAsync:(NSString *)playerId withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
--(PBRequestUnit *)goodsListAsync:(NSString *)playerId withBlock:(PBGoodsListInfo_ResponseBlock)block;
+-(PBRequestUnit *)goodsList:(NSString *)playerId tags:(NSString *)tags withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+-(PBRequestUnit *)goodsList:(NSString *)playerId tags:(NSString *)tags withBlock:(PBGoodsListInfo_ResponseBlock)block;
+-(PBRequestUnit *)goodsListAsync:(NSString *)playerId tags:(NSString *)tags withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+-(PBRequestUnit *)goodsListAsync:(NSString *)playerId tags:(NSString *)tags withBlock:(PBGoodsListInfo_ResponseBlock)block;
 
 
 /**
@@ -1110,11 +1110,11 @@ Forgot Password
 /**
  Request OTP
  */
--(PBRequestUnit *)requestOTP:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)requestOTP:(NSString *)player_id withBlock:(PBResponseBlock)block;
--(PBRequestUnit *)requestOTPAsync:(NSString *)player_id withDelegate:(id<PBResponseHandler>)delegate;
--(PBRequestUnit *)requestOTPAsync:(NSString *)player_id withBlock:(PBResponseBlock)block;
--(PBRequestUnit *)requestOTPAsync_:(NSString *)player_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)requestOTP:(NSString *)player_id deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type  withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)requestOTP:(NSString *)player_id deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)requestOTPAsync:(NSString *)player_id deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)requestOTPAsync:(NSString *)player_id deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)requestOTPAsync_:(NSString *)player_id deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type withBlock:(PBResponseBlock)block;
 
 /**
  Prefer OTP
@@ -1152,6 +1152,38 @@ Send Email
 -(void)trackPlayer:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view withBlock:(PBAsyncURLRequestResponseBlock)block;
 
 /**
+ List Active Player Sessions
+ */
+-(PBRequestUnit *)listActiveSessionForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)listActiveSessionForPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)listActiveSessionForPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)listActiveSessionForPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+/**
+ Find a Player by Session
+ */
+-(PBRequestUnit *)findPlayerBySession:(NSString *)sessionId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)findPlayerBySession:(NSString *)sessionId withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)findPlayerBySessionAsync:(NSString *)sessionId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)findPlayerBySessionAsync:(NSString *)sessionId withBlock:(PBResponseBlock)block;
+
+/**
+ Setup Phone // IOS => os_type:IOS // Android => os_type:ANDROID
+ */
+-(PBRequestUnit *)setupPhoneForPlayer:(NSString *)playerId phoneNumber:(NSString *)phoneNumber deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)setupPhoneForPlayer:(NSString *)playerId phoneNumber:(NSString *)phoneNumber deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type  withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)setupPhoneForPlayerAsync:(NSString *)playerId phoneNumber:(NSString *)phoneNumber deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type  withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)setupPhoneForPlayerAsync:(NSString *)playerId phoneNumber:(NSString *)phoneNumber deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type  withBlock:(PBResponseBlock)block;
+/**
+RequestOTPCode
+*/
+-(PBRequestUnit *)requestOTPCodeForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)requestOTPCodeForPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)requestOTPCodeForPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)requestOTPCodeForPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
+
+ 
+ 
+ /**
  Do player for a given action.
  This is similar to track but will get payload back in response.
  */
