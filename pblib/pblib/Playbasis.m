@@ -3378,6 +3378,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
 }
 
+//// Update Content Category
+-(PBRequestUnit *)updateContentCategory:(NSString *)category_id name:(NSString *)name withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self updateCategoryInternalBase:category_id name:name blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)updateContentCategory:(NSString *)category_id name:(NSString *)name withBlock:(PBResponseBlock)block
+{
+    return [self updateCategoryInternalBase:category_id name:name blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)updateContentCategoryAsync:(NSString *)category_id name:(NSString *)name withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self updateCategoryInternalBase:category_id name:name blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)updateContentCategoryAsync:(NSString *)category_id name:(NSString *)name  withBlock:(PBResponseBlock)block
+{
+    return [self updateCategoryInternalBase:category_id name:name blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)updateContentCategoryInternalBase:(NSString *)category_id name:(NSString *)name  withBlock:(PBResponseBlock)block
+{
+    return [self updateCategoryInternalBase:category_id name:name blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)updateCategoryInternalBase:(NSString *)category_id name:(NSString *)name blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/category/update%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&id=%@&name=%@", _token,category_id,name];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deleteUser andResponse:response];
+    
+    
+}
 //// Action Like Content
 //
 // @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
