@@ -3414,6 +3414,42 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
+//// Delete Content Category
+-(PBRequestUnit *)deleteContentCategory:(NSString *)category_id withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self deleteCategoryInternalBase:category_id blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)deleteContentCategory:(NSString *)category_id withBlock:(PBResponseBlock)block
+{
+    return [self deleteCategoryInternalBase:category_id blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentCategoryAsync:(NSString *)category_id withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self deleteCategoryInternalBase:category_id blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)deleteContentCategoryAsync:(NSString *)category_id  withBlock:(PBResponseBlock)block
+{
+    return [self deleteCategoryInternalBase:category_id blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteContentCategoryInternalBase:(NSString *)category_id withBlock:(PBResponseBlock)block
+{
+    return [self deleteCategoryInternalBase:category_id blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)deleteCategoryInternalBase:(NSString *)category_id blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/category/delete%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&id=%@", _token,category_id];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deleteUser andResponse:response];
+    
+    
+}
 //// Action Like Content
 //
 // @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.

@@ -1116,6 +1116,17 @@ Count Content options : category , player_exclude
 -(PBRequestUnit *)updateContentCategoryAsync:(NSString *)category_id name:(NSString *)name withBlock:(PBResponseBlock)block;
 -(PBRequestUnit *)updateContentCategoryAsync_:(NSString *)category_id name:(NSString *)name withBlock:(PBResponseBlock)block;
 
+/**
+ DeleteContent Category
+ */
+-(PBRequestUnit *)deleteContentCategory:(NSString *)category_id withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)deleteContentCategory:(NSString *)category_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)deleteContentCategoryAsync:(NSString *)category_id withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)deleteContentCategoryAsync:(NSString *)category_id withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)deleteContentCategoryAsync_:(NSString *)category_id withBlock:(PBResponseBlock)block;
+
+
+/**
  Get Associated Node
  */
 -(PBRequestUnit *)getAssociatedNode:(NSString *)playerId withDelegate:(id<PBAssociatedNode_ResponseHandler>)delegate;
