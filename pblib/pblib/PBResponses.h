@@ -1555,7 +1555,7 @@ typedef enum
 
 @property (strong, nonatomic, readonly) NSString *name;
 @property (strong, nonatomic, readonly) NSString *image;
-@property (strong, nonatomic, readonly) NSString *weight;
+@property (nonatomic, readonly) int weight;
 @property (strong, nonatomic, readonly) NSString *description_;
 @property (strong, nonatomic, readonly) NSString *descriptionImage;
 @property (strong, nonatomic, readonly) NSString *quizId;
