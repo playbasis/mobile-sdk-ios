@@ -1096,6 +1096,17 @@ Count Content options : category , player_exclude
 -(PBRequestUnit *)getContentCategoryAsync:(NSMutableDictionary *)options  withBlock:(PBResponseBlock)block;
 -(PBRequestUnit *)getContentCategoryAsync_:(NSMutableDictionary *)options withBlock:(PBResponseBlock)block;
 
+
+
+/**
+ CreateContent Category
+ */
+-(PBRequestUnit *)createContentCategory:(NSString *)name withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)createContentCategory:(NSString *)name withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)createContentCategoryAsync:(NSString *)name withDelegate:(id<PBResponseHandler>)delegate;
+-(PBRequestUnit *)createContentCategoryAsync:(NSString *)name withBlock:(PBResponseBlock)block;
+-(PBRequestUnit *)createContentCategoryAsync_:(NSString *)name withBlock:(PBResponseBlock)block;
+
 /**
  Get Associated Node
  */

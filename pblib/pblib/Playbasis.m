@@ -3341,6 +3341,43 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     
 }
+//// Create Content Category
+-(PBRequestUnit *)createContentCategory:(NSString *)name withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self createCategoryInternalBase:name blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)createContentCategory:(NSString *)name withBlock:(PBResponseBlock)block
+{
+    return [self createCategoryInternalBase:name blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)createContentCategoryAsync:(NSString *)name withDelegate:(id<PBResponseHandler>)delegate
+{
+    return [self createCategoryInternalBase:name blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
+}
+-(PBRequestUnit *)createContentCategoryAsync:(NSString *)name  withBlock:(PBResponseBlock)block
+{
+    return [self createCategoryInternalBase:name blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)createContentCategoryInternalBase:(NSString *)name withBlock:(PBResponseBlock)block
+{
+    return [self createCategoryInternalBase:name blockingCall:NO syncUrl:NO useDelegate:NO withResponse:block];
+}
+-(PBRequestUnit *)createCategoryInternalBase:(NSString *)name blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
+{
+    NSAssert(_token, @"access token is nil");
+    NSString *method = [NSString stringWithFormat:@"Content/category/create%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"token=%@&name=%@", _token,name];
+    
+    if(!syncUrl)
+    {
+        data = [self formAsyncUrlRequestJsonDataStringFromData:data method:method];
+    }
+    
+    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_deleteUser andResponse:response];
+    
+    
+}
+
 //// Action Like Content
 //
 // @param	...[vararg]     Varargs of String for additional parameters to be sent to the create method.
