@@ -76,6 +76,13 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		questionAnswered* data = (questionAnswered*)outData;
 		[Populator populateQuestionAnswered:data from:cr.result];
 	}
+	else if (type == responseType_rule)
+	{
+		PBRule_Response* cr = (PBRule_Response*)response;
+
+		rule* data = (rule*)outData;
+		[Populator populateRule:data from:cr];
+	}
 }
 
 /*
@@ -449,4 +456,27 @@ void _quizAnswer(const char* quizId, const char* optionId, const char* playerId,
 			}
 		}
 	}];
+}
+
+void _rule(const char* playerId, const char* action, OnDataResult callback)
+{
+	[[Playbasis sharedPB] ruleForPlayerAsync:CreateNSString(playerId) action:CreateNSString(action) withBlock:^(PBRule_Response * response, NSURL *url, NSError *error) {
+		if (error == nil)
+		{
+			rule data;
+			PopulateData(responseType_rule, response, &data);
+
+			if (callback)
+			{
+				callback((void*)&data, -1);
+			}
+		}
+		else
+		{
+			if (callback)
+			{
+				callback(nil, (int)error.code);
+			}
+		}
+	}, nil];
 }

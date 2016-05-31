@@ -454,4 +454,104 @@
     outData->totalMaxScore = outData->totalMaxScore;
 }
 
++ (void) populateRuleEvent:(ruleEvent*)outData from:(PBRuleEvent*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.eventType, outData->eventType)
+    COPYSTRING(pbData.rewardType, outData->rewardType)
+    COPYSTRING(pbData.value, outData->value)
+    outData->rewardData = (__bridge void*)pbData.rewardData;
+    outData->index = [pbData.index intValue];
+}
+
++ (void) populateRuleEventArray:(_array<ruleEvent>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    ruleEvent *items = new ruleEvent[[pbArray count]];
+    int i=0;
+
+    for (PBRuleEvent* c in pbArray)
+    {
+        // populateRuleEvent
+        [Populator populateRuleEvent:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateRuleEventMission:(ruleEventMission*)outData from:(PBRuleEventsMission*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    [Populator populateRuleEventArray:&outData->eventArray from:pbData.events.list];
+    COPYSTRING(pbData.missionId, outData->missionId)
+    COPYSTRING(pbData.missionNumber, outData->missionNumber)
+    COPYSTRING(pbData.missionName, outData->missionName)
+    COPYSTRING(pbData.description_, outData->description_)
+    COPYSTRING(pbData.hint, outData->hint)
+    COPYSTRING(pbData.image, outData->image)
+    COPYSTRING(pbData.questId, outData->questId)
+}
+
++ (void) populateRuleEventMissionArray:(_array<ruleEventMission>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    ruleEventMission *items = new ruleEventMission[[pbArray count]];
+    int i=0;
+
+    for (PBRuleEventsMission* c in pbArray)
+    {
+        // populateRuleEventMission
+        [Populator populateRuleEventMission:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateRuleEventQuest:(ruleEventQuest*)outData from:(PBRuleEventsQuest*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    [Populator populateRuleEventArray:&outData->eventArray from:pbData.events.list];
+    COPYSTRING(pbData.questId, outData->questId)
+    COPYSTRING(pbData.questName, outData->questName)
+    COPYSTRING(pbData.description_, outData->description_)
+    COPYSTRING(pbData.hint, outData->hint)
+    COPYSTRING(pbData.image, outData->image)
+}
+
++ (void) populateRuleEventQuestArray:(_array<ruleEventQuest>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    ruleEventQuest *items = new ruleEventQuest[[pbArray count]];
+    int i=0;
+
+    for (PBRuleEventsQuest* c in pbArray)
+    {
+        // populateRuleEventQuest
+        [Populator populateRuleEventQuest:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateRule:(rule*)outData from:(PBRule_Response*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    [Populator populateRuleEventArray:&outData->ruleEventArray from:pbData.events.list];
+    [Populator populateRuleEventMissionArray:&outData->ruleEventMissionArray from:pbData.missions.list];
+    [Populator populateRuleEventQuestArray:&outData->ruleEventQuestArray from:pbData.quests.list];
+}
+
 @end

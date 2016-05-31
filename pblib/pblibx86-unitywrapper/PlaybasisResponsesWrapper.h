@@ -316,6 +316,40 @@ typedef struct _questionAnswered {
 	_array<gradeDoneReward> gradeDoneRewardArray;
 } questionAnswered;
 
+typedef struct _ruleEvent {
+	char* eventType;
+	char* rewardType;
+	char* value;
+	void* rewardData;
+	int index;
+} ruleEvent;
+
+typedef struct _ruleEventMission {
+	_array<ruleEvent> eventArray;
+	char* missionId;
+	char* missionNumber;
+	char* missionName;
+	char* description_;
+	char* hint;
+	char* image;
+	char* questId;
+} ruleEventMission;
+
+typedef struct _ruleEventQuest {
+	_array<ruleEvent> eventArray;
+	char* questId;
+	char* questName;
+	char* description_;
+	char* hint;
+	char* image;
+} ruleEventQuest;
+
+typedef struct _rule {
+	_array<ruleEvent> ruleEventArray;
+	_array<ruleEventMission> ruleEventMissionArray;
+	_array<ruleEventQuest> ruleEventQuestArray;  
+} rule;
+
 #ifdef __cplusplus
 }
 #endif

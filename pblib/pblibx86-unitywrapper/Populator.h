@@ -32,5 +32,11 @@
 + (void) populateQuestionAnsweredOption:(questionAnsweredOption*)outData from:(PBQuestionAnsweredOption*)pbData;
 + (void) populateQuestionAnsweredOptionArray:(_array<questionAnsweredOption>*)outData from:(NSArray*)pbArray;
 + (void) populateQuestionAnsweredGradeDone:(questionAnsweredGradeDone*)outData from:(PBQuestionAnsweredGradeDone*)pbData;
-
++ (void) populateRuleEvent:(ruleEvent*)outData from:(PBRuleEvent*)pbData;
++ (void) populateRuleEventArray:(_array<ruleEvent>*)outData from:(NSArray*)pbArray;
++ (void) populateRuleEventMission:(ruleEventMission*)outData from:(PBRuleEventsMission*)pbData;
++ (void) populateRuleEventMissionArray:(_array<ruleEventMission>*)outData from:(NSArray*)pbArray;
++ (void) populateRuleEventQuest:(ruleEventQuest*)outData from:(PBRuleEventsQuest*)pbData;
++ (void) populateRuleEventQuestArray:(_array<ruleEventQuest>*)outData from:(NSArray*)pbArray;
++ (void) populateRule:(rule*)outData from:(PBRule_Response*)pbData;
 @end
