@@ -34,6 +34,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>pblibx86-unitywrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>pblibx86.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +48,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>1E3D721C1CFDA3A60054B73A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E3D72361CFDB6F70054B73A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
