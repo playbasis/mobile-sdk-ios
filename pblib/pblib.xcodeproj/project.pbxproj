@@ -26,6 +26,19 @@
 		1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
 		1E0DE7FE1AA85081002CEB3E /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
 		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
+		1E3D72231CFDA47E0054B73A /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
+		1E3D72241CFDA47E0054B73A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
+		1E3D72251CFDA47E0054B73A /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
+		1E3D72261CFDA47E0054B73A /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
+		1E3D72291CFDA47E0054B73A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1E3D722A1CFDA47E0054B73A /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
+		1E3D722B1CFDA47E0054B73A /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
+		1E3D722C1CFDA47E0054B73A /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
+		1E3D722D1CFDA47E0054B73A /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
+		1E3D722E1CFDA47E0054B73A /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
+		1E3D72301CFDA4900054B73A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3D722F1CFDA4900054B73A /* Security.framework */; };
+		1E3D72311CFDA9A90054B73A /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
+		1E3D72321CFDACDC0054B73A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1E52DDE41AAFF93B0035C9F0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E52DDE51AAFF94D0035C9F0 /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E52DDE61AAFFA400035C9F0 /* PBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FC1AA85081002CEB3E /* PBCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,6 +126,9 @@
 		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1E3D721D1CFDA3A60054B73A /* pblibx86.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pblibx86.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E3D721F1CFDA3A60054B73A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E3D722F1CFDA4900054B73A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
 		1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
 		1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
@@ -161,6 +177,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1E3D721A1CFDA3A60054B73A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E3D72301CFDA4900054B73A /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EC065E41C7D04630066A29D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,6 +214,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E3D721E1CFDA3A60054B73A /* pblibx86 */ = {
+			isa = PBXGroup;
+			children = (
+				1E3D721F1CFDA3A60054B73A /* Info.plist */,
+			);
+			path = pblibx86;
+			sourceTree = "<group>";
+		};
 		1E80C7D41A9C291A00C6C291 /* RNCryptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +322,7 @@
 				2C1C74FA17461E1B005F3B57 /* pblib */,
 				1EC5B9021A8F3AAD0007C8A8 /* pblibResource */,
 				1EC065E81C7D04630066A29D /* pblibTest */,
+				1E3D721E1CFDA3A60054B73A /* pblibx86 */,
 				2C1C74F717461E1B005F3B57 /* Frameworks */,
 				2C1C74F617461E1B005F3B57 /* Products */,
 			);
@@ -301,6 +334,7 @@
 				2C1C74F517461E1B005F3B57 /* pblib.a */,
 				1EC5B9011A8F3AAD0007C8A8 /* pblibResource.bundle */,
 				1EC065E71C7D04630066A29D /* pblibTest.xctest */,
+				1E3D721D1CFDA3A60054B73A /* pblibx86.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,6 +342,7 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E3D722F1CFDA4900054B73A /* Security.framework */,
 				1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */,
 				1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */,
 				1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */,
@@ -390,6 +425,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1E3D721C1CFDA3A60054B73A /* pblibx86 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E3D72221CFDA3A60054B73A /* Build configuration list for PBXNativeTarget "pblibx86" */;
+			buildPhases = (
+				1E3D72191CFDA3A60054B73A /* Sources */,
+				1E3D721A1CFDA3A60054B73A /* Frameworks */,
+				1E3D721B1CFDA3A60054B73A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pblibx86;
+			productName = pblibx86;
+			productReference = 1E3D721D1CFDA3A60054B73A /* pblibx86.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		1EC065E61C7D04630066A29D /* pblibTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1EC065F11C7D04630066A29D /* Build configuration list for PBXNativeTarget "pblibTest" */;
@@ -454,6 +506,9 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
+					1E3D721C1CFDA3A60054B73A = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					1E52DDFC1AAFFD970035C9F0 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -481,11 +536,19 @@
 				1EC5B9001A8F3AAD0007C8A8 /* pblibResource */,
 				1E52DDFC1AAFFD970035C9F0 /* framework */,
 				1EC065E61C7D04630066A29D /* pblibTest */,
+				1E3D721C1CFDA3A60054B73A /* pblibx86 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1E3D721B1CFDA3A60054B73A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EC065E51C7D04630066A29D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -548,6 +611,25 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1E3D72191CFDA3A60054B73A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E3D72321CFDACDC0054B73A /* Reachability.m in Sources */,
+				1E3D72231CFDA47E0054B73A /* RNCryptor.m in Sources */,
+				1E3D72241CFDA47E0054B73A /* RNCryptorEngine.m in Sources */,
+				1E3D72251CFDA47E0054B73A /* RNDecryptor.m in Sources */,
+				1E3D72261CFDA47E0054B73A /* RNEncryptor.m in Sources */,
+				1E3D72291CFDA47E0054B73A /* JSONKit.m in Sources */,
+				1E3D722A1CFDA47E0054B73A /* Playbasis.m in Sources */,
+				1E3D722B1CFDA47E0054B73A /* PBRequestUnit.m in Sources */,
+				1E3D72311CFDA9A90054B73A /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
+				1E3D722C1CFDA47E0054B73A /* PBResponses.m in Sources */,
+				1E3D722D1CFDA47E0054B73A /* PBUtils.m in Sources */,
+				1E3D722E1CFDA47E0054B73A /* PBCommon.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EC065E31C7D04630066A29D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -612,6 +694,83 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1E3D72201CFDA3A60054B73A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"QAV2=0",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = pblibx86/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibx86;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 x86";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1E3D72211CFDA3A60054B73A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "QAV2=0";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = pblibx86/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibx86;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "i386 x86_64 x86";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		1E52DDFE1AAFFD970035C9F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -821,7 +980,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					libs,
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
@@ -862,6 +1021,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1E3D72221CFDA3A60054B73A /* Build configuration list for PBXNativeTarget "pblibx86" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E3D72201CFDA3A60054B73A /* Debug */,
+				1E3D72211CFDA3A60054B73A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1E52DDFD1AAFFD970035C9F0 /* Build configuration list for PBXAggregateTarget "framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

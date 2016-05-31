@@ -67,7 +67,11 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
 #if kShouldPrintReachabilityFlags
 
     NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
+          #if TARGET_OS_IOS
           (flags & kSCNetworkReachabilityFlagsIsWWAN)				? 'W' : '-',
+          #elif TARGET_OS_MAC
+          (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'W' : '-',
+          #endif
           (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
 
           (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
@@ -260,7 +264,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
     }
 
+    #if TARGET_OS_IOS
 	if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
+    #elif TARGET_OS_MAC
+    if ((flags & kSCNetworkReachabilityFlagsIsDirect) == kSCNetworkReachabilityFlagsIsDirect)
+    #endif
 	{
 		/*
          ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.

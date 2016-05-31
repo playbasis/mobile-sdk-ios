@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import <CoreMotion/CoreMotion.h>
-#import "Reachability.h"
 #import "JSONKit.h"
 #import "PBTypes.h"
 #import "PBRequestUnit.h"
@@ -20,11 +17,13 @@
 #import "PBConstants.h"
 #import "PBUtils.h"
 #import "PBMacros.h"
+#import "Reachability.h"
 
-/**
- Inclusion for all UIs.
- */
+#if TARGET_OS_IOS
+#import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
 #import "PBUI.h"
+#endif
 
 /**
  Playbasis
@@ -36,12 +35,19 @@
     id<PBAuth_ResponseHandler> _authDelegate;
     NSMutableArray *_requestOptQueue;
     CLLocationManager *_locationManager;
+    
+    #if TARGET_OS_IOS
     CMMotionManager *_coreMotionManager;
+    #endif
 }
 
 @property (nonatomic, strong, readonly) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
+
+
+#if TARGET_OS_IOS
 @property (nonatomic, strong, readonly) CMMotionManager *coreMotionManager;
+#endif
 
 /**
  Get / Set whether SDK should receive location.
@@ -964,6 +970,7 @@
  */
 -(PBRequestUnit *)registerForPushNotification:(id<PBResponseHandler>)delegate;
 
+#if TARGET_OS_IOS
 /**
  Track player with an action.
  */
@@ -997,5 +1004,6 @@
 -(void)showTextHUDFromView:(UIView *)view withText:(NSString *)text forDuration:(NSTimeInterval)duration;
 -(void)hideHUDFromView:(UIView *)view;
 -(void)hideAllHUDFromView:(UIView *)view;
+#endif
 
 @end
