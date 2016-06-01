@@ -91,7 +91,8 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             });
             
             // login
-            [[Playbasis sharedPB] loginPlayer:USER withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+        
+            [[Playbasis sharedPB] loginPlayer:USER options:nil withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
                 if(!error)
                 {
                     NSLog(@"%@ logged in successfully. [result : %@]", USER, result);
@@ -123,6 +124,8 @@ static const NSTimeInterval kWaitingTime = 0.15f;
     NSLog(@"About to begin auth() the app");
     
     // authenticate the app
+    // TODO: Insert your apikey, and secret here ...
+    //[[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"Demo App" andDelegate:self];
     [[Playbasis sharedPB] authWithDelegate:self];
 }
 

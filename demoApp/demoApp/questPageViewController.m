@@ -70,7 +70,7 @@
                     [self prepareAllRewardsLinesForAllQuestsFrom:_questListAvailable.list.questBasics];
                     
                     // load quest that player has joined to get its status
-                    [[Playbasis sharedPB] questListOfPlayer:USER withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
+                    [[Playbasis sharedPB] questListOfPlayer:USER filter:@"" withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
                         if(!error)
                         {
                             // save the result

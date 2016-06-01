@@ -580,7 +580,7 @@
         {
             if(_responseDelegate)
             {
-                if([_responseDelegate respondsToSelector:@selector(processResponseWithPlayerBadge:withURL:error:)])
+                if([_responseDelegate respondsToSelector:@selector(processResponseWithPlayerBadges:withURL:error:)])
                 {
                     id<PBPlayerBadges_ResponseHandler> sd = (id<PBPlayerBadges_ResponseHandler>)_responseDelegate;
                     

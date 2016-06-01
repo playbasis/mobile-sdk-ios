@@ -7,6 +7,7 @@
 //
 
 #import "globalCaching.h"
+#import "demoAppSettings.h"
 
 @implementation globalCaching
 
@@ -102,7 +103,7 @@
         }];
         
         // load quest that player has joined to get its status
-        [[Playbasis sharedPB] questListOfPlayer:user withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] questListOfPlayer:user filter:@"" withBlock:^(PBQuestListOfPlayer_Response *questList, NSURL *url, NSError *error) {
             if(!error)
             {
                 // save the result
@@ -131,7 +132,7 @@
     // do caching for reward store
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // load goods-list in non-blocking way
-        [[Playbasis sharedPB] goodsListWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] goodsList:USER tags:@"" withBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
             if(!error)
             {
                 NSLog(@"%@", goodsListInfo);

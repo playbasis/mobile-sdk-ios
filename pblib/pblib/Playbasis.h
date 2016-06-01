@@ -165,6 +165,11 @@
 -(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block;
 
+-(PBRequestUnit *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)authWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+
 /**
  Authenticate and get access token.
  */
@@ -180,6 +185,14 @@
 -(PBRequestUnit *)renewWithBlock:(PBAuth_ResponseBlock)block;
 -(PBRequestUnit *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block;
+
+/**
+ This set of api calls allow input of bundle.
+ */
+-(PBRequestUnit *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)renewWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
+-(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
 
 /**
  Request a new access token, and discard the current one.
@@ -447,21 +460,23 @@
 /**
  Claim a badge that player has earned.
  */
+/*
 -(PBRequestUnit *)claimBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
 -(PBRequestUnit *)claimBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
 -(PBRequestUnit *)claimBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
 -(PBRequestUnit *)claimBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
 -(PBRequestUnit *)claimBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBAsyncURLRequestResponseBlock)block;
-
+*/
 /**
  Redeem a badge that player has claimed.
  */
+/*
 -(PBRequestUnit *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
 -(PBRequestUnit *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
 -(PBRequestUnit *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
 -(PBRequestUnit *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
 -(PBRequestUnit *)redeemBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBAsyncURLRequestResponseBlock)block;
-
+*/
 /**
  Return information about all goods that player has redeemed.
  */

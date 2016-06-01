@@ -2350,8 +2350,14 @@ static NSString * const BASE_URL = @"https://pbapp.net";
         NSAssert(response != nil, @"response must not be nil");
         
         // get 'player'
-        NSDictionary *player = [response objectForKey:@"player"];
+        id player = [response objectForKey:@"player"];
         NSAssert(player != nil, @"goods must not be nil");
+        
+        // if player has no underlying properties, then it will be treated as NSArray, thus convert it into NSDictionary for processing
+        if ([player isKindOfClass:[NSArray class]])
+        {
+            player = [NSDictionary dictionary];
+        }
         
         c.parseLevelJsonResponse = player;
     }
@@ -5788,7 +5794,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %@\r\tdescription : %@\r\tdescription_image : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.descriptionImage, self.quizId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quiz Basic : {\r\tname : %@\r\timage : %@\r\tweight : %d\r\tdescription : %@\r\tdescription_image : %@\r\tquiz_id : %@\r\t}", self.name, self.image, self.weight, self.description_, self.descriptionImage, self.quizId];
     
     return descriptionString;
 }
@@ -5807,7 +5813,15 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     // parse
     c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
     c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
-    c->weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
+    id weight = [c.parseLevelJsonResponse objectForKey:@"weight"];
+    if ([weight respondsToSelector:@selector(integerValue)])
+    {
+        c->weight = (int)[weight integerValue];
+    }
+    else
+    {
+        c->weight = 0;
+    }
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     c->descriptionImage = [c.parseLevelJsonResponse objectForKey:@"description_image"];
     c->quizId = [c.parseLevelJsonResponse objectForKey:@"quiz_id"];

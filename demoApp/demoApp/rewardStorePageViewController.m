@@ -43,7 +43,7 @@
         NSLog(@"Begin loading goodsListAsyncWithBlock");
         
         // load goods-list in non-blocking way
-        [[Playbasis sharedPB] goodsListAsyncWithBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
+        [[Playbasis sharedPB] goodsListAsync:USER tags:@"" withBlock:^(PBGoodsListInfo_Response *goodsListInfo, NSURL *url, NSError *error) {
             if(!error)
             {
                 NSLog(@"%@", goodsListInfo);
