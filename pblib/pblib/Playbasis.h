@@ -108,12 +108,12 @@
 /**
  Set asynchronized server url that SDK uses for aynchronized api calls.
  */
-+(void)setAsyncServerUrl:(NSString*)url;
++(void)setServerAsyncUrl:(NSString*)url;
 
 /**
  Get asynchronized server url that SDK uses for aynchronized api calls.
  */
-+(NSString*)getAsyncServerUrl;
++(NSString*)getServerAsyncUrl;
 
 /**
  Get the singleton instance of Playbasis.

@@ -23,6 +23,11 @@ extern "C" {
 	*/
 	const char* _version();
 	const char* _token();
+    
+    void _setServerUrl(const char* url);
+    const char* _getServerUrl();
+    void _setServerAsyncUrl(const char* url);
+    const char* _getServerAsyncUrl();
 
 	void _auth(const char* apikey, const char* apisecret, const char* bundleId, OnResult callback);
 	void _renew(const char* apikey, const char* apisecret, OnResult callback);

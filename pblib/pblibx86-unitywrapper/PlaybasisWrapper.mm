@@ -480,3 +480,23 @@ void _rule(const char* playerId, const char* action, OnDataResult callback)
 		}
 	}, nil];
 }
+
+void _setServerUrl(const char* url)
+{
+    [Playbasis setServerUrl:CreateNSString(url)];
+}
+
+const char* _getServerUrl()
+{
+    return MakeStringCopy([[Playbasis getServerUrl] UTF8String]);
+}
+
+void _setServerAsyncUrl(const char* url)
+{
+    [Playbasis setServerAsyncUrl:CreateNSString(url)];
+}
+
+const char* _getServerAsyncUrl()
+{
+    return MakeStringCopy([[Playbasis getServerAsyncUrl] UTF8String]);
+}

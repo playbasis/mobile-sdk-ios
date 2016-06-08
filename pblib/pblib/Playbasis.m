@@ -644,12 +644,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return BASE_URL;
 }
 
-+(void)setAsyncServerUrl:(NSString *)url
++(void)setServerAsyncUrl:(NSString *)url
 {
     BASE_ASYNC_URL = url;
 }
 
-+(NSString *)getAsyncServerUrl
++(NSString *)getServerAsyncUrl
 {
     return BASE_ASYNC_URL;
 }
