@@ -96,6 +96,26 @@
 +(void)setProtectedResourcesKey:(NSString *)key;
 
 /**
+ Set server url that SDK uses for synchronized api calls.
+ */
++(void)setServerUrl:(NSString*)url;
+
+/**
+ Get server url that SDK uses for synchronized api calls.
+ */
++(NSString*)getServerUrl;
+
+/**
+ Set asynchronized server url that SDK uses for aynchronized api calls.
+ */
++(void)setAsyncServerUrl:(NSString*)url;
+
+/**
+ Get asynchronized server url that SDK uses for aynchronized api calls.
+ */
++(NSString*)getAsyncServerUrl;
+
+/**
  Get the singleton instance of Playbasis.
  */
 +(Playbasis*)sharedPB;

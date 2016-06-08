@@ -11,11 +11,8 @@
 #import "PBUtils.h"
 #import "PBMacros.h"
 
-#if QAV2==1
-static NSString * const BASE_URL = @"https://qav2.pbapp.net";
-#else
-static NSString * const BASE_URL = @"https://pbapp.net";
-#endif
+// for referral link
+static NSString * const REFERAL_URL = @"https://pbapp.net";
 
 ///--------------------------------------
 /// Base - Response
@@ -1703,7 +1700,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
         c.parseLevelJsonResponse = response;
     }
     c->uniqueCode = [c.parseLevelJsonResponse objectForKey:@"code"] ;
-    c->referralURL = [NSString stringWithFormat:@"%@/%@/%@", BASE_URL, @"referral",c->uniqueCode];
+    c->referralURL = [NSString stringWithFormat:@"%@/%@/%@", REFERAL_URL, @"referral",c->uniqueCode];
     return c;
 }
 

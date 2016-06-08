@@ -15,14 +15,9 @@
 #import "MBProgressHUD.h"
 #endif
 
-#if QAV2==1
-static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
-static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
-#else
-static NSString * const BASE_URL = @"https://api.pbapp.net/";
+static NSString * BASE_URL = @"https://api.pbapp.net/";
 // only apply to some of api call ie. rule()
-static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
-#endif
+static NSString * BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 /**
  Key used to encrypt / decrypt 'apikeys-config.txt' file in protectedResources folder.
@@ -637,6 +632,26 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     _sProtectedResourcesKey = key;
     PBLOG(@"Newly set protected resources key");
+}
+
++(void)setServerUrl:(NSString *)url
+{
+    BASE_URL = url;
+}
+
++(NSString*)getServerUrl
+{
+    return BASE_URL;
+}
+
++(void)setAsyncServerUrl:(NSString *)url
+{
+    BASE_ASYNC_URL = url;
+}
+
++(NSString *)getAsyncServerUrl
+{
+    return BASE_ASYNC_URL;
 }
 
 +(Playbasis*)sharedPB
