@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>pblib-unitywrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>pblib.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -37,7 +42,7 @@
 		<key>pblibx86-unitywrapper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>3</integer>
 		</dict>
 		<key>pblibx86.xcscheme</key>
 		<dict>
@@ -68,6 +73,11 @@
 			<true/>
 		</dict>
 		<key>1EC5B9001A8F3AAD0007C8A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EDA0B9A1D07C741007A357B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
