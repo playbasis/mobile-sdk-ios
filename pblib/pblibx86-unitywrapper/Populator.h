@@ -38,5 +38,17 @@
 + (void) populateRuleEventMissionArray:(_array<ruleEventMission>*)outData from:(NSArray*)pbArray;
 + (void) populateRuleEventQuest:(ruleEventQuest*)outData from:(PBRuleEventsQuest*)pbData;
 + (void) populateRuleEventQuestArray:(_array<ruleEventQuest>*)outData from:(NSArray*)pbArray;
++ (void) populateRuleEventBadgeRewardData:(ruleEventBadgeRewardData*)outData from:(PBRuleEventBadgeRewardData*)pbData;
++ (void) populateRuleEventGoodsRewardData:(ruleEventGoodsRewardData*)outData from:(PBRuleEventGoodsRewardData*)pbData;
 + (void) populateRule:(rule*)outData from:(PBRule_Response*)pbData;
++ (void) populateBadge:(badge*)outData from:(PBBadge_Response*)pbData;
++ (void) populateBadgeArray:(_array<badge>*)outData from:(NSArray*)pbArray;
++ (void) populateRedeem:(redeem*)outData from:(PBRedeem*)pbData;
++ (void) populateRedeemBadge:(redeemBadge*)outData from:(PBRedeemBadge*)pbData;
++ (void) populateRedeemBadgeArray:(_array<redeemBadge>*)outData from:(NSArray*)pbArray;
++ (void) populateGoods:(goods*)outData from:(PBGoods*)pbData;
++ (void) populateGoodsInfo:(goodsInfo*)outData from:(PBGoodsInfo_Response*)pbData;
++ (void) populateGoodsInfoArray:(_array<goodsInfo>*)outData from:(NSArray*)pbArray;
++ (void) populateCustom:(custom*)outData from:(PBCustom*)pbData;
++ (void) populateCustomArray:(_array<custom>*)outData from:(NSArray*)pbArray;
 @end

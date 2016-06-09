@@ -461,7 +461,17 @@
     COPYSTRING(pbData.eventType, outData->eventType)
     COPYSTRING(pbData.rewardType, outData->rewardType)
     COPYSTRING(pbData.value, outData->value)
-    outData->rewardData = (__bridge void*)pbData.rewardData;
+    // get specific data according to type of reward
+    if ([pbData.rewardType isEqualToString:@"badge"])
+    {
+        PBRuleEventBadgeRewardData *badge = (PBRuleEventBadgeRewardData*)pbData.rewardData;
+        [Populator populateRuleEventBadgeRewardData:&outData->badgeData from:badge];
+    }
+    else if ([pbData.rewardType isEqualToString:@"goods"])
+    {
+        PBRuleEventGoodsRewardData *goods = (PBRuleEventGoodsRewardData*)pbData.rewardData;
+        [Populator populateRuleEventGoodsRewardData:&outData->goodsData from:goods];
+    }
     outData->index = [pbData.index intValue];
 }
 
@@ -545,6 +555,31 @@
     outData->count = i;
 }
 
++ (void) populateRuleEventBadgeRewardData:(ruleEventBadgeRewardData*)outData from:(PBRuleEventBadgeRewardData*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.badgeId, outData->badgeId)
+    COPYSTRING(pbData.image, outData->image)
+    COPYSTRING(pbData.name, outData->name)
+    COPYSTRING(pbData.description_, outData->description_)
+    COPYSTRING(pbData.hint, outData->hint)
+    outData->claim = pbData.claim;
+    outData->redeem = pbData.redeem;
+}
+
++ (void) populateRuleEventGoodsRewardData:(ruleEventGoodsRewardData*)outData from:(PBRuleEventGoodsRewardData*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.goodsId, outData->goodsId)
+    COPYSTRING(pbData.image, outData->image)
+    COPYSTRING(pbData.name, outData->name)
+    COPYSTRING(pbData.description_, outData->description_)
+    COPYSTRING(pbData.perUser, outData->perUser)
+    COPYSTRING(pbData.quantity, outData->quantity)
+}
+
 + (void) populateRule:(rule*)outData from:(PBRule_Response*)pbData
 {
     RETURNIFNULL(pbData)
@@ -552,6 +587,141 @@
     [Populator populateRuleEventArray:&outData->ruleEventArray from:pbData.events.list];
     [Populator populateRuleEventMissionArray:&outData->ruleEventMissionArray from:pbData.missions.list];
     [Populator populateRuleEventQuestArray:&outData->ruleEventQuestArray from:pbData.quests.list];
+}
+
++ (void) populateBadge:(badge*)outData from:(PBBadge_Response*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.badgeId, outData->badgeId)
+    COPYSTRING(pbData.image, outData->image)
+    outData->sortOrder = pbData.sortOrder;
+    COPYSTRING(pbData.name, outData->name)
+    COPYSTRING(pbData.description_, outData->description_)
+    COPYSTRING(pbData.hint, outData->hint)
+    outData->sponsor = pbData.sponsor;
+    outData->claim = pbData.claim;
+    outData->redeem = pbData.redeem;
+}
+
++ (void) populateBadgeArray:(_array<badge>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    badge *items = new badge[[pbArray count]];
+    int i=0;
+
+    for (PBBadge_Response* c in pbArray)
+    {
+        [Populator populateBadge:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateRedeem:(redeem*)outData from:(PBRedeem*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    outData->pointValue = pbData.pointValue;
+    [Populator populateCustomArray:&outData->customArray from:pbData.customs.customs];
+    [Populator populateRedeemBadgeArray:&outData->redeemBadgeArray from:pbData.redeemBadges.list];
+}
+
++ (void) populateRedeemBadge:(redeemBadge*)outData from:(PBRedeemBadge*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.badgeId, outData->badgeId)
+    outData->badgeValue = pbData.badgeValue;
+}
+
++ (void) populateRedeemBadgeArray:(_array<redeemBadge>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    redeemBadge *items = new redeemBadge[[pbArray count]];
+    int i=0;
+
+    for (PBRedeemBadge* c in pbArray)
+    {
+        [Populator populateRedeemBadge:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateGoods:(goods*)outData from:(PBGoods*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.goodsId, outData->goodsId)
+    outData->quantity = pbData.quantity;
+    COPYSTRING(pbData.image, outData->image)
+    outData->sortOrder = pbData.sortOrder;
+    COPYSTRING(pbData.name, outData->name)
+    COPYSTRING(pbData.description_, outData->description_)
+    [Populator populateRedeem:&outData->redeem from:pbData.redeem];
+    COPYSTRING(pbData.code, outData->code)
+    outData->sponsor = pbData.sponsor;
+    outData->dateStart = [pbData.dateStart timeIntervalSince1970];
+    outData->dateExpire = [pbData.dateExpire timeIntervalSince1970];
+}
+
++ (void) populateGoodsInfo:(goodsInfo*)outData from:(PBGoodsInfo_Response*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    [Populator populateGoods:&outData->goods from:pbData.goods];
+    outData->perUser = pbData.perUser;
+    outData->isGroup = pbData.isGroup;
+}
+
++ (void) populateGoodsInfoArray:(_array<goodsInfo>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    goodsInfo *items = new goodsInfo[[pbArray count]];
+    int i=0;
+
+    for (PBGoodsInfo_Response* c in pbArray)
+    {
+        [Populator populateGoodsInfo:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateCustom:(custom*)outData from:(PBCustom*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.customId, outData->customId)
+    COPYSTRING(pbData.customName, outData->customName)
+    outData->customValue = pbData.customValue;
+}
+
++ (void) populateCustomArray:(_array<custom>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    custom *items = new custom[[pbArray count]];
+    int i=0;
+
+    for (PBCustom* c in pbArray)
+    {
+        [Populator populateCustom:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
 }
 
 @end

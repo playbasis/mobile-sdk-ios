@@ -316,11 +316,82 @@ typedef struct _questionAnswered {
 	_array<gradeDoneReward> gradeDoneRewardArray;
 } questionAnswered;
 
+typedef struct _custom {
+	char* customId;
+	char* customName;
+	unsigned int customValue;
+} custom;
+
+typedef struct _redeemBadge {
+	char* badgeId;
+	unsigned int badgeValue;
+} redeemBadge;
+
+typedef struct _redeem {
+	unsigned int pointValue;
+	_array<custom> customArray;
+	_array<redeemBadge> redeemBadgeArray;
+} redeem;
+
+typedef struct _goods {
+	char* goodsId;
+	unsigned int quantity;
+	char* image;
+	unsigned int sortOrder;
+	char* name;
+	char* description_;
+	redeem redeem;
+	char* code;
+	bool sponsor;
+	long dateStart;
+	long dateExpire;
+} goods;
+
+typedef struct _goodsInfo {
+	goods goods;
+	unsigned int perUser;
+	bool isGroup;
+} goodsInfo;
+
+typedef struct _badge {
+	char* badgeId;
+	char* image;
+	unsigned int sortOrder;
+	char* name;
+	char* description_;
+	char* hint;
+	bool sponsor;
+	bool claim;
+	bool redeem;
+} badge;
+    
+typedef struct _ruleEventBadgeRewardData
+{
+    char* badgeId;
+    char* image;
+    char* name;
+    char* description_;
+    char* hint;
+    bool claim;
+    bool redeem;
+} ruleEventBadgeRewardData;
+
+typedef struct _ruleEventGoodsRewardData
+{
+    char* goodsId;
+    char* image;
+    char* name;
+    char* description_;
+    char* perUser;
+    char* quantity;
+} ruleEventGoodsRewardData;
+
 typedef struct _ruleEvent {
 	char* eventType;
 	char* rewardType;
 	char* value;
-	void* rewardData;
+	ruleEventBadgeRewardData badgeData;
+	ruleEventGoodsRewardData goodsData;
 	int index;
 } ruleEvent;
 

@@ -1509,4 +1509,19 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
+- (void)testRule
+{
+    [[Playbasis sharedPB] authWithApiKey:@"2410120595" apiSecret:@"0b98a945d6ba51153133767a14654c79" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            [[Playbasis sharedPB] ruleForPlayer:@"jontestuser" action:@"want" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+                if (error == nil)
+                {
+                    NSLog(@"%@", response);
+                }
+            }];
+        }
+    }];
+}
+
 @end
