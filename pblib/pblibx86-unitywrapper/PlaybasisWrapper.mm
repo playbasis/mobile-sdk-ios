@@ -414,7 +414,7 @@ void _quizPendingList(const char* playerId, int limit, OnDataResult callback)
 
 void _quizQuestion(const char* quizId, const char* playerId, OnDataResult callback)
 {
-	[[Playbasis sharedPB] quizQuestionAsync:CreateNSString(playerId) forPlayer:CreateNSString(playerId) withBlock:^(PBQuestion_Response * q, NSURL *url, NSError *error) {
+	[[Playbasis sharedPB] quizQuestionAsync:CreateNSString(quizId) forPlayer:CreateNSString(playerId) withBlock:^(PBQuestion_Response * q, NSURL *url, NSError *error) {
 		if (error == nil)
 		{
 			question data;

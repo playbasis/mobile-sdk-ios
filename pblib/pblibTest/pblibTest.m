@@ -1524,4 +1524,23 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     }];
 }
 
+- (void)testQuizQuestion
+{
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            [[Playbasis sharedPB] quizQuestion:@"56b98a0dbe120bf7238b65f9" forPlayer:@"jontestuser" withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
+                if (error == nil)
+                {
+                    NSLog(@"%@", question);
+                }
+                else
+                {
+                    NSLog(@"%@", error);
+                }
+            }];
+        }
+    }];
+}
+
 @end
