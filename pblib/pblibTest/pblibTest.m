@@ -1543,4 +1543,23 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     }];
 }
 
+- (void)testQuizAnswer
+{
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            [[Playbasis sharedPB] quizAnswer:@"56b98a0dbe120bf7238b65f9" optionId:@"065112743f8d8224bfcf62d7" forPlayer:@"jontestuser" ofQuestionId:@"029161c8b9d78cb8d175cd6a" withBlock:^(PBQuestionAnswered_Response *questionAnswered, NSURL *url, NSError *error) {
+                if (error == nil)
+                {
+                    NSLog(@"%@", questionAnswered);
+                }
+                else
+                {
+                    NSLog(@"%@", error);
+                }
+            }];
+        }
+    }];
+}
+
 @end

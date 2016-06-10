@@ -64,6 +64,22 @@
 		1E52DDF81AAFFA860035C9F0 /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E52DDF91AAFFA8A0035C9F0 /* pbUserRegistrationFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E52DDFA1AAFFA8D0035C9F0 /* PBUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B9171A8FB1F70007C8A8 /* PBUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E649DA71D0AE18000C1C680 /* pblibWrapperTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E649DA61D0AE18000C1C680 /* pblibWrapperTest.mm */; };
+		1E649DB21D0AE3EF00C1C680 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
+		1E649DB31D0AE3EF00C1C680 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1E649DB41D0AE3EF00C1C680 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
+		1E649DB51D0AE3EF00C1C680 /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
+		1E649DB61D0AE3EF00C1C680 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
+		1E649DB71D0AE3EF00C1C680 /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
+		1E649DB81D0AE3EF00C1C680 /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
+		1E649DB91D0AE3EF00C1C680 /* PlaybasisWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72411CFDB7300054B73A /* PlaybasisWrapper.mm */; };
+		1E649DBA1D0AE3EF00C1C680 /* PlaybasisWrapperTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72421CFDB7300054B73A /* PlaybasisWrapperTester.mm */; };
+		1E649DBB1D0AE3EF00C1C680 /* Populator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72441CFDB7300054B73A /* Populator.mm */; };
+		1E649DBC1D0AE42300C1C680 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
+		1E649DBD1D0AE42300C1C680 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
+		1E649DBE1D0AE42300C1C680 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
+		1E649DBF1D0AE42300C1C680 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
+		1E649DC01D0AE43200C1C680 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
 		1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
 		1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
 		1E80C7E01A9C291A00C6C291 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
@@ -188,6 +204,10 @@
 		1E3D72431CFDB7300054B73A /* Populator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Populator.h; sourceTree = "<group>"; };
 		1E3D72441CFDB7300054B73A /* Populator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Populator.mm; sourceTree = "<group>"; };
 		1E3D72451CFDB7300054B73A /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		1E649DA41D0AE17F00C1C680 /* pblibWrapperTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pblibWrapperTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E649DA61D0AE18000C1C680 /* pblibWrapperTest.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = pblibWrapperTest.mm; sourceTree = "<group>"; };
+		1E649DA81D0AE18000C1C680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E649DAC1D0AE38700C1C680 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
 		1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
 		1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
@@ -238,6 +258,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		1E3D72341CFDB6F70054B73A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E649DA11D0AE17F00C1C680 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -297,6 +324,15 @@
 				1E3D72391CFDB6F80054B73A /* Info.plist */,
 			);
 			path = "pblibx86-unitywrapper";
+			sourceTree = "<group>";
+		};
+		1E649DA51D0AE18000C1C680 /* pblibWrapperTest */ = {
+			isa = PBXGroup;
+			children = (
+				1E649DA61D0AE18000C1C680 /* pblibWrapperTest.mm */,
+				1E649DA81D0AE18000C1C680 /* Info.plist */,
+			);
+			path = pblibWrapperTest;
 			sourceTree = "<group>";
 		};
 		1E80C7D41A9C291A00C6C291 /* RNCryptor */ = {
@@ -400,6 +436,7 @@
 				1EC5B9021A8F3AAD0007C8A8 /* pblibResource */,
 				1EC065E81C7D04630066A29D /* pblibTest */,
 				1E3D72381CFDB6F80054B73A /* pblibx86-unitywrapper */,
+				1E649DA51D0AE18000C1C680 /* pblibWrapperTest */,
 				2C1C74F717461E1B005F3B57 /* Frameworks */,
 				2C1C74F617461E1B005F3B57 /* Products */,
 			);
@@ -413,6 +450,7 @@
 				1EC065E71C7D04630066A29D /* pblibTest.xctest */,
 				1E3D72371CFDB6F70054B73A /* pblibx86-unitywrapper.bundle */,
 				1EDA0BCD1D07C741007A357B /* pblib-unitywrapper.a */,
+				1E649DA41D0AE17F00C1C680 /* pblibWrapperTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -420,6 +458,7 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E649DAC1D0AE38700C1C680 /* libstdc++.tbd */,
 				1E3D722F1CFDA4900054B73A /* Security.framework */,
 				1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */,
 				1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */,
@@ -554,6 +593,23 @@
 			productReference = 1E3D72371CFDB6F70054B73A /* pblibx86-unitywrapper.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		1E649DA31D0AE17F00C1C680 /* pblibWrapperTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E649DA91D0AE18000C1C680 /* Build configuration list for PBXNativeTarget "pblibWrapperTest" */;
+			buildPhases = (
+				1E649DA01D0AE17F00C1C680 /* Sources */,
+				1E649DA11D0AE17F00C1C680 /* Frameworks */,
+				1E649DA21D0AE17F00C1C680 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pblibWrapperTest;
+			productName = pblibWrapperTest;
+			productReference = 1E649DA41D0AE17F00C1C680 /* pblibWrapperTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1EC065E61C7D04630066A29D /* pblibTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1EC065F11C7D04630066A29D /* Build configuration list for PBXNativeTarget "pblibTest" */;
@@ -642,6 +698,9 @@
 					1E52DDFC1AAFFD970035C9F0 = {
 						CreatedOnToolsVersion = 6.3;
 					};
+					1E649DA31D0AE17F00C1C680 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					1EC065E61C7D04630066A29D = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -668,12 +727,20 @@
 				1EC065E61C7D04630066A29D /* pblibTest */,
 				1E3D72361CFDB6F70054B73A /* pblibx86-unitywrapper */,
 				1EDA0B9A1D07C741007A357B /* pblib-unitywrapper */,
+				1E649DA31D0AE17F00C1C680 /* pblibWrapperTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1E3D72351CFDB6F70054B73A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E649DA21D0AE17F00C1C680 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -775,6 +842,29 @@
 				1E3D72461CFDB7300054B73A /* PlaybasisWrapper.mm in Sources */,
 				1E3D72471CFDB7300054B73A /* PlaybasisWrapperTester.mm in Sources */,
 				1E3D72481CFDB7300054B73A /* Populator.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E649DA01D0AE17F00C1C680 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E649DC01D0AE43200C1C680 /* Reachability.m in Sources */,
+				1E649DBC1D0AE42300C1C680 /* RNCryptor.m in Sources */,
+				1E649DBD1D0AE42300C1C680 /* RNCryptorEngine.m in Sources */,
+				1E649DBE1D0AE42300C1C680 /* RNDecryptor.m in Sources */,
+				1E649DBF1D0AE42300C1C680 /* RNEncryptor.m in Sources */,
+				1E649DB21D0AE3EF00C1C680 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
+				1E649DB31D0AE3EF00C1C680 /* JSONKit.m in Sources */,
+				1E649DB41D0AE3EF00C1C680 /* Playbasis.m in Sources */,
+				1E649DB51D0AE3EF00C1C680 /* PBRequestUnit.m in Sources */,
+				1E649DB61D0AE3EF00C1C680 /* PBResponses.m in Sources */,
+				1E649DB71D0AE3EF00C1C680 /* PBUtils.m in Sources */,
+				1E649DB81D0AE3EF00C1C680 /* PBCommon.m in Sources */,
+				1E649DB91D0AE3EF00C1C680 /* PlaybasisWrapper.mm in Sources */,
+				1E649DBA1D0AE3EF00C1C680 /* PlaybasisWrapperTester.mm in Sources */,
+				1E649DBB1D0AE3EF00C1C680 /* Populator.mm in Sources */,
+				1E649DA71D0AE18000C1C680 /* pblibWrapperTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,6 +1049,72 @@
 			};
 			name = Release;
 		};
+		1E649DAA1D0AE18000C1C680 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = pblibWrapperTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibWrapperTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1E649DAB1D0AE18000C1C680 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = pblibWrapperTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibWrapperTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		1EC065EF1C7D04630066A29D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1084,6 +1240,7 @@
 		1EDA0BCB1D07C741007A357B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -1115,6 +1272,7 @@
 		1EDA0BCC1D07C741007A357B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -1271,6 +1429,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1E649DA91D0AE18000C1C680 /* Build configuration list for PBXNativeTarget "pblibWrapperTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E649DAA1D0AE18000C1C680 /* Debug */,
+				1E649DAB1D0AE18000C1C680 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		1EC065F11C7D04630066A29D /* Build configuration list for PBXNativeTarget "pblibTest" */ = {
 			isa = XCConfigurationList;

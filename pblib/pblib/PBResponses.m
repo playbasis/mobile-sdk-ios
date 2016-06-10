@@ -6310,7 +6310,7 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     // parse
     c->option = [c.parseLevelJsonResponse objectForKey:@"option"];
     c->score = [c.parseLevelJsonResponse objectForKey:@"score"];
-    c->explanation = [c.parseLevelJsonResponse objectForKey:@"explanantion"];
+    c->explanation = [c.parseLevelJsonResponse objectForKey:@"explanation"];
     c->optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
     c->optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
     

@@ -39,6 +39,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>pblibWrapperTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>pblibx86-unitywrapper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -63,6 +68,11 @@
 			<true/>
 		</dict>
 		<key>1E52DDFC1AAFFD970035C9F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E649DA31D0AE17F00C1C680</key>
 		<dict>
 			<key>primary</key>
 			<true/>
