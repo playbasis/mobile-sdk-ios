@@ -15,6 +15,9 @@ inline char* MakeStringCopy (const char* string)
 {
 	if (string == NULL)
 		return NULL;
+    
+    if (strlen(string) <= 0)
+        return NULL;
 	
 	char* res = (char*)malloc(strlen(string) + 1);
 	strcpy(res, string);

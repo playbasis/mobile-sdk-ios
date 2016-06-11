@@ -5376,7 +5376,7 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->end = [c.parseLevelJsonResponse objectForKey:@"end"];
     c->grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
     c->rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
-    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rewardImage"];
+    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
     c->rewards = [PBGradeDoneRewardArray parseFromDictionary: [c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
     if([score respondsToSelector:@selector(unsignedIntegerValue)])
