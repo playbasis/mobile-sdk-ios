@@ -5439,7 +5439,7 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     
     c->grade = [PBGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
     
-    id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"value"];
+    id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"total_completed_questions"];
     if([totalCompletedQuestion respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c->totalCompletedQuestion = [totalCompletedQuestion unsignedIntegerValue];
