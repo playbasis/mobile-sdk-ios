@@ -1509,4 +1509,57 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
 
+- (void)testRule
+{
+    [[Playbasis sharedPB] authWithApiKey:@"2410120595" apiSecret:@"0b98a945d6ba51153133767a14654c79" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            [[Playbasis sharedPB] ruleForPlayer:@"jontestuser" action:@"want" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+                if (error == nil)
+                {
+                    NSLog(@"%@", response);
+                }
+            }];
+        }
+    }];
+}
+
+- (void)testQuizQuestion
+{
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            [[Playbasis sharedPB] quizQuestion:@"56b98a0dbe120bf7238b65f9" forPlayer:@"jontestuser" withBlock:^(PBQuestion_Response *question, NSURL *url, NSError *error) {
+                if (error == nil)
+                {
+                    NSLog(@"%@", question);
+                }
+                else
+                {
+                    NSLog(@"%@", error);
+                }
+            }];
+        }
+    }];
+}
+
+- (void)testQuizAnswer
+{
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            [[Playbasis sharedPB] quizAnswer:@"56b98a0dbe120bf7238b65f9" optionId:@"065112743f8d8224bfcf62d7" forPlayer:@"jontestuser" ofQuestionId:@"029161c8b9d78cb8d175cd6a" withBlock:^(PBQuestionAnswered_Response *questionAnswered, NSURL *url, NSError *error) {
+                if (error == nil)
+                {
+                    NSLog(@"%@", questionAnswered);
+                }
+                else
+                {
+                    NSLog(@"%@", error);
+                }
+            }];
+        }
+    }];
+}
+
 @end
