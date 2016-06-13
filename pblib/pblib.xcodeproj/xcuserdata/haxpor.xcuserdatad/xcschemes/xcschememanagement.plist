@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>pblib-unitywrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>pblib.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -32,12 +37,47 @@
 		<key>pblibTest.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>pblibWrapperTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>pblibx86-unitywrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>pblibx86.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1E2A42C41D0EB6FA00A836B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E3D721C1CFDA3A60054B73A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E3D72361CFDB6F70054B73A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1E52DDFC1AAFFD970035C9F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E649DA31D0AE17F00C1C680</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -48,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>1EC5B9001A8F3AAD0007C8A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EDA0B9A1D07C741007A357B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

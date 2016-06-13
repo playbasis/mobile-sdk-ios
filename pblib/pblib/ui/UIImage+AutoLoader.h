@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Playbasis. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
 
 @interface UIImage (AutoLoader)
@@ -23,3 +24,4 @@
 +(void) startLoadingImageWithUrl:(NSString *)imageUrl response:(void (^)(UIImage* image))response;
 
 @end
+#endif
