@@ -11,13 +11,8 @@
 #import "PBUtils.h"
 #import "PBMacros.h"
 
-#if QAV2==1
-static NSString * const BASE_URL = @"https://qav2.pbapp.net";
-#elif QAV2==2
-static NSString * const BASE_URL = @"https://starhub.playbasis.com";
-#else
-static NSString * const BASE_URL = @"https://pbapp.net";
-#endif
+// for referral link
+static NSString * const REFERAL_URL = @"https://pbapp.net";
 
 ///--------------------------------------
 /// Base - Response
@@ -1705,7 +1700,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
         c.parseLevelJsonResponse = response;
     }
     c->uniqueCode = [c.parseLevelJsonResponse objectForKey:@"code"] ;
-    c->referralURL = [NSString stringWithFormat:@"%@/%@/%@", BASE_URL, @"referral",c->uniqueCode];
+    c->referralURL = [NSString stringWithFormat:@"%@/%@/%@", REFERAL_URL, @"referral",c->uniqueCode];
     return c;
 }
 
@@ -5389,8 +5384,8 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     c->end = [c.parseLevelJsonResponse objectForKey:@"end"];
     c->grade = [c.parseLevelJsonResponse objectForKey:@"grade"];
     c->rank = [c.parseLevelJsonResponse objectForKey:@"rank"];
-    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rewards"];
-    c->rewards = [c.parseLevelJsonResponse objectForKey:@"rewards"];
+    c->rankImage = [c.parseLevelJsonResponse objectForKey:@"rank_image"];
+    c->rewards = [PBGradeDoneRewardArray parseFromDictionary: [c.parseLevelJsonResponse objectForKey:@"rewards"] startFromFinalLevel:YES];
     id score = [c.parseLevelJsonResponse objectForKey:@"score"];
     if([score respondsToSelector:@selector(unsignedIntegerValue)])
     {
@@ -5452,7 +5447,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     
     c->grade = [PBGradeDone parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"grade"] startFromFinalLevel:YES];
     
-    id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"value"];
+    id totalCompletedQuestion = [c.parseLevelJsonResponse objectForKey:@"total_completed_questions"];
     if([totalCompletedQuestion respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c->totalCompletedQuestion = [totalCompletedQuestion unsignedIntegerValue];
@@ -6323,7 +6318,7 @@ static NSString * const BASE_URL = @"https://pbapp.net";
     // parse
     c->option = [c.parseLevelJsonResponse objectForKey:@"option"];
     c->score = [c.parseLevelJsonResponse objectForKey:@"score"];
-    c->explanation = [c.parseLevelJsonResponse objectForKey:@"explanantion"];
+    c->explanation = [c.parseLevelJsonResponse objectForKey:@"explanation"];
     c->optionImage = [c.parseLevelJsonResponse objectForKey:@"option_image"];
     c->optionId = [c.parseLevelJsonResponse objectForKey:@"option_id"];
     

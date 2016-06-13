@@ -9,20 +9,15 @@
 #import "Playbasis.h"
 
 #import "RNDecryptor.h"
+
+#if TARGET_OS_IOS
 #import "KLCPopup.h"
 #import "MBProgressHUD.h"
-
-#if QAV2==1
-static NSString * const BASE_URL = @"https://qav2api.pbapp.net/";
-static NSString * const BASE_ASYNC_URL = @"https://qav2api.pbapp.net/async/call";
-#elif QAV2==2
-static NSString * const BASE_URL = @"https://starhub-api.playbasis.com/";
-static NSString * const BASE_ASYNC_URL = @"https://starhub-api.playbasis.com/async/call";
-#else
-static NSString * const BASE_URL = @"https://api.pbapp.net/";
-// only apply to some of api call ie. rule()
-static NSString * const BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 #endif
+
+static NSString * BASE_URL = @"https://api.pbapp.net/";
+// only apply to some of api call ie. rule()
+static NSString * BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
 
 /**
  Key used to encrypt / decrypt 'apikeys-config.txt' file in protectedResources folder.
@@ -484,11 +479,13 @@ static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
 // - questList
 -(PBRequestUnit *)questListInternalBase:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
+#if TARGET_OS_IOS
 // - track
 -(void)trackPlayerInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view useDelegate:(BOOL)useDelegate withResponse:(id)response;
 
 // - do
 -(void)doPlayerInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController*)view blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response;
+#endif
 
 @end
 
@@ -607,10 +604,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 @synthesize token = _token;
 @synthesize isNetworkReachable = _isNetworkReachable;
 @synthesize enableGettingLocation = _enableGettingLocation;
+
+#if TARGET_OS_IOS
 @synthesize coreMotionManager = _coreMotionManager;
+#endif
 
 +(void)registerDeviceForPushNotification
 {
+    #if TARGET_OS_IOS
     // register for push notification
     // note: ios 8 changes the way to setup push notification, it's deprecated the old method
     // thus we need to check on this one
@@ -628,6 +629,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         
         PBLOG(@"Registered devie ios < %f", 8.0f);
     }
+    #endif
 }
 
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString *)key
@@ -652,6 +654,26 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     _sProtectedResourcesKey = key;
     PBLOG(@"Newly set protected resources key");
+}
+
++(void)setServerUrl:(NSString *)url
+{
+    BASE_URL = url;
+}
+
++(NSString*)getServerUrl
+{
+    return BASE_URL;
+}
+
++(void)setServerAsyncUrl:(NSString *)url
+{
+    BASE_ASYNC_URL = url;
+}
+
++(NSString *)getServerAsyncUrl
+{
+    return BASE_ASYNC_URL;
 }
 
 +(Playbasis*)sharedPB
@@ -718,12 +740,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     _locationManager.distanceFilter = kCLDistanceFilterNone;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
+    #if TARGET_OS_IOS
     // core motion
     _coreMotionManager = [[CMMotionManager alloc] init];
     
     // explicitly ask for permission for iOS 8
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
         [_locationManager requestWhenInUseAuthorization];
+    #endif
     
     // create reachability instance
     _reachability = [Reachability reachabilityForInternetConnection];
@@ -734,6 +758,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // add notification of network status change
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
     
+    #if TARGET_OS_IOS
     // add notification of UIApplication
     // we add them here to reduce code user has to add in Delegate class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
@@ -742,6 +767,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+    #endif
     
     // start notifier right away
     [_reachability startNotifier];
@@ -765,6 +791,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // remove notification of network status change
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     
+    #if TARGET_OS_IOS
     // remove notification of UIApplication
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidFinishLaunchingNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
@@ -772,6 +799,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+    #endif
 }
 
 - (void)setEnableGettingLocation:(BOOL)get
@@ -809,6 +837,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // create a custom http header fields
     _customDeviceInfoHttpHeaderFieldsVar = [[_customDeviceInfoHttpHeaderFields alloc] init];
     
+    #if TARGET_OS_IOS
     // get screen resolution
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     // scale (for retina)
@@ -847,6 +876,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     NSString *appbundleHeaderValue = [NSString stringWithFormat:@"%@-ios", bundleIdentifier];
     _customDeviceInfoHttpHeaderFieldsVar.appBundle = appbundleHeaderValue;
     PBLOG(@"App Bundle : %@", _customDeviceInfoHttpHeaderFieldsVar.appBundle);
+    #endif
 }
 
 -(void)loadApiKeysConfig
@@ -5398,7 +5428,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
 
-
 -(PBRequestUnit *)requestOTPCodeForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate
 {
     return [self requestOTPCodeForPlayerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
@@ -5432,6 +5461,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data andResponse:response];
 }
+
+#if TARGET_OS_IOS
 -(void)trackPlayer:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController *)view withBlock:(PBAsyncURLRequestResponseBlock)block
 {
     // it's always async url request, thus non-blocking call
@@ -5619,6 +5650,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }];
 
 }
+#endif
 
 -(PBRequestUnit *)call:(NSString *)method withData:(NSString *)data syncURLRequest:(BOOL)syncURLRequest andDelegate:(id<PBResponseHandler>)delegate
 {
@@ -6007,6 +6039,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     }
 }
 
+#if TARGET_OS_IOS
 //--------------------------------------------------
 // UI
 //--------------------------------------------------
@@ -6220,5 +6253,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     [MBProgressHUD hideAllHUDsForView:view animated:YES];
 }
+#endif
 
 @end
