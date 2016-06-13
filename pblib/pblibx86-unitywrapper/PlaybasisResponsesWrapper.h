@@ -372,8 +372,6 @@ typedef struct _ruleEventBadgeRewardData
     char* name;
     char* description_;
     char* hint;
-    bool claim;
-    bool redeem;
 } ruleEventBadgeRewardData;
 
 typedef struct _ruleEventGoodsRewardData
@@ -383,7 +381,7 @@ typedef struct _ruleEventGoodsRewardData
     char* name;
     char* description_;
     char* perUser;
-    char* quantity;
+    char* code;
 } ruleEventGoodsRewardData;
 
 typedef struct _ruleEvent {
@@ -392,7 +390,6 @@ typedef struct _ruleEvent {
 	char* value;
 	ruleEventBadgeRewardData badgeData;
 	ruleEventGoodsRewardData goodsData;
-	int index;
 } ruleEvent;
 
 typedef struct _ruleEventMission {

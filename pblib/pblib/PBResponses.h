@@ -1060,7 +1060,7 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *name;
 @property (strong, nonatomic, readonly) NSString *description_;
 @property (strong, nonatomic, readonly) NSString *perUser;
-@property (strong, nonatomic, readonly) NSString *quantity;
+@property (strong, nonatomic, readonly) NSString *code;
 
 +(PBRuleEventGoodsRewardData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -1076,8 +1076,6 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *name;
 @property (strong, nonatomic, readonly) NSString *description_;
 @property (strong, nonatomic, readonly) NSString *hint;
-@property (nonatomic, readonly) BOOL claim;
-@property (nonatomic, readonly) BOOL redeem;
 
 +(PBRuleEventBadgeRewardData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 
@@ -1094,7 +1092,6 @@ typedef enum
 // arbitrary data, it can be anything thus we use id as a data type here
 // certain reward type doesn't have any reward-data, but some has
 @property (strong, nonatomic, readonly) id rewardData;
-@property (nonatomic, readonly) NSNumber* index;
 
 +(PBRuleEvent *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

@@ -3926,11 +3926,11 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @synthesize name;
 @synthesize description_;
 @synthesize perUser;
-@synthesize quantity;
+@synthesize code;
 
 - (NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Goods's rule event data : {\r\tgoods_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tper_user : %@\r\tquantity : %@", self.goodsId, self.image, self.name, self.description_, self.perUser, self.quantity];
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods's rule event data : {\r\tgoods_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\tper_user : %@\r\tcode : %@\r\t}", self.goodsId, self.image, self.name, self.description_, self.perUser, self.code];
     
     return descriptionString;
 }
@@ -3952,7 +3952,7 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     c->perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
-    c->quantity = [c.parseLevelJsonResponse objectForKey:@"quantity"];
+    c->code = [c.parseLevelJsonResponse objectForKey:@"code"];
     
     return c;
 }
@@ -3969,12 +3969,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @synthesize name;
 @synthesize description_;
 @synthesize hint;
-@synthesize claim;
-@synthesize redeem;
 
 - (NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Badge's rule event data : {\r\tbadge_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tclaim : %@\r\tredeem : %@\r\t", self.badgeId, self.image, self.name, self.description_, self.hint, self.claim ? @"YES" : @"NO", self.redeem ? @"YES" : @"NO"];
+    NSString *descriptionString = [NSString stringWithFormat:@"Badge's rule event data : {\r\tbadge_id : %@\r\timage : %@\r\tname : %@\r\tdescription : %@\r\thint : %@\r\t}", self.badgeId, self.image, self.name, self.description_, self.hint];
     
     return descriptionString;
 }
@@ -3996,8 +3994,6 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
-    c->claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
-    c->redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
     
     return c;
 }
@@ -4013,11 +4009,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @synthesize rewardType;
 @synthesize value;
 @synthesize rewardData;
-@synthesize index;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Rule's event : {\r\tevent_type : %@\r\treward_type : %@\r\tvalue : %@\r\treward_data : %@\r\tindex : %@\r\t}", self.eventType, self.rewardType, self.value, self.rewardData, self.index];
+    NSString *descriptionString = [NSString stringWithFormat:@"Rule's event : {\r\tevent_type : %@\r\treward_type : %@\r\tvalue : %@\r\treward_data : %@\r\t}", self.eventType, self.rewardType, self.value, self.rewardData];
     
     return descriptionString;
 }
@@ -4037,11 +4032,6 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->eventType = [c.parseLevelJsonResponse objectForKey:@"event_type"];
     c->rewardType = [c.parseLevelJsonResponse objectForKey:@"reward_type"];
     c->value = [c.parseLevelJsonResponse objectForKey:@"value"];
-    if ([c.parseLevelJsonResponse objectForKey:@"index"] != nil) {
-        c->index = [c.parseLevelJsonResponse objectForKey:@"index"];
-    } else {
-        c->index = nil;
-    }
     
     // check to parse reward_data if reward_type matches ones that have
     if([c->rewardType isEqualToString:@"badge"])

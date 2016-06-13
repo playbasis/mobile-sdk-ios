@@ -472,7 +472,6 @@
         PBRuleEventGoodsRewardData *goods = (PBRuleEventGoodsRewardData*)pbData.rewardData;
         [Populator populateRuleEventGoodsRewardData:&outData->goodsData from:goods];
     }
-    outData->index = [pbData.index intValue];
 }
 
 + (void) populateRuleEventArray:(_array<ruleEvent>*)outData from:(NSArray*)pbArray
@@ -564,8 +563,6 @@
     COPYSTRING(pbData.name, outData->name)
     COPYSTRING(pbData.description_, outData->description_)
     COPYSTRING(pbData.hint, outData->hint)
-    outData->claim = pbData.claim;
-    outData->redeem = pbData.redeem;
 }
 
 + (void) populateRuleEventGoodsRewardData:(ruleEventGoodsRewardData*)outData from:(PBRuleEventGoodsRewardData*)pbData
@@ -577,7 +574,7 @@
     COPYSTRING(pbData.name, outData->name)
     COPYSTRING(pbData.description_, outData->description_)
     COPYSTRING(pbData.perUser, outData->perUser)
-    COPYSTRING(pbData.quantity, outData->quantity)
+    COPYSTRING(pbData.code, outData->code)
 }
 
 + (void) populateRule:(rule*)outData from:(PBRule_Response*)pbData

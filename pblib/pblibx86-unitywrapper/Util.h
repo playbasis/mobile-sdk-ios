@@ -1,5 +1,5 @@
-#define CHECK_NOTNULL(x) x != nil && x != (id)[NSNull null]
-#define COPYSTRING(from, to) if(CHECK_NOTNULL(from)) { to = MakeStringCopy([from UTF8String]); }
+#define CHECK_NOTNULL(x) x != nil && x != NULL && x != (id)[NSNull null]
+#define COPYSTRING(from, to) if(CHECK_NOTNULL(from)) { to = MakeStringCopy([from UTF8String]); } else { to = NULL; }
 
 // Converts C style string to NSString
 inline NSString* CreateNSString (const char* string)
@@ -15,9 +15,6 @@ inline char* MakeStringCopy (const char* string)
 {
 	if (string == NULL)
 		return NULL;
-    
-    if (strlen(string) <= 0)
-        return NULL;
 	
 	char* res = (char*)malloc(strlen(string) + 1);
 	strcpy(res, string);

@@ -856,7 +856,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
-    [[Playbasis sharedPB] logoutPlayer:@"haxpor" withDelegate:self];
+    [[Playbasis sharedPB] logoutPlayer:@"haxpor" sessionId:nil withDelegate:self];
 }
 
 - (void)testLogoutPlayer_block
@@ -864,7 +864,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     // authenticate app first
     [self testAuthenticationViaProtectedResources_block];
     
-    [[Playbasis sharedPB] logoutPlayer:@"haxpor" type:nil tags:nil withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] logoutPlayer:@"haxpor" sessionId:nil withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
     }];
 }
@@ -876,7 +876,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     
     expectation = [self expectationWithDescription:@"logoutPlayer - delegateAsync"];
     
-    [[Playbasis sharedPB] logoutPlayerAsync:@"haxpor" type:nil tags:nil withDelegate:self];
+    [[Playbasis sharedPB] logoutPlayerAsync:@"haxpor" sessionId:nil withDelegate:self];
     
     [self waitForExpectationsWithTimeout:ASYNC_CALL_WAIT_DURATION handler:nil];
 }
@@ -888,7 +888,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     
     expectation = [self expectationWithDescription:@"logoutPlayer - blockAsync"];
     
-    [[Playbasis sharedPB] logoutPlayerAsync:@"haxpor" type:nil tags:nil withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] logoutPlayerAsync:@"haxpor" sessionId:nil withBlock:^(PBResultStatus_Response *result, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
         [expectation fulfill];
     }];
@@ -903,7 +903,7 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
     
     expectation = [self expectationWithDescription:@"logoutPlayer - blockAsync"];
     
-    [[Playbasis sharedPB] logoutPlayerAsync_:@"haxpor" type:nil tags:nil withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] logoutPlayerAsync_:@"haxpor" sessionId:nil withBlock:^(PBManualSetResultStatus_Response *status, NSURL *url, NSError *error) {
         XCTAssertEqual(error, nil, @"error must be nil");
         [expectation fulfill];
     }];
@@ -1511,15 +1511,23 @@ typedef NS_ENUM(NSInteger, RequestTagId) {
 
 - (void)testRule
 {
-    [[Playbasis sharedPB] authWithApiKey:@"2410120595" apiSecret:@"0b98a945d6ba51153133767a14654c79" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
         if (error == nil)
         {
-            [[Playbasis sharedPB] ruleForPlayer:@"jontestuser" action:@"want" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
+            [[Playbasis sharedPB] ruleForPlayer:@"jontestuser" action:@"like" withBlock:^(PBRule_Response *response, NSURL *url, NSError *error) {
                 if (error == nil)
                 {
                     NSLog(@"%@", response);
                 }
-            }];
+                else
+                {
+                    NSLog(@"%@", error);
+                }
+            }, nil];
+        }
+        else
+        {
+            NSLog(@"%@", error);
         }
     }];
 }
