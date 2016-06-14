@@ -6,7 +6,7 @@ using std::string;
 template <typename T>
 struct _array {
 	T* data=NULL;
-	int count;
+	int count=0;
 
 	~_array()
 	{
@@ -137,12 +137,12 @@ typedef struct _grade {
 } grade;
 
 typedef struct _quizBasic {
-	char* name;
-	char* image;
-	int weight;
-	char* description_;
-	char* descriptionImage;
-	char* quizId;
+	char* name=NULL;
+	char* image=NULL;
+	int weight=NULL;
+	char* description_=NULL;
+	char* descriptionImage=NULL;
+	char* quizId=NULL;
 
 	~_quizBasic()
 	{
@@ -367,49 +367,49 @@ typedef struct _badge {
     
 typedef struct _ruleEventBadgeRewardData
 {
-    char* badgeId;
-    char* image;
-    char* name;
-    char* description_;
-    char* hint;
+    char* badgeId=NULL;
+    char* image=NULL;
+    char* name=NULL;
+    char* description_=NULL;
+    char* hint=NULL;
 } ruleEventBadgeRewardData;
 
 typedef struct _ruleEventGoodsRewardData
 {
-    char* goodsId;
-    char* image;
-    char* name;
-    char* description_;
-    char* perUser;
-    char* code;
+    char* goodsId=NULL;
+    char* image=NULL;
+    char* name=NULL;
+    char* description_=NULL;
+    char* perUser=NULL;
+    char* code=NULL;
 } ruleEventGoodsRewardData;
 
 typedef struct _ruleEvent {
-	char* eventType;
-	char* rewardType;
-	char* value;
+	char* eventType=NULL;
+	char* rewardType=NULL;
+	char* value=NULL;
 	ruleEventBadgeRewardData badgeData;
 	ruleEventGoodsRewardData goodsData;
 } ruleEvent;
 
 typedef struct _ruleEventMission {
 	_array<ruleEvent> eventArray;
-	char* missionId;
-	char* missionNumber;
-	char* missionName;
-	char* description_;
-	char* hint;
-	char* image;
-	char* questId;
+	char* missionId=NULL;
+	char* missionNumber=NULL;
+	char* missionName=NULL;
+	char* description_=NULL;
+	char* hint=NULL;
+	char* image=NULL;
+	char* questId=NULL;
 } ruleEventMission;
 
 typedef struct _ruleEventQuest {
 	_array<ruleEvent> eventArray;
-	char* questId;
-	char* questName;
-	char* description_;
-	char* hint;
-	char* image;
+	char* questId=NULL;
+	char* questName=NULL;
+	char* description_=NULL;
+	char* hint=NULL;
+	char* image=NULL;
 } ruleEventQuest;
 
 typedef struct _rule {
