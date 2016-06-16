@@ -1,6 +1,8 @@
 #import <string>
 #import <cstdlib>
 
+#define FREESTR(str) if(str) free(str); 
+
 using std::string;
 
 template <typename T>
@@ -31,16 +33,11 @@ typedef struct _playerBasic {
 
 	~_playerBasic()
 	{
-		if (image)
-			free(image);
-		if (userName)
-			free(userName);
-		if (firstName)
-			free(firstName);
-		if (lastName)
-			free(lastName);
-		if (clPlayerId)
-			free(clPlayerId);
+		FREESTR(image)
+		FREESTR(userName)
+		FREESTR(firstName)
+		FREESTR(lastName)
+		FREESTR(clPlayerId)
 	}
 } playerBasic;
 
@@ -58,10 +55,8 @@ typedef struct _player {
 
 	~_player()
 	{
-		if (email)
-			free(email);
-		if (phoneNumber)
-			free(phoneNumber);
+		FREESTR(email)
+		FREESTR(phoneNumber)
 	}
 } player;
 
@@ -72,10 +67,8 @@ typedef struct _point {
 
 	~_point()
 	{
-		if (rewardId)
-            free(rewardId);
-		if (rewardName)
-			free(rewardName);
+		FREESTR(rewardId)
+		FREESTR(rewardName)
 	}
 } point;
 
@@ -89,10 +82,8 @@ typedef struct _gradeRewardCustom {
 
 	~_gradeRewardCustom()
 	{
-		if (customId)
-			free(customId);
-		if (customValue)
-			free(customValue);
+		FREESTR(customId)
+		FREESTR(customValue)
 	}
 } gradeRewardCustom;
 
@@ -103,10 +94,8 @@ typedef struct _gradeRewards {
 
 	~_gradeRewards()
 	{
-		if (expValue)
-			free(expValue);
-		if (pointValue)
-			free(pointValue);
+		FREESTR(expValue)
+		FREESTR(pointValue)
 	}
 } gradeRewards;
 
@@ -121,18 +110,12 @@ typedef struct _grade {
 
 	~_grade()
 	{
-		if (gradeId)
-			free(gradeId);
-		if (start)
-			free(start);
-		if (end)
-			free(end);
-		if (grade)
-			free(grade);
-		if (rank)
-			free(rank);
-		if (rankImage)
-			free(rankImage);
+		FREESTR(gradeId)
+		FREESTR(start)
+		FREESTR(end)
+		FREESTR(grade)
+		FREESTR(rank)
+		FREESTR(rankImage)
 	}
 } grade;
 
@@ -146,16 +129,11 @@ typedef struct _quizBasic {
 
 	~_quizBasic()
 	{
-		if (name)
-			free(name);
-		if (image)
-			free(image);
-		if (description_)
-			free(description_);
-		if (descriptionImage)
-			free(descriptionImage);
-		if (quizId)
-			free(quizId);
+		FREESTR(name)
+		FREESTR(image)
+		FREESTR(description_)
+		FREESTR(descriptionImage)
+		FREESTR(quizId)
 	}
 } quizBasic;
 
@@ -178,14 +156,10 @@ typedef struct _gradeDoneReward {
 
 	~_gradeDoneReward()
 	{
-		if (eventType)
-			free(eventType);
-		if (rewardType)
-			free(rewardType);
-		if (rewardId)
-			free(rewardId);
-		if (value)
-			free(value);
+		FREESTR(eventType)
+		FREESTR(rewardType)
+		FREESTR(rewardId)
+		FREESTR(value)
 	}
 } gradeDoneReward;
 
@@ -204,20 +178,13 @@ typedef struct _gradeDone {
 
 	~_gradeDone()
 	{
-		if (gradeId)
-			free(gradeId);
-		if (start)
-			free(start);
-		if (end)
-			free(end);
-		if (grade)
-			free(grade);
-		if (rank)
-			free(rank);
-		if (rankImage)
-			free(rankImage);
-		if (maxScore)
-			free(maxScore);
+		FREESTR(gradeId)
+		FREESTR(start)
+		FREESTR(end)
+		FREESTR(grade)
+		FREESTR(rank)
+		FREESTR(rankImage)
+		FREESTR(maxScore)
 	}
 } gradeDone;
 
@@ -229,8 +196,7 @@ typedef struct _quizDone {
 
 	~_quizDone()
 	{
-		if (quizId)
-			free(quizId);
+		FREESTR(quizId)
 	}
 } quizDone;
 
@@ -239,6 +205,14 @@ typedef struct _quizPendingGradeReward {
 	char* rewardType;
 	char* rewardId;
 	char* value;
+
+	~_quizPendingGradeReward()
+	{
+		FREESTR(eventType)
+		FREESTR(rewardType)
+		FREESTR(rewardId)
+		FREESTR(value)
+	}
 } quizPendingGradeReward;
 
 typedef struct _quizPendingGrade {
@@ -247,6 +221,11 @@ typedef struct _quizPendingGrade {
 	char* maxScore;
 	unsigned int totalScore;
 	unsigned int totalMaxScore;
+
+	~_quizPendingGrade()
+	{
+		FREESTR(maxScore)
+	}
 } quizPendingGrade;
 
 typedef struct _quizPending {
@@ -255,6 +234,11 @@ typedef struct _quizPending {
 	unsigned int totalCompletedQuestions;
 	unsigned int totalPendingQuestions;
 	char* quizId;
+
+	~_quizPending()
+	{
+		FREESTR(quizId)
+	}
 } quizPending;
 
 typedef struct _quizDoneList {
@@ -273,6 +257,13 @@ typedef struct _questionOption {
 	char* option;
 	char* optionImage;
 	char* optionId;
+
+	~_questionOption()
+	{
+		FREESTR(option)
+		FREESTR(optionImage)
+		FREESTR(optionId)
+	}
 } questionOption;
 
 typedef struct _question {
@@ -282,6 +273,13 @@ typedef struct _question {
 	unsigned int index;
 	unsigned int total;
 	char* questionId;
+
+	~_question()
+	{
+		FREESTR(question)
+		FREESTR(questionImage)
+		FREESTR(questionId)
+	}
 } question;
 
 typedef struct _questionAnsweredGradedone {
@@ -295,6 +293,17 @@ typedef struct _questionAnsweredGradedone {
 	char* maxScore;
 	unsigned int totalScore;
 	unsigned int totalMaxScore;
+
+	~_questionAnsweredGradedone()
+	{
+		FREESTR(gradeId)
+		FREESTR(start)
+		FREESTR(end)
+		FREESTR(grade)
+		FREESTR(rank)
+		FREESTR(rankImage)
+		FREESTR(maxScore)
+	}
 } questionAnsweredGradeDone;
 
 typedef struct _questionAnsweredOption {
@@ -303,6 +312,15 @@ typedef struct _questionAnsweredOption {
 	char* explanation;
 	char* optionImage;
 	char* optionId;
+
+	~_questionAnsweredOption()
+	{
+		FREESTR(option)
+		FREESTR(score)
+		FREESTR(explanation)
+		FREESTR(optionImage)
+		FREESTR(optionId)
+	}
 } questionAnsweredOption;
 
 typedef struct _questionAnswered {
@@ -314,17 +332,34 @@ typedef struct _questionAnswered {
 	unsigned int totalMaxScore;
 	questionAnsweredGradeDone gradeDone;
 	_array<gradeDoneReward> gradeDoneRewardArray;
+
+	~_questionAnswered()
+	{
+		FREESTR(maxScore)
+		FREESTR(explanation)
+	}
 } questionAnswered;
 
 typedef struct _custom {
 	char* customId;
 	char* customName;
 	unsigned int customValue;
+
+	~_custom()
+	{
+		FREESTR(customId)
+		FREESTR(customName)
+	}
 } custom;
 
 typedef struct _redeemBadge {
 	char* badgeId;
 	unsigned int badgeValue;
+
+	~_redeemBadge()
+	{
+		FREESTR(badgeId)
+	}
 } redeemBadge;
 
 typedef struct _redeem {
@@ -345,6 +380,15 @@ typedef struct _goods {
 	bool sponsor;
 	long dateStart;
 	long dateExpire;
+
+	~_goods()
+	{
+		FREESTR(goodsId)
+		FREESTR(image)
+		FREESTR(name)
+		FREESTR(description_)
+		FREESTR(code)
+	}
 } goods;
 
 typedef struct _goodsInfo {
@@ -363,6 +407,15 @@ typedef struct _badge {
 	bool sponsor;
 	bool claim;
 	bool redeem;
+
+	~_badge()
+	{
+		FREESTR(badgeId)
+		FREESTR(image)
+		FREESTR(name)
+		FREESTR(description_)
+		FREESTR(hint)
+	}
 } badge;
     
 typedef struct _ruleEventBadgeRewardData
@@ -372,6 +425,15 @@ typedef struct _ruleEventBadgeRewardData
     char* name=NULL;
     char* description_=NULL;
     char* hint=NULL;
+
+    ~_ruleEventBadgeRewardData()
+    {
+    	FREESTR(badgeId)
+    	FREESTR(image)
+    	FREESTR(name)
+    	FREESTR(description_)
+    	FREESTR(hint)
+    }
 } ruleEventBadgeRewardData;
 
 typedef struct _ruleEventGoodsRewardData
@@ -382,6 +444,16 @@ typedef struct _ruleEventGoodsRewardData
     char* description_=NULL;
     char* perUser=NULL;
     char* code=NULL;
+
+    ~_ruleEventGoodsRewardData()
+    {
+    	FREESTR(goodsId)
+    	FREESTR(image)
+    	FREESTR(name)
+    	FREESTR(description_)
+    	FREESTR(perUser)
+    	FREESTR(code)
+    }
 } ruleEventGoodsRewardData;
 
 typedef struct _ruleEvent {
@@ -390,6 +462,13 @@ typedef struct _ruleEvent {
 	char* value=NULL;
 	ruleEventBadgeRewardData badgeData;
 	ruleEventGoodsRewardData goodsData;
+
+	~_ruleEvent()
+	{
+		FREESTR(eventType)
+		FREESTR(rewardType)
+		FREESTR(value)
+	}
 } ruleEvent;
 
 typedef struct _ruleEventMission {
@@ -401,6 +480,17 @@ typedef struct _ruleEventMission {
 	char* hint=NULL;
 	char* image=NULL;
 	char* questId=NULL;
+
+	~_ruleEventMission()
+	{
+		FREESTR(missionId)
+		FREESTR(missionNumber)
+		FREESTR(missionName)
+		FREESTR(description_)
+		FREESTR(hint)
+		FREESTR(image)
+		FREESTR(questId)
+	}
 } ruleEventMission;
 
 typedef struct _ruleEventQuest {
@@ -410,6 +500,15 @@ typedef struct _ruleEventQuest {
 	char* description_=NULL;
 	char* hint=NULL;
 	char* image=NULL;
+
+	~_ruleEventQuest()
+	{
+		FREESTR(questId)
+		FREESTR(questName)
+		FREESTR(description_)
+		FREESTR(hint)
+		FREESTR(image)
+	}
 } ruleEventQuest;
 
 typedef struct _rule {

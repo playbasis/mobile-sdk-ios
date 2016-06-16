@@ -67,7 +67,7 @@ void quizListCallback(void* data, int errorCode)
     [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
         if (error == nil)
         {
-            _rule("jontestuser", "want", ruleCallback);
+            _rule("jontestuser", "like", ruleCallback);
         }
         else
         {
