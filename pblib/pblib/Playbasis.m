@@ -4745,13 +4745,13 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 }
 -(PBRequestUnit *)quizListOfPlayerInternalBase:(NSString *)playerId type:(NSString *)type tags:(NSString *)tags blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
-    NSString *method = [NSString stringWithFormat:@"Quiz/list?player_id=%@%@", playerId,_apiKeyParam];
+    NSString *method = [NSString stringWithFormat:@"Quiz/list%@&player_id=%@", _apiKeyParam, playerId];
     
-    if(![type isEqualToString:@""])
+    if(type != nil && ![type isEqualToString:@""])
     {
         method = [method stringByAppendingString:[NSString stringWithFormat:@"&type=%@",type]];
     }
-    if(![tags isEqualToString:@""])
+    if(tags != nil && ![tags isEqualToString:@""])
     {
         method = [method stringByAppendingString:[NSString stringWithFormat:@"&tags=%@",tags]];
     }
