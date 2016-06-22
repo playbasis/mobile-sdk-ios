@@ -60,6 +60,11 @@ void goodsInfoListCallback(void* data, int errorCode)
     [expectation fulfill];
 }
 
+void questInfoCallback(void* data, int errorCode) {
+	questInfo* cdata = (questInfo*)data;
+	[expectation fulfill];
+}
+
 @interface pblibWrapperTest : XCTestCase
 
 @end
@@ -123,6 +128,11 @@ void goodsInfoListCallback(void* data, int errorCode)
 {
     _goodsInfoList("jontestuser", goodsInfoListCallback);
     [self wait:@"goodsInfoList"];
+}
+
+- (void)testQuestInfo {
+	_questInfo("576a6e6abe120bf63d8b5bcf", questInfoCallback);
+	[self wait:@"questInfo"];
 }
 
 @end

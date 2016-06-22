@@ -111,6 +111,12 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		goodsInfoList* data = (goodsInfoList*)outData;
 		[Populator populateGoodsInfoArray:&data->goodsInfoArray from:cr.goodsList];
 	}
+	else if (type == responseType_questInfo) {
+		PBQuestInfo_Response* cr = (PBQuestInfo_Response*)response;
+		
+		questInfo* data = (questInfo*)outData;
+		[Populator populateQuestInfo:data from:cr];
+	}
 }
 
 /*
@@ -619,4 +625,32 @@ void _goodsInfoList(const char* playerId, OnDataResult callback)
 			}
 		}
 	}];
+}
+
+void _questInfo(const char* questId, OnDataResult callback) {
+	[[Playbasis sharedPB] questAsync:CreateNSString(questId) withBlock:^(PBQuestInfo_Response * response, NSURL *url, NSError *error) {
+		if (error == nil) {
+			questInfo data;
+			PopulateData(responseType_questInfo, response, &data);
+			
+			if (callback) {
+				callback((void*)&data, -1);
+			}
+		}
+		else {
+			if (callback) {
+				callback(nil, (int)error.code);
+			}
+		}
+	}];
+}
+
+void _questInfoList(OnDataResult callback)
+{
+    [[Playbasis sharedPB] questListWithBlockAsync:^(PBQuestList_Response *questList, NSURL *url, NSError *error) {
+        if (error == nil)
+        {
+            
+        }
+    }];
 }

@@ -521,8 +521,163 @@ typedef struct _ruleEventQuest {
 typedef struct _rule {
 	_array<ruleEvent> ruleEventArray;
 	_array<ruleEventMission> ruleEventMissionArray;
-	_array<ruleEventQuest> ruleEventQuestArray;  
+	_array<ruleEventQuest> ruleEventQuestArray;
 } rule;
+
+typedef struct _url {
+	char* operation=NULL;
+	char* completionString=NULL;
+	
+	~_url()
+	{
+		FREESTR(operation)
+		FREESTR(completionString)
+	}
+} url;
+
+typedef struct _filteredParam {
+	url url;
+} filteredParam;
+
+typedef struct _completionData {
+    char* actionId=NULL;
+	char* name=NULL;
+	char* description_=NULL;
+	char* icon=NULL;
+	char* color=NULL;
+	
+	~_completionData() {
+		FREESTR(actionId)
+		FREESTR(name)
+		FREESTR(description_)
+		FREESTR(icon)
+		FREESTR(color)
+	}
+} completionData;
+
+typedef struct _completion {
+	char* completionOp=NULL;
+	char* completionFilter=NULL;
+	char* completionValue=NULL;
+	char* completionId=NULL;
+	char* completionType=NULL;
+	char* completionElementId=NULL;
+	char* completionTitle=NULL;
+	filteredParam filteredParam;
+	completionData completionData;
+	
+	~_completion()
+	{
+		FREESTR(completionOp)
+		FREESTR(completionFilter)
+		FREESTR(completionValue)
+		FREESTR(completionId)
+		FREESTR(completionType)
+		FREESTR(completionElementId)
+		FREESTR(completionTitle)
+	}
+} completion;
+
+typedef struct _reward {
+	char* rewardValue=NULL;
+	char* rewardType=NULL;
+	char* rewardId=NULL;
+	char* rewardName=NULL;
+
+	~_reward()
+	{
+		FREESTR(rewardValue)
+		FREESTR(rewardType)
+		FREESTR(rewardId)
+		FREESTR(rewardName)
+	}
+} reward;
+
+typedef struct _missionBasic {
+	char* missionName=NULL;
+	char* missionNumber=NULL;
+	char* description_=NULL;
+	char* hint=NULL;
+	char* image=NULL;
+	_array<completion> completionArray;
+	_array<reward> rewardArray;
+	char* missionId;
+	
+	~_missionBasic()
+	{
+		FREESTR(missionName)
+		FREESTR(missionNumber)
+		FREESTR(description_)
+		FREESTR(hint)
+		FREESTR(image)
+		FREESTR(missionId)
+	}
+} missionBasic;
+
+typedef struct _mission {
+	missionBasic missionBasic;
+} mission;
+    
+typedef struct _conditionData {
+    char* questName=NULL;
+    char* description_=NULL;
+    char* hint=NULL;
+    char* image=NULL;
+    
+    ~_conditionData() {
+        FREESTR(questName)
+        FREESTR(description_)
+        FREESTR(hint)
+        FREESTR(image)
+    }
+} conditionData;
+
+typedef struct _condition {
+	char* conditionId=NULL;
+	char* conditionType=NULL;
+	char* conditionValue=NULL;
+	conditionData conditionData;
+	
+	~_condition() {
+		FREESTR(conditionId)
+		FREESTR(conditionType)
+		FREESTR(conditionValue)
+	}
+} condition;
+    
+typedef struct _questBasic {
+	char* questName=NULL;
+	char* description_=NULL;
+	char* hint=NULL;
+	char* image=NULL;
+	bool missionOrder=false;
+	bool status=false;
+	unsigned int sortOrder=0;
+	_array<reward> rewardArray;
+	_array<missionBasic> missionBasicArray;
+	time_t dateAdded=0;
+	char* clientId=NULL;
+	char* siteId=NULL;
+	_array<condition> conditionArray;
+	time_t dateModified=NULL;
+	char* questId=NULL;
+
+	~_questBasic()
+	{
+		FREESTR(questName)
+		FREESTR(description_)
+		FREESTR(hint)
+		FREESTR(image)
+		FREESTR(clientId)
+		FREESTR(siteId)
+		FREESTR(questId)
+	}
+
+} questBasic;
+    
+typedef struct _questInfo {
+	questBasic questBasic;
+} questInfo;
 
 #ifdef __cplusplus
 }

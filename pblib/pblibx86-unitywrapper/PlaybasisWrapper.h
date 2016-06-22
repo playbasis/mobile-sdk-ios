@@ -50,6 +50,8 @@ extern "C" {
     void _badge(const char* badgeId, OnDataResult callback);
     void _goodsInfo(const char* goodsId, OnDataResult callback);
     void _goodsInfoList(const char* playerId, OnDataResult callback);
+	void _questInfo(const char* questId, OnDataResult callback);
+    void _questInfoList(OnDataResult callback);
 
 #ifdef __cplusplus
 }

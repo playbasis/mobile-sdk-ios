@@ -720,4 +720,194 @@
     outData->count = i;
 }
 
++ (void) populateReward:(reward*)outData from:(PBReward*)pbData {
+	RETURNIFNULL(pbData)
+	
+	COPYSTRING(pbData.rewardValue, outData->rewardValue)
+	COPYSTRING(pbData.rewardType, outData->rewardType)
+	COPYSTRING(pbData.rewardId, outData->rewardId)
+	COPYSTRING(pbData.rewardName, outData->rewardName)
+}
+
++ (void) populateRewardArray:(_array<reward>*)outData from:(NSArray*)pbArray {
+    RETURNIFNULL(pbArray)
+
+    reward *items = new reward[[pbArray count]];
+    int i=0;
+
+    for (PBReward* c in pbArray)
+    {
+        [Populator populateReward:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateMissionBasic:(missionBasic*)outData from:(PBMissionBasic*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.missionName, outData->missionName)
+	COPYSTRING(pbData.missionNumber, outData->missionNumber)
+	COPYSTRING(pbData.description_, outData->description_)
+	COPYSTRING(pbData.hint, outData->hint)
+	COPYSTRING(pbData.image, outData->image)
+	[Populator populateCompletionArray:&outData->completionArray from:pbData.completions.completions];
+	[Populator populateRewardArray:&outData->rewardArray from:pbData.rewards.rewards];
+	COPYSTRING(pbData.missionId, outData->missionId)
+}
+
++ (void) populateMissionBasicArray:(_array<missionBasic>*)outData from:(NSArray*)pbArray {
+	RETURNIFNULL(pbArray)
+		
+    missionBasic *items = new missionBasic[[pbArray count]];
+    int i=0;
+
+    for (PBMissionBasic* c in pbArray)
+    {
+        [Populator populateMissionBasic:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateMission:(mission*)outData from:(PBMission*)pbData {
+	RETURNIFNULL(pbData)
+		
+	[Populator populateMissionBasic:&outData->missionBasic from:pbData.missionBasic];
+	// ignore others for now as it doesn't use in current version of SDK
+}
+
++ (void) popuateMissionArray:(_array<mission>*)outData from:(NSArray*)pbArray {
+	RETURNIFNULL(pbArray)
+		
+    mission *items = new mission[[pbArray count]];
+    int i=0;
+
+    for (PBMission* c in pbArray)
+    {
+        [Populator populateMission:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateCondition:(condition*)outData from:(PBCondition*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.conditionId, outData->conditionId)
+	COPYSTRING(pbData.conditionType, outData->conditionType)
+	COPYSTRING(pbData.conditionValue, outData->conditionValue)
+	[Populator populateConditionData:&outData->conditionData from:pbData.conditionData];
+}
+
++ (void) populateConditionArray:(_array<condition>*)outData from:(NSArray*)pbArray {
+	RETURNIFNULL(pbArray)
+		
+    condition *items = new condition[[pbArray count]];
+    int i=0;
+
+    for (PBCondition* c in pbArray)
+    {
+        [Populator populateCondition:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateConditionData:(conditionData*)outData from:(PBConditionData*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.questName, outData->questName)
+	COPYSTRING(pbData.description_, outData->description_)
+	COPYSTRING(pbData.hint, outData->hint)
+	COPYSTRING(pbData.image, outData->image)
+}
+
++ (void) populateCompletion:(completion*)outData from:(PBCompletion*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.completionOp, outData->completionOp)
+	COPYSTRING(pbData.completionFilter, outData->completionFilter)
+	COPYSTRING(pbData.completionValue, outData->completionValue)
+	COPYSTRING(pbData.completionId, outData->completionId)
+	COPYSTRING(pbData.completionType, outData->completionType)
+	COPYSTRING(pbData.completionElementId, outData->completionElementId)
+	COPYSTRING(pbData.completionTitle, outData->completionTitle)
+	[Populator populateFilteredParam:&outData->filteredParam from:pbData.filteredParam];
+	[Populator populateCompletionData:&outData->completionData from:pbData.completionData];
+}
+
++ (void) populateCompletionArray:(_array<completion>*)outData from:(NSArray*)pbArray {
+	RETURNIFNULL(pbArray)
+		
+    completion *items = new completion[[pbArray count]];
+    int i=0;
+
+    for (PBCompletion* c in pbArray)
+    {
+        [Populator populateCompletion:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateCompletionData:(completionData*)outData from:(PBCompletionData*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.actionId, outData->actionId)
+	COPYSTRING(pbData.name, outData->name)
+	COPYSTRING(pbData.description_, outData->description_)
+	COPYSTRING(pbData.icon, outData->icon)
+	COPYSTRING(pbData.color, outData->color)
+}
+
++ (void) populateFilteredParam:(filteredParam*)outData from:(PBFilteredParam*)pbData {
+	RETURNIFNULL(pbData)
+		
+	[Populator populateUrl:&outData->url from:pbData.url];
+}
+
++ (void) populateUrl:(url*)outData from:(PBUrl*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.operation, outData->operation)
+	COPYSTRING(pbData.completionString, outData->completionString)
+}
+
++ (void) populateQuestBasic:(questBasic*)outData from:(PBQuestBasic*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.questName, outData->questName)
+	COPYSTRING(pbData.description_, outData->description_)
+	COPYSTRING(pbData.hint, outData->hint)
+	COPYSTRING(pbData.image, outData->image)
+	outData->missionOrder = pbData.missionOrder;
+	outData->status = pbData.status;
+	outData->sortOrder = pbData.sortOrder;
+	[Populator populateRewardArray:&outData->rewardArray from:pbData.rewards.rewards];
+	[Populator populateMissionBasicArray:&outData->missionBasicArray from:pbData.missionBasics.missionBasics];
+	outData->dateAdded = [pbData.dateAdded timeIntervalSince1970];
+	COPYSTRING(pbData.clientId, outData->clientId)
+	COPYSTRING(pbData.siteId, outData->siteId)
+	[Populator populateConditionArray:&outData->conditionArray from:pbData.conditions.conditions];
+	outData->dateModified = [pbData.dateModified timeIntervalSince1970];
+	COPYSTRING(pbData.questId, outData->questId)
+}
+
++ (void) populateQuestInfo:(questInfo*)outData from:(PBQuestInfo_Response*)pbData {
+	RETURNIFNULL(pbData)
+		
+	[Populator populateQuestBasic:&outData->questBasic from:pbData.questBasic];
+}
+
 @end

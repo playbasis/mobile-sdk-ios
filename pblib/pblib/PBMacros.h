@@ -22,7 +22,7 @@
  Check against nil or NSNull.
  If input obj is nil, or NSNull then return YES, otherwise return NO.
  */
-#define PB_IS_NIL_OR_NSNull(obj)    ((obj == nil) || (obj == (id)[NSNull null]) ? YES : NO)
+#define PB_IS_NIL_OR_NSNull(obj)    ((obj == nil) || (obj == (id)[NSNull null]) || ([obj respondsToSelector:@selector(count)] && [obj count] == 0) ? YES : NO)
 
 /**
  PBLOG, console logging

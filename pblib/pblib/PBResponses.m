@@ -2782,21 +2782,89 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @end
 
 ///--------------------------------------
+/// Url
+///--------------------------------------
+@implementation PBUrl
+
+@synthesize operation;
+@synthesize completionString;
+
+- (NSString*)description
+{
+    NSString *str = [NSString stringWithFormat:@"PBUrl{operation='%@', completionString='%@'}", self.operation, self.completionString];
+    return str;
+}
+
++(PBUrl*)parseFromDictionary:(const NSDictionary*)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if (PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+
+    // create a result object
+    PBUrl *c = [[PBUrl alloc] init];
+    
+    // ignore the parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->operation = [c.parseLevelJsonResponse objectForKey:@"operation"];
+    c->completionString = [c.parseLevelJsonResponse objectForKey:@"completion_string"];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
+/// FilteredParam
+///--------------------------------------
+@implementation PBFilteredParam
+
+@synthesize url;
+
+- (NSString*)description
+{
+    NSString *str = [NSString stringWithFormat:@"PBFilteredParam{url='%@'}", url];
+    return str;
+}
+
++(PBFilteredParam*)parseFromDictionary:(const NSDictionary*)jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel
+{
+    if (PB_IS_NIL_OR_NSNull(jsonResponse))
+        return nil;
+
+    // create a result object
+    PBFilteredParam *c = [[PBFilteredParam alloc] init];
+    
+    // ignore the parse level flag
+    c.parseLevelJsonResponse = [jsonResponse copy];
+    
+    // parse
+    c->url = [PBUrl parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"url"] startFromFinalLevel:YES];
+    
+    return c;
+}
+
+@end
+
+///--------------------------------------
 /// Completion
 ///--------------------------------------
 @implementation PBCompletion
 
+@synthesize completionOp;
 @synthesize completionFilter;
 @synthesize completionValue;
 @synthesize completionId;
 @synthesize completionType;
 @synthesize completionElementId;
 @synthesize completionTitle;
+@synthesize filteredParam;
 @synthesize completionData;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Completion : {\r\tcompletion_filter : %@\r\tcompletion_value : %@\r\tcompletion_id : %@\r\tcompletion_type : %@\r\tcompletion_element_id : %@\r\tcompletion_title : %@\r\t%@\r\t}", self.completionFilter, self.completionValue, self.completionId, self.completionType, self.completionElementId, self.completionTitle, self.completionData];
+    NSString *descriptionString = [NSString stringWithFormat:@"Completion : {\r\tcompletion_op : %@\r\tcompletion_filter : %@\r\tcompletion_value : %@\r\tcompletion_id : %@\r\tcompletion_type : %@\r\tcompletion_element_id : %@\r\tcompletion_title : %@\r\tfiltered_param : %@\r\tcompletion_data : %@\r\t}", self.completionOp, self.completionFilter, self.completionValue, self.completionId, self.completionType, self.completionElementId, self.completionTitle, self.filteredParam, self.completionData];
     
     return descriptionString;
 }
@@ -2813,13 +2881,14 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c.parseLevelJsonResponse = [jsonResponse copy];
     
     // parse
+    c->completionOp = [c.parseLevelJsonResponse objectForKey:@"completion_op"];
     c->completionFilter = [c.parseLevelJsonResponse objectForKey:@"completion_filter"];
     c->completionValue = [c.parseLevelJsonResponse objectForKey:@"completion_value"];
     c->completionId = [c.parseLevelJsonResponse objectForKey:@"completion_id"];
     c->completionType = [c.parseLevelJsonResponse objectForKey:@"completion_type"];
     c->completionElementId = [c.parseLevelJsonResponse objectForKey:@"completion_element_id"];
     c->completionTitle = [c.parseLevelJsonResponse objectForKey:@"completion_title"];
-    
+    c->filteredParam = [PBFilteredParam parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"filtered_param"] startFromFinalLevel:YES];
     c->completionData = [PBCompletionData parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"completion_data"] startFromFinalLevel:YES];
     
     return c;
@@ -3364,12 +3433,13 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @synthesize dateAdded;
 @synthesize clientId;
 @synthesize siteId;
+@synthesize conditions;
 @synthesize dateModified;
 @synthesize questId;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tdate_modified : %@\r\tquest_id : %@\r\t}", self->questName, self->description_, self->hint, self->image, self->missionOrder ? @"YES" : @"NO", self->status ? @"YES" : @"NO", (unsigned long)self->sortOrder, self->rewards, self->missionBasics, self->dateAdded, self->clientId, self->siteId, self->dateModified, self->questId];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest : {\r\tquest_name : %@\r\tdescription : %@\r\thint : %@\r\timage : %@\r\tmission_order : %@\r\tstatus : %@\r\tsort_order : %lu\r\t%@\r\t%@\r\tdate_added : %@\r\tclient_id : %@\r\tsite_id : %@\r\tconditions : %@\r\tdate_modified : %@\r\tquest_id : %@\r\t}", self->questName, self->description_, self->hint, self->image, self->missionOrder ? @"YES" : @"NO", self->status ? @"YES" : @"NO", (unsigned long)self->sortOrder, self->rewards, self->missionBasics, self->dateAdded, self->clientId, self->siteId, self->conditions, self->dateModified, self->questId];
     
     return descriptionString;
 }
@@ -3405,6 +3475,7 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->dateModified = [[PBUtils sharedInstance].dateFormatter dateFromString:[c.parseLevelJsonResponse objectForKey:@"date_modified"]];
     c->clientId = [c.parseLevelJsonResponse objectForKey:@"client_id"];
     c->siteId = [c.parseLevelJsonResponse objectForKey:@"site_id"];
+	c->conditions = [PBConditionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition"] startFromFinalLevel:YES];
     c->questId = [c.parseLevelJsonResponse objectForKey:@"quest_id"];
     
     return c;
@@ -3418,11 +3489,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @implementation PBQuestInfo_Response
 
 @synthesize questBasic;
-@synthesize conditions;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Quest Info : {\r\t%@\r\t%@\r\t}", self.questBasic, self.conditions];
+    NSString *descriptionString = [NSString stringWithFormat:@"Quest Info : {\r\tquestBasic='%@'\r\t}", self.questBasic];
     
     return descriptionString;
 }
@@ -3454,7 +3524,6 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     
     // parse
     c->questBasic = [PBQuestBasic parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
-    c->conditions = [PBConditionArray parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"condition"] startFromFinalLevel:YES];
     
     return c;
 }
@@ -4405,6 +4474,8 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @implementation PBRule_Response
 
 @synthesize events;
+@synthesize missions;
+@synthesize quests;
 
 -(NSString *)description
 {
@@ -4434,10 +4505,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
         c.parseLevelJsonResponse = response;
     }
     
-    // parse 'events'
+	// parse
     c->events = [PBRuleEvents parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events"] startFromFinalLevel:YES];
-    
-    // TODO: Add parse 'events_missions', 'events_quests' ...
+    c->missions = [PBRuleEventsMissions parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events_missions"] startFromFinalLevel:YES];
+	c->quests = [PBRuleEventsQuests parseFromDictionary:[c.parseLevelJsonResponse objectForKey:@"events_quests"] startFromFinalLevel:YES];
     
     return c;
 }
