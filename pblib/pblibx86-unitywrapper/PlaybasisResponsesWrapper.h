@@ -703,6 +703,16 @@ typedef struct _questAvailableForPlayer {
 	}
 } questAvailableForPlayer;
 
+typedef struct _cancelQuest {
+	char* eventType=NULL;
+	char* questId=NULL;
+	
+	~_cancelQuest() {
+		FREESTR(eventType)
+		FREESTR(questId)
+	}
+} cancelQuest;
+
 #ifdef __cplusplus
 }
 #endif

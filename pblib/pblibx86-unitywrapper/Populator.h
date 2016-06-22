@@ -70,4 +70,5 @@
 + (void) populateQuestBasicArray:(_array<questBasic>*)outData from:(NSArray*)pbArray;
 + (void) populateQuestInfo:(questInfo*)outData from:(PBQuestInfo_Response*)pbData;
 + (void) populateQuestAvailableForPlayer:(questAvailableForPlayer*)outData from:(PBQuestAvailableForPlayer_Response*)pbData;
++ (void) populateCancelQuest:(cancelQuest*)outData from:(PBCancelQuest*)pbData;
 @end

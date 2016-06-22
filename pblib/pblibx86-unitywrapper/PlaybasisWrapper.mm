@@ -141,6 +141,12 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		questAvailableForPlayer* data = (questAvailableForPlayer*)outData;
 		[Populator populateQuestAvailableForPlayer:data from:cr];
 	}
+	else if (type == responseType_cancelQuest) {
+		PBCancelQuest_Response* cr = (PBCancelQuest_Response*)response;
+		
+		cancelQuest* data = (cancelQuest*)outData;
+		[Populator populateCancelQuest:data from:cr.response];
+	}
 }
 
 /*
@@ -751,6 +757,24 @@ void _questAvailableForPlayer(const char* questId, const char* playerId, OnDataR
 		if (error == nil) {
 			questAvailableForPlayer data;
 			PopulateData(responseType_questAvailableForPlayer, response, &data);
+			
+			if (callback) {
+				callback((void*)&data, -1);
+			}
+		}
+		else {
+			if (callback) {
+				callback(nil, (int)error.code);
+			}
+		}
+	}];
+}
+
+void _cancelQuest(const char* questId, const char* playerId, OnDataResult callback) {
+	[[Playbasis sharedPB] cancelQuestAsync:CreateNSString(questId) forPlayer:CreateNSString(playerId) withBlock:^(PBCancelQuest_Response * response, NSURL *url, NSError *error) {
+		if (error == nil) {
+			cancelQuest data;
+			PopulateData(responseType_cancelQuest, response, &data);
 			
 			if (callback) {
 				callback((void*)&data, -1);

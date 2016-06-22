@@ -56,6 +56,7 @@ extern "C" {
 	void _missionInfo(const char* questId, const char* missionId, OnDataResult callback);
 	void _questInfoListForPlayer(const char* playerId, OnDataResult callback);
 	void _questAvailableForPlayer(const char* questId, const char* playerId, OnDataResult callback);
+	void _cancelQuest(const char* questId, const char* playerId, OnDataResult callback);
 
 #ifdef __cplusplus
 }

@@ -85,6 +85,11 @@ void questAvailableForPlayerCallback(void* data, int errorCode) {
 	[expectation fulfill];
 }
 
+void cancelQuestCallback(void* data, int errorCode) {
+	cancelQuest* cdata = (cancelQuest*)data;
+	[expectation fulfill];
+}
+
 @interface pblibWrapperTest : XCTestCase
 
 @end
@@ -178,6 +183,11 @@ void questAvailableForPlayerCallback(void* data, int errorCode) {
 - (void)testQuestAvailableForPlayer {
 	_questAvailableForPlayer("576a6e6abe120bf63d8b5bcf", "jontestuser", questAvailableForPlayerCallback);
 	[self wait:@"questAvailableForPlayer"];
+}
+
+- (void)testCancelQuest {
+	_cancelQuest("576a6e6abe120bf63d8b5bcf", "jontestuser", cancelQuestCallback);
+	[self wait:@"cancelQuest"];
 }
 
 @end
