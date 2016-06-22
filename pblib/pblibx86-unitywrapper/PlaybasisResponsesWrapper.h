@@ -703,6 +703,16 @@ typedef struct _questAvailableForPlayer {
 	}
 } questAvailableForPlayer;
 
+typedef struct _joinQuest {
+	char* eventType=NULL;
+	char* questId=NULL;
+	
+	~_joinQuest() {
+		FREESTR(eventType)
+		FREESTR(questId)
+	}
+} joinQuest;
+
 typedef struct _cancelQuest {
 	char* eventType=NULL;
 	char* questId=NULL;

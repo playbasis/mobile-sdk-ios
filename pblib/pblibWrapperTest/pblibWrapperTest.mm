@@ -85,6 +85,11 @@ void questAvailableForPlayerCallback(void* data, int errorCode) {
 	[expectation fulfill];
 }
 
+void joinQuestCallback(void* data, int errorCode) {
+    joinQuest* cdata = (joinQuest*)data;
+    [expectation fulfill];
+}
+
 void cancelQuestCallback(void* data, int errorCode) {
 	cancelQuest* cdata = (cancelQuest*)data;
 	[expectation fulfill];
@@ -183,6 +188,11 @@ void cancelQuestCallback(void* data, int errorCode) {
 - (void)testQuestAvailableForPlayer {
 	_questAvailableForPlayer("576a6e6abe120bf63d8b5bcf", "jontestuser", questAvailableForPlayerCallback);
 	[self wait:@"questAvailableForPlayer"];
+}
+
+- (void)testJoinQuest {
+	_joinQuest("576a6e6abe120bf63d8b5bcf", "jontestuser", joinQuestCallback);
+	[self wait:@"joinQuest"];
 }
 
 - (void)testCancelQuest {

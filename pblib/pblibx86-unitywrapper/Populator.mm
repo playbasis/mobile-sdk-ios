@@ -941,6 +941,13 @@
 	outData->eventStatus = pbData.eventStatus;
 }
 
++ (void) populateJoinQuest:(joinQuest*)outData from:(PBJoinQuest*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.eventType, outData->eventType)
+	COPYSTRING(pbData.questId, outData->questId)
+}
+
 + (void) populateCancelQuest:(cancelQuest*)outData from:(PBCancelQuest*)pbData {
 	RETURNIFNULL(pbData)
 			

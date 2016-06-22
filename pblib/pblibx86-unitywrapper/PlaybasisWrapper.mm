@@ -141,6 +141,12 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		questAvailableForPlayer* data = (questAvailableForPlayer*)outData;
 		[Populator populateQuestAvailableForPlayer:data from:cr];
 	}
+	else if (type == responseType_joinQuest) {
+		PBJoinQuest_Response* cr = (PBJoinQuest_Response*)response;
+		
+		joinQuest* data = (joinQuest*)outData;
+		[Populator populateJoinQuest:data from:cr.response];
+	}
 	else if (type == responseType_cancelQuest) {
 		PBCancelQuest_Response* cr = (PBCancelQuest_Response*)response;
 		
@@ -765,6 +771,24 @@ void _questAvailableForPlayer(const char* questId, const char* playerId, OnDataR
 		else {
 			if (callback) {
 				callback(nil, (int)error.code);
+			}
+		}
+	}];
+}
+
+void _joinQuest(const char* questId, const char* playerId, OnDataResult callback) {
+	[[Playbasis sharedPB] joinQuestAsync:CreateNSString(questId) forPlayer:CreateNSString(playerId) withBlock:^(PBJoinQuest_Response * response, NSURL *url, NSError *error) {
+		if (error == nil) {
+			if (callback) {
+				joinQuest data;
+				PopulateData(responseType_joinQuest, response, &data);
+				
+				callback((void*)&data, -1);
+			}
+			else {
+				if (callback) {
+					callback(nil, (int)error.code);
+				}
 			}
 		}
 	}];
