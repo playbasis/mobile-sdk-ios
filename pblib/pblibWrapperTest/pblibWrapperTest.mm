@@ -80,6 +80,11 @@ void questInfoListForPlayerCallback(void* data, int errorCode) {
     [expectation fulfill];
 }
 
+void questAvailableForPlayerCallback(void* data, int errorCode) {
+	questAvailableForPlayer* cdata = (questAvailableForPlayer*)data;
+	[expectation fulfill];
+}
+
 @interface pblibWrapperTest : XCTestCase
 
 @end
@@ -168,6 +173,11 @@ void questInfoListForPlayerCallback(void* data, int errorCode) {
 - (void)testQuestInfoListForPlayer {
 	_questInfoListForPlayer("jontestuser", questInfoListForPlayerCallback);
 	[self wait:@"questInfoListForPlayer"];
+}
+
+- (void)testQuestAvailableForPlayer {
+	_questAvailableForPlayer("576a6e6abe120bf63d8b5bcf", "jontestuser", questAvailableForPlayerCallback);
+	[self wait:@"questAvailableForPlayer"];
 }
 
 @end

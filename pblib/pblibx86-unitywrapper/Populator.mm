@@ -933,4 +933,12 @@
 	[Populator populateQuestBasic:&outData->questBasic from:pbData.questBasic];
 }
 
++ (void) populateQuestAvailableForPlayer:(questAvailableForPlayer*)outData from:(PBQuestAvailableForPlayer_Response*)pbData {
+	RETURNIFNULL(pbData)
+		
+	COPYSTRING(pbData.eventType, outData->eventType)
+	COPYSTRING(pbData.eventMessage, outData->eventMessage)
+	outData->eventStatus = pbData.eventStatus;
+}
+
 @end

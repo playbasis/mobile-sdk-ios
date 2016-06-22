@@ -692,6 +692,17 @@ typedef struct _questInfoList {
 	_array<questBasic> questBasicArray;
 } questInfoList;
 
+typedef struct _questAvailableForPlayer {
+	char* eventType=NULL;
+	char* eventMessage=NULL;
+	bool eventStatus=false;
+	
+	~_questAvailableForPlayer() {
+		FREESTR(eventType)
+		FREESTR(eventMessage)
+	}
+} questAvailableForPlayer;
+
 #ifdef __cplusplus
 }
 #endif
