@@ -95,6 +95,10 @@ void cancelQuestCallback(void* data, int errorCode) {
 	[expectation fulfill];
 }
 
+void joinAllQuestsCallback(bool success) {
+	[expectation fulfill];
+}
+
 @interface pblibWrapperTest : XCTestCase
 
 @end
@@ -193,6 +197,11 @@ void cancelQuestCallback(void* data, int errorCode) {
 - (void)testJoinQuest {
 	_joinQuest("576a6e6abe120bf63d8b5bcf", "jontestuser", joinQuestCallback);
 	[self wait:@"joinQuest"];
+}
+
+- (void)testJoinAllQuests {
+	_joinAllQuests("jontestuser", joinAllQuestsCallback);
+	[self wait:@"joinAllQuests"];
 }
 
 - (void)testCancelQuest {

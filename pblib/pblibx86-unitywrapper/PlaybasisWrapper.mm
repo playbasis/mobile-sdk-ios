@@ -794,6 +794,21 @@ void _joinQuest(const char* questId, const char* playerId, OnDataResult callback
 	}];
 }
 
+void _joinAllQuests(const char* playerId, OnResult callback) {
+	[[Playbasis sharedPB] joinAllQuestsForPlayerAsync:CreateNSString(playerId) withBlock:^(PBJoinAllQuests_Response * response, NSURL *url, NSError *error) {
+		if (error == nil) {
+			if (callback) {
+				callback(true);
+			}
+		}
+		else {
+			if (callback) {
+				callback(false);
+			}
+		}
+	}];
+}
+
 void _cancelQuest(const char* questId, const char* playerId, OnDataResult callback) {
 	[[Playbasis sharedPB] cancelQuestAsync:CreateNSString(questId) forPlayer:CreateNSString(playerId) withBlock:^(PBCancelQuest_Response * response, NSURL *url, NSError *error) {
 		if (error == nil) {
