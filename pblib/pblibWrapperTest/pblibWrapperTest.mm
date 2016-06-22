@@ -96,8 +96,13 @@ void questInfoCallback(void* data, int errorCode) {
 }
 
 - (void)testRule {
-    _rule("jontestuser", "like", ruleCallback);
+    _rule("jontestuser", "visit", ruleCallback);
     [self wait:@"rule"];
+}
+
+- (void)testRuleWithUrl {
+	_ruleWithUrl("jontestuser", "visit", "quest1_mission2", ruleCallback);
+	[self wait:@"ruleWithUrl"];
 }
 
 - (void)testQuizListOfPlayer

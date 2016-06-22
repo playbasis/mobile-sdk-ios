@@ -172,7 +172,7 @@ typedef enum
 ///--------------------------------------
 @interface PBPlayerList_Response : PBBase_Response
 
-@property (strong, nonatomic, readonly) NSArray *players;
+@property (strong, nonatomic, readonly) NSArray<PBPlayer_Response*> *players;
 
 +(PBPlayerList_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

@@ -515,6 +515,28 @@ void _rule(const char* playerId, const char* action, OnDataResult callback)
 	}, nil];
 }
 
+void _ruleWithUrl(const char* playerId, const char* action, const char* url, OnDataResult callback) {
+	[[Playbasis sharedPB] ruleForPlayerAsync:CreateNSString(playerId) action:CreateNSString(action) withBlock:^(PBRule_Response * response, NSURL *url, NSError *error) {
+		if (error == nil)
+		{
+			rule data;
+			PopulateData(responseType_rule, response, &data);
+
+			if (callback)
+			{
+				callback((void*)&data, -1);
+			}
+		}
+		else
+		{
+			if (callback)
+			{
+				callback(nil, (int)error.code);
+			}
+		}
+	}, [NSString stringWithFormat:@"url=%@", url], nil];
+}
+
 void _setServerUrl(const char* url)
 {
     [Playbasis setServerUrl:CreateNSString(url)];

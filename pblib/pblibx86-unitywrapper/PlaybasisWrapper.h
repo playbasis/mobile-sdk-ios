@@ -46,6 +46,7 @@ extern "C" {
 	void _quizQuestion(const char* quizId, const char* playerId, OnDataResult callback);
 	void _quizAnswer(const char* quizId, const char* optionId, const char* playerId, const char* questionId, OnDataResult callback);
 	void _rule(const char* playerId, const char* action, OnDataResult callback);
+	void _ruleWithUrl(const char* playerId, const char* action, const char* url, OnDataResult callback);
     void _badges(OnDataResult callback);
     void _badge(const char* badgeId, OnDataResult callback);
     void _goodsInfo(const char* goodsId, OnDataResult callback);
