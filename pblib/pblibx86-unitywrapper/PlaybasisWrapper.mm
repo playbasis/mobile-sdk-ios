@@ -123,6 +123,12 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		questInfoList* data = (questInfoList*)outData;
 		[Populator populateQuestBasicArray:&data->questBasicArray from:cr.list.questBasics];
 	}
+	else if (type == responseType_missionInfo) {
+		PBMissionInfo_Response* cr = (PBMissionInfo_Response*)response;
+		
+		missionInfo* data = (missionInfo*)outData;
+		[Populator populateMissionInfo:data from:cr];
+	}
 }
 
 /*
@@ -690,4 +696,22 @@ void _questInfoList(OnDataResult callback)
 			}
 		}
     }];
+}
+
+void _missionInfo(const char* questId, const char* missionId, OnDataResult callback) {
+	[[Playbasis sharedPB] missionAsync:CreateNSString(missionId) ofQuest:CreateNSString(questId) withBlock:^(PBMissionInfo_Response * response, NSURL *url, NSError *error) {
+		if (error == nil) {
+			missionInfo data;
+			PopulateData(responseType_missionInfo, response, &data);
+			
+			if (callback) {
+				callback((void*)&data, -1);
+			}
+		}
+		else {
+			if (callback) {
+				callback(nil, (int)error.code);
+			}
+		}
+	}];
 }

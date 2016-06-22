@@ -53,6 +53,7 @@ extern "C" {
     void _goodsInfoList(const char* playerId, OnDataResult callback);
 	void _questInfo(const char* questId, OnDataResult callback);
     void _questInfoList(OnDataResult callback);
+	void _missionInfo(const char* questId, const char* missionId, OnDataResult callback);
 
 #ifdef __cplusplus
 }

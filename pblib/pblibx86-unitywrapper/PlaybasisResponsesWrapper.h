@@ -617,6 +617,15 @@ typedef struct _missionBasic {
 typedef struct _mission {
 	missionBasic missionBasic;
 } mission;
+
+typedef struct _missionInfo {
+	missionBasic missionBasic;
+	char* questId=NULL;
+	
+	~_missionInfo() {
+		FREESTR(questId)
+	}
+} missionInfo;
     
 typedef struct _conditionData {
     char* questName=NULL;

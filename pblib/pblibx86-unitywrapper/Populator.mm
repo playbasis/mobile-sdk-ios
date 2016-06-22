@@ -781,7 +781,7 @@
 	// ignore others for now as it doesn't use in current version of SDK
 }
 
-+ (void) popuateMissionArray:(_array<mission>*)outData from:(NSArray*)pbArray {
++ (void) populateMissionArray:(_array<mission>*)outData from:(NSArray*)pbArray {
 	RETURNIFNULL(pbArray)
 		
     mission *items = new mission[[pbArray count]];
@@ -795,6 +795,13 @@
 
     outData->data = items;
     outData->count = i;
+}
+
++ (void) populateMissionInfo:(missionInfo*)outData from:(PBMissionInfo_Response*)pbData {
+	RETURNIFNULL(pbData)
+		
+	[Populator populateMissionBasic:&outData->missionBasic from:pbData.missionBasic];
+	COPYSTRING(pbData.questId, outData->questId)
 }
 
 + (void) populateCondition:(condition*)outData from:(PBCondition*)pbData {
