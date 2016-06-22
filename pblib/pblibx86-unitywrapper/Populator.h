@@ -66,5 +66,6 @@
 + (void) populateFilteredParam:(filteredParam*)outData from:(PBFilteredParam*)pbData;
 + (void) populateUrl:(url*)outData from:(PBUrl*)pbData;
 + (void) populateQuestBasic:(questBasic*)outData from:(PBQuestBasic*)pbData;
++ (void) populateQuestBasicArray:(_array<questBasic>*)outData from:(NSArray*)pbArray;
 + (void) populateQuestInfo:(questInfo*)outData from:(PBQuestInfo_Response*)pbData;
 @end

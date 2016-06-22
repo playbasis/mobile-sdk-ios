@@ -679,6 +679,10 @@ typedef struct _questInfo {
 	questBasic questBasic;
 } questInfo;
 
+typedef struct _questInfoList {
+	_array<questBasic> questBasicArray;
+} questInfoList;
+
 #ifdef __cplusplus
 }
 #endif

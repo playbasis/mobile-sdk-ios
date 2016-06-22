@@ -904,6 +904,22 @@
 	COPYSTRING(pbData.questId, outData->questId)
 }
 
++ (void) populateQuestBasicArray:(_array<questBasic>*)outData from:(NSArray*)pbArray {
+	RETURNIFNULL(pbArray)
+		
+    questBasic *items = new questBasic[[pbArray count]];
+    int i=0;
+
+    for (PBQuestBasic* c in pbArray)
+    {
+        [Populator populateQuestBasic:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
 + (void) populateQuestInfo:(questInfo*)outData from:(PBQuestInfo_Response*)pbData {
 	RETURNIFNULL(pbData)
 		
