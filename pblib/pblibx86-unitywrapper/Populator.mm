@@ -642,6 +642,7 @@
     RETURNIFNULL(pbData)
 
     [Populator populateGoods:&outData->goods from:pbData.goods];
+    outData->amount = pbData.amount;
     outData->perUser = pbData.perUser;
     outData->isGroup = pbData.isGroup;
 }

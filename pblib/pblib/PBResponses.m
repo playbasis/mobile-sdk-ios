@@ -516,7 +516,7 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\tclaim : %@\r\tredeem : %@\r\t}", self.badgeId, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO"];
+    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\t}", self.badgeId, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO"];
     
     return descriptionString;
 }
@@ -2013,12 +2013,13 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @implementation PBGoodsInfo_Response
 
 @synthesize goods;
+@synthesize amount;
 @synthesize perUser;
 @synthesize isGroup;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Goods Info : {\r\t%@\r\t per_user : %lu\r\tis_group : %@\r\t}", self.goods, (unsigned long)self.perUser, self.isGroup ? @"YES" : @"NO"];
+    NSString *descriptionString = [NSString stringWithFormat:@"Goods Info : {\r\t%@\r\t amount : %lu\r\tperUser : %lu\r\tisGroup : %@\r\t}", self.goods, (unsigned long)self.amount, (unsigned long)self.perUser, isGroup ? @"YES" : @"NO"];
     
     return descriptionString;
 }
@@ -2051,11 +2052,18 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     // parse
     c->goods = [PBGoods parseFromDictionary:c.parseLevelJsonResponse startFromFinalLevel:YES];
     
+    id amount = [c.parseLevelJsonResponse objectForKey:@"amount"];
+    if([amount respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->amount = [amount unsignedIntegerValue];
+    }
+
     id perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
     if([perUser respondsToSelector:@selector(unsignedIntegerValue)])
     {
         c->perUser = [perUser unsignedIntegerValue];
     }
+
     c->isGroup = [[c.parseLevelJsonResponse objectForKey:@"is_group"] boolValue];
     
     return c;
@@ -2075,10 +2083,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     // create string to hold all goods line-by-line
     NSMutableString *lines = [NSMutableString stringWithString:@"Goods List : {"];
     
-    for(PBGoods *goods in self.goodsList)
+    for(PBGoodsInfo_Response *goodsInfo in self.goodsList)
     {
         // get description line from each player-badge
-        NSString *goodsLine = [goods description];
+        NSString *goodsLine = [goodsInfo description];
         // append \r
         NSString *goodsLineWithCR = [NSString stringWithFormat:@"\r\t%@\r", goodsLine];
         
@@ -2126,10 +2134,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     for(NSDictionary *goodsJson in goodsListJson)
     {
         // get goods
-        PBGoods *goods = [PBGoods parseFromDictionary:goodsJson startFromFinalLevel:YES];
+        PBGoodsInfo_Response *goodsInfo = [PBGoodsInfo_Response parseFromDictionary:goodsJson startFromFinalLevel:YES];
         
         // add to temp array
-        [tempGoodsList addObject:goods];
+        [tempGoodsList addObject:goodsInfo];
     }
     
     // set back to response

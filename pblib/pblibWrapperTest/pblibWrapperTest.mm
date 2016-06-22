@@ -48,9 +48,19 @@ void badgeCallback(void* data, int errorCode)
     [expectation fulfill];
 }
 
-@interface pblibWrapperTest : XCTestCase
+void goodsInfoCallback(void* data, int errorCode)
 {
+    goodsInfo* cdata = (goodsInfo*)data;
+    [expectation fulfill];
 }
+
+void goodsInfoListCallback(void* data, int errorCode)
+{
+    goodsInfoList* cdata = (goodsInfoList*)data;
+    [expectation fulfill];
+}
+
+@interface pblibWrapperTest : XCTestCase
 
 @end
 
@@ -101,6 +111,18 @@ void badgeCallback(void* data, int errorCode)
 {
     _badge("56406f8bbe120bd12c8b4584", badgeCallback);
     [self wait:@"badge"];
+}
+
+- (void)testGoodsInfo
+{
+    _goodsInfo("5757b73ebe120b7c178b4ea6", goodsInfoCallback);
+    [self wait:@"goodsInfo"];
+}
+
+- (void)testGoodsInfoList
+{
+    _goodsInfoList("jontestuser", goodsInfoListCallback);
+    [self wait:@"goodsInfoList"];
 }
 
 @end

@@ -578,6 +578,7 @@ typedef enum
 @interface PBGoodsInfo_Response : PBBase_Response
 
 @property (strong, nonatomic, readonly) PBGoods *goods;
+@property (nonatomic, readonly) NSUInteger amount;
 @property (nonatomic, readonly) NSUInteger perUser;
 @property (nonatomic, readonly) BOOL isGroup;
 

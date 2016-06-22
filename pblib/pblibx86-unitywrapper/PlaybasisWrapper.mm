@@ -97,6 +97,20 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		badge* data = (badge*)outData;
 		[Populator populateBadge:data from:cr];
 	}
+	else if (type == responseType_goodsInfo)
+	{
+		PBGoodsInfo_Response* cr = (PBGoodsInfo_Response*)response;
+
+		goodsInfo* data = (goodsInfo*)outData;
+		[Populator populateGoodsInfo:data from:cr];
+	}
+	else if (type == responseType_goodsListInfo)
+	{
+		PBGoodsListInfo_Response* cr = (PBGoodsListInfo_Response*)response;
+
+		goodsInfoList* data = (goodsInfoList*)outData;
+		[Populator populateGoodsInfoArray:&data->goodsInfoArray from:cr.goodsList];
+	}
 }
 
 /*
@@ -559,4 +573,50 @@ void _badge(const char* badgeId, OnDataResult callback)
     		}
     	}
     }];
+}
+
+void _goodsInfo(const char* goodsId, OnDataResult callback)
+{
+	[[Playbasis sharedPB] goodsAsync:CreateNSString(goodsId) withBlock:^(PBGoodsInfo_Response * response, NSURL *url, NSError *error) {
+		if (error == nil)
+		{
+			goodsInfo data;
+			PopulateData(responseType_goodsInfo, response, &data);
+
+			if (callback)
+			{
+				callback((void*)&data, -1);
+			}
+		}
+		else
+		{
+			if (callback)
+			{
+				callback(nil, (int)error.code);
+			}
+		}
+	}];
+}
+
+void _goodsInfoList(const char* playerId, OnDataResult callback)
+{
+	[[Playbasis sharedPB] goodsListAsync:CreateNSString(playerId) tags:nil withBlock:^(PBGoodsListInfo_Response * response, NSURL *url, NSError *error) {
+		if (error == nil)
+		{
+			goodsInfoList data;
+			PopulateData(responseType_goodsListInfo, response, &data);
+
+			if (callback)
+			{
+				callback((void*)&data, -1);
+			}
+		}
+		else
+		{
+			if (callback)
+			{
+				callback(nil, (int)error.code);
+			}
+		}
+	}];
 }

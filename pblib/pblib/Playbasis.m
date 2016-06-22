@@ -2587,10 +2587,10 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(PBRequestUnit *)goodsListInternalBase:(NSString *)playerId tags:(NSString *)tags blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     NSString *method = [NSString stringWithFormat:@"Goods%@", _apiKeyParam];
-    if (![playerId isEqual:@""]) {
+    if (playerId != nil && ![playerId isEqual:@""]) {
         method = [method stringByAppendingString:[NSString stringWithFormat:@"&player_id=%@",playerId]];
     }
-    if(![tags isEqual:@""])
+    if(tags != nil && ![tags isEqual:@""])
     {
         method = [method stringByAppendingString:[NSString stringWithFormat:@"&tags=%@",tags]];
     }

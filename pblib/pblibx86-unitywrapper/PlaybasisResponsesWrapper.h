@@ -24,11 +24,11 @@ extern "C" {
 typedef struct _playerBasic {
 	char* image=NULL;
 	char* userName=NULL;
-	unsigned int exp;
-	unsigned int level;
+	unsigned int exp=0;
+	unsigned int level=0;
 	char* firstName=NULL;
 	char* lastName=NULL;
-	unsigned int gender;
+	unsigned int gender=0;
 	char* clPlayerId=NULL;
 
 	~_playerBasic()
@@ -43,9 +43,9 @@ typedef struct _playerBasic {
 
 typedef struct _playerPublic {
 	playerBasic basic;
-	time_t registered;
-	time_t lastLogin;
-	time_t lastLogout;
+	time_t registered=0;
+	time_t lastLogin=0;
+	time_t lastLogout=0;
 } playerPublic;
 
 typedef struct _player {
@@ -63,7 +63,7 @@ typedef struct _player {
 typedef struct _point {
 	char* rewardId=NULL;
 	char* rewardName=NULL;
-	unsigned int value;
+	unsigned int value=0;
 
 	~_point()
 	{
@@ -77,8 +77,8 @@ typedef struct _pointR {
 } pointR;
 
 typedef struct _gradeRewardCustom {
-	char* customId;
-	char* customValue;
+	char* customId=0;
+	char* customValue=0;
 
 	~_gradeRewardCustom()
 	{
@@ -88,8 +88,8 @@ typedef struct _gradeRewardCustom {
 } gradeRewardCustom;
 
 typedef struct _gradeRewards {
-	char* expValue;
-	char* pointValue;
+	char* expValue=NULL;
+	char* pointValue=NULL;
 	_array<gradeRewardCustom> gradeRewardCustomArray;
 
 	~_gradeRewards()
@@ -100,12 +100,12 @@ typedef struct _gradeRewards {
 } gradeRewards;
 
 typedef struct _grade {
-	char* gradeId;
-	char* start;
-	char* end;
-	char* grade;
-	char* rank;
-	char* rankImage;
+	char* gradeId=NULL;
+	char* start=NULL;
+	char* end=NULL;
+	char* grade=NULL;
+	char* rank=NULL;
+	char* rankImage=NULL;
 	gradeRewards rewards;
 
 	~_grade()
@@ -139,20 +139,20 @@ typedef struct _quizBasic {
 
 typedef struct _quiz {
 	quizBasic basic;
-	time_t dateStart;
-	time_t dateExpire;
-	bool status;
+	time_t dateStart=0;
+	time_t dateExpire=0;
+	bool status=false;
 	_array<grade> gradeArray;
-	bool deleted;
-	unsigned int totalMaxScore;
-	unsigned int totalQuestions;
+	bool deleted=false;
+	unsigned int totalMaxScore=0;
+	unsigned int totalQuestions=0;
 } quiz;
 
 typedef struct _gradeDoneReward {
-	char* eventType;
-	char* rewardType;
-	char* rewardId;
-	char* value;
+	char* eventType=NULL;
+	char* rewardType=NULL;
+	char* rewardId=NULL;
+	char* value=NULL;
 
 	~_gradeDoneReward()
 	{
@@ -164,17 +164,17 @@ typedef struct _gradeDoneReward {
 } gradeDoneReward;
 
 typedef struct _gradeDone {
-	char* gradeId;
-	char* start;
-	char* end;
-	char* grade;
-	char* rank;
-	char* rankImage;
+	char* gradeId=NULL;
+	char* start=NULL;
+	char* end=NULL;
+	char* grade=NULL;
+	char* rank=NULL;
+	char* rankImage=NULL;
 	_array<gradeDoneReward> rewardArray;
-	unsigned int score;
-	char* maxScore;
-	unsigned int totalScore;
-	unsigned int totalMaxScore;
+	unsigned int score=0;
+	char* maxScore=NULL;
+	unsigned int totalScore=0;
+	unsigned int totalMaxScore=0;
 
 	~_gradeDone()
 	{
@@ -189,10 +189,10 @@ typedef struct _gradeDone {
 } gradeDone;
 
 typedef struct _quizDone {
-	unsigned int value;
+	unsigned int value=0;
 	gradeDone gradeDone;
-	unsigned int totalCompletedQuestion;
-	char* quizId;
+	unsigned int totalCompletedQuestion=0;
+	char* quizId=NULL;
 
 	~_quizDone()
 	{
@@ -201,10 +201,10 @@ typedef struct _quizDone {
 } quizDone;
 
 typedef struct _quizPendingGradeReward {
-	char* eventType;
-	char* rewardType;
-	char* rewardId;
-	char* value;
+	char* eventType=NULL;
+	char* rewardType=NULL;
+	char* rewardId=NULL;
+	char* value=NULL;
 
 	~_quizPendingGradeReward()
 	{
@@ -216,11 +216,11 @@ typedef struct _quizPendingGradeReward {
 } quizPendingGradeReward;
 
 typedef struct _quizPendingGrade {
-	unsigned int score;
+	unsigned int score=0;
 	_array<quizPendingGradeReward> quizPendingGradeRewardArray;
-	char* maxScore;
-	unsigned int totalScore;
-	unsigned int totalMaxScore;
+	char* maxScore=NULL;
+	unsigned int totalScore=0;
+	unsigned int totalMaxScore=0;
 
 	~_quizPendingGrade()
 	{
@@ -229,11 +229,11 @@ typedef struct _quizPendingGrade {
 } quizPendingGrade;
 
 typedef struct _quizPending {
-	unsigned int value;
+	unsigned int value=0;
 	quizPendingGrade grade;
-	unsigned int totalCompletedQuestions;
-	unsigned int totalPendingQuestions;
-	char* quizId;
+	unsigned int totalCompletedQuestions=0;
+	unsigned int totalPendingQuestions=0;
+	char* quizId=NULL;
 
 	~_quizPending()
 	{
@@ -254,9 +254,9 @@ typedef struct _quizPendingList {
 } quizPendingList;
 
 typedef struct _questionOption {
-	char* option;
-	char* optionImage;
-	char* optionId;
+	char* option=NULL;
+	char* optionImage=NULL;
+	char* optionId=NULL;
 
 	~_questionOption()
 	{
@@ -267,12 +267,12 @@ typedef struct _questionOption {
 } questionOption;
 
 typedef struct _question {
-	char* question;
-	char* questionImage;
+	char* question=NULL;
+	char* questionImage=NULL;
 	_array<questionOption> optionArray;
-	unsigned int index;
-	unsigned int total;
-	char* questionId;
+	unsigned int index=0;
+	unsigned int total=0;
+	char* questionId=NULL;
 
 	~_question()
 	{
@@ -283,16 +283,16 @@ typedef struct _question {
 } question;
 
 typedef struct _questionAnsweredGradedone {
-	char* gradeId;
-	char* start;
-	char* end;
-	char* grade;
-	char* rank;
-	char* rankImage;
-	unsigned int score;
-	char* maxScore;
-	unsigned int totalScore;
-	unsigned int totalMaxScore;
+	char* gradeId=NULL;
+	char* start=NULL;
+	char* end=NULL;
+	char* grade=NULL;
+	char* rank=NULL;
+	char* rankImage=NULL;
+	unsigned int score=0;
+	char* maxScore=NULL;
+	unsigned int totalScore=NULL;
+	unsigned int totalMaxScore=NULL;
 
 	~_questionAnsweredGradedone()
 	{
@@ -307,11 +307,11 @@ typedef struct _questionAnsweredGradedone {
 } questionAnsweredGradeDone;
 
 typedef struct _questionAnsweredOption {
-	char* option;
-	char* score;
-	char* explanation;
-	char* optionImage;
-	char* optionId;
+	char* option=NULL;
+	char* score=NULL;
+	char* explanation=NULL;
+	char* optionImage=NULL;
+	char* optionId=NULL;
 
 	~_questionAnsweredOption()
 	{
@@ -325,11 +325,11 @@ typedef struct _questionAnsweredOption {
 
 typedef struct _questionAnswered {
 	_array<questionAnsweredOption> optionArray;
-	unsigned int score;
-	char* maxScore;
-	char* explanation;
-	unsigned int totalScore;
-	unsigned int totalMaxScore;
+	unsigned int score=0;
+	char* maxScore=NULL;
+	char* explanation=NULL;
+	unsigned int totalScore=0;
+	unsigned int totalMaxScore=0;
 	questionAnsweredGradeDone gradeDone;
 	_array<gradeDoneReward> gradeDoneRewardArray;
 
@@ -341,9 +341,9 @@ typedef struct _questionAnswered {
 } questionAnswered;
 
 typedef struct _custom {
-	char* customId;
-	char* customName;
-	unsigned int customValue;
+	char* customId=NULL;
+	char* customName=NULL;
+	unsigned int customValue=0;
 
 	~_custom()
 	{
@@ -353,8 +353,8 @@ typedef struct _custom {
 } custom;
 
 typedef struct _redeemBadge {
-	char* badgeId;
-	unsigned int badgeValue;
+	char* badgeId=NULL;
+	unsigned int badgeValue=0;
 
 	~_redeemBadge()
 	{
@@ -363,23 +363,23 @@ typedef struct _redeemBadge {
 } redeemBadge;
 
 typedef struct _redeem {
-	unsigned int pointValue;
+	unsigned int pointValue=0;
 	_array<custom> customArray;
 	_array<redeemBadge> redeemBadgeArray;
 } redeem;
 
 typedef struct _goods {
-	char* goodsId;
-	unsigned int quantity;
-	char* image;
-	unsigned int sortOrder;
-	char* name;
-	char* description_;
+	char* goodsId=NULL;
+	unsigned int quantity=0;
+	char* image=NULL;
+	unsigned int sortOrder=0;
+	char* name=NULL;
+	char* description_=NULL;
 	redeem redeem;
-	char* code;
-	bool sponsor;
-	long dateStart;
-	long dateExpire;
+	char* code=NULL;
+	bool sponsor=false;
+	long dateStart=0;
+	long dateExpire=0;
 
 	~_goods()
 	{
@@ -393,18 +393,23 @@ typedef struct _goods {
 
 typedef struct _goodsInfo {
 	goods goods;
-	unsigned int perUser;
-	bool isGroup;
+	unsigned int amount=0;
+	unsigned int perUser=0;
+	bool isGroup=false;
 } goodsInfo;
+
+typedef struct _goodsInfoList {
+	_array<goodsInfo> goodsInfoArray;
+} goodsInfoList;
 
 typedef struct _badge {
 	char* badgeId=NULL;
 	char* image=NULL;
-	unsigned int sortOrder;
+	unsigned int sortOrder=0;
 	char* name=NULL;
 	char* description_=NULL;
 	char* hint=NULL;
-	bool sponsor;
+	bool sponsor=false;
  
 	~_badge()
 	{

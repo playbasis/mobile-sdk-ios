@@ -48,6 +48,8 @@ extern "C" {
 	void _rule(const char* playerId, const char* action, OnDataResult callback);
     void _badges(OnDataResult callback);
     void _badge(const char* badgeId, OnDataResult callback);
+    void _goodsInfo(const char* goodsId, OnDataResult callback);
+    void _goodsInfoList(const char* playerId, OnDataResult callback);
 
 #ifdef __cplusplus
 }
