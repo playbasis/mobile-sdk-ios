@@ -225,8 +225,6 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString* description_;
 @property (strong, nonatomic, readonly) NSString* hint;
 @property (nonatomic, readonly) BOOL sponsor;
-@property (nonatomic, readonly) BOOL claim;
-@property (nonatomic, readonly) BOOL redeem;
 
 +(PBBadge_Response*)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;
 

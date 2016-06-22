@@ -83,6 +83,20 @@ void PopulateData(pbResponseType type, PBBase_Response *response, void* outData)
 		rule* data = (rule*)outData;
 		[Populator populateRule:data from:cr];
 	}
+	else if (type == responseType_badges)
+	{
+		PBBadges_Response* cr = (PBBadges_Response*)response;
+
+		badges* data = (badges*)outData;
+		[Populator populateBadgeArray:&data->badgeArray from:cr.badges];
+	}
+	else if (type == responseType_badge)
+	{
+		PBBadge_Response* cr = (PBBadge_Response*)response;
+
+		badge* data = (badge*)outData;
+		[Populator populateBadge:data from:cr];
+	}
 }
 
 /*
@@ -499,4 +513,50 @@ void _setServerAsyncUrl(const char* url)
 const char* _getServerAsyncUrl()
 {
     return MakeStringCopy([[Playbasis getServerAsyncUrl] UTF8String]);
+}
+
+void _badges(OnDataResult callback)
+{
+    [[Playbasis sharedPB] badgesAsyncWithBlock:^(PBBadges_Response *response, NSURL *url, NSError *error) {
+       if (error == nil)
+       {
+            badges data;
+            PopulateData(responseType_badges, response, &data);
+
+            if (callback)
+            {
+            	callback((void*)&data, -1);
+            }
+       }
+       else
+       {
+            if (callback)
+        	{
+        		callback(nil, (int)error.code);
+        	}
+       }
+    }];
+}
+
+void _badge(const char* badgeId, OnDataResult callback)
+{
+    [[Playbasis sharedPB] badgeAsync:CreateNSString(badgeId) withBlock:^(PBBadge_Response * response, NSURL *url, NSError *error) {
+    	if (error == nil)
+    	{
+    		badge data;
+    		PopulateData(responseType_badge, response, &data);
+            
+            if (callback)
+            {
+                callback((void*)&data, -1);
+            }
+    	}
+    	else
+    	{
+    		if (callback)
+    		{
+    			callback(nil, (int)error.code);
+    		}
+    	}
+    }];
 }

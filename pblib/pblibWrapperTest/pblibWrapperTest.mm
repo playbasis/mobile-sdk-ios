@@ -10,6 +10,8 @@
 #import "Playbasis.h"
 #import "PlaybasisWrapper.h"
 
+#define WAIT_TIME 10.0f
+
 static XCTestExpectation *expectation;
 
 void ruleCallback(void* data, int errorCode)
@@ -34,6 +36,18 @@ void quizListOfPlayerCallback(void* data, int errorCode)
     [expectation fulfill];
 }
 
+void badgesCallback(void* data, int errorCode)
+{
+    badges* cdata = (badges*)data;
+    [expectation fulfill];
+}
+
+void badgeCallback(void* data, int errorCode)
+{
+    badge* cdata = (badge*)data;
+    [expectation fulfill];
+}
+
 @interface pblibWrapperTest : XCTestCase
 {
 }
@@ -42,9 +56,18 @@ void quizListOfPlayerCallback(void* data, int errorCode)
 
 @implementation pblibWrapperTest
 
+- (void)wait:(NSString*)description{
+    expectation = [self expectationWithDescription:description];
+    [self waitForExpectationsWithTimeout:WAIT_TIME handler:nil];
+}
+
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // authen every time first
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+        XCTAssert(error == nil, "error must be nil");
+    }];
 }
 
 - (void)tearDown {
@@ -53,55 +76,31 @@ void quizListOfPlayerCallback(void* data, int errorCode)
 }
 
 - (void)testQuizList {
-    expectation = [self expectationWithDescription:@"rule test"];
-    
-    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
-        if (error == nil)
-        {
-            _quizList(quizListCallback);
-        }
-        else
-        {
-            NSLog(@"%@", error);
-        }
-    }];
-    
-    [self waitForExpectationsWithTimeout:10.0f handler:nil];
+    _quizList(quizListCallback);
+    [self wait:@"quizList"];
 }
 
 - (void)testRule {
-    expectation = [self expectationWithDescription:@"rule test"];
-    
-    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
-        if (error == nil)
-        {
-            _rule("jontestuser", "like", ruleCallback);
-        }
-        else
-        {
-            NSLog(@"%@", error);
-        }
-    }];
-    
-    [self waitForExpectationsWithTimeout:10.0f handler:nil];
+    _rule("jontestuser", "like", ruleCallback);
+    [self wait:@"rule"];
 }
 
 - (void)testQuizListOfPlayer
 {
-    expectation = [self expectationWithDescription:@"rule test"];
-    
-    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
-        if (error == nil)
-        {
-            _quizListOfPlayer("jontestuser", quizListOfPlayerCallback);
-        }
-        else
-        {
-            NSLog(@"%@", error);
-        }
-    }];
-    
-    [self waitForExpectationsWithTimeout:10.0f handler:nil];
+    _quizListOfPlayer("jontestuser", quizListOfPlayerCallback);
+    [self wait:@"quizListOfPlayer"];
+}
+
+- (void)testBadges
+{
+    _badges(badgesCallback);
+    [self wait:@"badges"];
+}
+
+- (void)testBadge
+{
+    _badge("56406f8bbe120bd12c8b4584", badgeCallback);
+    [self wait:@"badge"];
 }
 
 @end

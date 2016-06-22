@@ -586,38 +586,6 @@
     [Populator populateRuleEventQuestArray:&outData->ruleEventQuestArray from:pbData.quests.list];
 }
 
-+ (void) populateBadge:(badge*)outData from:(PBBadge_Response*)pbData
-{
-    RETURNIFNULL(pbData)
-
-    COPYSTRING(pbData.badgeId, outData->badgeId)
-    COPYSTRING(pbData.image, outData->image)
-    outData->sortOrder = pbData.sortOrder;
-    COPYSTRING(pbData.name, outData->name)
-    COPYSTRING(pbData.description_, outData->description_)
-    COPYSTRING(pbData.hint, outData->hint)
-    outData->sponsor = pbData.sponsor;
-    outData->claim = pbData.claim;
-    outData->redeem = pbData.redeem;
-}
-
-+ (void) populateBadgeArray:(_array<badge>*)outData from:(NSArray*)pbArray
-{
-    RETURNIFNULL(pbArray)
-
-    badge *items = new badge[[pbArray count]];
-    int i=0;
-
-    for (PBBadge_Response* c in pbArray)
-    {
-        [Populator populateBadge:&items[i] from:c];
-        i++;
-    }
-
-    outData->data = items;
-    outData->count = i;
-}
-
 + (void) populateRedeem:(redeem*)outData from:(PBRedeem*)pbData
 {
     RETURNIFNULL(pbData)
@@ -714,6 +682,36 @@
     for (PBCustom* c in pbArray)
     {
         [Populator populateCustom:&items[i] from:c];
+        i++;
+    }
+
+    outData->data = items;
+    outData->count = i;
+}
+
++ (void) populateBadge:(badge*)outData from:(PBBadge_Response*)pbData
+{
+    RETURNIFNULL(pbData)
+
+    COPYSTRING(pbData.badgeId, outData->badgeId)
+    COPYSTRING(pbData.image, outData->image)
+    outData->sortOrder = pbData.sortOrder;
+    COPYSTRING(pbData.name, outData->name)
+    COPYSTRING(pbData.description_, outData->description_)
+    COPYSTRING(pbData.hint, outData->hint)
+    outData->sponsor = pbData.sponsor;
+}
+
++ (void) populateBadgeArray:(_array<badge>*)outData from:(NSArray*)pbArray
+{
+    RETURNIFNULL(pbArray)
+
+    badge *items = new badge[[pbArray count]];
+    int i=0;
+
+    for (PBBadge_Response* c in pbArray)
+    {
+        [Populator populateBadge:&items[i] from:c];
         i++;
     }
 

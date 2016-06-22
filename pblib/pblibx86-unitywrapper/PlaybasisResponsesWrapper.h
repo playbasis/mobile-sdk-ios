@@ -398,16 +398,14 @@ typedef struct _goodsInfo {
 } goodsInfo;
 
 typedef struct _badge {
-	char* badgeId;
-	char* image;
+	char* badgeId=NULL;
+	char* image=NULL;
 	unsigned int sortOrder;
-	char* name;
-	char* description_;
-	char* hint;
+	char* name=NULL;
+	char* description_=NULL;
+	char* hint=NULL;
 	bool sponsor;
-	bool claim;
-	bool redeem;
-
+ 
 	~_badge()
 	{
 		FREESTR(badgeId)
@@ -417,6 +415,10 @@ typedef struct _badge {
 		FREESTR(hint)
 	}
 } badge;
+
+typedef struct _badges {
+	_array<badge> badgeArray;
+} badges;
     
 typedef struct _ruleEventBadgeRewardData
 {

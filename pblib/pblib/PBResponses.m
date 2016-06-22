@@ -513,12 +513,10 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
 @synthesize description_;
 @synthesize hint;
 @synthesize sponsor;
-@synthesize claim;
-@synthesize redeem;
 
 -(NSString *)description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\tclaim : %@\r\tredeem : %@\r\t}", self.badgeId, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO", self.claim ? @"YES" : @"NO", self.redeem ? @"YES" : @"NO"];
+    NSString *descriptionString = [NSString stringWithFormat:@"Badge : {\r\tbadge_id : %@\r\timage : %@\r\tsort_order : %lu\r\tname : %@\r\tdescription : %@\r\thint : %@\r\tsponsor : %@\r\tclaim : %@\r\tredeem : %@\r\t}", self.badgeId, self.image, (unsigned long)self.sortOrder, self.name, self.description_, self.hint, self.sponsor ? @"YES" : @"NO"];
     
     return descriptionString;
 }
@@ -555,8 +553,6 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
     c->hint = [c.parseLevelJsonResponse objectForKey:@"hint"];
     c->sponsor = [[c.parseLevelJsonResponse objectForKey:@"sponsor"] boolValue];
-    c->claim = [[c.parseLevelJsonResponse objectForKey:@"claim"] boolValue];
-    c->redeem = [[c.parseLevelJsonResponse objectForKey:@"redeem"] boolValue];
     
     return c;
 }
