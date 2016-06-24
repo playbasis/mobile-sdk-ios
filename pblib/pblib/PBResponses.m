@@ -4024,7 +4024,13 @@ static NSString * const REFERAL_URL = @"https://pbapp.net";
     c->image = [c.parseLevelJsonResponse objectForKey:@"image"];
     c->name = [c.parseLevelJsonResponse objectForKey:@"name"];
     c->description_ = [c.parseLevelJsonResponse objectForKey:@"description"];
-    c->perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
+	
+    id perUser = [c.parseLevelJsonResponse objectForKey:@"per_user"];
+    if([perUser respondsToSelector:@selector(unsignedIntegerValue)])
+    {
+        c->perUser = [perUser unsignedIntegerValue];
+    }
+	
     c->code = [c.parseLevelJsonResponse objectForKey:@"code"];
     
     return c;

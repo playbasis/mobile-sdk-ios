@@ -449,7 +449,7 @@ typedef struct _ruleEventGoodsRewardData
     char* image=NULL;
     char* name=NULL;
     char* description_=NULL;
-    char* perUser=NULL;
+    unsigned int perUser=0;
     char* code=NULL;
 
     ~_ruleEventGoodsRewardData()
@@ -458,7 +458,6 @@ typedef struct _ruleEventGoodsRewardData
     	FREESTR(image)
     	FREESTR(name)
     	FREESTR(description_)
-    	FREESTR(perUser)
     	FREESTR(code)
     }
 } ruleEventGoodsRewardData;
@@ -668,7 +667,7 @@ typedef struct _questBasic {
 	char* clientId=NULL;
 	char* siteId=NULL;
 	_array<condition> conditionArray;
-	time_t dateModified=NULL;
+	time_t dateModified=0;
 	char* questId=NULL;
 
 	~_questBasic()

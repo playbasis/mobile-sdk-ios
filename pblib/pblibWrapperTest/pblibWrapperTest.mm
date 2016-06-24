@@ -114,7 +114,7 @@ void joinAllQuestsCallback(bool success) {
     [super setUp];
     
     // authen every time first
-    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"io.wasin.testplugin" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
+    [[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"com.sanukgames.hellyeah" andBlock:^(PBAuth_Response *auth, NSURL *url, NSError *error) {
         XCTAssert(error == nil, "error must be nil");
     }];
 }
@@ -130,7 +130,7 @@ void joinAllQuestsCallback(bool success) {
 }
 
 - (void)testRule {
-    _rule("jontestuser", "visit", ruleCallback);
+    _rule("jontestuser", "like", ruleCallback);
     [self wait:@"rule"];
 }
 

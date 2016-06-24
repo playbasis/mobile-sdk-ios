@@ -1083,7 +1083,7 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *image;
 @property (strong, nonatomic, readonly) NSString *name;
 @property (strong, nonatomic, readonly) NSString *description_;
-@property (strong, nonatomic, readonly) NSString *perUser;
+@property (nonatomic, readonly) NSUInteger perUser;
 @property (strong, nonatomic, readonly) NSString *code;
 
 +(PBRuleEventGoodsRewardData *)parseFromDictionary:(const NSDictionary*) jsonResponse startFromFinalLevel:(BOOL)startFromFinalLevel;

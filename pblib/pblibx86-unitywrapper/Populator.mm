@@ -573,7 +573,7 @@
     COPYSTRING(pbData.image, outData->image)
     COPYSTRING(pbData.name, outData->name)
     COPYSTRING(pbData.description_, outData->description_)
-    COPYSTRING(pbData.perUser, outData->perUser)
+	outData->perUser = pbData.perUser;
     COPYSTRING(pbData.code, outData->code)
 }
 
