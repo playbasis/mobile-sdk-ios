@@ -779,18 +779,18 @@ void _questAvailableForPlayer(const char* questId, const char* playerId, OnDataR
 void _joinQuest(const char* questId, const char* playerId, OnDataResult callback) {
 	[[Playbasis sharedPB] joinQuestAsync:CreateNSString(questId) forPlayer:CreateNSString(playerId) withBlock:^(PBJoinQuest_Response * response, NSURL *url, NSError *error) {
 		if (error == nil) {
-			if (callback) {
-				joinQuest data;
-				PopulateData(responseType_joinQuest, response, &data);
-				
+			joinQuest data;
+			PopulateData(responseType_joinQuest, response, &data);
+
+			if (callback) {				
 				callback((void*)&data, -1);
 			}
-			else {
-				if (callback) {
-					callback(nil, (int)error.code);
-				}
-			}
 		}
+        else {
+            if (callback) {
+                callback(nil, (int)error.code);
+            }
+        }
 	}];
 }
 
