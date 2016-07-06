@@ -273,7 +273,7 @@ void _register(const char* playerId, const char* userName, const char* email, co
 				callback(false);
 			}
 		}
-	}];
+	}, nil];
 }
 
 void _playerPublic(const char* playerId, OnDataResult callback) {
