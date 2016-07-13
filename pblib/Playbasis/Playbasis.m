@@ -8,11 +8,11 @@
 
 #import "Playbasis.h"
 
-#import <Playbasis/RNDecryptor.h>
+#import "RNDecryptor.h"
 
 #if TARGET_OS_IOS
-#import <Playbasis/KLCPopup.h>
-#import <Playbasis/MBProgressHUD.h>
+#import "KLCPopup.h"
+#import "MBProgressHUD.h"
 #endif
 
 static NSString * BASE_URL = @"https://api.pbapp.net/";

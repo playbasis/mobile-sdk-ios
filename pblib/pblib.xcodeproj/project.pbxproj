@@ -48,6 +48,36 @@
 		1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064FE1D368E02002CA239 /* pbUserRegistrationFormViewController.m */; };
 		1EB065271D368E02002CA239 /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */; };
+		1EB065BE1D36B47C002CA239 /* PlaybasisMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB065BC1D36B47C002CA239 /* PlaybasisMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C21D36B509002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C31D36B509002CA239 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064DD1D368E02002CA239 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C41D36B509002CA239 /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E01D368E02002CA239 /* RNCryptor+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C51D36B509002CA239 /* RNCryptor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E11D368E02002CA239 /* RNCryptor-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C61D36B509002CA239 /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E21D368E02002CA239 /* RNCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C71D36B509002CA239 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E41D368E02002CA239 /* RNCryptorEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C81D36B509002CA239 /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E61D368E02002CA239 /* RNDecryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065C91D36B509002CA239 /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E81D368E02002CA239 /* RNEncryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065CA1D36B509002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EA1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065CB1D36B509002CA239 /* PBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EC1D368E02002CA239 /* PBCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065CC1D36B509002CA239 /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EE1D368E02002CA239 /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F01D368E02002CA239 /* PBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065CE1D36B509002CA239 /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F11D368E02002CA239 /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065CF1D36B509002CA239 /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F31D368E02002CA239 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065D01D36B50A002CA239 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065D11D36B50A002CA239 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F61D368E02002CA239 /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065D21D36B50A002CA239 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065D31D36B542002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1EB065D41D36B542002CA239 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064DE1D368E02002CA239 /* Reachability.m */; };
+		1EB065D51D36B542002CA239 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E31D368E02002CA239 /* RNCryptor.m */; };
+		1EB065D61D36B542002CA239 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E51D368E02002CA239 /* RNCryptorEngine.m */; };
+		1EB065D71D36B542002CA239 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E71D368E02002CA239 /* RNDecryptor.m */; };
+		1EB065D81D36B542002CA239 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E91D368E02002CA239 /* RNEncryptor.m */; };
+		1EB065D91D36B542002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064EB1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m */; };
+		1EB065DA1D36B542002CA239 /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064ED1D368E02002CA239 /* PBCommon.m */; };
+		1EB065DB1D36B542002CA239 /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F21D368E02002CA239 /* PBRequestUnit.m */; };
+		1EB065DC1D36B542002CA239 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F41D368E02002CA239 /* PBResponses.m */; };
+		1EB065DD1D36B542002CA239 /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F81D368E02002CA239 /* PBUtils.m */; };
+		1EB065DE1D36B542002CA239 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F91D368E02002CA239 /* Playbasis.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +127,9 @@
 		1EB064FE1D368E02002CA239 /* pbUserRegistrationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pbUserRegistrationFormViewController.m; sourceTree = "<group>"; };
 		1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
 		1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
+		1EB065BA1D36B47C002CA239 /* PlaybasisMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlaybasisMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EB065BC1D36B47C002CA239 /* PlaybasisMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybasisMacOS.h; sourceTree = "<group>"; };
+		1EB065BD1D36B47C002CA239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2C1C74F817461E1B005F3B57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -104,6 +137,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		1EB064C71D368CB3002CA239 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1EB065B61D36B47C002CA239 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -210,10 +250,20 @@
 			path = ui;
 			sourceTree = "<group>";
 		};
+		1EB065BB1D36B47C002CA239 /* PlaybasisMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				1EB065BC1D36B47C002CA239 /* PlaybasisMacOS.h */,
+				1EB065BD1D36B47C002CA239 /* Info.plist */,
+			);
+			path = PlaybasisMacOS;
+			sourceTree = "<group>";
+		};
 		2C1C74EC17461E1B005F3B57 = {
 			isa = PBXGroup;
 			children = (
 				1EB064CC1D368CB3002CA239 /* Playbasis */,
+				1EB065BB1D36B47C002CA239 /* PlaybasisMacOS */,
 				2C1C74F717461E1B005F3B57 /* Frameworks */,
 				2C1C74F617461E1B005F3B57 /* Products */,
 			);
@@ -223,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				1EB064CB1D368CB3002CA239 /* Playbasis.framework */,
+				1EB065BA1D36B47C002CA239 /* PlaybasisMacOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,6 +325,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1EB065B71D36B47C002CA239 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EB065BE1D36B47C002CA239 /* PlaybasisMacOS.h in Headers */,
+				1EB065C21D36B509002CA239 /* JSONKit.h in Headers */,
+				1EB065C31D36B509002CA239 /* Reachability.h in Headers */,
+				1EB065C41D36B509002CA239 /* RNCryptor+Private.h in Headers */,
+				1EB065C51D36B509002CA239 /* RNCryptor-Prefix.pch in Headers */,
+				1EB065C61D36B509002CA239 /* RNCryptor.h in Headers */,
+				1EB065C71D36B509002CA239 /* RNCryptorEngine.h in Headers */,
+				1EB065C81D36B509002CA239 /* RNDecryptor.h in Headers */,
+				1EB065C91D36B509002CA239 /* RNEncryptor.h in Headers */,
+				1EB065CA1D36B509002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
+				1EB065CB1D36B509002CA239 /* PBCommon.h in Headers */,
+				1EB065CC1D36B509002CA239 /* PBConstants.h in Headers */,
+				1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */,
+				1EB065CE1D36B509002CA239 /* PBRequestUnit.h in Headers */,
+				1EB065CF1D36B509002CA239 /* PBResponses.h in Headers */,
+				1EB065D01D36B50A002CA239 /* PBSettings.h in Headers */,
+				1EB065D11D36B50A002CA239 /* PBTypes.h in Headers */,
+				1EB065D21D36B50A002CA239 /* PBUtils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -295,6 +371,24 @@
 			productReference = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		1EB065B91D36B47C002CA239 /* PlaybasisMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1EB065BF1D36B47C002CA239 /* Build configuration list for PBXNativeTarget "PlaybasisMacOS" */;
+			buildPhases = (
+				1EB065B51D36B47C002CA239 /* Sources */,
+				1EB065B61D36B47C002CA239 /* Frameworks */,
+				1EB065B71D36B47C002CA239 /* Headers */,
+				1EB065B81D36B47C002CA239 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlaybasisMacOS;
+			productName = PlaybasisMacOS;
+			productReference = 1EB065BA1D36B47C002CA239 /* PlaybasisMacOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -305,6 +399,12 @@
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					1EB064CA1D368CB3002CA239 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
+						ProvisioningStyle = Automatic;
+					};
+					1EB065B91D36B47C002CA239 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = XGKHW634KL;
 						DevelopmentTeamName = "Wasin Thonkaew";
@@ -325,6 +425,7 @@
 			projectRoot = "";
 			targets = (
 				1EB064CA1D368CB3002CA239 /* Playbasis */,
+				1EB065B91D36B47C002CA239 /* PlaybasisMacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -335,6 +436,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EB065231D368E02002CA239 /* PBStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1EB065B81D36B47C002CA239 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +469,25 @@
 				1EB065041D368E02002CA239 /* KLCPopup.m in Sources */,
 				1EB065121D368E02002CA239 /* RNEncryptor.m in Sources */,
 				1EB0650C1D368E02002CA239 /* RNCryptor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1EB065B51D36B47C002CA239 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EB065D31D36B542002CA239 /* JSONKit.m in Sources */,
+				1EB065D41D36B542002CA239 /* Reachability.m in Sources */,
+				1EB065D51D36B542002CA239 /* RNCryptor.m in Sources */,
+				1EB065D61D36B542002CA239 /* RNCryptorEngine.m in Sources */,
+				1EB065D71D36B542002CA239 /* RNDecryptor.m in Sources */,
+				1EB065D81D36B542002CA239 /* RNEncryptor.m in Sources */,
+				1EB065D91D36B542002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
+				1EB065DA1D36B542002CA239 /* PBCommon.m in Sources */,
+				1EB065DB1D36B542002CA239 /* PBRequestUnit.m in Sources */,
+				1EB065DC1D36B542002CA239 /* PBResponses.m in Sources */,
+				1EB065DD1D36B542002CA239 /* PBUtils.m in Sources */,
+				1EB065DE1D36B542002CA239 /* Playbasis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +574,90 @@
 			};
 			name = Release;
 		};
+		1EB065C01D36B47C002CA239 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PlaybasisMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.ios.playbasissdk.PlaybasisMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1EB065C11D36B47C002CA239 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PlaybasisMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.ios.playbasissdk.PlaybasisMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		2C1C750117461E1B005F3B57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -510,6 +721,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1EB065BF1D36B47C002CA239 /* Build configuration list for PBXNativeTarget "PlaybasisMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EB065C01D36B47C002CA239 /* Debug */,
+				1EB065C11D36B47C002CA239 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		2C1C74F017461E1B005F3B57 /* Build configuration list for PBXProject "pblib" */ = {
 			isa = XCConfigurationList;

@@ -7,9 +7,9 @@
 //
 
 #import "PBResponses.h"
-#import <Playbasis/JSONKit.h>
-#import <Playbasis/PBUtils.h>
-#import <Playbasis/PBMacros.h>
+#import "JSONKit.h"
+#import "PBUtils.h"
+#import "PBMacros.h"
 
 // for referral link
 static NSString * const REFERAL_URL = @"https://pbapp.net";

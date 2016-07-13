@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Playbasis/Playbasis.h>
+#import "Playbasis.h"
 
 @interface pbUserRegistrationFormViewController : UIViewController <UITextFieldDelegate>
 {

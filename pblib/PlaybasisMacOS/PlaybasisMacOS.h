@@ -9,16 +9,16 @@
 #import <TargetConditionals.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import <Playbasis/JSONKit.h>
-#import <Playbasis/PBTypes.h>
-#import <Playbasis/PBRequestUnit.h>
-#import <Playbasis/NSMutableArray+QueueAndSerializationAdditions.h>
-#import <Playbasis/PBResponses.h>
-#import <Playbasis/PBSettings.h>
-#import <Playbasis/PBConstants.h>
-#import <Playbasis/PBUtils.h>
-#import <Playbasis/PBMacros.h>
-#import <Playbasis/Reachability.h>
+#import <PlaybasisMacOS/JSONKit.h>
+#import <PlaybasisMacOS/PBTypes.h>
+#import <PlaybasisMacOS/PBRequestUnit.h>
+#import <PlaybasisMacOS/NSMutableArray+QueueAndSerializationAdditions.h>
+#import <PlaybasisMacOS/PBResponses.h>
+#import <PlaybasisMacOS/PBSettings.h>
+#import <PlaybasisMacOS/PBConstants.h>
+#import <PlaybasisMacOS/PBUtils.h>
+#import <PlaybasisMacOS/PBMacros.h>
+#import <PlaybasisMacOS/Reachability.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -30,7 +30,7 @@ FOUNDATION_EXPORT double PlaybasisVersionNumber;
 FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 
 #import <CoreMotion/CoreMotion.h>
-#import <Playbasis/PBUI.h>
+#import <PlaybasisMacOS/PBUI.h>
 #endif
 
 /**
@@ -44,9 +44,9 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
     NSMutableArray *_requestOptQueue;
     CLLocationManager *_locationManager;
     
-    #if TARGET_OS_IOS
+#if TARGET_OS_IOS
     CMMotionManager *_coreMotionManager;
-    #endif
+#endif
 }
 
 @property (nonatomic, strong, readonly) NSString* token;
@@ -203,7 +203,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(PBRequestUnit *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
 
-/** 
+/**
  Get player's public information.
  It will send request via GET method.
  */
@@ -212,7 +212,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(PBRequestUnit *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate;
 -(PBRequestUnit *)playerPublicAsync:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block;
 
-/** 
+/**
  Get player's both private and public information.
  */
 -(PBRequestUnit *)player:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
@@ -462,22 +462,22 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  Claim a badge that player has earned.
  */
 /*
--(PBRequestUnit *)claimBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)claimBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)claimBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)claimBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)claimBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBAsyncURLRequestResponseBlock)block;
-*/
+ -(PBRequestUnit *)claimBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+ -(PBRequestUnit *)claimBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
+ -(PBRequestUnit *)claimBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+ -(PBRequestUnit *)claimBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
+ -(PBRequestUnit *)claimBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBAsyncURLRequestResponseBlock)block;
+ */
 /**
  Redeem a badge that player has claimed.
  */
 /*
--(PBRequestUnit *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
--(PBRequestUnit *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
--(PBRequestUnit *)redeemBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBAsyncURLRequestResponseBlock)block;
-*/
+ -(PBRequestUnit *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+ -(PBRequestUnit *)redeemBadgeForPlayer:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
+ -(PBRequestUnit *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andDelegate:(id<PBResultStatus_ResponseHandler>)delegate;
+ -(PBRequestUnit *)redeemBadgeForPlayerAsync:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBResultStatus_ResponseBlock)block;
+ -(PBRequestUnit *)redeemBadgeForPlayerAsync_:(NSString *)playerId badgeId:(NSString *)badgeId andBlock:(PBAsyncURLRequestResponseBlock)block;
+ */
 /**
  Return information about all goods that player has redeemed.
  */
@@ -584,10 +584,10 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  Return information about all available goods on the current site.
  */
 /*
--(PBRequestUnit *)goodsListWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
--(PBRequestUnit *)goodsListWithBlock:(PBGoodsListInfo_ResponseBlock)block;
--(PBRequestUnit *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
--(PBRequestUnit *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block;*/
+ -(PBRequestUnit *)goodsListWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+ -(PBRequestUnit *)goodsListWithBlock:(PBGoodsListInfo_ResponseBlock)block;
+ -(PBRequestUnit *)goodsListAsyncWithDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
+ -(PBRequestUnit *)goodsListAsyncWithBlock:(PBGoodsListInfo_ResponseBlock)block;*/
 
 -(PBRequestUnit *)goodsList:(NSString *)playerId tags:(NSString *)tags withDelegate:(id<PBGoodsListInfo_ResponseHandler>)delegate;
 -(PBRequestUnit *)goodsList:(NSString *)playerId tags:(NSString *)tags withBlock:(PBGoodsListInfo_ResponseBlock)block;
@@ -639,7 +639,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)playeId ruleId:(NSString *)ruleId withDelegate:(id<PBRuleDetail_ResponseHandler>)delegate;
 -(PBRequestUnit *)ruleDetailForPlayerAsync:(NSString *)playeId ruleId:(NSString *)ruleId withBlock:(PBRuleDetail_ResponseBlock)block;
 
-  
+
 /**
  Return information about all quests in current site.
  */
@@ -1022,7 +1022,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 
 
 /**
-Get Child
+ Get Child
  */
 -(PBRequestUnit *)childNodeList:(NSString *)node_id layer:(NSString *)layer withDelegate:(id<PBNodeOrganize_ResponseHandler>)delegate;
 -(PBRequestUnit *)childNodeList:(NSString *)node_id layer:(NSString *)layer withBlock:(PBNodeOrganize_ResponseBlock)block;
@@ -1040,7 +1040,7 @@ Get Child
 -(PBRequestUnit *)getContentAsync_:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
 
 /**
-Count Content options : category , player_exclude
+ Count Content options : category , player_exclude
  */
 -(PBRequestUnit *)countContent:(NSMutableDictionary *)options withDelegate:(id<PBContent_ResponseHandler>)delegate;
 -(PBRequestUnit *)countContent:(NSMutableDictionary *)options withBlock:(PBContent_ResponseBlock)block;
@@ -1168,8 +1168,8 @@ Count Content options : category , player_exclude
 -(PBRequestUnit *)playerListFromNodeAsync:(NSString *)node_id role:(NSString *)role withBlock:(PBPlayerListFromNode_ResponseBlock)block;
 
 /**
-Add Player for Node.
-*/
+ Add Player for Node.
+ */
 -(PBRequestUnit *)addPlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)addPlayerToNode:(NSString *)nodeId playerId:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequestUnit *)addPlayerToNodeAsync:(NSString *)nodeId playerId:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
@@ -1209,7 +1209,7 @@ Add Player for Node.
 -(PBRequestUnit *)playerAuthForPlayerIdAsync_:(NSString *)password options:(NSMutableDictionary *)options withBlock:(PBPlayer_ResponseBlock)block;
 
 /**
-Forgot Password
+ Forgot Password
  */
 -(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)forgotPasswordForEmail:(NSString *)email withBlock:(PBResponseBlock)block;
@@ -1236,7 +1236,7 @@ Forgot Password
 -(PBRequestUnit *)performOTPAsync_:(NSString *)player_id code:(NSString *)code withBlock:(PBResponseBlock)block;
 
 /**
-Send Email
+ Send Email
  */
 -(PBRequestUnit *)sendEmail:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)sendEmail:(NSString *)from to:(NSString *)to bcc:(NSString *)bcc subject:(NSString *)subject message:(NSString *)message withBlock:(PBResponseBlock)block;
@@ -1285,16 +1285,16 @@ Send Email
 -(PBRequestUnit *)setupPhoneForPlayerAsync:(NSString *)playerId phoneNumber:(NSString *)phoneNumber deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type  withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)setupPhoneForPlayerAsync:(NSString *)playerId phoneNumber:(NSString *)phoneNumber deviceToken:(NSString *)deviceToken description:(NSString *)description deviceName:(NSString *)deviceName os_type:(NSString *)os_type  withBlock:(PBResponseBlock)block;
 /**
-RequestOTPCode
-*/
+ RequestOTPCode
+ */
 -(PBRequestUnit *)requestOTPCodeForPlayer:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)requestOTPCodeForPlayer:(NSString *)playerId withBlock:(PBResponseBlock)block;
 -(PBRequestUnit *)requestOTPCodeForPlayerAsync:(NSString *)playerId withDelegate:(id<PBResponseHandler>)delegate;
 -(PBRequestUnit *)requestOTPCodeForPlayerAsync:(NSString *)playerId withBlock:(PBResponseBlock)block;
 
- 
- 
- /**
+
+
+/**
  Do player for a given action.
  This is similar to track but will get payload back in response.
  */

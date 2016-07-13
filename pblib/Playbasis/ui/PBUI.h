@@ -9,7 +9,10 @@
 #ifndef pblib_PBUI_h
 #define pblib_PBUI_h
 
-#import <Playbasis/pbUserRegistrationFormViewController.h>
-#import <Playbasis/UIImage+AutoLoader.h>
+#import "pbUserRegistrationFormViewController.h"
+
+#if TARGET_OS_IOS
+#import "UIImage+AutoLoader.h"
+#endif
 
 #endif

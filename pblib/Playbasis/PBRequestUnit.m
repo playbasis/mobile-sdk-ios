@@ -7,7 +7,7 @@
 //
 
 #import "PBRequestUnit.h"
-#import <Playbasis/Playbasis.h>
+#import "Playbasis.h"
 
 //
 // object for handling requests response
