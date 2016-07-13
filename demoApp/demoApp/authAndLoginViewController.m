@@ -85,6 +85,34 @@ static const NSTimeInterval kWaitingTime = 0.15f;
             // test callling login via block
             NSLog(@"Calling login via block");
             
+            // register device with playbasis platform
+            NSString *deviceToken = [Playbasis getDeviceToken];
+            if (deviceToken != nil)
+            {
+                [[Playbasis sharedPB] registerForPushNotificationPlayerId:USER options:@{@"device_token": deviceToken, @"device_description" : @"user's device token", @"device_name": @"ios device"} withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+                    if (error != nil)
+                    {
+                        NSLog(@"error register device token with platform %@", [error localizedDescription]);
+                    }
+                    else
+                    {
+                        NSLog(@"successfully registered device token with platform");
+                        
+                        // send notification right away
+                        [[Playbasis sharedPB] pushNotificationForPlayer:USER message:@"Test message" withBlock:^(id jsonResponse, NSURL *url, NSError *error) {
+                            if (error != nil)
+                            {
+                                NSLog(@"error sending push notif for %@", USER);
+                            }
+                            else
+                            {
+                                NSLog(@"successfully sent push notif for %@", USER);
+                            }
+                        }];
+                    }
+                }];
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 // update activity label that we will log in user
                 self.activityLabel.text = [NSString stringWithFormat:@"Logging in user '%@'", USER];
@@ -125,8 +153,7 @@ static const NSTimeInterval kWaitingTime = 0.15f;
     
     // authenticate the app
     // TODO: Insert your apikey, and secret here ...
-    //[[Playbasis sharedPB] authWithApiKey:@"1012718250" apiSecret:@"a52097fc5a17cb0d8631d20eacd2d9c2" bundleId:@"Demo App" andDelegate:self];
-    [[Playbasis sharedPB] authWithDelegate:self];
+    [[Playbasis sharedPB] authWithApiKey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" bundleId:@"io.wasin.playbasisapitest" andDelegate:self];
 }
 
 -(void)transitionToMainMenuScreen

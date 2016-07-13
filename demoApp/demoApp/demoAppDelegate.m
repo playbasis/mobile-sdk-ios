@@ -61,8 +61,8 @@
 {
     // call utility method of Playbasis to handle and save device token for later use
     [Playbasis saveDeviceToken:deviceToken withKey:@"DeviceToken"];
-    
-    PBLOG(@"Successfully registered for push notification.");
+    NSLog(@"deviceToken: %@", [Playbasis getDeviceToken]);
+    PBLOG(@"Successfully set device token for push notification.");
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -99,6 +99,11 @@
     }
     
     reply(replyDict);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"userInfo: %@", userInfo);
 }
 
 @end

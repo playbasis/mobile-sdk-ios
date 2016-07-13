@@ -6,6 +6,7 @@
 //  Copyright (c) 2556 Playbasisß. All rights reserved.
 //
 
+#import <TargetConditionals.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "JSONKit.h"
@@ -84,6 +85,12 @@
  
  */
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
+
+/**
+ * Utility method to get device token.
+ *
+ */
++(NSString*)getDeviceToken;
 
 
 /**

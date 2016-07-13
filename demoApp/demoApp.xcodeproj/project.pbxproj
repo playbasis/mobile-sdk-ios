@@ -60,6 +60,34 @@
 			remoteGlobalIDString = 1EC5B9001A8F3AAD0007C8A8;
 			remoteInfo = pblibResource;
 		};
+		1E3CA16C1D337A68004842DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E3D72371CFDB6F70054B73A;
+			remoteInfo = "pblibx86-unitywrapper";
+		};
+		1E3CA16E1D337A68004842DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1EDA0BCD1D07C741007A357B;
+			remoteInfo = "pblib-unitywrapper";
+		};
+		1E3CA1701D337A68004842DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E649DA41D0AE17F00C1C680;
+			remoteInfo = pblibWrapperTest;
+		};
+		1E3CA1721D337A68004842DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C90D7E21749D9A00080C57D /* pblib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E2A42C51D0EB6FA00A836B4;
+			remoteInfo = pblibTest;
+		};
 		1EA02C421AAEC54200206B67 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2C1C750D1749D7DB005F3B57 /* Project object */;
@@ -125,6 +153,7 @@
 		1E304A561A918D8D006F0C7F /* rewardStorePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardStorePageViewController.m; sourceTree = "<group>"; };
 		1E304A581A918E07006F0C7F /* rewardItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rewardItemViewController.h; sourceTree = "<group>"; };
 		1E304A591A918E07006F0C7F /* rewardItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rewardItemViewController.m; sourceTree = "<group>"; };
+		1E3CA1741D337AFE004842DB /* demoApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = demoApp.entitlements; sourceTree = "<group>"; };
 		1E5C92CE1AA1C73D00CEDB1A /* gestureDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestureDemoViewController.h; sourceTree = "<group>"; };
 		1E5C92CF1AA1C73D00CEDB1A /* gestureDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gestureDemoViewController.m; sourceTree = "<group>"; };
 		1E7A4B851AA00863006F9D61 /* globalCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globalCaching.h; sourceTree = "<group>"; };
@@ -287,6 +316,7 @@
 		2C1C751E1749D7DB005F3B57 /* demoApp */ = {
 			isa = PBXGroup;
 			children = (
+				1E3CA1741D337AFE004842DB /* demoApp.entitlements */,
 				2C1C75271749D7DB005F3B57 /* demoAppDelegate.h */,
 				2C1C75281749D7DB005F3B57 /* demoAppDelegate.m */,
 				2C1C75301749D7DB005F3B57 /* MainStoryboard.storyboard */,
@@ -357,6 +387,10 @@
 			children = (
 				2C90D7E71749D9A00080C57D /* pblib.a */,
 				1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */,
+				1E3CA16D1D337A68004842DB /* pblibx86-unitywrapper.bundle */,
+				1E3CA16F1D337A68004842DB /* pblib-unitywrapper.a */,
+				1E3CA1711D337A68004842DB /* pblibWrapperTest.xctest */,
+				1E3CA1731D337A68004842DB /* pblibTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -430,12 +464,22 @@
 				TargetAttributes = {
 					1EA02C341AAEC54100206B67 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
 					};
 					1EA02C3F1AAEC54200206B67 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
 					};
 					2C1C75141749D7DB005F3B57 = {
-						DevelopmentTeam = FN2345PZR7;
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -466,6 +510,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1E3CA16D1D337A68004842DB /* pblibx86-unitywrapper.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "pblibx86-unitywrapper.bundle";
+			remoteRef = 1E3CA16C1D337A68004842DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1E3CA16F1D337A68004842DB /* pblib-unitywrapper.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "pblib-unitywrapper.a";
+			remoteRef = 1E3CA16E1D337A68004842DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1E3CA1711D337A68004842DB /* pblibWrapperTest.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = pblibWrapperTest.xctest;
+			remoteRef = 1E3CA1701D337A68004842DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1E3CA1731D337A68004842DB /* pblibTest.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = pblibTest.xctest;
+			remoteRef = 1E3CA1721D337A68004842DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1EC5B90D1A8F3DE50007C8A8 /* pblibResource.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -634,6 +706,7 @@
 				INFOPLIST_FILE = "demoApp WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.playbasisapitest.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -665,6 +738,7 @@
 				INFOPLIST_FILE = "demoApp WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.playbasisapitest.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -703,6 +777,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.playbasisapitest.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 			};
@@ -731,6 +806,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.playbasisapitest.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 			};
@@ -810,6 +886,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.playbasisapitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -833,6 +910,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.playbasisapitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

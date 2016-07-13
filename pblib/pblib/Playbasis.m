@@ -650,6 +650,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++(NSString*)getDeviceToken
+{
+    if (sDeviceTokenRetrievalKey != nil && [sDeviceTokenRetrievalKey isEqualToString:@""])
+        return [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
+    else
+        return nil;
+}
+
 +(void)setProtectedResourcesKey:(NSString *)key
 {
     _sProtectedResourcesKey = key;
