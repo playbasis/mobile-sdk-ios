@@ -8,7 +8,7 @@
 
 #import "demoAppDelegate.h"
 #import "demoAppSettings.h"
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 
 @implementation demoAppDelegate
 
@@ -16,16 +16,8 @@
 {
     // Override point for customization after application launch.
     
-    // immediately set protected resource key to use in encrypt / decrypt process of files inside protectedResources folder inside the bundle
-    [Playbasis setProtectedResourcesKey:@"abcdefghijklmnopqrstuvwxyz123456"];
-    
     // call class method of Playbasis to handle native thing of trying to registering device for push notification for us
     [Playbasis registerDeviceForPushNotification];
-    
-    CGRect winSize = [[UIScreen mainScreen] bounds];
-    CGFloat height = winSize.size.height;
-    CGFloat width = winSize.size.width;
-    NSLog(@"width: %f, height: %f", width, height);
     
     return YES;
 }

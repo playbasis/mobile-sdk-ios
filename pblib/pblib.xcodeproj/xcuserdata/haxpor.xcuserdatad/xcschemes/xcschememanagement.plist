@@ -12,27 +12,12 @@
 		<key>Playbasis.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>framework.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>0</integer>
 		</dict>
 		<key>pblib-unitywrapper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
-		</dict>
-		<key>pblib.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-		<key>pblibResource.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>pblibTest.xcscheme</key>
 		<dict>
@@ -78,6 +63,11 @@
 			<true/>
 		</dict>
 		<key>1E649DA31D0AE17F00C1C680</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EB064CA1D368CB3002CA239</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,8 +9,8 @@
 #ifndef pblib_PBTypes_h
 #define pblib_PBTypes_h
 
-#import "PBResponses.h"
-#import "Reachability.h"
+#import <Playbasis/PBResponses.h>
+#import <Playbasis/Reachability.h>
 
 @class CLLocation;
 

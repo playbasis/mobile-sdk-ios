@@ -9,8 +9,8 @@
 #ifndef pblib_PBMacros_h
 #define pblib_PBMacros_h
 
-#import "PBSettings.h"
-#import "PBCommon.h"
+#import <Playbasis/PBSettings.h>
+#import <Playbasis/PBCommon.h>
 
 /**
  Check against NSNull.

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 @interface storeOrganizationViewController : UIViewController
 @property (strong,nonatomic) IBOutlet UITextView *detailView;
 @property (strong,nonatomic) IBOutlet UIButton *listOrganize;

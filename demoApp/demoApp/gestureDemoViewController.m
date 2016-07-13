@@ -7,7 +7,7 @@
 //
 
 #import "gestureDemoViewController.h"
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 #import "demoAppSettings.h"
 
 @interface gestureDemoViewController ()

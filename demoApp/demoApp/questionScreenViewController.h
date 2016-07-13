@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 
 @interface questionScreenViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {

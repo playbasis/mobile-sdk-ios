@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 
 @interface globalCaching : NSObject
 

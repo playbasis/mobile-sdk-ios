@@ -6,24 +6,32 @@
 //  Copyright (c) 2556 Playbasisß. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
+//! Project version number for Playbasis.
+FOUNDATION_EXPORT double PlaybasisVersionNumber;
+
+//! Project version string for Playbasis.
+FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
+
 #import <TargetConditionals.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "JSONKit.h"
-#import "PBTypes.h"
-#import "PBRequestUnit.h"
-#import "NSMutableArray+QueueAndSerializationAdditions.h"
-#import "PBResponses.h"
-#import "PBSettings.h"
-#import "PBConstants.h"
-#import "PBUtils.h"
-#import "PBMacros.h"
-#import "Reachability.h"
+#import <Playbasis/JSONKit.h>
+#import <Playbasis/PBTypes.h>
+#import <Playbasis/PBRequestUnit.h>
+#import <Playbasis/NSMutableArray+QueueAndSerializationAdditions.h>
+#import <Playbasis/PBResponses.h>
+#import <Playbasis/PBSettings.h>
+#import <Playbasis/PBConstants.h>
+#import <Playbasis/PBUtils.h>
+#import <Playbasis/PBMacros.h>
+#import <Playbasis/Reachability.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
-#import "PBUI.h"
+#import <Playbasis/PBUI.h>
 #endif
 
 /**
@@ -91,16 +99,6 @@
  *
  */
 +(NSString*)getDeviceToken;
-
-
-/**
- Set protected resources key used to encrypt / decrypt files inside protectedResources.
- 
- Default use "abcdefghijklmnopqrstuvwxyz123456" (without quote). You should change this value.
- 
- To set this value, call this method before calling the first call of sharedPB() method.
- */
-+(void)setProtectedResourcesKey:(NSString *)key;
 
 /**
  Set server url that SDK uses for synchronized api calls.
@@ -191,41 +189,12 @@
 //------------------------------
 
 /**
-  Secure way to authenticate and get access token.
- */
--(PBRequestUnit *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)authWithBlock:(PBAuth_ResponseBlock)block;
--(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block;
-
--(PBRequestUnit *)authWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
--(PBRequestUnit *)authWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
--(PBRequestUnit *)authWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
--(PBRequestUnit *)authWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
-
-/**
  Authenticate and get access token.
  */
 -(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
 -(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
-
-/**
- Secure way to request a new access token, and discard the current one.
- */
--(PBRequestUnit *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)renewWithBlock:(PBAuth_ResponseBlock)block;
--(PBRequestUnit *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block;
-
-/**
- This set of api calls allow input of bundle.
- */
--(PBRequestUnit *)renewWithDelegate:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
--(PBRequestUnit *)renewWithBlock:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
--(PBRequestUnit *)renewWithDelegateAsync:(id<PBAuth_ResponseHandler>)delegate bundle:(NSBundle*)bundle;
--(PBRequestUnit *)renewWithBlockAsync:(PBAuth_ResponseBlock)block bundle:(NSBundle*)bundle;
 
 /**
  Request a new access token, and discard the current one.
@@ -1357,3 +1326,5 @@ RequestOTPCode
 #endif
 
 @end
+
+

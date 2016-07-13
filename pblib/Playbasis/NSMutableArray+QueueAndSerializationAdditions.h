@@ -8,7 +8,7 @@
 //  Copyright (c) 2015 Playbasis. All rights reserved.
 //
 
-#import "PBRequestUnit.h"
+#import <Playbasis/PBRequestUnit.h>
 
 @interface NSMutableArray (QueueAndSerializationAdditions)
 

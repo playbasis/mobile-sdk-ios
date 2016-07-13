@@ -6,429 +6,214 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		1E52DDFC1AAFFD970035C9F0 /* framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 1E52DDFD1AAFFD970035C9F0 /* Build configuration list for PBXAggregateTarget "framework" */;
-			buildPhases = (
-				1E52DE041AAFFDB20035C9F0 /* ShellScript */,
-			);
-			dependencies = (
-				1E52DE031AAFFDA60035C9F0 /* PBXTargetDependency */,
-				1E52DE011AAFFDA30035C9F0 /* PBXTargetDependency */,
-			);
-			name = framework;
-			productName = framework;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
-		1E0DE7FE1AA85081002CEB3E /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
-		1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
-		1E2A42C81D0EB6FA00A836B4 /* pblibTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2A42C71D0EB6FA00A836B4 /* pblibTest.m */; };
-		1E2A42CA1D0EB6FA00A836B4 /* pblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F517461E1B005F3B57 /* pblib.a */; };
-		1E3D72461CFDB7300054B73A /* PlaybasisWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72411CFDB7300054B73A /* PlaybasisWrapper.mm */; };
-		1E3D72471CFDB7300054B73A /* PlaybasisWrapperTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72421CFDB7300054B73A /* PlaybasisWrapperTester.mm */; };
-		1E3D72481CFDB7300054B73A /* Populator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72441CFDB7300054B73A /* Populator.mm */; };
-		1E3D72491CFDB8390054B73A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
-		1E3D724A1CFDB8440054B73A /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
-		1E3D724B1CFDB8740054B73A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
-		1E3D724C1CFDB8740054B73A /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
-		1E3D724D1CFDB8740054B73A /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
-		1E3D724E1CFDB8740054B73A /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
-		1E3D724F1CFDB8740054B73A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1E3D72501CFDB8740054B73A /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
-		1E3D72511CFDB8740054B73A /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
-		1E3D72521CFDB8740054B73A /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
-		1E3D72531CFDB8740054B73A /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
-		1E3D72541CFDB8740054B73A /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
-		1E52DDE41AAFF93B0035C9F0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDE51AAFF94D0035C9F0 /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDE61AAFFA400035C9F0 /* PBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FC1AA85081002CEB3E /* PBCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDE71AAFFA490035C9F0 /* PBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDE81AAFFA4B0035C9F0 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7F81AA810DC002CEB3E /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDE91AAFFA4D0035C9F0 /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDD1F521AA7231F00BED1CA /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDEA1AAFFA510035C9F0 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E887DD71A9B19810077B673 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDEB1AAFFA530035C9F0 /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E2074291A84B069002D77A1 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDEC1AAFFA560035C9F0 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FDA1A7022EA00991CEB /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDED1AAFFA5B0035C9F0 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750617461E6B005F3B57 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDEE1AAFFA5D0035C9F0 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDEF1AAFFA5F0035C9F0 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3AE1B1A717AE0008F17F3 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF01AAFFA620035C9F0 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF11AAFFA660035C9F0 /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF21AAFFA680035C9F0 /* RNCryptor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D61A9C291A00C6C291 /* RNCryptor-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF31AAFFA6A0035C9F0 /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D71A9C291A00C6C291 /* RNCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF41AAFFA6C0035C9F0 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D91A9C291A00C6C291 /* RNCryptorEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF51AAFFA780035C9F0 /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7DB1A9C291A00C6C291 /* RNDecryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF61AAFFA7A0035C9F0 /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7DD1A9C291A00C6C291 /* RNEncryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF71AAFFA7D0035C9F0 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF81AAFFA860035C9F0 /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDF91AAFFA8A0035C9F0 /* pbUserRegistrationFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E52DDFA1AAFFA8D0035C9F0 /* PBUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B9171A8FB1F70007C8A8 /* PBUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E649DA71D0AE18000C1C680 /* pblibWrapperTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E649DA61D0AE18000C1C680 /* pblibWrapperTest.mm */; };
-		1E649DB21D0AE3EF00C1C680 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
-		1E649DB31D0AE3EF00C1C680 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1E649DB41D0AE3EF00C1C680 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
-		1E649DB51D0AE3EF00C1C680 /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
-		1E649DB61D0AE3EF00C1C680 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
-		1E649DB71D0AE3EF00C1C680 /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
-		1E649DB81D0AE3EF00C1C680 /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
-		1E649DB91D0AE3EF00C1C680 /* PlaybasisWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72411CFDB7300054B73A /* PlaybasisWrapper.mm */; };
-		1E649DBA1D0AE3EF00C1C680 /* PlaybasisWrapperTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72421CFDB7300054B73A /* PlaybasisWrapperTester.mm */; };
-		1E649DBB1D0AE3EF00C1C680 /* Populator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72441CFDB7300054B73A /* Populator.mm */; };
-		1E649DBC1D0AE42300C1C680 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
-		1E649DBD1D0AE42300C1C680 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
-		1E649DBE1D0AE42300C1C680 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
-		1E649DBF1D0AE42300C1C680 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
-		1E649DC01D0AE43200C1C680 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
-		1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
-		1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
-		1E80C7E01A9C291A00C6C291 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
-		1E80C7E11A9C291A00C6C291 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
-		1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
-		1E80C7E61A9C298800C6C291 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */; };
-		1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
-		1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
-		1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */; };
-		1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */; };
-		1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */; };
-		1EDA0B9C1D07C741007A357B /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7FD1AA85081002CEB3E /* PBCommon.m */; };
-		1EDA0B9D1D07C741007A357B /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */; };
-		1EDA0B9E1D07C741007A357B /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */; };
-		1EDA0B9F1D07C741007A357B /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
-		1EDA0BA01D07C741007A357B /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
-		1EDA0BA11D07C741007A357B /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1EDA0BA21D07C741007A357B /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */; };
-		1EDA0BA31D07C741007A357B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */; };
-		1EDA0BA41D07C741007A357B /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */; };
-		1EDA0BA51D07C741007A357B /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
-		1EDA0BA61D07C741007A357B /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E20742A1A84B329002D77A1 /* PBResponses.m */; };
-		1EDA0BA71D07C741007A357B /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0DE7F91AA810DC002CEB3E /* PBUtils.m */; };
-		1EDA0BA81D07C741007A357B /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */; };
-		1EDA0BA91D07C741007A357B /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */; };
-		1EDA0BAA1D07C741007A357B /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E80C7D81A9C291A00C6C291 /* RNCryptor.m */; };
-		1EDA0BAB1D07C741007A357B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3AE1C1A717AE0008F17F3 /* Reachability.m */; };
-		1EDA0BAD1D07C741007A357B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */; };
-		1EDA0BAE1D07C741007A357B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */; };
-		1EDA0BAF1D07C741007A357B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */; };
-		1EDA0BB01D07C741007A357B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
-		1EDA0BB21D07C741007A357B /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E887DD71A9B19810077B673 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB31D07C741007A357B /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E2074291A84B069002D77A1 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB41D07C741007A357B /* PBUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B9171A8FB1F70007C8A8 /* PBUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB51D07C741007A357B /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB61D07C741007A357B /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FDA1A7022EA00991CEB /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB71D07C741007A357B /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7F81AA810DC002CEB3E /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB81D07C741007A357B /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDD1F521AA7231F00BED1CA /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BB91D07C741007A357B /* PBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BBA1D07C741007A357B /* PBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E0DE7FC1AA85081002CEB3E /* PBCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BBB1D07C741007A357B /* pbUserRegistrationFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BBC1D07C741007A357B /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BBD1D07C741007A357B /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750617461E6B005F3B57 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BBE1D07C741007A357B /* RNCryptor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D61A9C291A00C6C291 /* RNCryptor-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BBF1D07C741007A357B /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D91A9C291A00C6C291 /* RNCryptorEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC01D07C741007A357B /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D71A9C291A00C6C291 /* RNCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC11D07C741007A357B /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC21D07C741007A357B /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7DD1A9C291A00C6C291 /* RNEncryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC31D07C741007A357B /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7DB1A9C291A00C6C291 /* RNDecryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC41D07C741007A357B /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC51D07C741007A357B /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC61D07C741007A357B /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3AE1B1A717AE0008F17F3 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC71D07C741007A357B /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BC81D07C741007A357B /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1C750817461E6B005F3B57 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BCE1D07C775007A357B /* PlaybasisWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72411CFDB7300054B73A /* PlaybasisWrapper.mm */; };
-		1EDA0BCF1D07C775007A357B /* PlaybasisWrapperTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72421CFDB7300054B73A /* PlaybasisWrapperTester.mm */; };
-		1EDA0BD01D07C775007A357B /* Populator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3D72441CFDB7300054B73A /* Populator.mm */; };
-		1EDA0BD11D07C7A4007A357B /* PlaybasisResponsesWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3D723F1CFDB7300054B73A /* PlaybasisResponsesWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BD21D07C7A4007A357B /* PlaybasisWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3D72401CFDB7300054B73A /* PlaybasisWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BD31D07C7A4007A357B /* Populator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3D72431CFDB7300054B73A /* Populator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA0BD41D07C7A4007A357B /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3D72451CFDB7300054B73A /* Util.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EDA69D41AA148C700F8A13B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */; };
-		1EDA69D61AA14F1000F8A13B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */; };
-		1EDC5FD91A701D9700991CEB /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */; };
-		1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */; };
-		2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
-		2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750717461E6B005F3B57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C750917461E6B005F3B57 /* Playbasis.m */; };
+		1EB064CF1D368CB3002CA239 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065011D368E02002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065021D368E02002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1EB065031D368E02002CA239 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D71D368E02002CA239 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065041D368E02002CA239 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D81D368E02002CA239 /* KLCPopup.m */; };
+		1EB065051D368E02002CA239 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064DA1D368E02002CA239 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065061D368E02002CA239 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064DB1D368E02002CA239 /* MBProgressHUD.m */; };
+		1EB065071D368E02002CA239 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064DD1D368E02002CA239 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065081D368E02002CA239 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064DE1D368E02002CA239 /* Reachability.m */; };
+		1EB065091D368E02002CA239 /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E01D368E02002CA239 /* RNCryptor+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0650A1D368E02002CA239 /* RNCryptor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E11D368E02002CA239 /* RNCryptor-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0650B1D368E02002CA239 /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E21D368E02002CA239 /* RNCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0650C1D368E02002CA239 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E31D368E02002CA239 /* RNCryptor.m */; };
+		1EB0650D1D368E02002CA239 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E41D368E02002CA239 /* RNCryptorEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0650E1D368E02002CA239 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E51D368E02002CA239 /* RNCryptorEngine.m */; };
+		1EB0650F1D368E02002CA239 /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E61D368E02002CA239 /* RNDecryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065101D368E02002CA239 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E71D368E02002CA239 /* RNDecryptor.m */; };
+		1EB065111D368E02002CA239 /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E81D368E02002CA239 /* RNEncryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065121D368E02002CA239 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E91D368E02002CA239 /* RNEncryptor.m */; };
+		1EB065131D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EA1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065141D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064EB1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m */; };
+		1EB065151D368E02002CA239 /* PBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EC1D368E02002CA239 /* PBCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065161D368E02002CA239 /* PBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064ED1D368E02002CA239 /* PBCommon.m */; };
+		1EB065171D368E02002CA239 /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EE1D368E02002CA239 /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065181D368E02002CA239 /* pblib-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EF1D368E02002CA239 /* pblib-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065191D368E02002CA239 /* PBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F01D368E02002CA239 /* PBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0651A1D368E02002CA239 /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F11D368E02002CA239 /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0651B1D368E02002CA239 /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F21D368E02002CA239 /* PBRequestUnit.m */; };
+		1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F31D368E02002CA239 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0651D1D368E02002CA239 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F41D368E02002CA239 /* PBResponses.m */; };
+		1EB0651E1D368E02002CA239 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB0651F1D368E02002CA239 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F61D368E02002CA239 /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065201D368E02002CA239 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065211D368E02002CA239 /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F81D368E02002CA239 /* PBUtils.m */; };
+		1EB065221D368E02002CA239 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F91D368E02002CA239 /* Playbasis.m */; };
+		1EB065231D368E02002CA239 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB064FB1D368E02002CA239 /* PBStoryboard.storyboard */; };
+		1EB065241D368E02002CA239 /* PBUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064FC1D368E02002CA239 /* PBUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065251D368E02002CA239 /* pbUserRegistrationFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064FD1D368E02002CA239 /* pbUserRegistrationFormViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064FE1D368E02002CA239 /* pbUserRegistrationFormViewController.m */; };
+		1EB065271D368E02002CA239 /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1E2A42CB1D0EB6FA00A836B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2C1C74F417461E1B005F3B57;
-			remoteInfo = pblib;
-		};
-		1E52DE001AAFFDA30035C9F0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2C1C74F417461E1B005F3B57;
-			remoteInfo = pblib;
-		};
-		1E52DE021AAFFDA60035C9F0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1EC5B9001A8F3AAD0007C8A8;
-			remoteInfo = pblibResource;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		1E0DE7F81AA810DC002CEB3E /* PBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUtils.h; sourceTree = "<group>"; };
-		1E0DE7F91AA810DC002CEB3E /* PBUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBUtils.m; sourceTree = "<group>"; };
-		1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMacros.h; sourceTree = "<group>"; };
-		1E0DE7FC1AA85081002CEB3E /* PBCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCommon.h; sourceTree = "<group>"; };
-		1E0DE7FD1AA85081002CEB3E /* PBCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCommon.m; sourceTree = "<group>"; };
-		1E2074291A84B069002D77A1 /* PBResponses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
-		1E20742A1A84B329002D77A1 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
-		1E2A42C51D0EB6FA00A836B4 /* pblibTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pblibTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E2A42C71D0EB6FA00A836B4 /* pblibTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pblibTest.m; sourceTree = "<group>"; };
-		1E2A42C91D0EB6FA00A836B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		1E3D722F1CFDA4900054B73A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		1E3D72371CFDB6F70054B73A /* pblibx86-unitywrapper.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pblibx86-unitywrapper.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E3D72391CFDB6F80054B73A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E3D723F1CFDB7300054B73A /* PlaybasisResponsesWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybasisResponsesWrapper.h; sourceTree = "<group>"; };
-		1E3D72401CFDB7300054B73A /* PlaybasisWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybasisWrapper.h; sourceTree = "<group>"; };
-		1E3D72411CFDB7300054B73A /* PlaybasisWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaybasisWrapper.mm; sourceTree = "<group>"; };
-		1E3D72421CFDB7300054B73A /* PlaybasisWrapperTester.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaybasisWrapperTester.mm; sourceTree = "<group>"; };
-		1E3D72431CFDB7300054B73A /* Populator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Populator.h; sourceTree = "<group>"; };
-		1E3D72441CFDB7300054B73A /* Populator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Populator.mm; sourceTree = "<group>"; };
-		1E3D72451CFDB7300054B73A /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
-		1E649DA41D0AE17F00C1C680 /* pblibWrapperTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pblibWrapperTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E649DA61D0AE18000C1C680 /* pblibWrapperTest.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = pblibWrapperTest.mm; sourceTree = "<group>"; };
-		1E649DA81D0AE18000C1C680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E649DAC1D0AE38700C1C680 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
-		1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
-		1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
-		1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
-		1E80C7D61A9C291A00C6C291 /* RNCryptor-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor-Prefix.pch"; sourceTree = "<group>"; };
-		1E80C7D71A9C291A00C6C291 /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
-		1E80C7D81A9C291A00C6C291 /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptor.m; sourceTree = "<group>"; };
-		1E80C7D91A9C291A00C6C291 /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptorEngine.h; sourceTree = "<group>"; };
-		1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
-		1E80C7DB1A9C291A00C6C291 /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDecryptor.h; sourceTree = "<group>"; };
-		1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
-		1E80C7DD1A9C291A00C6C291 /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
-		1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
-		1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		1E887DD71A9B19810077B673 /* PBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSettings.h; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		1EA3AE1B1A717AE0008F17F3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		1EA3AE1C1A717AE0008F17F3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PBStoryboard.storyboard; sourceTree = "<group>"; };
-		1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbUserRegistrationFormViewController.h; sourceTree = "<group>"; };
-		1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pbUserRegistrationFormViewController.m; sourceTree = "<group>"; };
-		1EC5B9011A8F3AAD0007C8A8 /* pblibResource.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pblibResource.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		1EC5B9041A8F3AAD0007C8A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1EC5B9171A8FB1F70007C8A8 /* PBUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBUI.h; sourceTree = "<group>"; };
-		1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
-		1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
-		1ED6CC2A1A9AE587000D8FB0 /* protectedResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = protectedResources; sourceTree = "<group>"; };
-		1EDA0BCD1D07C741007A357B /* pblib-unitywrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "pblib-unitywrapper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EB064CB1D368CB3002CA239 /* Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EB064CD1D368CB3002CA239 /* Playbasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
+		1EB064CE1D368CB3002CA239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1EB064D31D368E02002CA239 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		1EB064D41D368E02002CA239 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		1EB064D71D368E02002CA239 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
+		1EB064D81D368E02002CA239 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
+		1EB064DA1D368E02002CA239 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1EB064DB1D368E02002CA239 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		1EB064DD1D368E02002CA239 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		1EB064DE1D368E02002CA239 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1EB064E01D368E02002CA239 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
+		1EB064E11D368E02002CA239 /* RNCryptor-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor-Prefix.pch"; sourceTree = "<group>"; };
+		1EB064E21D368E02002CA239 /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
+		1EB064E31D368E02002CA239 /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptor.m; sourceTree = "<group>"; };
+		1EB064E41D368E02002CA239 /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptorEngine.h; sourceTree = "<group>"; };
+		1EB064E51D368E02002CA239 /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
+		1EB064E61D368E02002CA239 /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDecryptor.h; sourceTree = "<group>"; };
+		1EB064E71D368E02002CA239 /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
+		1EB064E81D368E02002CA239 /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
+		1EB064E91D368E02002CA239 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
+		1EB064EA1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAndSerializationAdditions.h"; sourceTree = "<group>"; };
+		1EB064EB1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAndSerializationAdditions.m"; sourceTree = "<group>"; };
+		1EB064EC1D368E02002CA239 /* PBCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCommon.h; sourceTree = "<group>"; };
+		1EB064ED1D368E02002CA239 /* PBCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCommon.m; sourceTree = "<group>"; };
+		1EB064EE1D368E02002CA239 /* PBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
+		1EB064EF1D368E02002CA239 /* pblib-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "pblib-Prefix.pch"; sourceTree = "<group>"; };
+		1EB064F01D368E02002CA239 /* PBMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMacros.h; sourceTree = "<group>"; };
+		1EB064F11D368E02002CA239 /* PBRequestUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestUnit.h; sourceTree = "<group>"; };
+		1EB064F21D368E02002CA239 /* PBRequestUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PBRequestUnit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1EB064F31D368E02002CA239 /* PBResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBResponses.h; sourceTree = "<group>"; };
+		1EB064F41D368E02002CA239 /* PBResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBResponses.m; sourceTree = "<group>"; };
+		1EB064F51D368E02002CA239 /* PBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSettings.h; sourceTree = "<group>"; };
+		1EB064F61D368E02002CA239 /* PBTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
+		1EB064F71D368E02002CA239 /* PBUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUtils.h; sourceTree = "<group>"; };
+		1EB064F81D368E02002CA239 /* PBUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBUtils.m; sourceTree = "<group>"; };
+		1EB064F91D368E02002CA239 /* Playbasis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Playbasis.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		1EB064FB1D368E02002CA239 /* PBStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PBStoryboard.storyboard; sourceTree = "<group>"; };
+		1EB064FC1D368E02002CA239 /* PBUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBUI.h; sourceTree = "<group>"; };
+		1EB064FD1D368E02002CA239 /* pbUserRegistrationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = pbUserRegistrationFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		1EB064FE1D368E02002CA239 /* pbUserRegistrationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pbUserRegistrationFormViewController.m; sourceTree = "<group>"; };
+		1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
+		1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
 		1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestUnit.h; sourceTree = "<group>"; };
-		1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequestUnit.m; sourceTree = "<group>"; };
-		1EDC5FDA1A7022EA00991CEB /* PBTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTypes.h; sourceTree = "<group>"; };
-		1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAndSerializationAdditions.h"; sourceTree = "<group>"; };
-		1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAndSerializationAdditions.m"; sourceTree = "<group>"; };
-		1EDD1F521AA7231F00BED1CA /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
-		2C1C74F517461E1B005F3B57 /* pblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = pblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1C74F817461E1B005F3B57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2C1C74FC17461E1B005F3B57 /* pblib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pblib-Prefix.pch"; sourceTree = "<group>"; };
-		2C1C750617461E6B005F3B57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		2C1C750717461E6B005F3B57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		2C1C750817461E6B005F3B57 /* Playbasis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
-		2C1C750917461E6B005F3B57 /* Playbasis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Playbasis.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1E2A42C21D0EB6FA00A836B4 /* Frameworks */ = {
+		1EB064C71D368CB3002CA239 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E2A42CA1D0EB6FA00A836B4 /* pblib.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E3D72341CFDB6F70054B73A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E649DA11D0AE17F00C1C680 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1EC5B8FE1A8F3AAD0007C8A8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1EDA0BAC1D07C741007A357B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1EDA0BAD1D07C741007A357B /* CoreMotion.framework in Frameworks */,
-				1EDA0BAE1D07C741007A357B /* CoreLocation.framework in Frameworks */,
-				1EDA0BAF1D07C741007A357B /* SystemConfiguration.framework in Frameworks */,
-				1EDA0BB01D07C741007A357B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C1C74F217461E1B005F3B57 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1EDA69D61AA14F1000F8A13B /* CoreMotion.framework in Frameworks */,
-				1EDA69D41AA148C700F8A13B /* CoreLocation.framework in Frameworks */,
-				1EA3AE181A717A3C008F17F3 /* SystemConfiguration.framework in Frameworks */,
-				2C1C74F917461E1B005F3B57 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E2A42C61D0EB6FA00A836B4 /* pblibTest */ = {
+		1EB064CC1D368CB3002CA239 /* Playbasis */ = {
 			isa = PBXGroup;
 			children = (
-				1E2A42C71D0EB6FA00A836B4 /* pblibTest.m */,
-				1E2A42C91D0EB6FA00A836B4 /* Info.plist */,
+				1EB064D31D368E02002CA239 /* JSONKit.h */,
+				1EB064D41D368E02002CA239 /* JSONKit.m */,
+				1EB064D51D368E02002CA239 /* libs */,
+				1EB064EA1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h */,
+				1EB064EB1D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m */,
+				1EB064EC1D368E02002CA239 /* PBCommon.h */,
+				1EB064ED1D368E02002CA239 /* PBCommon.m */,
+				1EB064EE1D368E02002CA239 /* PBConstants.h */,
+				1EB064EF1D368E02002CA239 /* pblib-Prefix.pch */,
+				1EB064F01D368E02002CA239 /* PBMacros.h */,
+				1EB064F11D368E02002CA239 /* PBRequestUnit.h */,
+				1EB064F21D368E02002CA239 /* PBRequestUnit.m */,
+				1EB064F31D368E02002CA239 /* PBResponses.h */,
+				1EB064F41D368E02002CA239 /* PBResponses.m */,
+				1EB064F51D368E02002CA239 /* PBSettings.h */,
+				1EB064F61D368E02002CA239 /* PBTypes.h */,
+				1EB064F71D368E02002CA239 /* PBUtils.h */,
+				1EB064F81D368E02002CA239 /* PBUtils.m */,
+				1EB064F91D368E02002CA239 /* Playbasis.m */,
+				1EB064FA1D368E02002CA239 /* ui */,
+				1EB064CD1D368CB3002CA239 /* Playbasis.h */,
+				1EB064CE1D368CB3002CA239 /* Info.plist */,
 			);
-			path = pblibTest;
+			path = Playbasis;
 			sourceTree = "<group>";
 		};
-		1E3D72381CFDB6F80054B73A /* pblibx86-unitywrapper */ = {
+		1EB064D51D368E02002CA239 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				1E3D723F1CFDB7300054B73A /* PlaybasisResponsesWrapper.h */,
-				1E3D72401CFDB7300054B73A /* PlaybasisWrapper.h */,
-				1E3D72411CFDB7300054B73A /* PlaybasisWrapper.mm */,
-				1E3D72421CFDB7300054B73A /* PlaybasisWrapperTester.mm */,
-				1E3D72431CFDB7300054B73A /* Populator.h */,
-				1E3D72441CFDB7300054B73A /* Populator.mm */,
-				1E3D72451CFDB7300054B73A /* Util.h */,
-				1E3D72391CFDB6F80054B73A /* Info.plist */,
-			);
-			path = "pblibx86-unitywrapper";
-			sourceTree = "<group>";
-		};
-		1E649DA51D0AE18000C1C680 /* pblibWrapperTest */ = {
-			isa = PBXGroup;
-			children = (
-				1E649DA61D0AE18000C1C680 /* pblibWrapperTest.mm */,
-				1E649DA81D0AE18000C1C680 /* Info.plist */,
-			);
-			path = pblibWrapperTest;
-			sourceTree = "<group>";
-		};
-		1E80C7D41A9C291A00C6C291 /* RNCryptor */ = {
-			isa = PBXGroup;
-			children = (
-				1E80C7D51A9C291A00C6C291 /* RNCryptor+Private.h */,
-				1E80C7D61A9C291A00C6C291 /* RNCryptor-Prefix.pch */,
-				1E80C7D71A9C291A00C6C291 /* RNCryptor.h */,
-				1E80C7D81A9C291A00C6C291 /* RNCryptor.m */,
-				1E80C7D91A9C291A00C6C291 /* RNCryptorEngine.h */,
-				1E80C7DA1A9C291A00C6C291 /* RNCryptorEngine.m */,
-				1E80C7DB1A9C291A00C6C291 /* RNDecryptor.h */,
-				1E80C7DC1A9C291A00C6C291 /* RNDecryptor.m */,
-				1E80C7DD1A9C291A00C6C291 /* RNEncryptor.h */,
-				1E80C7DE1A9C291A00C6C291 /* RNEncryptor.m */,
-			);
-			path = RNCryptor;
-			sourceTree = "<group>";
-		};
-		1E80C7E31A9C298800C6C291 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				1E80C7E41A9C298800C6C291 /* MBProgressHUD.h */,
-				1E80C7E51A9C298800C6C291 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
-		1EA3AE191A717AE0008F17F3 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				1E80C7E31A9C298800C6C291 /* MBProgressHUD */,
-				1E80C7D41A9C291A00C6C291 /* RNCryptor */,
-				1ED6CC241A9AB744000D8FB0 /* KLCPopup */,
-				1EA3AE1A1A717AE0008F17F3 /* Reachability */,
+				1EB064D61D368E02002CA239 /* KLCPopup */,
+				1EB064D91D368E02002CA239 /* MBProgressHUD */,
+				1EB064DC1D368E02002CA239 /* Reachability */,
+				1EB064DF1D368E02002CA239 /* RNCryptor */,
 			);
 			path = libs;
 			sourceTree = "<group>";
 		};
-		1EA3AE1A1A717AE0008F17F3 /* Reachability */ = {
+		1EB064D61D368E02002CA239 /* KLCPopup */ = {
 			isa = PBXGroup;
 			children = (
-				1EA3AE1B1A717AE0008F17F3 /* Reachability.h */,
-				1EA3AE1C1A717AE0008F17F3 /* Reachability.m */,
+				1EB064D71D368E02002CA239 /* KLCPopup.h */,
+				1EB064D81D368E02002CA239 /* KLCPopup.m */,
+			);
+			path = KLCPopup;
+			sourceTree = "<group>";
+		};
+		1EB064D91D368E02002CA239 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1EB064DA1D368E02002CA239 /* MBProgressHUD.h */,
+				1EB064DB1D368E02002CA239 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		1EB064DC1D368E02002CA239 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				1EB064DD1D368E02002CA239 /* Reachability.h */,
+				1EB064DE1D368E02002CA239 /* Reachability.m */,
 			);
 			path = Reachability;
 			sourceTree = "<group>";
 		};
-		1EC5B8EF1A8EE4110007C8A8 /* ui */ = {
+		1EB064DF1D368E02002CA239 /* RNCryptor */ = {
 			isa = PBXGroup;
 			children = (
-				1EC5B8F01A8F27EE0007C8A8 /* PBStoryboard.storyboard */,
-				1EC5B8F41A8F2E1B0007C8A8 /* pbUserRegistrationFormViewController.h */,
-				1EC5B8F51A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m */,
-				1EC5B9171A8FB1F70007C8A8 /* PBUI.h */,
-				1E80C7D11A9BD25300C6C291 /* UIImage+AutoLoader.h */,
-				1E80C7D21A9BD25300C6C291 /* UIImage+AutoLoader.m */,
+				1EB064E01D368E02002CA239 /* RNCryptor+Private.h */,
+				1EB064E11D368E02002CA239 /* RNCryptor-Prefix.pch */,
+				1EB064E21D368E02002CA239 /* RNCryptor.h */,
+				1EB064E31D368E02002CA239 /* RNCryptor.m */,
+				1EB064E41D368E02002CA239 /* RNCryptorEngine.h */,
+				1EB064E51D368E02002CA239 /* RNCryptorEngine.m */,
+				1EB064E61D368E02002CA239 /* RNDecryptor.h */,
+				1EB064E71D368E02002CA239 /* RNDecryptor.m */,
+				1EB064E81D368E02002CA239 /* RNEncryptor.h */,
+				1EB064E91D368E02002CA239 /* RNEncryptor.m */,
+			);
+			path = RNCryptor;
+			sourceTree = "<group>";
+		};
+		1EB064FA1D368E02002CA239 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				1EB064FB1D368E02002CA239 /* PBStoryboard.storyboard */,
+				1EB064FC1D368E02002CA239 /* PBUI.h */,
+				1EB064FD1D368E02002CA239 /* pbUserRegistrationFormViewController.h */,
+				1EB064FE1D368E02002CA239 /* pbUserRegistrationFormViewController.m */,
+				1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */,
+				1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */,
 			);
 			path = ui;
-			sourceTree = "<group>";
-		};
-		1EC5B9021A8F3AAD0007C8A8 /* pblibResource */ = {
-			isa = PBXGroup;
-			children = (
-				1EC5B9031A8F3AAD0007C8A8 /* Supporting Files */,
-			);
-			path = pblibResource;
-			sourceTree = "<group>";
-		};
-		1EC5B9031A8F3AAD0007C8A8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1EC5B9041A8F3AAD0007C8A8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		1ED6CC241A9AB744000D8FB0 /* KLCPopup */ = {
-			isa = PBXGroup;
-			children = (
-				1ED6CC251A9AB744000D8FB0 /* KLCPopup.h */,
-				1ED6CC261A9AB744000D8FB0 /* KLCPopup.m */,
-			);
-			path = KLCPopup;
 			sourceTree = "<group>";
 		};
 		2C1C74EC17461E1B005F3B57 = {
 			isa = PBXGroup;
 			children = (
-				1ED6CC2A1A9AE587000D8FB0 /* protectedResources */,
-				2C1C74FA17461E1B005F3B57 /* pblib */,
-				1EC5B9021A8F3AAD0007C8A8 /* pblibResource */,
-				1E3D72381CFDB6F80054B73A /* pblibx86-unitywrapper */,
-				1E649DA51D0AE18000C1C680 /* pblibWrapperTest */,
-				1E2A42C61D0EB6FA00A836B4 /* pblibTest */,
+				1EB064CC1D368CB3002CA239 /* Playbasis */,
 				2C1C74F717461E1B005F3B57 /* Frameworks */,
 				2C1C74F617461E1B005F3B57 /* Products */,
 			);
@@ -437,12 +222,7 @@
 		2C1C74F617461E1B005F3B57 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C1C74F517461E1B005F3B57 /* pblib.a */,
-				1EC5B9011A8F3AAD0007C8A8 /* pblibResource.bundle */,
-				1E3D72371CFDB6F70054B73A /* pblibx86-unitywrapper.bundle */,
-				1EDA0BCD1D07C741007A357B /* pblib-unitywrapper.a */,
-				1E649DA41D0AE17F00C1C680 /* pblibWrapperTest.xctest */,
-				1E2A42C51D0EB6FA00A836B4 /* pblibTest.xctest */,
+				1EB064CB1D368CB3002CA239 /* Playbasis.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -450,8 +230,6 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1E649DAC1D0AE38700C1C680 /* libstdc++.tbd */,
-				1E3D722F1CFDA4900054B73A /* Security.framework */,
 				1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */,
 				1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */,
 				1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */,
@@ -462,217 +240,60 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2C1C74FA17461E1B005F3B57 /* pblib */ = {
-			isa = PBXGroup;
-			children = (
-				1EC5B8EF1A8EE4110007C8A8 /* ui */,
-				1EA3AE191A717AE0008F17F3 /* libs */,
-				1EDC5FDB1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.h */,
-				1EDC5FDC1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m */,
-				2C1C750617461E6B005F3B57 /* JSONKit.h */,
-				2C1C750717461E6B005F3B57 /* JSONKit.m */,
-				2C1C750817461E6B005F3B57 /* Playbasis.h */,
-				2C1C750917461E6B005F3B57 /* Playbasis.m */,
-				1EDC5FD71A701D9700991CEB /* PBRequestUnit.h */,
-				1EDC5FD81A701D9700991CEB /* PBRequestUnit.m */,
-				1EDC5FDA1A7022EA00991CEB /* PBTypes.h */,
-				1E2074291A84B069002D77A1 /* PBResponses.h */,
-				1E20742A1A84B329002D77A1 /* PBResponses.m */,
-				2C1C74FB17461E1B005F3B57 /* Supporting Files */,
-				1E887DD71A9B19810077B673 /* PBSettings.h */,
-				1EDD1F521AA7231F00BED1CA /* PBConstants.h */,
-				1E0DE7F81AA810DC002CEB3E /* PBUtils.h */,
-				1E0DE7F91AA810DC002CEB3E /* PBUtils.m */,
-				1E0DE7FB1AA83E3E002CEB3E /* PBMacros.h */,
-				1E0DE7FC1AA85081002CEB3E /* PBCommon.h */,
-				1E0DE7FD1AA85081002CEB3E /* PBCommon.m */,
-			);
-			path = pblib;
-			sourceTree = "<group>";
-		};
-		2C1C74FB17461E1B005F3B57 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2C1C74FC17461E1B005F3B57 /* pblib-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		1E52DDE31AAFF8D30035C9F0 /* Headers */ = {
+		1EB064C81D368CB3002CA239 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E52DDEA1AAFFA510035C9F0 /* PBSettings.h in Headers */,
-				1E52DDEB1AAFFA530035C9F0 /* PBResponses.h in Headers */,
-				1E52DDFA1AAFFA8D0035C9F0 /* PBUI.h in Headers */,
-				1E52DDE51AAFF94D0035C9F0 /* PBRequestUnit.h in Headers */,
-				1E52DDEC1AAFFA560035C9F0 /* PBTypes.h in Headers */,
-				1E52DDE81AAFFA4B0035C9F0 /* PBUtils.h in Headers */,
-				1E52DDE91AAFFA4D0035C9F0 /* PBConstants.h in Headers */,
-				1E52DDE71AAFFA490035C9F0 /* PBMacros.h in Headers */,
-				1E52DDE61AAFFA400035C9F0 /* PBCommon.h in Headers */,
-				1E52DDF91AAFFA8A0035C9F0 /* pbUserRegistrationFormViewController.h in Headers */,
-				1E52DDF81AAFFA860035C9F0 /* UIImage+AutoLoader.h in Headers */,
-				1E52DDED1AAFFA5B0035C9F0 /* JSONKit.h in Headers */,
-				1E52DDF21AAFFA680035C9F0 /* RNCryptor-Prefix.pch in Headers */,
-				1E52DDF41AAFFA6C0035C9F0 /* RNCryptorEngine.h in Headers */,
-				1E52DDF31AAFFA6A0035C9F0 /* RNCryptor.h in Headers */,
-				1E52DDF71AAFFA7D0035C9F0 /* MBProgressHUD.h in Headers */,
-				1E52DDF61AAFFA7A0035C9F0 /* RNEncryptor.h in Headers */,
-				1E52DDF51AAFFA780035C9F0 /* RNDecryptor.h in Headers */,
-				1E52DDF11AAFFA660035C9F0 /* RNCryptor+Private.h in Headers */,
-				1E52DDF01AAFFA620035C9F0 /* KLCPopup.h in Headers */,
-				1E52DDEF1AAFFA5F0035C9F0 /* Reachability.h in Headers */,
-				1E52DDEE1AAFFA5D0035C9F0 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
-				1E52DDE41AAFF93B0035C9F0 /* Playbasis.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1EDA0BB11D07C741007A357B /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1EDA0BB21D07C741007A357B /* PBSettings.h in Headers */,
-				1EDA0BB31D07C741007A357B /* PBResponses.h in Headers */,
-				1EDA0BB41D07C741007A357B /* PBUI.h in Headers */,
-				1EDA0BB51D07C741007A357B /* PBRequestUnit.h in Headers */,
-				1EDA0BB61D07C741007A357B /* PBTypes.h in Headers */,
-				1EDA0BB71D07C741007A357B /* PBUtils.h in Headers */,
-				1EDA0BB81D07C741007A357B /* PBConstants.h in Headers */,
-				1EDA0BB91D07C741007A357B /* PBMacros.h in Headers */,
-				1EDA0BBA1D07C741007A357B /* PBCommon.h in Headers */,
-				1EDA0BBB1D07C741007A357B /* pbUserRegistrationFormViewController.h in Headers */,
-				1EDA0BBC1D07C741007A357B /* UIImage+AutoLoader.h in Headers */,
-				1EDA0BBD1D07C741007A357B /* JSONKit.h in Headers */,
-				1EDA0BBE1D07C741007A357B /* RNCryptor-Prefix.pch in Headers */,
-				1EDA0BBF1D07C741007A357B /* RNCryptorEngine.h in Headers */,
-				1EDA0BC01D07C741007A357B /* RNCryptor.h in Headers */,
-				1EDA0BC11D07C741007A357B /* MBProgressHUD.h in Headers */,
-				1EDA0BC21D07C741007A357B /* RNEncryptor.h in Headers */,
-				1EDA0BC31D07C741007A357B /* RNDecryptor.h in Headers */,
-				1EDA0BC41D07C741007A357B /* RNCryptor+Private.h in Headers */,
-				1EDA0BC51D07C741007A357B /* KLCPopup.h in Headers */,
-				1EDA0BC61D07C741007A357B /* Reachability.h in Headers */,
-				1EDA0BC71D07C741007A357B /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
-				1EDA0BC81D07C741007A357B /* Playbasis.h in Headers */,
-				1EDA0BD11D07C7A4007A357B /* PlaybasisResponsesWrapper.h in Headers */,
-				1EDA0BD21D07C7A4007A357B /* PlaybasisWrapper.h in Headers */,
-				1EDA0BD31D07C7A4007A357B /* Populator.h in Headers */,
-				1EDA0BD41D07C7A4007A357B /* Util.h in Headers */,
+				1EB0651A1D368E02002CA239 /* PBRequestUnit.h in Headers */,
+				1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */,
+				1EB0651F1D368E02002CA239 /* PBTypes.h in Headers */,
+				1EB065151D368E02002CA239 /* PBCommon.h in Headers */,
+				1EB065191D368E02002CA239 /* PBMacros.h in Headers */,
+				1EB065251D368E02002CA239 /* pbUserRegistrationFormViewController.h in Headers */,
+				1EB0650D1D368E02002CA239 /* RNCryptorEngine.h in Headers */,
+				1EB0650A1D368E02002CA239 /* RNCryptor-Prefix.pch in Headers */,
+				1EB065271D368E02002CA239 /* UIImage+AutoLoader.h in Headers */,
+				1EB065011D368E02002CA239 /* JSONKit.h in Headers */,
+				1EB065091D368E02002CA239 /* RNCryptor+Private.h in Headers */,
+				1EB0650B1D368E02002CA239 /* RNCryptor.h in Headers */,
+				1EB065051D368E02002CA239 /* MBProgressHUD.h in Headers */,
+				1EB065111D368E02002CA239 /* RNEncryptor.h in Headers */,
+				1EB065181D368E02002CA239 /* pblib-Prefix.pch in Headers */,
+				1EB065031D368E02002CA239 /* KLCPopup.h in Headers */,
+				1EB065071D368E02002CA239 /* Reachability.h in Headers */,
+				1EB0650F1D368E02002CA239 /* RNDecryptor.h in Headers */,
+				1EB065131D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
+				1EB0651E1D368E02002CA239 /* PBSettings.h in Headers */,
+				1EB065241D368E02002CA239 /* PBUI.h in Headers */,
+				1EB065171D368E02002CA239 /* PBConstants.h in Headers */,
+				1EB065201D368E02002CA239 /* PBUtils.h in Headers */,
+				1EB064CF1D368CB3002CA239 /* Playbasis.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1E2A42C41D0EB6FA00A836B4 /* pblibTest */ = {
+		1EB064CA1D368CB3002CA239 /* Playbasis */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1E2A42CD1D0EB6FA00A836B4 /* Build configuration list for PBXNativeTarget "pblibTest" */;
+			buildConfigurationList = 1EB064D01D368CB3002CA239 /* Build configuration list for PBXNativeTarget "Playbasis" */;
 			buildPhases = (
-				1E2A42C11D0EB6FA00A836B4 /* Sources */,
-				1E2A42C21D0EB6FA00A836B4 /* Frameworks */,
-				1E2A42C31D0EB6FA00A836B4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1E2A42CC1D0EB6FA00A836B4 /* PBXTargetDependency */,
-			);
-			name = pblibTest;
-			productName = pblibTest;
-			productReference = 1E2A42C51D0EB6FA00A836B4 /* pblibTest.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1E3D72361CFDB6F70054B73A /* pblibx86-unitywrapper */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1E3D723A1CFDB6F80054B73A /* Build configuration list for PBXNativeTarget "pblibx86-unitywrapper" */;
-			buildPhases = (
-				1E3D72331CFDB6F70054B73A /* Sources */,
-				1E3D72341CFDB6F70054B73A /* Frameworks */,
-				1E3D72351CFDB6F70054B73A /* Resources */,
+				1EB064C61D368CB3002CA239 /* Sources */,
+				1EB064C71D368CB3002CA239 /* Frameworks */,
+				1EB064C81D368CB3002CA239 /* Headers */,
+				1EB064C91D368CB3002CA239 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "pblibx86-unitywrapper";
-			productName = "pblibx86-unitywrapper";
-			productReference = 1E3D72371CFDB6F70054B73A /* pblibx86-unitywrapper.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
-		1E649DA31D0AE17F00C1C680 /* pblibWrapperTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1E649DA91D0AE18000C1C680 /* Build configuration list for PBXNativeTarget "pblibWrapperTest" */;
-			buildPhases = (
-				1E649DA01D0AE17F00C1C680 /* Sources */,
-				1E649DA11D0AE17F00C1C680 /* Frameworks */,
-				1E649DA21D0AE17F00C1C680 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = pblibWrapperTest;
-			productName = pblibWrapperTest;
-			productReference = 1E649DA41D0AE17F00C1C680 /* pblibWrapperTest.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1EC5B9001A8F3AAD0007C8A8 /* pblibResource */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1EC5B9051A8F3AAD0007C8A8 /* Build configuration list for PBXNativeTarget "pblibResource" */;
-			buildPhases = (
-				1E887DA31A9B03440077B673 /* ShellScript */,
-				1EC5B8FD1A8F3AAD0007C8A8 /* Sources */,
-				1EC5B8FE1A8F3AAD0007C8A8 /* Frameworks */,
-				1EC5B8FF1A8F3AAD0007C8A8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = pblibResource;
-			productName = pblibResource;
-			productReference = 1EC5B9011A8F3AAD0007C8A8 /* pblibResource.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
-		1EDA0B9A1D07C741007A357B /* pblib-unitywrapper */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1EDA0BCA1D07C741007A357B /* Build configuration list for PBXNativeTarget "pblib-unitywrapper" */;
-			buildPhases = (
-				1EDA0B9B1D07C741007A357B /* Sources */,
-				1EDA0BAC1D07C741007A357B /* Frameworks */,
-				1EDA0BB11D07C741007A357B /* Headers */,
-				1EDA0BC91D07C741007A357B /* Prepare Framework */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "pblib-unitywrapper";
-			productName = pblib;
-			productReference = 1EDA0BCD1D07C741007A357B /* pblib-unitywrapper.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		2C1C74F417461E1B005F3B57 /* pblib */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2C1C750317461E1B005F3B57 /* Build configuration list for PBXNativeTarget "pblib" */;
-			buildPhases = (
-				2C1C74F117461E1B005F3B57 /* Sources */,
-				2C1C74F217461E1B005F3B57 /* Frameworks */,
-				1E52DDE31AAFF8D30035C9F0 /* Headers */,
-				1E52DDFB1AAFFBB60035C9F0 /* Prepare Framework */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = pblib;
-			productName = pblib;
-			productReference = 2C1C74F517461E1B005F3B57 /* pblib.a */;
-			productType = "com.apple.product-type.library.static";
+			name = Playbasis;
+			productName = Playbasis;
+			productReference = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -683,20 +304,11 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
-					1E2A42C41D0EB6FA00A836B4 = {
-						CreatedOnToolsVersion = 7.3.1;
-					};
-					1E3D72361CFDB6F70054B73A = {
-						CreatedOnToolsVersion = 7.3.1;
-					};
-					1E52DDFC1AAFFD970035C9F0 = {
-						CreatedOnToolsVersion = 6.3;
-					};
-					1E649DA31D0AE17F00C1C680 = {
-						CreatedOnToolsVersion = 7.3.1;
-					};
-					1EC5B9001A8F3AAD0007C8A8 = {
-						CreatedOnToolsVersion = 6.3;
+					1EB064CA1D368CB3002CA239 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -712,238 +324,50 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C1C74F417461E1B005F3B57 /* pblib */,
-				1EC5B9001A8F3AAD0007C8A8 /* pblibResource */,
-				1E52DDFC1AAFFD970035C9F0 /* framework */,
-				1E3D72361CFDB6F70054B73A /* pblibx86-unitywrapper */,
-				1EDA0B9A1D07C741007A357B /* pblib-unitywrapper */,
-				1E649DA31D0AE17F00C1C680 /* pblibWrapperTest */,
-				1E2A42C41D0EB6FA00A836B4 /* pblibTest */,
+				1EB064CA1D368CB3002CA239 /* Playbasis */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1E2A42C31D0EB6FA00A836B4 /* Resources */ = {
+		1EB064C91D368CB3002CA239 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E3D72351CFDB6F70054B73A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E649DA21D0AE17F00C1C680 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1EC5B8FF1A8F3AAD0007C8A8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1EC5B9081A8F3C570007C8A8 /* PBStoryboard.storyboard in Resources */,
+				1EB065231D368E02002CA239 /* PBStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1E52DDFB1AAFFBB60035C9F0 /* Prepare Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Prepare Framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
-		};
-		1E52DE041AAFFDB20035C9F0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"";
-		};
-		1E887DA31A9B03440077B673 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "DIRNAME=protectedResources\n\n# 256 bit key\n# it needs to be the same as specified in the code, refer to Playbasis's setProtectedResources:key method\nENC_KEY=\"abcdefghijklmnopqrstuvwxyz123456\"\n\nINDIR=$PROJECT_DIR/$DIRNAME\nOUTDIR=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/$DIRNAME\n\nif [ ! -d \"$OUTDIR\" ]; then\nmkdir -p \"$OUTDIR\"\nfi\n\n# crypt usage\n# crypt -k <256-bit-keys> -i <input-file-path> -o <output-file-path>\nfor file in \"$INDIR\"/*\n                     do\n                     echo \"Encrypting $file\"\n                     \"$PROJECT_DIR/crypt\" -k $ENC_KEY -i \"$file\" -o \"$OUTDIR/`basename \"$file\"`\"\n                     done";
-		};
-		1EDA0BC91D07C741007A357B /* Prepare Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Prepare Framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		1E2A42C11D0EB6FA00A836B4 /* Sources */ = {
+		1EB064C61D368CB3002CA239 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E2A42C81D0EB6FA00A836B4 /* pblibTest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E3D72331CFDB6F70054B73A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E3D724B1CFDB8740054B73A /* RNCryptorEngine.m in Sources */,
-				1E3D724C1CFDB8740054B73A /* RNDecryptor.m in Sources */,
-				1E3D724D1CFDB8740054B73A /* RNEncryptor.m in Sources */,
-				1E3D724E1CFDB8740054B73A /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
-				1E3D724F1CFDB8740054B73A /* JSONKit.m in Sources */,
-				1E3D72501CFDB8740054B73A /* Playbasis.m in Sources */,
-				1E3D72511CFDB8740054B73A /* PBRequestUnit.m in Sources */,
-				1E3D72521CFDB8740054B73A /* PBResponses.m in Sources */,
-				1E3D72531CFDB8740054B73A /* PBUtils.m in Sources */,
-				1E3D72541CFDB8740054B73A /* PBCommon.m in Sources */,
-				1E3D724A1CFDB8440054B73A /* RNCryptor.m in Sources */,
-				1E3D72491CFDB8390054B73A /* Reachability.m in Sources */,
-				1E3D72461CFDB7300054B73A /* PlaybasisWrapper.mm in Sources */,
-				1E3D72471CFDB7300054B73A /* PlaybasisWrapperTester.mm in Sources */,
-				1E3D72481CFDB7300054B73A /* Populator.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1E649DA01D0AE17F00C1C680 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E649DC01D0AE43200C1C680 /* Reachability.m in Sources */,
-				1E649DBC1D0AE42300C1C680 /* RNCryptor.m in Sources */,
-				1E649DBD1D0AE42300C1C680 /* RNCryptorEngine.m in Sources */,
-				1E649DBE1D0AE42300C1C680 /* RNDecryptor.m in Sources */,
-				1E649DBF1D0AE42300C1C680 /* RNEncryptor.m in Sources */,
-				1E649DB21D0AE3EF00C1C680 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
-				1E649DB31D0AE3EF00C1C680 /* JSONKit.m in Sources */,
-				1E649DB41D0AE3EF00C1C680 /* Playbasis.m in Sources */,
-				1E649DB51D0AE3EF00C1C680 /* PBRequestUnit.m in Sources */,
-				1E649DB61D0AE3EF00C1C680 /* PBResponses.m in Sources */,
-				1E649DB71D0AE3EF00C1C680 /* PBUtils.m in Sources */,
-				1E649DB81D0AE3EF00C1C680 /* PBCommon.m in Sources */,
-				1E649DB91D0AE3EF00C1C680 /* PlaybasisWrapper.mm in Sources */,
-				1E649DBA1D0AE3EF00C1C680 /* PlaybasisWrapperTester.mm in Sources */,
-				1E649DBB1D0AE3EF00C1C680 /* Populator.mm in Sources */,
-				1E649DA71D0AE18000C1C680 /* pblibWrapperTest.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1EC5B8FD1A8F3AAD0007C8A8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1EDA0B9B1D07C741007A357B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1EDA0BCE1D07C775007A357B /* PlaybasisWrapper.mm in Sources */,
-				1EDA0BCF1D07C775007A357B /* PlaybasisWrapperTester.mm in Sources */,
-				1EDA0BD01D07C775007A357B /* Populator.mm in Sources */,
-				1EDA0B9C1D07C741007A357B /* PBCommon.m in Sources */,
-				1EDA0B9D1D07C741007A357B /* RNEncryptor.m in Sources */,
-				1EDA0B9E1D07C741007A357B /* pbUserRegistrationFormViewController.m in Sources */,
-				1EDA0B9F1D07C741007A357B /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
-				1EDA0BA01D07C741007A357B /* PBRequestUnit.m in Sources */,
-				1EDA0BA11D07C741007A357B /* JSONKit.m in Sources */,
-				1EDA0BA21D07C741007A357B /* RNDecryptor.m in Sources */,
-				1EDA0BA31D07C741007A357B /* MBProgressHUD.m in Sources */,
-				1EDA0BA41D07C741007A357B /* UIImage+AutoLoader.m in Sources */,
-				1EDA0BA51D07C741007A357B /* Playbasis.m in Sources */,
-				1EDA0BA61D07C741007A357B /* PBResponses.m in Sources */,
-				1EDA0BA71D07C741007A357B /* PBUtils.m in Sources */,
-				1EDA0BA81D07C741007A357B /* KLCPopup.m in Sources */,
-				1EDA0BA91D07C741007A357B /* RNCryptorEngine.m in Sources */,
-				1EDA0BAA1D07C741007A357B /* RNCryptor.m in Sources */,
-				1EDA0BAB1D07C741007A357B /* Reachability.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C1C74F117461E1B005F3B57 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E0DE7FE1AA85081002CEB3E /* PBCommon.m in Sources */,
-				1E80C7E21A9C291A00C6C291 /* RNEncryptor.m in Sources */,
-				1EC5B8F61A8F2E1C0007C8A8 /* pbUserRegistrationFormViewController.m in Sources */,
-				1EDC5FDD1A70312200991CEB /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
-				1EDC5FD91A701D9700991CEB /* PBRequestUnit.m in Sources */,
-				2C1C750A17461E6B005F3B57 /* JSONKit.m in Sources */,
-				1E80C7E11A9C291A00C6C291 /* RNDecryptor.m in Sources */,
-				1E80C7E61A9C298800C6C291 /* MBProgressHUD.m in Sources */,
-				1E80C7D31A9BD25300C6C291 /* UIImage+AutoLoader.m in Sources */,
-				2C1C750B17461E6B005F3B57 /* Playbasis.m in Sources */,
-				1E20742B1A84B329002D77A1 /* PBResponses.m in Sources */,
-				1E0DE7FA1AA810DC002CEB3E /* PBUtils.m in Sources */,
-				1ED6CC271A9AB744000D8FB0 /* KLCPopup.m in Sources */,
-				1E80C7E01A9C291A00C6C291 /* RNCryptorEngine.m in Sources */,
-				1E80C7DF1A9C291A00C6C291 /* RNCryptor.m in Sources */,
-				1EA3AE1D1A717AE0008F17F3 /* Reachability.m in Sources */,
+				1EB065221D368E02002CA239 /* Playbasis.m in Sources */,
+				1EB065021D368E02002CA239 /* JSONKit.m in Sources */,
+				1EB065101D368E02002CA239 /* RNDecryptor.m in Sources */,
+				1EB065061D368E02002CA239 /* MBProgressHUD.m in Sources */,
+				1EB065081D368E02002CA239 /* Reachability.m in Sources */,
+				1EB0651D1D368E02002CA239 /* PBResponses.m in Sources */,
+				1EB065211D368E02002CA239 /* PBUtils.m in Sources */,
+				1EB0651B1D368E02002CA239 /* PBRequestUnit.m in Sources */,
+				1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */,
+				1EB065161D368E02002CA239 /* PBCommon.m in Sources */,
+				1EB0650E1D368E02002CA239 /* RNCryptorEngine.m in Sources */,
+				1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */,
+				1EB065141D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
+				1EB065041D368E02002CA239 /* KLCPopup.m in Sources */,
+				1EB065121D368E02002CA239 /* RNEncryptor.m in Sources */,
+				1EB0650C1D368E02002CA239 /* RNCryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		1E2A42CC1D0EB6FA00A836B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2C1C74F417461E1B005F3B57 /* pblib */;
-			targetProxy = 1E2A42CB1D0EB6FA00A836B4 /* PBXContainerItemProxy */;
-		};
-		1E52DE011AAFFDA30035C9F0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2C1C74F417461E1B005F3B57 /* pblib */;
-			targetProxy = 1E52DE001AAFFDA30035C9F0 /* PBXContainerItemProxy */;
-		};
-		1E52DE031AAFFDA60035C9F0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1EC5B9001A8F3AAD0007C8A8 /* pblibResource */;
-			targetProxy = 1E52DE021AAFFDA60035C9F0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		1E2A42CE1D0EB6FA00A836B4 /* Debug */ = {
+		1EB064D11D368CB3002CA239 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -951,10 +375,16 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -962,17 +392,21 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = pblibTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				INFOPLIST_FILE = Playbasis/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.playbasis.ios.playbasissdk.Playbasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		1E2A42CF1D0EB6FA00A836B4 /* Release */ = {
+		1EB064D21D368CB3002CA239 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -980,11 +414,17 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -993,297 +433,17 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = pblibTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				INFOPLIST_FILE = Playbasis/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.playbasis.ios.playbasissdk.Playbasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		1E3D723B1CFDB6F80054B73A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "pblibx86-unitywrapper/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.wasin.pblibx86-unitywrapper";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64 x86";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		1E3D723C1CFDB6F80054B73A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "pblibx86-unitywrapper/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.wasin.pblibx86-unitywrapper";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64 x86";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		1E52DDFE1AAFFD970035C9F0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		1E52DDFF1AAFFD970035C9F0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		1E649DAA1D0AE18000C1C680 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = pblibWrapperTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibWrapperTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		1E649DAB1D0AE18000C1C680 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = pblibWrapperTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.pblibWrapperTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		1EC5B9061A8F3AAD0007C8A8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = pblibResource/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.playbasis.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		1EC5B9071A8F3AAD0007C8A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = pblibResource/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.playbasis.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		1EDA0BCB1D07C741007A357B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/pblib.dst;
-				EXECUTABLE_PREFIX = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pblib/pblib-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					libs,
-				);
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
-				VALID_ARCHS = "arm64 armv7 armv7s";
-			};
-			name = Debug;
-		};
-		1EDA0BCC1D07C741007A357B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/pblib.dst;
-				EXECUTABLE_PREFIX = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pblib/pblib-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					libs,
-				);
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1339,118 +499,14 @@
 			};
 			name = Release;
 		};
-		2C1C750417461E1B005F3B57 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/pblib.dst;
-				EXECUTABLE_PREFIX = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pblib/pblib-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					libs,
-				);
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
-				SDKROOT = iphoneos9.2;
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
-			};
-			name = Debug;
-		};
-		2C1C750517461E1B005F3B57 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/pblib.dst;
-				EXECUTABLE_PREFIX = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pblib/pblib-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					libs,
-				);
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)/Headers";
-				SDKROOT = iphoneos9.2;
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = libs/Reachability/;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1E2A42CD1D0EB6FA00A836B4 /* Build configuration list for PBXNativeTarget "pblibTest" */ = {
+		1EB064D01D368CB3002CA239 /* Build configuration list for PBXNativeTarget "Playbasis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1E2A42CE1D0EB6FA00A836B4 /* Debug */,
-				1E2A42CF1D0EB6FA00A836B4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1E3D723A1CFDB6F80054B73A /* Build configuration list for PBXNativeTarget "pblibx86-unitywrapper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1E3D723B1CFDB6F80054B73A /* Debug */,
-				1E3D723C1CFDB6F80054B73A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1E52DDFD1AAFFD970035C9F0 /* Build configuration list for PBXAggregateTarget "framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1E52DDFE1AAFFD970035C9F0 /* Debug */,
-				1E52DDFF1AAFFD970035C9F0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1E649DA91D0AE18000C1C680 /* Build configuration list for PBXNativeTarget "pblibWrapperTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1E649DAA1D0AE18000C1C680 /* Debug */,
-				1E649DAB1D0AE18000C1C680 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1EC5B9051A8F3AAD0007C8A8 /* Build configuration list for PBXNativeTarget "pblibResource" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1EC5B9061A8F3AAD0007C8A8 /* Debug */,
-				1EC5B9071A8F3AAD0007C8A8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1EDA0BCA1D07C741007A357B /* Build configuration list for PBXNativeTarget "pblib-unitywrapper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1EDA0BCB1D07C741007A357B /* Debug */,
-				1EDA0BCC1D07C741007A357B /* Release */,
+				1EB064D11D368CB3002CA239 /* Debug */,
+				1EB064D21D368CB3002CA239 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1460,15 +516,6 @@
 			buildConfigurations = (
 				2C1C750117461E1B005F3B57 /* Debug */,
 				2C1C750217461E1B005F3B57 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2C1C750317461E1B005F3B57 /* Build configuration list for PBXNativeTarget "pblib" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2C1C750417461E1B005F3B57 /* Debug */,
-				2C1C750517461E1B005F3B57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

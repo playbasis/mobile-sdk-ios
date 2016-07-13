@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PBTypes.h"
-#import "PBResponses.h"
-#import "JSONKit.h"
+#import <Playbasis/PBTypes.h>
+#import <Playbasis/PBResponses.h>
+#import <Playbasis/JSONKit.h>
 
 /** State of request */
 typedef enum

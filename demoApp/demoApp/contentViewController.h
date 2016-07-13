@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 @interface contentViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong,nonatomic) IBOutlet UIButton *getContent;
 @property (strong,nonatomic) IBOutlet UIButton *playerAuth;

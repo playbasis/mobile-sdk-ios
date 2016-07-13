@@ -9,9 +9,9 @@
 //
 
 #import "NSMutableArray+QueueAndSerializationAdditions.h"
-#import "RNEncryptor.h"
-#import "RNDecryptor.h"
-#import "PBMacros.h"
+#import <Playbasis/RNEncryptor.h>
+#import <Playbasis/RNDecryptor.h>
+#import <Playbasis/PBMacros.h>
 
 static NSString * const SAVEFILE_NAME = @"requests.pb";
 static NSString * const PASSWORD = @"Playbasis2015*_thsisfEiaslkfjslfIIDF";

@@ -7,7 +7,7 @@
 //
 
 #import "demoViewController.h"
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 #import "demoAppSettings.h"
 
 @interface demoViewController ()

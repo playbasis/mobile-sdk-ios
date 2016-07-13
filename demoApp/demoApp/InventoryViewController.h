@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 @interface InventoryViewController : UIViewController
 @property (strong, nonatomic) PBPlayerGoodsOwned_Response *goodsListInfo;
 @property (strong, nonatomic) IBOutlet UITextView *detailView;

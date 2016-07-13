@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 
 @interface authAndLoginViewController : UIViewController<PBAuth_ResponseHandler, PBPlayerPublic_ResponseHandler>
 {

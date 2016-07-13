@@ -7,7 +7,7 @@
 //
 
 #import "quizResultScreenViewController.h"
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 
 @interface quizResultScreenViewController ()
 

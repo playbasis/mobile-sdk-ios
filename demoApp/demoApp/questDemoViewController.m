@@ -8,7 +8,7 @@
 
 #import "questDemoViewController.h"
 #import "missionPageViewController.h"
-#import "Playbasis.h"
+#import <Playbasis/Playbasis.h>
 #import "demoAppSettings.h"
 
 @interface questDemoViewController ()
