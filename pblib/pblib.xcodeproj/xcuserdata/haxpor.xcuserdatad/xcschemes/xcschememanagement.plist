@@ -19,6 +19,21 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>PlaybasisMacOSWrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>PlaybasisMacOSWrapperBundle.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>PlaybasisWrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>pblib-unitywrapper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -83,6 +98,21 @@
 			<true/>
 		</dict>
 		<key>1EB065B91D36B47C002CA239</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EB065E61D3746D3002CA239</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EB0660A1D374E1B002CA239</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1EB066231D375020002CA239</key>
 		<dict>
 			<key>primary</key>
 			<true/>
