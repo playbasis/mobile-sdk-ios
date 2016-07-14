@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7780A9D9AA6CAB5E9A0C352E02E3F668B8C24556",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7780A9D9AA6CAB5E9A0C352E02E3F668B8C24556" : 0,
+    "57F12223C3DC3201EA9B1EECE2D0601DAA76432D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "626B3086-0058-47E5-AF3F-EE5D1379D84D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7780A9D9AA6CAB5E9A0C352E02E3F668B8C24556" : "mobile-sdk-ios\/",
+    "57F12223C3DC3201EA9B1EECE2D0601DAA76432D" : "mobile-sdk-ios\/pblib\/CustomPodspecs\/OCMapper\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "pblib",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "pblib\/pblib.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:aryaxt\/OCMapper.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "57F12223C3DC3201EA9B1EECE2D0601DAA76432D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/playbasis\/mobile-sdk-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7780A9D9AA6CAB5E9A0C352E02E3F668B8C24556"
+    }
+  ]
+}

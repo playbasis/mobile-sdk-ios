@@ -1,0 +1,1011 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01AE0D2CA13F503B7BF98D5E744FBB54 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F483486739B40D0E07E5A486839A7A5 /* ObjectMappingInfo.m */; };
+		1B3914DE5E52259E057138B8B9D3D77D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4621BFDEEC06492083D7FB5DD663135D /* Cocoa.framework */; };
+		24E0D3F1ED513A95D9959AC63E3C3497 /* Pods-PlaybasisMacOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A90ED33D6809F5874641AB72190E89 /* Pods-PlaybasisMacOS-dummy.m */; };
+		250FFDF7459B6FB31CA35AF70DB10842 /* CommonLoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = BF5CACFF637A8EA9214D8DC5BF2178A1 /* CommonLoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		262B919760336A285B8A12F0C4AEEF10 /* Pods-Playbasis-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7954A19354445703046A3E008B19A1F8 /* Pods-Playbasis-dummy.m */; };
+		29135546A13F6B7FDD53D75F790B25C9 /* InstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 569A717537A6B60E91B416E7FB9ECAB6 /* InstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B03EE8AA72AC66D84AB863B4876E3CA /* MappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EBECC3F007F86FA602424EC8B60D64FD /* MappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		345C68E85DDAB96EE89D12DDFBC51D51 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C388A496BB269AEB9339C6336C8B6559 /* NSObject+ObjectMapper.m */; };
+		41D1F7665D5E64212033E7B8952A4639 /* OCMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B36CFDF4697F45EFDC5913E6C57F7BD /* OCMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50111B3FFF6DAE93F044A8F6BF3842DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6E0A8DDE0120B826D660DE46E7826E /* Foundation.framework */; };
+		51958E40EB42D577CAAE2B2C3F3FD39F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4621BFDEEC06492083D7FB5DD663135D /* Cocoa.framework */; };
+		587E593A2F1E761C39C689B010F2E9CE /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C6312F62EEC401FB68BAC4A9C470213B /* ManagedObjectInstanceProvider.m */; };
+		59B5B310B2E4880E2E898F5164708388 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F483486739B40D0E07E5A486839A7A5 /* ObjectMappingInfo.m */; };
+		5C5BAA0E521BD21C0010596C5E05453C /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C600A354D18832C2B5ECDD4FEB0CBE21 /* ObjectInstanceProvider.m */; };
+		5DEED837E104AC8EC76BB143E7AA7D5D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F2F355F550B6A9F86194BB84D41A8CE /* Foundation.framework */; };
+		5F7862BFEC2AF34C38AB3027F26E4D25 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BAE06B707C790F04C6304EC68C8A84D /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6594F3BE567E03E13CF45EAE11803301 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 462454FAB8AD940CACE697315677F1F1 /* ObjectMapper.m */; };
+		6A33BBA9194253A4EA5D94991571CF6B /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B7F7FFD983C6403073149018DA3850 /* InCodeMappingProvider.m */; };
+		6B13A95ED3689A8DC511366741C3E173 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 462454FAB8AD940CACE697315677F1F1 /* ObjectMapper.m */; };
+		6C296EF5F9FF05909115D771D21E0222 /* ObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = F6B0F5709B0E1FA07388EB534D0E41CE /* ObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72E2DA6B164DE62CCBECF913E150A348 /* OCMapper-OSX-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A99E51383A7E1E5766FA3F156F00DEE6 /* OCMapper-OSX-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		78C8A41BEC5B82F4C4DE376669212213 /* LoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 98C4A400683034AEC97A4AA1118458BE /* LoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A2D5B71E7803F3A1C5E7553E327B441 /* InCodeMappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B148236530981CB9E60EEFB378F35E /* InCodeMappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FEC7A8909A5957C0491BF8B9F46FFEC /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C600A354D18832C2B5ECDD4FEB0CBE21 /* ObjectInstanceProvider.m */; };
+		8A69519360FC15DE2281E7027230A39B /* OCMapper-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 830070E9D3DD6096B94DA699F447DC38 /* OCMapper-iOS-dummy.m */; };
+		944864550569049D1245042081E31077 /* Pods-PlaybasisMacOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 202F221836C2EDA5A11B3F9EEDACD3FF /* Pods-PlaybasisMacOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E89218E34A62EC1E6C2F476C153AA9 /* InstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 569A717537A6B60E91B416E7FB9ECAB6 /* InstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9943050D792DAE7281CAAF92ADCA9FDB /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 572DF90CBC95B3B496D727CC2E7A7827 /* NSDictionary+ObjectMapper.m */; };
+		A036C534DB03B0491C6A2865AC664FFB /* CommonLoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = BF5CACFF637A8EA9214D8DC5BF2178A1 /* CommonLoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB3DD88C1C216279F37E782FAA6A88DB /* MappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EBECC3F007F86FA602424EC8B60D64FD /* MappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE55E564B4DE751439DC3AAB4FCDF43E /* LoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 98C4A400683034AEC97A4AA1118458BE /* LoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF9F63C1A55AF8E1383618AEC81DAB8B /* ObjectMappingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = EC11359C8CB95786DB8EDF1F26E0DB98 /* ObjectMappingInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B2C8B017A49A543AB973D02158F2E763 /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B7F7FFD983C6403073149018DA3850 /* InCodeMappingProvider.m */; };
+		B2D5F0181FFAC9EA8277B7ED61292BCA /* NSObject+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = C4448368A7A47FF5C30E37F5ED63300F /* NSObject+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BDA162C45C59B8F6A116F1E4148A7F25 /* NSDictionary+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A265BB546F0C3EDFF33102A5B6ACCC7 /* NSDictionary+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1E727122D3297BF48531BDCF5357F5E /* CommonLoggingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F7D38E52B68D7AE34A8A8FB12507E /* CommonLoggingProvider.m */; };
+		C798185D5CFB60F9A150E9A9246317F1 /* Pods-Playbasis-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 58B5CE00FDA72028748CE3A2B409A268 /* Pods-Playbasis-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF721E452253DF59E0268B0C66AA55D0 /* CommonLoggingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F7D38E52B68D7AE34A8A8FB12507E /* CommonLoggingProvider.m */; };
+		CFCC2F4759E12DACC75B5F2CCEAAC50A /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BAE06B707C790F04C6304EC68C8A84D /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1627776F66CFD2BB3A4044E0184D83E /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C388A496BB269AEB9339C6336C8B6559 /* NSObject+ObjectMapper.m */; };
+		D80C525450832EC427063FF067A8A5A3 /* InCodeMappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B148236530981CB9E60EEFB378F35E /* InCodeMappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA43536F7E43F2687C897F1C0C330096 /* NSObject+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = C4448368A7A47FF5C30E37F5ED63300F /* NSObject+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0C2AACF2AB638393E276DB9C584FAB7 /* OCMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B36CFDF4697F45EFDC5913E6C57F7BD /* OCMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E352EA47D29A6CA1073B0E62F3EB4D43 /* OCMapper-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 73F92B32A4681232367203CBB49AE63B /* OCMapper-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E50A2879B62147973704CA2B2366EF6A /* ObjectMappingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = EC11359C8CB95786DB8EDF1F26E0DB98 /* ObjectMappingInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA98CFC6CC297951A744B835939A913C /* ManagedObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 258594580A13B5D8D16998C418817BD5 /* ManagedObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECC13E5E5EC794042F72A317F9E1136B /* ManagedObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 258594580A13B5D8D16998C418817BD5 /* ManagedObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F2FCA76D17584B84E43350BF0AF34DE2 /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C6312F62EEC401FB68BAC4A9C470213B /* ManagedObjectInstanceProvider.m */; };
+		F3327B2C836ED20DD84D0D6F8EF6974F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F2F355F550B6A9F86194BB84D41A8CE /* Foundation.framework */; };
+		F5646C402CC410C85A0EB02B4B284E94 /* ObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = F6B0F5709B0E1FA07388EB534D0E41CE /* ObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F578033A70A526E1EE916F7BE5968A3B /* OCMapper-OSX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F41596E01975408A553CE6173193747 /* OCMapper-OSX-dummy.m */; };
+		F658A03DB8A7BF74EDA500A3CEF79C98 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 572DF90CBC95B3B496D727CC2E7A7827 /* NSDictionary+ObjectMapper.m */; };
+		FB94D108F22A89289AC3B00EB687667D /* NSDictionary+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A265BB546F0C3EDFF33102A5B6ACCC7 /* NSDictionary+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6807FCCD9FDA440B39EA604ABD3FC4B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2279DE98FA88FF15E004333008C3A6CE;
+			remoteInfo = "OCMapper-iOS";
+		};
+		C5B527D2D2BDD0F3ECB6B6542066EB45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB627E278A399E0D3F7209B742C58A7E;
+			remoteInfo = "OCMapper-OSX";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02301E5CCC95C3C1FD14AB6BDA612E10 /* OCMapper-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "OCMapper-iOS.xcconfig"; path = "../OCMapper-iOS/OCMapper-iOS.xcconfig"; sourceTree = "<group>"; };
+		13811BAF4E1C2D757B1FF74047B12F29 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		202F221836C2EDA5A11B3F9EEDACD3FF /* Pods-PlaybasisMacOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PlaybasisMacOS-umbrella.h"; sourceTree = "<group>"; };
+		22E66DE8020FFD76672AB1787E4CBE58 /* OCMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OCMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		258594580A13B5D8D16998C418817BD5 /* ManagedObjectInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ManagedObjectInstanceProvider.h; sourceTree = "<group>"; };
+		2BAE3A59A703848DC616EB5FE3E852AC /* Pods-PlaybasisMacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PlaybasisMacOS.release.xcconfig"; sourceTree = "<group>"; };
+		3A6E0A8DDE0120B826D660DE46E7826E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		3B36CFDF4697F45EFDC5913E6C57F7BD /* OCMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OCMapper.h; sourceTree = "<group>"; };
+		3F2F355F550B6A9F86194BB84D41A8CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		40B148236530981CB9E60EEFB378F35E /* InCodeMappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = InCodeMappingProvider.h; sourceTree = "<group>"; };
+		426ED39B84E5C908DA064575E6A9C37B /* OCMapper-OSX.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "OCMapper-OSX.xcconfig"; sourceTree = "<group>"; };
+		4621BFDEEC06492083D7FB5DD663135D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		462454FAB8AD940CACE697315677F1F1 /* ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ObjectMapper.m; sourceTree = "<group>"; };
+		48C4EE8EBA0385B73C88AFE4F9AA7B11 /* Pods-PlaybasisMacOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PlaybasisMacOS-resources.sh"; sourceTree = "<group>"; };
+		4BA932184B9CA6E3698F5E634C15BCC3 /* Pods-PlaybasisMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PlaybasisMacOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4DE9EE43902D13E43AB8264E63D19A74 /* OCMapper-OSX.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "OCMapper-OSX.modulemap"; sourceTree = "<group>"; };
+		569A717537A6B60E91B416E7FB9ECAB6 /* InstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = InstanceProvider.h; sourceTree = "<group>"; };
+		572DF90CBC95B3B496D727CC2E7A7827 /* NSDictionary+ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectMapper.m"; sourceTree = "<group>"; };
+		58B5CE00FDA72028748CE3A2B409A268 /* Pods-Playbasis-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Playbasis-umbrella.h"; sourceTree = "<group>"; };
+		5A265BB546F0C3EDFF33102A5B6ACCC7 /* NSDictionary+ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectMapper.h"; sourceTree = "<group>"; };
+		62A9CA93628DFB673B1B5DF73A9A8101 /* Pods-Playbasis-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Playbasis-frameworks.sh"; sourceTree = "<group>"; };
+		6F41596E01975408A553CE6173193747 /* OCMapper-OSX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OCMapper-OSX-dummy.m"; sourceTree = "<group>"; };
+		6F483486739B40D0E07E5A486839A7A5 /* ObjectMappingInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ObjectMappingInfo.m; sourceTree = "<group>"; };
+		72485317C1A9F48346AE96C6FDD2B216 /* Pods-Playbasis-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Playbasis-resources.sh"; sourceTree = "<group>"; };
+		72A90ED33D6809F5874641AB72190E89 /* Pods-PlaybasisMacOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PlaybasisMacOS-dummy.m"; sourceTree = "<group>"; };
+		73F92B32A4681232367203CBB49AE63B /* OCMapper-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OCMapper-iOS-umbrella.h"; path = "../OCMapper-iOS/OCMapper-iOS-umbrella.h"; sourceTree = "<group>"; };
+		76FDCDAF4FEFABFED5A234E2D955A51B /* Pods-PlaybasisMacOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PlaybasisMacOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		7954A19354445703046A3E008B19A1F8 /* Pods-Playbasis-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Playbasis-dummy.m"; sourceTree = "<group>"; };
+		830070E9D3DD6096B94DA699F447DC38 /* OCMapper-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OCMapper-iOS-dummy.m"; path = "../OCMapper-iOS/OCMapper-iOS-dummy.m"; sourceTree = "<group>"; };
+		8BAE06B707C790F04C6304EC68C8A84D /* ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
+		918113CF8173F9389DB47AC0EED6BBCC /* Pods-PlaybasisMacOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PlaybasisMacOS-frameworks.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94A3EA0B26172A7F463CAFAC39B6E1D2 /* Pods-PlaybasisMacOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PlaybasisMacOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		98C4A400683034AEC97A4AA1118458BE /* LoggingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LoggingProvider.h; sourceTree = "<group>"; };
+		A7738EEBC7528EDE4565E018BD029FF9 /* OCMapper-OSX-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCMapper-OSX-prefix.pch"; sourceTree = "<group>"; };
+		A99E51383A7E1E5766FA3F156F00DEE6 /* OCMapper-OSX-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCMapper-OSX-umbrella.h"; sourceTree = "<group>"; };
+		AF428FC9EB27034AC9EB88B5C90C3B42 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B36565FEFF3ABAC6DFBC00D7FE549E9D /* Pods-Playbasis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Playbasis.release.xcconfig"; sourceTree = "<group>"; };
+		B7F0EC0AA704FAEB30ACA623BEB3F6E5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../OCMapper-iOS/Info.plist"; sourceTree = "<group>"; };
+		BE88F614D8FDDA9B1FF0F3E5D5096DEC /* Pods_Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF5CACFF637A8EA9214D8DC5BF2178A1 /* CommonLoggingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CommonLoggingProvider.h; sourceTree = "<group>"; };
+		C2B7F7FFD983C6403073149018DA3850 /* InCodeMappingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = InCodeMappingProvider.m; sourceTree = "<group>"; };
+		C388A496BB269AEB9339C6336C8B6559 /* NSObject+ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ObjectMapper.m"; sourceTree = "<group>"; };
+		C4448368A7A47FF5C30E37F5ED63300F /* NSObject+ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+ObjectMapper.h"; sourceTree = "<group>"; };
+		C600A354D18832C2B5ECDD4FEB0CBE21 /* ObjectInstanceProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ObjectInstanceProvider.m; sourceTree = "<group>"; };
+		C6312F62EEC401FB68BAC4A9C470213B /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectInstanceProvider.m; sourceTree = "<group>"; };
+		C7714823AAF80C7C2D72F3F1E469CB39 /* Pods-Playbasis-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Playbasis-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C7C75213A043A00E9B91D90BA32DD377 /* Pods-PlaybasisMacOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-PlaybasisMacOS.modulemap"; sourceTree = "<group>"; };
+		DD51E454B085547D1DE7CF0BA37C7AA4 /* OCMapper-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "OCMapper-iOS.modulemap"; path = "../OCMapper-iOS/OCMapper-iOS.modulemap"; sourceTree = "<group>"; };
+		E024BBFD48E83375F3C4A63A641ED047 /* Pods-Playbasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Playbasis.debug.xcconfig"; sourceTree = "<group>"; };
+		E161EE83656EB745188CA032BDAF681F /* Pods-Playbasis.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Playbasis.modulemap"; sourceTree = "<group>"; };
+		E7C487C6D21E49D0DD1765B52A3EC0AD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBECC3F007F86FA602424EC8B60D64FD /* MappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
+		EC11359C8CB95786DB8EDF1F26E0DB98 /* ObjectMappingInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ObjectMappingInfo.h; sourceTree = "<group>"; };
+		F0BEBEBF7C5F63F4F680B874A2BA30AD /* OCMapper-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OCMapper-iOS-prefix.pch"; path = "../OCMapper-iOS/OCMapper-iOS-prefix.pch"; sourceTree = "<group>"; };
+		F12F7D38E52B68D7AE34A8A8FB12507E /* CommonLoggingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CommonLoggingProvider.m; sourceTree = "<group>"; };
+		F3B73BE69F4535D83D6292D8241F6C1A /* Pods-Playbasis-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Playbasis-acknowledgements.plist"; sourceTree = "<group>"; };
+		F6B0F5709B0E1FA07388EB534D0E41CE /* ObjectInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ObjectInstanceProvider.h; sourceTree = "<group>"; };
+		F720B6CB25B99AA3969023CBB3D98A75 /* Pods_PlaybasisMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlaybasisMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF16FC7606FAF2D289D22F45C45BF1E2 /* OCMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OCMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		79D6E040795828B55BA266EFE3D68240 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DEED837E104AC8EC76BB143E7AA7D5D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C547CFCA71FD5CF4DE1CA716A051BF90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51958E40EB42D577CAAE2B2C3F3FD39F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE22DFCD4961ED403683AC0CB2074CBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B3914DE5E52259E057138B8B9D3D77D /* Cocoa.framework in Frameworks */,
+				50111B3FFF6DAE93F044A8F6BF3842DC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F324CB5E2B1A34637B301EDAAEB2F5F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3327B2C836ED20DD84D0D6F8EF6974F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		219C3DBEFAEA1005D00B049F620C8E73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF16FC7606FAF2D289D22F45C45BF1E2 /* OCMapper.framework */,
+				22E66DE8020FFD76672AB1787E4CBE58 /* OCMapper.framework */,
+				BE88F614D8FDDA9B1FF0F3E5D5096DEC /* Pods_Playbasis.framework */,
+				F720B6CB25B99AA3969023CBB3D98A75 /* Pods_PlaybasisMacOS.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2864591B1138FD8CF8DC48036E95EFC4 /* Mapping Provider */ = {
+			isa = PBXGroup;
+			children = (
+				EBECC3F007F86FA602424EC8B60D64FD /* MappingProvider.h */,
+				D233231DEC22DCD4CB007D5CCEF2B43A /* In Code Mapping */,
+			);
+			path = "Mapping Provider";
+			sourceTree = "<group>";
+		};
+		2DA3CDA05B751B685F8934C45F74D2B3 /* OCMapper */ = {
+			isa = PBXGroup;
+			children = (
+				8A03F73BDC782A3985E4038A88942758 /* OCMapper */,
+				3F335654DC8FEBE9A278FFE15DC87BBF /* Support Files */,
+			);
+			name = OCMapper;
+			path = ../CustomPodspecs/OCMapper;
+			sourceTree = "<group>";
+		};
+		38C7CB66CD92F7D3E1FAB3955B43127F /* Pods-PlaybasisMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				AF428FC9EB27034AC9EB88B5C90C3B42 /* Info.plist */,
+				C7C75213A043A00E9B91D90BA32DD377 /* Pods-PlaybasisMacOS.modulemap */,
+				76FDCDAF4FEFABFED5A234E2D955A51B /* Pods-PlaybasisMacOS-acknowledgements.markdown */,
+				94A3EA0B26172A7F463CAFAC39B6E1D2 /* Pods-PlaybasisMacOS-acknowledgements.plist */,
+				72A90ED33D6809F5874641AB72190E89 /* Pods-PlaybasisMacOS-dummy.m */,
+				918113CF8173F9389DB47AC0EED6BBCC /* Pods-PlaybasisMacOS-frameworks.sh */,
+				48C4EE8EBA0385B73C88AFE4F9AA7B11 /* Pods-PlaybasisMacOS-resources.sh */,
+				202F221836C2EDA5A11B3F9EEDACD3FF /* Pods-PlaybasisMacOS-umbrella.h */,
+				4BA932184B9CA6E3698F5E634C15BCC3 /* Pods-PlaybasisMacOS.debug.xcconfig */,
+				2BAE3A59A703848DC616EB5FE3E852AC /* Pods-PlaybasisMacOS.release.xcconfig */,
+			);
+			name = "Pods-PlaybasisMacOS";
+			path = "Target Support Files/Pods-PlaybasisMacOS";
+			sourceTree = "<group>";
+		};
+		3F335654DC8FEBE9A278FFE15DC87BBF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B7F0EC0AA704FAEB30ACA623BEB3F6E5 /* Info.plist */,
+				E7C487C6D21E49D0DD1765B52A3EC0AD /* Info.plist */,
+				DD51E454B085547D1DE7CF0BA37C7AA4 /* OCMapper-iOS.modulemap */,
+				02301E5CCC95C3C1FD14AB6BDA612E10 /* OCMapper-iOS.xcconfig */,
+				830070E9D3DD6096B94DA699F447DC38 /* OCMapper-iOS-dummy.m */,
+				F0BEBEBF7C5F63F4F680B874A2BA30AD /* OCMapper-iOS-prefix.pch */,
+				73F92B32A4681232367203CBB49AE63B /* OCMapper-iOS-umbrella.h */,
+				4DE9EE43902D13E43AB8264E63D19A74 /* OCMapper-OSX.modulemap */,
+				426ED39B84E5C908DA064575E6A9C37B /* OCMapper-OSX.xcconfig */,
+				6F41596E01975408A553CE6173193747 /* OCMapper-OSX-dummy.m */,
+				A7738EEBC7528EDE4565E018BD029FF9 /* OCMapper-OSX-prefix.pch */,
+				A99E51383A7E1E5766FA3F156F00DEE6 /* OCMapper-OSX-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../../Pods/Target Support Files/OCMapper-OSX";
+			sourceTree = "<group>";
+		};
+		6DD838F960DF08714A50AB7EBAE23305 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5A265BB546F0C3EDFF33102A5B6ACCC7 /* NSDictionary+ObjectMapper.h */,
+				572DF90CBC95B3B496D727CC2E7A7827 /* NSDictionary+ObjectMapper.m */,
+				C4448368A7A47FF5C30E37F5ED63300F /* NSObject+ObjectMapper.h */,
+				C388A496BB269AEB9339C6336C8B6559 /* NSObject+ObjectMapper.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		74F831A794AB26ECF0F4874F0780D4A6 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				4621BFDEEC06492083D7FB5DD663135D /* Cocoa.framework */,
+				3A6E0A8DDE0120B826D660DE46E7826E /* Foundation.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		77173D9D2E6320652BDEF7A300961C1A /* Pods-Playbasis */ = {
+			isa = PBXGroup;
+			children = (
+				13811BAF4E1C2D757B1FF74047B12F29 /* Info.plist */,
+				E161EE83656EB745188CA032BDAF681F /* Pods-Playbasis.modulemap */,
+				C7714823AAF80C7C2D72F3F1E469CB39 /* Pods-Playbasis-acknowledgements.markdown */,
+				F3B73BE69F4535D83D6292D8241F6C1A /* Pods-Playbasis-acknowledgements.plist */,
+				7954A19354445703046A3E008B19A1F8 /* Pods-Playbasis-dummy.m */,
+				62A9CA93628DFB673B1B5DF73A9A8101 /* Pods-Playbasis-frameworks.sh */,
+				72485317C1A9F48346AE96C6FDD2B216 /* Pods-Playbasis-resources.sh */,
+				58B5CE00FDA72028748CE3A2B409A268 /* Pods-Playbasis-umbrella.h */,
+				E024BBFD48E83375F3C4A63A641ED047 /* Pods-Playbasis.debug.xcconfig */,
+				B36565FEFF3ABAC6DFBC00D7FE549E9D /* Pods-Playbasis.release.xcconfig */,
+			);
+			name = "Pods-Playbasis";
+			path = "Target Support Files/Pods-Playbasis";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				ED7ED30B84E06A9A1A6D7A464D6AEB11 /* Development Pods */,
+				B3C2D6331B16C7BB39A27BBF5EF96D41 /* Frameworks */,
+				219C3DBEFAEA1005D00B049F620C8E73 /* Products */,
+				C1ABE84FE709D7D821CE3CAFB29AE83F /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		807B43A30D67FC6BA18F09CD06914DFE /* Logging Provider */ = {
+			isa = PBXGroup;
+			children = (
+				BF5CACFF637A8EA9214D8DC5BF2178A1 /* CommonLoggingProvider.h */,
+				F12F7D38E52B68D7AE34A8A8FB12507E /* CommonLoggingProvider.m */,
+				98C4A400683034AEC97A4AA1118458BE /* LoggingProvider.h */,
+			);
+			path = "Logging Provider";
+			sourceTree = "<group>";
+		};
+		8A03F73BDC782A3985E4038A88942758 /* OCMapper */ = {
+			isa = PBXGroup;
+			children = (
+				97908D855276EC2A06BFE1D8AB93B795 /* Source */,
+			);
+			path = OCMapper;
+			sourceTree = "<group>";
+		};
+		949EFC7EFCBA78BB5BAC84C9BCB37867 /* Instance Provider */ = {
+			isa = PBXGroup;
+			children = (
+				569A717537A6B60E91B416E7FB9ECAB6 /* InstanceProvider.h */,
+				258594580A13B5D8D16998C418817BD5 /* ManagedObjectInstanceProvider.h */,
+				C6312F62EEC401FB68BAC4A9C470213B /* ManagedObjectInstanceProvider.m */,
+				F6B0F5709B0E1FA07388EB534D0E41CE /* ObjectInstanceProvider.h */,
+				C600A354D18832C2B5ECDD4FEB0CBE21 /* ObjectInstanceProvider.m */,
+			);
+			path = "Instance Provider";
+			sourceTree = "<group>";
+		};
+		97908D855276EC2A06BFE1D8AB93B795 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				8BAE06B707C790F04C6304EC68C8A84D /* ObjectMapper.h */,
+				462454FAB8AD940CACE697315677F1F1 /* ObjectMapper.m */,
+				EC11359C8CB95786DB8EDF1F26E0DB98 /* ObjectMappingInfo.h */,
+				6F483486739B40D0E07E5A486839A7A5 /* ObjectMappingInfo.m */,
+				3B36CFDF4697F45EFDC5913E6C57F7BD /* OCMapper.h */,
+				6DD838F960DF08714A50AB7EBAE23305 /* Categories */,
+				949EFC7EFCBA78BB5BAC84C9BCB37867 /* Instance Provider */,
+				807B43A30D67FC6BA18F09CD06914DFE /* Logging Provider */,
+				2864591B1138FD8CF8DC48036E95EFC4 /* Mapping Provider */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		A50FA3F2F105BE3D66A32D196653395B /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3F2F355F550B6A9F86194BB84D41A8CE /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		B3C2D6331B16C7BB39A27BBF5EF96D41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A50FA3F2F105BE3D66A32D196653395B /* iOS */,
+				74F831A794AB26ECF0F4874F0780D4A6 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1ABE84FE709D7D821CE3CAFB29AE83F /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				77173D9D2E6320652BDEF7A300961C1A /* Pods-Playbasis */,
+				38C7CB66CD92F7D3E1FAB3955B43127F /* Pods-PlaybasisMacOS */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		D233231DEC22DCD4CB007D5CCEF2B43A /* In Code Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				40B148236530981CB9E60EEFB378F35E /* InCodeMappingProvider.h */,
+				C2B7F7FFD983C6403073149018DA3850 /* InCodeMappingProvider.m */,
+			);
+			path = "In Code Mapping";
+			sourceTree = "<group>";
+		};
+		ED7ED30B84E06A9A1A6D7A464D6AEB11 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2DA3CDA05B751B685F8934C45F74D2B3 /* OCMapper */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0090D97E9F20B05A2A69C443BC522997 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				944864550569049D1245042081E31077 /* Pods-PlaybasisMacOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		073055C372CCDABAA2966EFE5D500CB2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				250FFDF7459B6FB31CA35AF70DB10842 /* CommonLoggingProvider.h in Headers */,
+				7A2D5B71E7803F3A1C5E7553E327B441 /* InCodeMappingProvider.h in Headers */,
+				96E89218E34A62EC1E6C2F476C153AA9 /* InstanceProvider.h in Headers */,
+				78C8A41BEC5B82F4C4DE376669212213 /* LoggingProvider.h in Headers */,
+				EA98CFC6CC297951A744B835939A913C /* ManagedObjectInstanceProvider.h in Headers */,
+				2B03EE8AA72AC66D84AB863B4876E3CA /* MappingProvider.h in Headers */,
+				FB94D108F22A89289AC3B00EB687667D /* NSDictionary+ObjectMapper.h in Headers */,
+				DA43536F7E43F2687C897F1C0C330096 /* NSObject+ObjectMapper.h in Headers */,
+				6C296EF5F9FF05909115D771D21E0222 /* ObjectInstanceProvider.h in Headers */,
+				5F7862BFEC2AF34C38AB3027F26E4D25 /* ObjectMapper.h in Headers */,
+				E50A2879B62147973704CA2B2366EF6A /* ObjectMappingInfo.h in Headers */,
+				E352EA47D29A6CA1073B0E62F3EB4D43 /* OCMapper-iOS-umbrella.h in Headers */,
+				41D1F7665D5E64212033E7B8952A4639 /* OCMapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FE3E66FE0916C2054EA08C826A6F0BB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A036C534DB03B0491C6A2865AC664FFB /* CommonLoggingProvider.h in Headers */,
+				D80C525450832EC427063FF067A8A5A3 /* InCodeMappingProvider.h in Headers */,
+				29135546A13F6B7FDD53D75F790B25C9 /* InstanceProvider.h in Headers */,
+				AE55E564B4DE751439DC3AAB4FCDF43E /* LoggingProvider.h in Headers */,
+				ECC13E5E5EC794042F72A317F9E1136B /* ManagedObjectInstanceProvider.h in Headers */,
+				AB3DD88C1C216279F37E782FAA6A88DB /* MappingProvider.h in Headers */,
+				BDA162C45C59B8F6A116F1E4148A7F25 /* NSDictionary+ObjectMapper.h in Headers */,
+				B2D5F0181FFAC9EA8277B7ED61292BCA /* NSObject+ObjectMapper.h in Headers */,
+				F5646C402CC410C85A0EB02B4B284E94 /* ObjectInstanceProvider.h in Headers */,
+				CFCC2F4759E12DACC75B5F2CCEAAC50A /* ObjectMapper.h in Headers */,
+				AF9F63C1A55AF8E1383618AEC81DAB8B /* ObjectMappingInfo.h in Headers */,
+				72E2DA6B164DE62CCBECF913E150A348 /* OCMapper-OSX-umbrella.h in Headers */,
+				E0C2AACF2AB638393E276DB9C584FAB7 /* OCMapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7466FC45F5C71774D7DD83D89DB168D8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C798185D5CFB60F9A150E9A9246317F1 /* Pods-Playbasis-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2279DE98FA88FF15E004333008C3A6CE /* OCMapper-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F091AE5EA6733848D21873FB59CB8F93 /* Build configuration list for PBXNativeTarget "OCMapper-iOS" */;
+			buildPhases = (
+				BE06A5243E83BA172552506740EE4957 /* Sources */,
+				F324CB5E2B1A34637B301EDAAEB2F5F7 /* Frameworks */,
+				073055C372CCDABAA2966EFE5D500CB2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OCMapper-iOS";
+			productName = "OCMapper-iOS";
+			productReference = 22E66DE8020FFD76672AB1787E4CBE58 /* OCMapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5459A771E09655676A4BC97F342EBF1D /* Pods-Playbasis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BEE4C0954C239A8BA8668432F0B37C8F /* Build configuration list for PBXNativeTarget "Pods-Playbasis" */;
+			buildPhases = (
+				720B83CE21D2ED7EC04554B3595B1484 /* Sources */,
+				79D6E040795828B55BA266EFE3D68240 /* Frameworks */,
+				7466FC45F5C71774D7DD83D89DB168D8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A604732FBA26B1FC6C9DAFE4A440DB85 /* PBXTargetDependency */,
+			);
+			name = "Pods-Playbasis";
+			productName = "Pods-Playbasis";
+			productReference = BE88F614D8FDDA9B1FF0F3E5D5096DEC /* Pods_Playbasis.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		844BB3C7F3AF27B7327FF82B7566C3D7 /* Pods-PlaybasisMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1AC1CC7190FCD93AC5569B9AC3359EE8 /* Build configuration list for PBXNativeTarget "Pods-PlaybasisMacOS" */;
+			buildPhases = (
+				9EFB39C07AC5E171E4D3F0CC4C0E4926 /* Sources */,
+				C547CFCA71FD5CF4DE1CA716A051BF90 /* Frameworks */,
+				0090D97E9F20B05A2A69C443BC522997 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9ECDCDE48A566F0AA93D0AD9AA7E8B76 /* PBXTargetDependency */,
+			);
+			name = "Pods-PlaybasisMacOS";
+			productName = "Pods-PlaybasisMacOS";
+			productReference = F720B6CB25B99AA3969023CBB3D98A75 /* Pods_PlaybasisMacOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EB627E278A399E0D3F7209B742C58A7E /* OCMapper-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ECFC96352FA310327D013A8EF87EBC9 /* Build configuration list for PBXNativeTarget "OCMapper-OSX" */;
+			buildPhases = (
+				B7D84B34718CE0CF32C6856E0B5FA1D4 /* Sources */,
+				EE22DFCD4961ED403683AC0CB2074CBE /* Frameworks */,
+				1FE3E66FE0916C2054EA08C826A6F0BB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OCMapper-OSX";
+			productName = "OCMapper-OSX";
+			productReference = FF16FC7606FAF2D289D22F45C45BF1E2 /* OCMapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					2279DE98FA88FF15E004333008C3A6CE = {
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
+					};
+					5459A771E09655676A4BC97F342EBF1D = {
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
+					};
+				};
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 219C3DBEFAEA1005D00B049F620C8E73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2279DE98FA88FF15E004333008C3A6CE /* OCMapper-iOS */,
+				EB627E278A399E0D3F7209B742C58A7E /* OCMapper-OSX */,
+				5459A771E09655676A4BC97F342EBF1D /* Pods-Playbasis */,
+				844BB3C7F3AF27B7327FF82B7566C3D7 /* Pods-PlaybasisMacOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		720B83CE21D2ED7EC04554B3595B1484 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				262B919760336A285B8A12F0C4AEEF10 /* Pods-Playbasis-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EFB39C07AC5E171E4D3F0CC4C0E4926 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24E0D3F1ED513A95D9959AC63E3C3497 /* Pods-PlaybasisMacOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7D84B34718CE0CF32C6856E0B5FA1D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF721E452253DF59E0268B0C66AA55D0 /* CommonLoggingProvider.m in Sources */,
+				B2C8B017A49A543AB973D02158F2E763 /* InCodeMappingProvider.m in Sources */,
+				F2FCA76D17584B84E43350BF0AF34DE2 /* ManagedObjectInstanceProvider.m in Sources */,
+				9943050D792DAE7281CAAF92ADCA9FDB /* NSDictionary+ObjectMapper.m in Sources */,
+				345C68E85DDAB96EE89D12DDFBC51D51 /* NSObject+ObjectMapper.m in Sources */,
+				5C5BAA0E521BD21C0010596C5E05453C /* ObjectInstanceProvider.m in Sources */,
+				6B13A95ED3689A8DC511366741C3E173 /* ObjectMapper.m in Sources */,
+				59B5B310B2E4880E2E898F5164708388 /* ObjectMappingInfo.m in Sources */,
+				F578033A70A526E1EE916F7BE5968A3B /* OCMapper-OSX-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE06A5243E83BA172552506740EE4957 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1E727122D3297BF48531BDCF5357F5E /* CommonLoggingProvider.m in Sources */,
+				6A33BBA9194253A4EA5D94991571CF6B /* InCodeMappingProvider.m in Sources */,
+				587E593A2F1E761C39C689B010F2E9CE /* ManagedObjectInstanceProvider.m in Sources */,
+				F658A03DB8A7BF74EDA500A3CEF79C98 /* NSDictionary+ObjectMapper.m in Sources */,
+				D1627776F66CFD2BB3A4044E0184D83E /* NSObject+ObjectMapper.m in Sources */,
+				7FEC7A8909A5957C0491BF8B9F46FFEC /* ObjectInstanceProvider.m in Sources */,
+				6594F3BE567E03E13CF45EAE11803301 /* ObjectMapper.m in Sources */,
+				01AE0D2CA13F503B7BF98D5E744FBB54 /* ObjectMappingInfo.m in Sources */,
+				8A69519360FC15DE2281E7027230A39B /* OCMapper-iOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9ECDCDE48A566F0AA93D0AD9AA7E8B76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "OCMapper-OSX";
+			target = EB627E278A399E0D3F7209B742C58A7E /* OCMapper-OSX */;
+			targetProxy = C5B527D2D2BDD0F3ECB6B6542066EB45 /* PBXContainerItemProxy */;
+		};
+		A604732FBA26B1FC6C9DAFE4A440DB85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "OCMapper-iOS";
+			target = 2279DE98FA88FF15E004333008C3A6CE /* OCMapper-iOS */;
+			targetProxy = 6807FCCD9FDA440B39EA604ABD3FC4B8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		45FAEC2A2A50D81273D02A36B7CC8883 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E024BBFD48E83375F3C4A63A641ED047 /* Pods-Playbasis.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Playbasis/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Playbasis/Pods-Playbasis.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Playbasis;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		611A92D91D7A70A579D1B2C3BB074C86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02301E5CCC95C3C1FD14AB6BDA612E10 /* OCMapper-iOS.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OCMapper-iOS/OCMapper-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMapper-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OCMapper-iOS/OCMapper-iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = OCMapper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		63192E844DDFF914792077EF6505115E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BA932184B9CA6E3698F5E634C15BCC3 /* Pods-PlaybasisMacOS.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-PlaybasisMacOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULEMAP_FILE = "Target Support Files/Pods-PlaybasisMacOS/Pods-PlaybasisMacOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_PlaybasisMacOS;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8CB2598BC53DF610D1B36912CF3A9CBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		921550B5C3C7051BA3067C18AB88292B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BAE3A59A703848DC616EB5FE3E852AC /* Pods-PlaybasisMacOS.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-PlaybasisMacOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULEMAP_FILE = "Target Support Files/Pods-PlaybasisMacOS/Pods-PlaybasisMacOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_PlaybasisMacOS;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		965D34F931FC547AA0C9BCF65F982CFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 426ED39B84E5C908DA064575E6A9C37B /* OCMapper-OSX.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OCMapper-OSX/OCMapper-OSX-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMapper-OSX/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULEMAP_FILE = "Target Support Files/OCMapper-OSX/OCMapper-OSX.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = OCMapper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C24A4A52C40D2C3D5BD6EFD6579322C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B36565FEFF3ABAC6DFBC00D7FE549E9D /* Pods-Playbasis.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Playbasis/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Playbasis/Pods-Playbasis.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Playbasis;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C9638CDBCFFF72570D5FEAC1B51BD3E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02301E5CCC95C3C1FD14AB6BDA612E10 /* OCMapper-iOS.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OCMapper-iOS/OCMapper-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMapper-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OCMapper-iOS/OCMapper-iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = OCMapper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D42E35976F273990527B318B1619334C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 426ED39B84E5C908DA064575E6A9C37B /* OCMapper-OSX.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/OCMapper-OSX/OCMapper-OSX-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMapper-OSX/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULEMAP_FILE = "Target Support Files/OCMapper-OSX/OCMapper-OSX.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = OCMapper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E6ED95CF7DF4330C801DE675850623A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1AC1CC7190FCD93AC5569B9AC3359EE8 /* Build configuration list for PBXNativeTarget "Pods-PlaybasisMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63192E844DDFF914792077EF6505115E /* Debug */,
+				921550B5C3C7051BA3067C18AB88292B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6ED95CF7DF4330C801DE675850623A3 /* Debug */,
+				8CB2598BC53DF610D1B36912CF3A9CBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4ECFC96352FA310327D013A8EF87EBC9 /* Build configuration list for PBXNativeTarget "OCMapper-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				965D34F931FC547AA0C9BCF65F982CFB /* Debug */,
+				D42E35976F273990527B318B1619334C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BEE4C0954C239A8BA8668432F0B37C8F /* Build configuration list for PBXNativeTarget "Pods-Playbasis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45FAEC2A2A50D81273D02A36B7CC8883 /* Debug */,
+				C24A4A52C40D2C3D5BD6EFD6579322C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F091AE5EA6733848D21873FB59CB8F93 /* Build configuration list for PBXNativeTarget "OCMapper-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9638CDBCFFF72570D5FEAC1B51BD3E1 /* Debug */,
+				611A92D91D7A70A579D1B2C3BB074C86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

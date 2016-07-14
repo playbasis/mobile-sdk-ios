@@ -1,0 +1,16 @@
+PODS:
+  - OCMapper (2.1)
+
+DEPENDENCIES:
+  - OCMapper (from `CustomPodspecs/OCMapper/OCMapper.podspec`)
+
+EXTERNAL SOURCES:
+  OCMapper:
+    :path: CustomPodspecs/OCMapper/OCMapper.podspec
+
+SPEC CHECKSUMS:
+  OCMapper: ee1607c64359280c95fcb502ce802f65595dc52f
+
+PODFILE CHECKSUM: 8aa0872635c43cc2dacc6b3d3973c4e3d55e17e1
+
+COCOAPODS: 1.0.1

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>OCMapper-OSX.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>OCMapper-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Playbasis.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-PlaybasisMacOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>2279DE98FA88FF15E004333008C3A6CE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5459A771E09655676A4BC97F342EBF1D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>844BB3C7F3AF27B7327FF82B7566C3D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB627E278A399E0D3F7209B742C58A7E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
