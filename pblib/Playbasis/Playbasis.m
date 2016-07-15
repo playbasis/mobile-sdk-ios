@@ -15,13 +15,8 @@
 #import "MBProgressHUD.h"
 #endif
 
-static NSString * BASE_URL = @"https://api.pbapp.net/";
-// only apply to some of api call ie. rule()
-static NSString * BASE_ASYNC_URL = @"https://api.pbapp.net/async/call";
-
-#if PBSandBoxEnabled==1
-static NSString * const SAMPLE_BASE_URL = @"https://api-sandbox.pbapp.net/";
-#endif
+#import "model/Auth.h"
+#import "PBRequestUnit.h"
 
 /**
  Internal class use only when setting custom HTTP header fields whenever making a new request.
@@ -650,22 +645,22 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 
 +(void)setServerUrl:(NSString *)url
 {
-    BASE_URL = url;
+    // TODO: Implement this later
 }
 
 +(NSString*)getServerUrl
 {
-    return BASE_URL;
+    return nil;
 }
 
 +(void)setServerAsyncUrl:(NSString *)url
 {
-    BASE_ASYNC_URL = url;
+    // TODO: Implement this later
 }
 
 +(NSString *)getServerAsyncUrl
 {
-    return BASE_ASYNC_URL;
+    return nil;
 }
 
 +(Playbasis*)sharedPB
@@ -792,6 +787,24 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
     #endif
+}
+
+-(void)fireRequestIfNecessary:(PBRequestUnit<id> *)request
+{
+    // if network is reachable then dispatch it immediately
+    if(_isNetworkReachable)
+    {
+        // start the request
+        [request start];
+    }
+    // otherwise, then add into the queue
+    else
+    {
+        // add PBRequestUnit into operational queue
+        [_requestOptQueue enqueue:request];
+        
+        PBLOG(@"Queue size = %lu", (unsigned long)[_requestOptQueue count]);
+    }
 }
 
 - (void)setEnableGettingLocation:(BOOL)get
@@ -1032,6 +1045,17 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:_authDelegate];
+}
+
+-(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(Auth* result, NSError* error))completion
+{
+    _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
+    NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
+    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@&pkg_name=%@", apiKey, apiSecret, bundleId];
+    
+    PBRequestUnit<Auth*> *request = [[PBRequestUnit<Auth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[Auth class]];
+    
+    [self fireRequestIfNecessary:request];
 }
 
 -(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate

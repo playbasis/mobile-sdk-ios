@@ -8,10 +8,22 @@
 
 #import "PBRequestUnit.h"
 #import "Playbasis.h"
+#import <OCMapper/OCMapper.h>
+#import "model/Auth.h"
+#import "http/CustomDeviceInfoHttpHeaderFields.h"
+#import "PBUtils.h"
+#import "PBSettings.h"
 
 //
 // object for handling requests response
 //
+
+@interface PBRequestUnit ()
+{
+    CustomDeviceInfoHttpHeaderFields *_customDeviceInfoHttpHeaderFieldsVar;
+}
+@end
+
 @implementation PBRequestUnit
 
 @synthesize state = _state;
@@ -68,6 +80,127 @@
     // set state
     _state = ReadyToStart;
     return self;
+}
+
+-(instancetype)initWithURLRequest:(NSURLRequest *)request isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion forResultClass:(Class)objClass
+{
+    if (!(self = [super init]))
+        return nil;
+    
+    
+    _urlRequest = request;
+    _receivedData = [NSMutableData data];
+    _retryCount = 0;
+    _isSyncURLRequest = !async;
+    _state = ReadyToStart;
+    NSLog(@"before setting completion block: null? [%@]", _completion == nil ? @"YES" : @"NO");
+    _completion = completion;
+    NSLog(@"after setting completion block: null? [%@]", _completion == nil ? @"YES" : @"NO");
+    _resultClass = objClass;
+    return self;
+}
+
+-(instancetype)initWithMethodWithApikey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion forResultClass:(Class)objClass
+{
+    if (!(self = [super init]))
+        return nil;
+    
+    // create url request
+    NSURLRequest *urlRequest = [self createUrlRequestFromMethodWithApiKey:method withData:data isAsync:async];
+
+    // set state of this request unit
+    _urlRequest = urlRequest;
+    _receivedData = [NSMutableData data];
+    _retryCount = 0;
+    _isSyncURLRequest = !async;
+    _state = ReadyToStart;
+    _completion = completion;
+    _resultClass = objClass;
+    
+    return self;
+}
+
+- (NSURLRequest *)createUrlRequestFromMethodWithApiKey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async
+{
+    NSMutableURLRequest *request = nil;
+    NSURL* url = nil;
+    if(async)
+    {
+        url = [NSURL URLWithString:BASE_ASYNC_URL];
+    }
+    else
+    {
+        url = [NSURL URLWithString:[BASE_URL stringByAppendingString:method]];
+    }
+    
+    // form the data
+    if(data == nil)
+    {
+        request = [NSMutableURLRequest requestWithURL:url];
+        NSLog(@"Get request");
+    }
+    else
+    {
+        request = [NSMutableURLRequest requestWithURL:url];
+        [request setHTTPMethod:@"POST"];
+        
+        // if for async then we send it as json
+        NSString *reformedData = data;
+        if(async)
+        {
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            
+            // form async data
+            reformedData = [self createAsyncDataFromMethodWithApiKey:method andData:data];
+        }
+        // otherwise send it as http post data
+        else
+        {
+            [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        }
+        
+        // at this point data is proper one
+        NSData *postData = [reformedData dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:postData];
+        NSLog(@"Post request");
+    }
+    
+    // set custom headers to url request
+    CustomDeviceInfoHttpHeaderFields *headers = [[CustomDeviceInfoHttpHeaderFields alloc] initWithDefault];
+    [headers setUrlRequestHeaders:request];
+    
+    return request;
+}
+
+-(NSString *)createAsyncDataFromMethodWithApiKey:(NSString*)method andData:(NSString *)data
+{
+    // create json data object
+    // we will set object for each field in the loop
+    NSMutableDictionary *dictData = [NSMutableDictionary dictionary];
+    
+    // split all params from data
+    NSArray *linesWithEqualSign = [data componentsSeparatedByString:@"&"];
+    for(NSString *lineWithEqualSign in linesWithEqualSign)
+    {
+        NSArray *fieldAndValue = [lineWithEqualSign componentsSeparatedByString:@"="];
+        
+        // set into dict
+        [dictData setValue:(NSString*)[fieldAndValue objectAtIndex:1] forKey:[fieldAndValue objectAtIndex:0]];
+    }
+    
+    // package into format
+    NSMutableDictionary *dictWholeData = [NSMutableDictionary dictionary];
+    [dictWholeData setObject:method forKey:@"endpoint"];
+    [dictWholeData setObject:dictData forKey:@"data"];
+    [dictWholeData setObject:@"nil" forKey:@"channel"];
+    
+    // get json string
+    NSString *dataFinal = [dictWholeData JSONString];
+    NSLog(@"jsonString = %@", dataFinal);
+    
+    return dataFinal;
 }
 
 -(id)initWithCoder:(NSCoder *)decoder
@@ -209,11 +342,16 @@
     // get error code from this json message
     NSString *errorCode = [jsonResponse objectForKey:@"error_code"];
     
+    NSLog(@"request success? [%@]", success ? @"YES" : @"NO");
+    
     // success
     if(success && [errorCode isEqualToString:@"0000"])
     {
         // response success
         [self responseFromJSONResponse:jsonResponse error:nil];
+        // response success with actual 'response' data in json level
+        NSLog(@"executing responseFromJsonResponse2");
+        [self responseFromJsonResponse2:[jsonResponse objectForKey:@"response"] error:nil];
     }
     else
     {
@@ -236,6 +374,31 @@
         
         // response with fail
         [self responseFromJSONResponse:nil error:error];
+    }
+}
+
+-(void)responseFromJsonResponse2:(NSDictionary *)jsonResponse error:(NSError *)error
+{
+    NSLog(@"check _resultClass == nil? [%@]", _resultClass == nil ? @"YES" : @"NO");
+    
+    if (_resultClass != nil)
+    {
+        NSLog(@"execute inside if statement of _resultClass != nil");
+        InCodeMappingProvider *inCodeMappingProvider = [[InCodeMappingProvider alloc] init];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+        [inCodeMappingProvider setDateFormatter:dateFormatter forPropertyKey:@"dateExpire" andClass:[Auth class]];
+        
+        [[ObjectMapper sharedInstance] setMappingProvider:inCodeMappingProvider];
+        
+        id result = [_resultClass objectFromDictionary:jsonResponse];
+        
+        NSLog(@"check _completion == nil? [%@]", _completion == nil ? @"YES" : @"NO");
+        if (_completion != nil)
+        {
+            NSLog(@"execute inside if statement of _completion != nil");
+            _completion(result, nil);
+        }
     }
 }
 
@@ -1983,11 +2146,12 @@
     // otherwise, it's non-blocking call
     else
     {
+        NSLog(@"inside async request section");
         [NSURLConnection sendAsynchronousRequest:_urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             
             // if both response objects are nil, then return immediately
-            if(!_responseDelegate && !_responseBlock)
-                return;
+            //if(!_responseDelegate && !_responseBlock)
+            //    return;
             
             if(_isSyncURLRequest)
             {

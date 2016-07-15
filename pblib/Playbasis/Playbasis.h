@@ -19,6 +19,7 @@
 #import <Playbasis/PBUtils.h>
 #import <Playbasis/PBMacros.h>
 #import <Playbasis/Reachability.h>
+#import <Playbasis/Auth.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -88,7 +89,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  notification later.
  
  @param deviceToken Device token sent in from native iOS platform.
- @param withKey Key string for Playbasis SDK to retrieve the value from later via NSUserDefaults.
+ @param key Key string for Playbasis SDK to retrieve the value from later via NSUserDefaults.
  
  */
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
@@ -194,6 +195,8 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
 -(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
+
+-(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(Auth* result, NSError* error))completion;
 
 /**
  Request a new access token, and discard the current one.

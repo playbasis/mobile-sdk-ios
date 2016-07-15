@@ -21,7 +21,7 @@ typedef enum
 }
 PBRequestState;
 
-@interface PBRequestUnit : NSObject
+@interface PBRequestUnit <__covariant ObjectType> : NSObject
 {
     NSURLRequest *_urlRequest;
     NSMutableData *_receivedData;
@@ -34,6 +34,9 @@ PBRequestState;
     // either one or another
     id<PBResponseHandler> _responseDelegate;
     id _responseBlock;
+    
+    void(^_completion)(ObjectType result, NSError* error);
+    Class _resultClass;
 }
 
 @property (nonatomic, readonly) PBRequestState state;
@@ -42,6 +45,8 @@ PBRequestState;
 
 -(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andDelegate:(id<PBResponseHandler>)delegate;
 -(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andBlock:(PBResponseBlock)block;
+-(instancetype)initWithURLRequest:(NSURLRequest *)request isAsync:(BOOL)async completion:(void(^)(ObjectType result, NSError* error))completion forResultClass:(Class)objClass;
+-(instancetype)initWithMethodWithApikey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion forResultClass:(Class)objClass;
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
 -(NSDictionary *)getResponse;
