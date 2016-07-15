@@ -1,13 +1,13 @@
 //
-//  Auth.m
+//  PBAuth.m
 //  pblib
 //
 //  Created by Wasin Thonkaew on 7/15/16.
 //
 //
 
-#import "Auth.h"
+#import "PBAuth.h"
 
-@implementation Auth
+@implementation PBAuth
 
 @end

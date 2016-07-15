@@ -532,6 +532,11 @@
 		NSDateFormatter *formatter6 = [[NSDateFormatter alloc] init];
 		[formatter6 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 		[_commonDateFormaters addObject:formatter6];
+        
+        // additonal date format
+        NSDateFormatter *formatter7 = [[NSDateFormatter alloc] init];
+        [formatter6 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+        [_commonDateFormaters addObject:formatter6];
 	}
 	
 	return _commonDateFormaters;

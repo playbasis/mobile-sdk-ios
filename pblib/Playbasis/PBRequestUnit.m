@@ -9,7 +9,6 @@
 #import "PBRequestUnit.h"
 #import "Playbasis.h"
 #import <OCMapper/OCMapper.h>
-#import "model/Auth.h"
 #import "http/CustomDeviceInfoHttpHeaderFields.h"
 #import "PBUtils.h"
 #import "PBSettings.h"
@@ -349,6 +348,8 @@
     {
         // response success
         [self responseFromJSONResponse:jsonResponse error:nil];
+        
+        // TODO: Remove this when we completely refactored stuff
         // response success with actual 'response' data in json level
         NSLog(@"executing responseFromJsonResponse2");
         [self responseFromJsonResponse2:[jsonResponse objectForKey:@"response"] error:nil];
@@ -377,20 +378,13 @@
     }
 }
 
+// TODO: Use this instead of the former one when we successfully refactored stuff
 -(void)responseFromJsonResponse2:(NSDictionary *)jsonResponse error:(NSError *)error
 {
     NSLog(@"check _resultClass == nil? [%@]", _resultClass == nil ? @"YES" : @"NO");
     
     if (_resultClass != nil)
     {
-        NSLog(@"execute inside if statement of _resultClass != nil");
-        InCodeMappingProvider *inCodeMappingProvider = [[InCodeMappingProvider alloc] init];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-        [inCodeMappingProvider setDateFormatter:dateFormatter forPropertyKey:@"dateExpire" andClass:[Auth class]];
-        
-        [[ObjectMapper sharedInstance] setMappingProvider:inCodeMappingProvider];
-        
         id result = [_resultClass objectFromDictionary:jsonResponse];
         
         NSLog(@"check _completion == nil? [%@]", _completion == nil ? @"YES" : @"NO");

@@ -15,7 +15,6 @@
 #import "MBProgressHUD.h"
 #endif
 
-#import "model/Auth.h"
 #import "PBRequestUnit.h"
 
 /**
@@ -75,21 +74,6 @@
      */
     _customDeviceInfoHttpHeaderFields *_customDeviceInfoHttpHeaderFieldsVar;
 }
-
-/**
- Get Playbasis library's resource bundle.
- */
--(NSBundle*)getPBResourceBundle;
-
-/**
- Load api-keys config from user.
- */
--(void)loadApiKeysConfig;
-
-/**
- Get api-secret.
- */
--(NSString *)getApiSecretFromProtectedResources;
 
 /**
  Set token.
@@ -1047,13 +1031,13 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:_authDelegate];
 }
 
--(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(Auth* result, NSError* error))completion
+-(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(PBAuth* result, NSError* error))completion
 {
     _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
     NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@&pkg_name=%@", apiKey, apiSecret, bundleId];
     
-    PBRequestUnit<Auth*> *request = [[PBRequestUnit<Auth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[Auth class]];
+    PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBAuth class]];
     
     [self fireRequestIfNecessary:request];
 }

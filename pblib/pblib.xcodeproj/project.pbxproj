@@ -98,10 +98,10 @@
 		1EB0662F1D37503B002CA239 /* PlaybasisMacOSWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB0660B1D374E1B002CA239 /* PlaybasisMacOSWrapper.framework */; };
 		1EB066311D37505B002CA239 /* PlaybasisMacOS.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB065BA1D36B47C002CA239 /* PlaybasisMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EB066321D37505B002CA239 /* PlaybasisMacOSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB0660B1D374E1B002CA239 /* PlaybasisMacOSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1EB0665F1D38A84F002CA239 /* Auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB0665D1D38A84F002CA239 /* Auth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB066601D38A84F002CA239 /* Auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB0665D1D38A84F002CA239 /* Auth.h */; };
-		1EB066611D38A84F002CA239 /* Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB0665E1D38A84F002CA239 /* Auth.m */; };
-		1EB066621D38A84F002CA239 /* Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB0665E1D38A84F002CA239 /* Auth.m */; };
+		1EB0665F1D38A84F002CA239 /* PBAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB0665D1D38A84F002CA239 /* PBAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB066601D38A84F002CA239 /* PBAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB0665D1D38A84F002CA239 /* PBAuth.h */; };
+		1EB066611D38A84F002CA239 /* PBAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB0665E1D38A84F002CA239 /* PBAuth.m */; };
+		1EB066621D38A84F002CA239 /* PBAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB0665E1D38A84F002CA239 /* PBAuth.m */; };
 		1EB066741D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; };
 		1EB066751D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; };
 		1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB066731D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m */; };
@@ -220,8 +220,8 @@
 		1EB0660E1D374E1B002CA239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EB066241D375020002CA239 /* PlaybasisMacOSWrapperBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisMacOSWrapperBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB066261D375020002CA239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1EB0665D1D38A84F002CA239 /* Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Auth.h; sourceTree = "<group>"; };
-		1EB0665E1D38A84F002CA239 /* Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Auth.m; sourceTree = "<group>"; };
+		1EB0665D1D38A84F002CA239 /* PBAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAuth.h; sourceTree = "<group>"; };
+		1EB0665E1D38A84F002CA239 /* PBAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAuth.m; sourceTree = "<group>"; };
 		1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDeviceInfoHttpHeaderFields.h; sourceTree = "<group>"; };
 		1EB066731D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDeviceInfoHttpHeaderFields.m; sourceTree = "<group>"; };
 		1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -422,8 +422,8 @@
 		1EB0665C1D38A82C002CA239 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				1EB0665D1D38A84F002CA239 /* Auth.h */,
-				1EB0665E1D38A84F002CA239 /* Auth.m */,
+				1EB0665D1D38A84F002CA239 /* PBAuth.h */,
+				1EB0665E1D38A84F002CA239 /* PBAuth.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -520,7 +520,7 @@
 				1EB065241D368E02002CA239 /* PBUI.h in Headers */,
 				1EB065171D368E02002CA239 /* PBConstants.h in Headers */,
 				1EB065201D368E02002CA239 /* PBUtils.h in Headers */,
-				1EB0665F1D38A84F002CA239 /* Auth.h in Headers */,
+				1EB0665F1D38A84F002CA239 /* PBAuth.h in Headers */,
 				1EB064CF1D368CB3002CA239 /* Playbasis.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,7 +533,7 @@
 				1EB065C21D36B509002CA239 /* JSONKit.h in Headers */,
 				1EB065C31D36B509002CA239 /* Reachability.h in Headers */,
 				1EB065C41D36B509002CA239 /* RNCryptor+Private.h in Headers */,
-				1EB066601D38A84F002CA239 /* Auth.h in Headers */,
+				1EB066601D38A84F002CA239 /* PBAuth.h in Headers */,
 				1EB065C51D36B509002CA239 /* RNCryptor-Prefix.pch in Headers */,
 				1EB065C61D36B509002CA239 /* RNCryptor.h in Headers */,
 				1EB065C71D36B509002CA239 /* RNCryptorEngine.h in Headers */,
@@ -851,7 +851,7 @@
 				1EB065081D368E02002CA239 /* Reachability.m in Sources */,
 				1EB0651D1D368E02002CA239 /* PBResponses.m in Sources */,
 				1EB065211D368E02002CA239 /* PBUtils.m in Sources */,
-				1EB066611D38A84F002CA239 /* Auth.m in Sources */,
+				1EB066611D38A84F002CA239 /* PBAuth.m in Sources */,
 				1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EB0651B1D368E02002CA239 /* PBRequestUnit.m in Sources */,
 				1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */,
@@ -869,7 +869,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EB066621D38A84F002CA239 /* Auth.m in Sources */,
+				1EB066621D38A84F002CA239 /* PBAuth.m in Sources */,
 				1EB065D31D36B542002CA239 /* JSONKit.m in Sources */,
 				1EB065D41D36B542002CA239 /* Reachability.m in Sources */,
 				1EB065D51D36B542002CA239 /* RNCryptor.m in Sources */,

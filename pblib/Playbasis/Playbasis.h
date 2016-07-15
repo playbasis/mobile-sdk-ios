@@ -19,7 +19,7 @@
 #import <Playbasis/PBUtils.h>
 #import <Playbasis/PBMacros.h>
 #import <Playbasis/Reachability.h>
-#import <Playbasis/Auth.h>
+#import <Playbasis/PBAuth.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -196,7 +196,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
 -(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
 
--(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(Auth* result, NSError* error))completion;
+-(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(PBAuth* result, NSError* error))completion;
 
 /**
  Request a new access token, and discard the current one.
