@@ -104,4 +104,27 @@
     return platform;
 }
 
+-(NSString *)createMethodWithApiKeyUrlFromMethod:(NSString *)method andApiKey:(NSString *)apiKey
+{
+    return [NSString stringWithFormat:@"%@?api_key=%@", method, apiKey];
+}
+
+- (NSString *)createPostDataStringFromDictionary:(NSDictionary<NSString*, NSString*> *)keyValues
+{
+    NSString *ret = @"";
+    NSInteger count = [[keyValues allKeys] count];
+    for (int i=0; i<count; i++)
+    {
+        NSString *key = [[keyValues allKeys] objectAtIndex:i];
+        NSString *value = [keyValues objectForKey:key];
+        
+        if (i < count - 1)
+            ret = [ret stringByAppendingString:[NSString stringWithFormat:@"%@=%@&", key, value]];
+        else
+            ret = [ret stringByAppendingString:[NSString stringWithFormat:@"%@=%@", key, value]];
+    }
+    
+    return ret;
+}
+
 @end

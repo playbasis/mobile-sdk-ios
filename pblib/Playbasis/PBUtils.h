@@ -27,4 +27,9 @@
  */
 -(NSString *)platformString;
 
+
+-(NSString *)createMethodWithApiKeyUrlFromMethod:(NSString *)method andApiKey:(NSString *)apiKey;
+
+-(NSString *)createPostDataStringFromDictionary:(NSDictionary<NSString*, NSString*> *)keyValues;
+
 @end

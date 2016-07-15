@@ -992,90 +992,30 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [self setIntendedLogoutPlayerIdAndResetConfirmStatus:nil];
 }
 
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate
-{
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block
-{
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId  blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate
-{
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId  blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block
-{
-    return [self authWithApiKeyInternalBase:apiKey apiSecret:apiSecret bundleId:bundleId  blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)authWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *) bundleId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
-{
-    // save apikey
-    _apiKey = apiKey;
-    
-    // note: the final response is via PBAuthDelegate either by delegate or block
-    // in this case, it's by delegate
-    _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
-    
-    // check whether it uses delegate to response back
-    if(useDelegate)
-        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:response];
-    else
-        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
-    
-    NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@&pkg_name=%@", apiKey, apiSecret, bundleId];
-
-    
-    // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_auth andResponse:_authDelegate];
-}
-
 -(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(PBAuth* result, NSError* error))completion
 {
+    _apiKey = apiKey;
     _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
-    NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@&pkg_name=%@", apiKey, apiSecret, bundleId];
+    
+    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:@"Auth" andApiKey:apiKey];
+    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"api_key" : apiKey, @"api_secret" : apiSecret, @"pkg_name" : bundleId}];
     
     PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBAuth class]];
     
     [self fireRequestIfNecessary:request];
 }
 
--(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
+-(void)renewWithApikey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andCompletion:(void (^)(PBAuth *, NSError *))completion
 {
-    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
-{
-    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate
-{
-    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block
-{
-    return [self renewWithApiKeyInternalBase:apiKey apiSecret:apiSecret blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)renewWithApiKeyInternalBase:(NSString *)apiKey apiSecret:(NSString *)apiSecret blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
-{
-    // save apikey
     _apiKey = apiKey;
-    
     _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
     
-    // check whether it uses delegate to response back
-    if(useDelegate)
-        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andDelegate:response];
-    else
-        _authDelegate = [[PBAuthDelegate alloc] initWithPlaybasis:self andBlock:response];
+    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:@"Auth" andApiKey:apiKey];
+    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"api_key" : apiKey, @"api_secret" : apiSecret}];
     
-    NSString *method = [NSString stringWithFormat:@"Auth%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"api_key=%@&api_secret=%@", apiKey, apiSecret];
+    PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBAuth class]];
     
-    // auth call has only delegate response, thus we send delegate as a parameter into the refactored method below
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:YES withMethod:method andData:data responseType:responseType_renew andResponse:_authDelegate];
+    [self fireRequestIfNecessary:request];
 }
 
 -(PBRequestUnit *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate

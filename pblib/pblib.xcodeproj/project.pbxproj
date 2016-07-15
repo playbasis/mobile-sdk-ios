@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E82EDC41D391EF400775DA0 /* PlaybasisTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDC31D391EF400775DA0 /* PlaybasisTestSuite.m */; };
+		1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; };
+		1E82EDCD1D39203A00775DA0 /* TestAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthAPI.m */; };
+		1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1E82EDD41D39232B00775DA0 /* OCMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E82EDD11D3922FB00775DA0 /* OCMapper.framework */; };
+		1E82EDD61D39294E00775DA0 /* OCMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1E82EDD11D3922FB00775DA0 /* OCMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EB064CF1D368CB3002CA239 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065011D368E02002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065021D368E02002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -111,6 +117,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1E82EDC71D391EF400775DA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EB064CA1D368CB3002CA239;
+			remoteInfo = Playbasis;
+		};
 		1EB065FB1D3747AC002CA239 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2C1C74ED17461E1B005F3B57 /* Project object */;
@@ -142,6 +155,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1E82EDCE1D39225900775DA0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1E82EDD61D39294E00775DA0 /* OCMapper.framework in CopyFiles */,
+				1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EB066301D37504E002CA239 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,6 +183,11 @@
 		1675267138D27A92EDF476EE /* Pods-Playbasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Playbasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Playbasis/Pods-Playbasis.debug.xcconfig"; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisTestSuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E82EDC31D391EF400775DA0 /* PlaybasisTestSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybasisTestSuite.m; sourceTree = "<group>"; };
+		1E82EDC51D391EF400775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E82EDCC1D39203A00775DA0 /* TestAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthAPI.m; sourceTree = "<group>"; };
+		1E82EDD11D3922FB00775DA0 /* OCMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMapper.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/pblib-aqpnecsyouvqmbaaxuhnudfocywz/Build/Products/Debug-iphonesimulator/OCMapper-iOS/OCMapper.framework"; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EB064CB1D368CB3002CA239 /* Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB064CD1D368CB3002CA239 /* Playbasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
@@ -235,6 +264,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1E82EDBE1D391EF400775DA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */,
+				1E82EDD41D39232B00775DA0 /* OCMapper.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EB064C71D368CB3002CA239 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,6 +317,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E82EDC21D391EF400775DA0 /* PlaybasisTestSuite */ = {
+			isa = PBXGroup;
+			children = (
+				1E82EDC31D391EF400775DA0 /* PlaybasisTestSuite.m */,
+				1E82EDC51D391EF400775DA0 /* Info.plist */,
+				1E82EDCC1D39203A00775DA0 /* TestAuthAPI.m */,
+			);
+			path = PlaybasisTestSuite;
+			sourceTree = "<group>";
+		};
 		1EB064CC1D368CB3002CA239 /* Playbasis */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +493,7 @@
 				1EB065E81D3746D3002CA239 /* PlaybasisWrapper */,
 				1EB0660C1D374E1B002CA239 /* PlaybasisMacOSWrapper */,
 				1EB066251D375020002CA239 /* PlaybasisMacOSWrapperBundle */,
+				1E82EDC21D391EF400775DA0 /* PlaybasisTestSuite */,
 				2C1C74F717461E1B005F3B57 /* Frameworks */,
 				2C1C74F617461E1B005F3B57 /* Products */,
 				9408AA53EF4E359B4E94BE9B /* Pods */,
@@ -459,6 +508,7 @@
 				1EB065E71D3746D3002CA239 /* PlaybasisWrapper.framework */,
 				1EB0660B1D374E1B002CA239 /* PlaybasisMacOSWrapper.framework */,
 				1EB066241D375020002CA239 /* PlaybasisMacOSWrapperBundle.bundle */,
+				1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -466,6 +516,7 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E82EDD11D3922FB00775DA0 /* OCMapper.framework */,
 				1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */,
 				1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */,
 				1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */,
@@ -577,6 +628,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1E82EDC01D391EF400775DA0 /* PlaybasisTestSuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E82EDCB1D391EF400775DA0 /* Build configuration list for PBXNativeTarget "PlaybasisTestSuite" */;
+			buildPhases = (
+				1E82EDBD1D391EF400775DA0 /* Sources */,
+				1E82EDBE1D391EF400775DA0 /* Frameworks */,
+				1E82EDBF1D391EF400775DA0 /* Resources */,
+				1E82EDCE1D39225900775DA0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E82EDC81D391EF400775DA0 /* PBXTargetDependency */,
+			);
+			name = PlaybasisTestSuite;
+			productName = PlaybasisTestSuite;
+			productReference = 1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1EB064CA1D368CB3002CA239 /* Playbasis */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1EB064D01D368CB3002CA239 /* Build configuration list for PBXNativeTarget "Playbasis" */;
@@ -684,6 +754,12 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
+					1E82EDC01D391EF400775DA0 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = XGKHW634KL;
+						DevelopmentTeamName = "Wasin Thonkaew";
+						ProvisioningStyle = Automatic;
+					};
 					1EB064CA1D368CB3002CA239 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = XGKHW634KL;
@@ -733,11 +809,19 @@
 				1EB065E61D3746D3002CA239 /* PlaybasisWrapper */,
 				1EB0660A1D374E1B002CA239 /* PlaybasisMacOSWrapper */,
 				1EB066231D375020002CA239 /* PlaybasisMacOSWrapperBundle */,
+				1E82EDC01D391EF400775DA0 /* PlaybasisTestSuite */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1E82EDBF1D391EF400775DA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EB064C91D368CB3002CA239 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -840,6 +924,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1E82EDBD1D391EF400775DA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E82EDCD1D39203A00775DA0 /* TestAuthAPI.m in Sources */,
+				1E82EDC41D391EF400775DA0 /* PlaybasisTestSuite.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1EB064C61D368CB3002CA239 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -916,6 +1009,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1E82EDC81D391EF400775DA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1EB064CA1D368CB3002CA239 /* Playbasis */;
+			targetProxy = 1E82EDC71D391EF400775DA0 /* PBXContainerItemProxy */;
+		};
 		1EB065FC1D3747AC002CA239 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1EB064CA1D368CB3002CA239 /* Playbasis */;
@@ -939,6 +1037,66 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1E82EDC91D391EF400775DA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PlaybasisTestSuite/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.ios.playbasissdk.PlaybasisTestSuite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1E82EDCA1D391EF400775DA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PlaybasisTestSuite/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.ios.playbasissdk.PlaybasisTestSuite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		1EB064D11D368CB3002CA239 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1675267138D27A92EDF476EE /* Pods-Playbasis.debug.xcconfig */;
@@ -1394,6 +1552,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1E82EDCB1D391EF400775DA0 /* Build configuration list for PBXNativeTarget "PlaybasisTestSuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E82EDC91D391EF400775DA0 /* Debug */,
+				1E82EDCA1D391EF400775DA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1EB064D01D368CB3002CA239 /* Build configuration list for PBXNativeTarget "Playbasis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
