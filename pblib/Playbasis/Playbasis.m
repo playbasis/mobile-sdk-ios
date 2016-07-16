@@ -992,32 +992,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [self setIntendedLogoutPlayerIdAndResetConfirmStatus:nil];
 }
 
--(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(PBAuth* result, NSError* error))completion
-{
-    _apiKey = apiKey;
-    _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
-    
-    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:@"Auth" andApiKey:apiKey];
-    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"api_key" : apiKey, @"api_secret" : apiSecret, @"pkg_name" : bundleId}];
-    
-    PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBAuth class]];
-    
-    [self fireRequestIfNecessary:request];
-}
-
--(void)renewWithApikey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andCompletion:(void (^)(PBAuth *, NSError *))completion
-{
-    _apiKey = apiKey;
-    _apiKeyParam = [[NSString alloc] initWithFormat:@"?api_key=%@", apiKey];
-    
-    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:@"Auth" andApiKey:apiKey];
-    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"api_key" : apiKey, @"api_secret" : apiSecret}];
-    
-    PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBAuth class]];
-    
-    [self fireRequestIfNecessary:request];
-}
-
 -(PBRequestUnit *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate
 {
     return [self playerPublicInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];

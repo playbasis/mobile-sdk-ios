@@ -1,5 +1,5 @@
 //
-//  TestAuthAPI.m
+//  TestAuthApi.m
 //  pblib
 //
 //  Created by Wasin Thonkaew on 7/15/16.
@@ -15,14 +15,14 @@
 
 #define TIMEOUT 6.0f
 
-@interface TestAuthAPI : XCTestCase
+@interface TestAuthApi : XCTestCase
 {
     XCTestExpectation *ex;
 }
 
 @end
 
-@implementation TestAuthAPI
+@implementation TestAuthApi
 
 - (void)setUp {
     [super setUp];
@@ -35,7 +35,7 @@
 - (void)testAuth {
     ex = [self expectationWithDescription:@"auth"];
     
-    [[Playbasis sharedPB] authWithApiKey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
+    [PBAuthApi auth:[Playbasis sharedPB] apiKey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
         XCTAssert(error == nil, @"error must be nil");
         [ex fulfill];
     }];
@@ -46,9 +46,14 @@
 - (void)testRenew {
     ex = [self expectationWithDescription:@"renew"];
     
-    [[Playbasis sharedPB] renewWithApikey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" andCompletion:^(PBAuth *result, NSError *error) {
+    [PBAuthApi auth:[Playbasis sharedPB] apiKey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
         XCTAssert(error == nil, @"error must be nil");
-        [ex fulfill];
+        
+        [PBAuthApi renew:[Playbasis sharedPB] completion:^(PBAuth *result, NSError *error) {
+            XCTAssert(error == nil, @"error must be nil");
+            NSLog(@"hehe %@ %@", result.token, [result.dateExpire descriptionWithLocale:[NSLocale systemLocale]]);
+            [ex fulfill];
+        }];
     }];
     
     [self waitForExpectationsWithTimeout:TIMEOUT handler:nil];

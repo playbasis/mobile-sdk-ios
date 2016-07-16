@@ -7,13 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E82EDC41D391EF400775DA0 /* PlaybasisTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDC31D391EF400775DA0 /* PlaybasisTestSuite.m */; };
 		1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; };
-		1E82EDCD1D39203A00775DA0 /* TestAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthAPI.m */; };
+		1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */; };
 		1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1E82EDD41D39232B00775DA0 /* OCMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E82EDD11D3922FB00775DA0 /* OCMapper.framework */; };
 		1E82EDD61D39294E00775DA0 /* OCMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1E82EDD11D3922FB00775DA0 /* OCMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1EB064CF1D368CB3002CA239 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDDC1D39EE5A00775DA0 /* PBAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */; };
+		1E82EDDD1D39EE5A00775DA0 /* PBAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */; };
+		1E82EDDE1D3A18BF00775DA0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; };
+		1E82EDE01D3A18D000775DA0 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE11D3A18D200775DA0 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE21D3A18F800775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE31D3A18FA00775DA0 /* PBAuthApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EDD81D39EE5A00775DA0 /* PBAuthApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE41D3A190C00775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE51D3A191400775DA0 /* PBAuthApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EDD81D39EE5A00775DA0 /* PBAuthApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE61D3A192900775DA0 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F61D368E02002CA239 /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE71D3A192A00775DA0 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F61D368E02002CA239 /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE81D3A193100775DA0 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDE91D3A193700775DA0 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDEA1D3A194400775DA0 /* pblib-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EF1D368E02002CA239 /* pblib-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065011D368E02002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065021D368E02002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1EB065031D368E02002CA239 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D71D368E02002CA239 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,9 +56,6 @@
 		1EB0651B1D368E02002CA239 /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F21D368E02002CA239 /* PBRequestUnit.m */; };
 		1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F31D368E02002CA239 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB0651D1D368E02002CA239 /* PBResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F41D368E02002CA239 /* PBResponses.m */; };
-		1EB0651E1D368E02002CA239 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB0651F1D368E02002CA239 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F61D368E02002CA239 /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB065201D368E02002CA239 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065211D368E02002CA239 /* PBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F81D368E02002CA239 /* PBUtils.m */; };
 		1EB065221D368E02002CA239 /* Playbasis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064F91D368E02002CA239 /* Playbasis.m */; };
 		1EB065231D368E02002CA239 /* PBStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB064FB1D368E02002CA239 /* PBStoryboard.storyboard */; };
@@ -69,9 +79,6 @@
 		1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F01D368E02002CA239 /* PBMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065CE1D36B509002CA239 /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F11D368E02002CA239 /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065CF1D36B509002CA239 /* PBResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F31D368E02002CA239 /* PBResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB065D01D36B50A002CA239 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB065D11D36B50A002CA239 /* PBTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F61D368E02002CA239 /* PBTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB065D21D36B50A002CA239 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065D31D36B542002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1EB065D41D36B542002CA239 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064DE1D368E02002CA239 /* Reachability.m */; };
 		1EB065D51D36B542002CA239 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064E31D368E02002CA239 /* RNCryptor.m */; };
@@ -108,8 +115,6 @@
 		1EB066601D38A84F002CA239 /* PBAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB0665D1D38A84F002CA239 /* PBAuth.h */; };
 		1EB066611D38A84F002CA239 /* PBAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB0665E1D38A84F002CA239 /* PBAuth.m */; };
 		1EB066621D38A84F002CA239 /* PBAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB0665E1D38A84F002CA239 /* PBAuth.m */; };
-		1EB066741D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; };
-		1EB066751D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; };
 		1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB066731D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m */; };
 		1EB066771D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB066731D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m */; };
 		2E6FAA764163EE44BDDC184A /* Pods_PlaybasisMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B48FE7F1C2A3BF65374418AD /* Pods_PlaybasisMacOS.framework */; };
@@ -184,10 +189,11 @@
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisTestSuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E82EDC31D391EF400775DA0 /* PlaybasisTestSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybasisTestSuite.m; sourceTree = "<group>"; };
 		1E82EDC51D391EF400775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E82EDCC1D39203A00775DA0 /* TestAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthAPI.m; sourceTree = "<group>"; };
+		1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthApi.m; sourceTree = "<group>"; };
 		1E82EDD11D3922FB00775DA0 /* OCMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMapper.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/pblib-aqpnecsyouvqmbaaxuhnudfocywz/Build/Products/Debug-iphonesimulator/OCMapper-iOS/OCMapper.framework"; sourceTree = "<group>"; };
+		1E82EDD81D39EE5A00775DA0 /* PBAuthApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAuthApi.h; sourceTree = "<group>"; };
+		1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAuthApi.m; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EB064CB1D368CB3002CA239 /* Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB064CD1D368CB3002CA239 /* Playbasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
@@ -320,16 +326,25 @@
 		1E82EDC21D391EF400775DA0 /* PlaybasisTestSuite */ = {
 			isa = PBXGroup;
 			children = (
-				1E82EDC31D391EF400775DA0 /* PlaybasisTestSuite.m */,
 				1E82EDC51D391EF400775DA0 /* Info.plist */,
-				1E82EDCC1D39203A00775DA0 /* TestAuthAPI.m */,
+				1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */,
 			);
 			path = PlaybasisTestSuite;
+			sourceTree = "<group>";
+		};
+		1E82EDD71D39EE3800775DA0 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				1E82EDD81D39EE5A00775DA0 /* PBAuthApi.h */,
+				1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */,
+			);
+			path = api;
 			sourceTree = "<group>";
 		};
 		1EB064CC1D368CB3002CA239 /* Playbasis */ = {
 			isa = PBXGroup;
 			children = (
+				1E82EDD71D39EE3800775DA0 /* api */,
 				1EB066711D38EBF9002CA239 /* http */,
 				1EB0665C1D38A82C002CA239 /* model */,
 				1EB064D31D368E02002CA239 /* JSONKit.h */,
@@ -547,32 +562,33 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EB0651A1D368E02002CA239 /* PBRequestUnit.h in Headers */,
-				1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */,
-				1EB0651F1D368E02002CA239 /* PBTypes.h in Headers */,
 				1EB065151D368E02002CA239 /* PBCommon.h in Headers */,
-				1EB065191D368E02002CA239 /* PBMacros.h in Headers */,
 				1EB065251D368E02002CA239 /* pbUserRegistrationFormViewController.h in Headers */,
+				1E82EDE21D3A18F800775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
+				1E82EDE31D3A18FA00775DA0 /* PBAuthApi.h in Headers */,
 				1EB0650D1D368E02002CA239 /* RNCryptorEngine.h in Headers */,
-				1EB066741D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
 				1EB0650A1D368E02002CA239 /* RNCryptor-Prefix.pch in Headers */,
 				1EB065271D368E02002CA239 /* UIImage+AutoLoader.h in Headers */,
 				1EB065011D368E02002CA239 /* JSONKit.h in Headers */,
+				1EB065131D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
 				1EB065091D368E02002CA239 /* RNCryptor+Private.h in Headers */,
+				1E82EDE61D3A192900775DA0 /* PBTypes.h in Headers */,
 				1EB0650B1D368E02002CA239 /* RNCryptor.h in Headers */,
 				1EB065051D368E02002CA239 /* MBProgressHUD.h in Headers */,
 				1EB065111D368E02002CA239 /* RNEncryptor.h in Headers */,
 				1EB065181D368E02002CA239 /* pblib-Prefix.pch in Headers */,
+				1EB065191D368E02002CA239 /* PBMacros.h in Headers */,
+				1EB065171D368E02002CA239 /* PBConstants.h in Headers */,
 				1EB065031D368E02002CA239 /* KLCPopup.h in Headers */,
+				1EB0651A1D368E02002CA239 /* PBRequestUnit.h in Headers */,
+				1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */,
+				1E82EDE11D3A18D200775DA0 /* PBSettings.h in Headers */,
 				1EB065071D368E02002CA239 /* Reachability.h in Headers */,
 				1EB0650F1D368E02002CA239 /* RNDecryptor.h in Headers */,
-				1EB065131D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
-				1EB0651E1D368E02002CA239 /* PBSettings.h in Headers */,
+				1E82EDE01D3A18D000775DA0 /* PBUtils.h in Headers */,
 				1EB065241D368E02002CA239 /* PBUI.h in Headers */,
-				1EB065171D368E02002CA239 /* PBConstants.h in Headers */,
-				1EB065201D368E02002CA239 /* PBUtils.h in Headers */,
+				1E82EDDE1D3A18BF00775DA0 /* Playbasis.h in Headers */,
 				1EB0665F1D38A84F002CA239 /* PBAuth.h in Headers */,
-				1EB064CF1D368CB3002CA239 /* Playbasis.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,25 +597,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EB065BE1D36B47C002CA239 /* PlaybasisMacOS.h in Headers */,
+				1E82EDE41D3A190C00775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
 				1EB065C21D36B509002CA239 /* JSONKit.h in Headers */,
+				1E82EDE91D3A193700775DA0 /* PBSettings.h in Headers */,
 				1EB065C31D36B509002CA239 /* Reachability.h in Headers */,
+				1E82EDE81D3A193100775DA0 /* PBUtils.h in Headers */,
 				1EB065C41D36B509002CA239 /* RNCryptor+Private.h in Headers */,
 				1EB066601D38A84F002CA239 /* PBAuth.h in Headers */,
+				1E82EDE51D3A191400775DA0 /* PBAuthApi.h in Headers */,
 				1EB065C51D36B509002CA239 /* RNCryptor-Prefix.pch in Headers */,
 				1EB065C61D36B509002CA239 /* RNCryptor.h in Headers */,
 				1EB065C71D36B509002CA239 /* RNCryptorEngine.h in Headers */,
 				1EB065C81D36B509002CA239 /* RNDecryptor.h in Headers */,
 				1EB065C91D36B509002CA239 /* RNEncryptor.h in Headers */,
+				1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */,
 				1EB065CA1D36B509002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
-				1EB066751D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
 				1EB065CB1D36B509002CA239 /* PBCommon.h in Headers */,
 				1EB065CC1D36B509002CA239 /* PBConstants.h in Headers */,
 				1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */,
 				1EB065CE1D36B509002CA239 /* PBRequestUnit.h in Headers */,
+				1E82EDEA1D3A194400775DA0 /* pblib-Prefix.pch in Headers */,
+				1E82EDE71D3A192A00775DA0 /* PBTypes.h in Headers */,
 				1EB065CF1D36B509002CA239 /* PBResponses.h in Headers */,
-				1EB065D01D36B50A002CA239 /* PBSettings.h in Headers */,
-				1EB065D11D36B50A002CA239 /* PBTypes.h in Headers */,
-				1EB065D21D36B50A002CA239 /* PBUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,8 +947,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E82EDCD1D39203A00775DA0 /* TestAuthAPI.m in Sources */,
-				1E82EDC41D391EF400775DA0 /* PlaybasisTestSuite.m in Sources */,
+				1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,6 +965,7 @@
 				1EB066611D38A84F002CA239 /* PBAuth.m in Sources */,
 				1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EB0651B1D368E02002CA239 /* PBRequestUnit.m in Sources */,
+				1E82EDDC1D39EE5A00775DA0 /* PBAuthApi.m in Sources */,
 				1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */,
 				1EB065161D368E02002CA239 /* PBCommon.m in Sources */,
 				1EB0650E1D368E02002CA239 /* RNCryptorEngine.m in Sources */,
@@ -974,6 +993,7 @@
 				1EB065DB1D36B542002CA239 /* PBRequestUnit.m in Sources */,
 				1EB065DC1D36B542002CA239 /* PBResponses.m in Sources */,
 				1EB065DD1D36B542002CA239 /* PBUtils.m in Sources */,
+				1E82EDDD1D39EE5A00775DA0 /* PBAuthApi.m in Sources */,
 				1EB066771D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EB065DE1D36B542002CA239 /* Playbasis.m in Sources */,
 			);
@@ -1559,6 +1579,7 @@
 				1E82EDCA1D391EF400775DA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1EB064D01D368CB3002CA239 /* Build configuration list for PBXNativeTarget "Playbasis" */ = {
 			isa = XCConfigurationList;

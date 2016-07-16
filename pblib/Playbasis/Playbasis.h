@@ -20,6 +20,7 @@
 #import <Playbasis/PBMacros.h>
 #import <Playbasis/Reachability.h>
 #import <Playbasis/PBAuth.h>
+#import <Playbasis/PBAuthApi.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -136,6 +137,12 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(void)dealloc;
 
 /**
+ * Fire request if necessary.
+ * If it cannot do it due to Intenet connection is down, then it will save into queue.
+ */
+-(void)fireRequestIfNecessary:(PBRequestUnit<id> *)request;
+
+/**
  Get request-operational-queue.
  It holds all created http requests. Those requests are not dispatched or sent just yet. It's after dequeing, it will start sending those request one by one.
  */
@@ -185,18 +192,6 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  Reset state of both intended player-id and its confirm status.
  */
 -(void)resetIntendedLogoutPlayerId;
-
-//------------------------------
-
-/**
- Authenticate and get access token.
- */
--(void)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andCompletion:(void(^)(PBAuth* result, NSError* error))completion;
-
-/**
- Request a new access token, and discard the current one.
- */
--(void)renewWithApikey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andCompletion:(void(^)(PBAuth* result, NSError* error))completion;
 
 /** 
  Get player's public information.
