@@ -19,7 +19,10 @@
 #import <Playbasis/PBUtils.h>
 #import <Playbasis/PBMacros.h>
 #import <Playbasis/Reachability.h>
-#import <Playbasis/PBAuth.h>
+#import <Playbasis/PBBuilder.h>
+#import <Playbasis/PBBuilderConfiguration.h>
+
+// API
 #import <Playbasis/PBAuthApi.h>
 
 #if TARGET_OS_IOS
@@ -51,6 +54,10 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
     #endif
 }
 
+@property (nonatomic, strong, readonly) NSString* apiKey;
+@property (nonatomic, strong, readonly) NSString* apiSecret;
+@property (nonatomic, strong, readonly) NSString* baseUrl;
+@property (nonatomic, strong, readonly) NSString* baseAsyncUrl;
 @property (nonatomic, strong, readonly) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
 
@@ -101,28 +108,12 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  */
 +(NSString*)getDeviceToken;
 
-/**
- Set server url that SDK uses for synchronized api calls.
- */
-+(void)setServerUrl:(NSString*)url;
-
-/**
- Get server url that SDK uses for synchronized api calls.
- */
-+(NSString*)getServerUrl;
-
-/**
- Set asynchronized server url that SDK uses for aynchronized api calls.
- */
-+(void)setServerAsyncUrl:(NSString*)url;
-
-/**
- Get asynchronized server url that SDK uses for aynchronized api calls.
- */
-+(NSString*)getServerAsyncUrl;
++(PBBuilder*)builder;
 
 /**
  Get the singleton instance of Playbasis.
+ First you need to create Plabybasis instance by using builder method.
+ Otherwise, thie method will return nil.
  */
 +(Playbasis*)sharedPB;
 
@@ -133,7 +124,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
--(id)init;
+-(instancetype)initWithConfiguration:(PBBuilderConfiguration *)configs;
 -(void)dealloc;
 
 /**

@@ -27,6 +27,19 @@
 		1E82EDE81D3A193100775DA0 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E82EDE91D3A193700775DA0 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E82EDEA1D3A194400775DA0 /* pblib-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064EF1D368E02002CA239 /* pblib-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDED1D3A281300775DA0 /* PBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EDEB1D3A281300775DA0 /* PBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDEE1D3A281300775DA0 /* PBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EDEB1D3A281300775DA0 /* PBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDEF1D3A281300775DA0 /* PBBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDEC1D3A281300775DA0 /* PBBuilder.m */; };
+		1E82EDF01D3A281300775DA0 /* PBBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDEC1D3A281300775DA0 /* PBBuilder.m */; };
+		1E82EDF31D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EDF11D3A2C2700775DA0 /* PBBuilderConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDF41D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EDF11D3A2C2700775DA0 /* PBBuilderConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E82EDF51D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDF21D3A2C2700775DA0 /* PBBuilderConfiguration.m */; };
+		1E82EDF61D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDF21D3A2C2700775DA0 /* PBBuilderConfiguration.m */; };
+		1E82EDF81D3A547800775DA0 /* TestGeneral.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDF71D3A547800775DA0 /* TestGeneral.m */; };
+		1E82EE021D3A5BE400775DA0 /* PBValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EE001D3A5BE400775DA0 /* PBValidator.h */; };
+		1E82EE031D3A5BE400775DA0 /* PBValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EE001D3A5BE400775DA0 /* PBValidator.h */; };
+		1E82EE041D3A5BE400775DA0 /* PBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EE011D3A5BE400775DA0 /* PBValidator.m */; };
+		1E82EE051D3A5BE400775DA0 /* PBValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EE011D3A5BE400775DA0 /* PBValidator.m */; };
 		1EB065011D368E02002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065021D368E02002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1EB065031D368E02002CA239 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D71D368E02002CA239 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -194,6 +207,14 @@
 		1E82EDD11D3922FB00775DA0 /* OCMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMapper.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/pblib-aqpnecsyouvqmbaaxuhnudfocywz/Build/Products/Debug-iphonesimulator/OCMapper-iOS/OCMapper.framework"; sourceTree = "<group>"; };
 		1E82EDD81D39EE5A00775DA0 /* PBAuthApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAuthApi.h; sourceTree = "<group>"; };
 		1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAuthApi.m; sourceTree = "<group>"; };
+		1E82EDEB1D3A281300775DA0 /* PBBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBuilder.h; sourceTree = "<group>"; };
+		1E82EDEC1D3A281300775DA0 /* PBBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBuilder.m; sourceTree = "<group>"; };
+		1E82EDF11D3A2C2700775DA0 /* PBBuilderConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBuilderConfiguration.h; sourceTree = "<group>"; };
+		1E82EDF21D3A2C2700775DA0 /* PBBuilderConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBuilderConfiguration.m; sourceTree = "<group>"; };
+		1E82EDF71D3A547800775DA0 /* TestGeneral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGeneral.m; sourceTree = "<group>"; };
+		1E82EE001D3A5BE400775DA0 /* PBValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBValidator.h; sourceTree = "<group>"; };
+		1E82EE011D3A5BE400775DA0 /* PBValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBValidator.m; sourceTree = "<group>"; };
+		1E82EE061D3A5E3600775DA0 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EB064CB1D368CB3002CA239 /* Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB064CD1D368CB3002CA239 /* Playbasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
@@ -328,6 +349,8 @@
 			children = (
 				1E82EDC51D391EF400775DA0 /* Info.plist */,
 				1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */,
+				1E82EDF71D3A547800775DA0 /* TestGeneral.m */,
+				1E82EE061D3A5E3600775DA0 /* Macros.h */,
 			);
 			path = PlaybasisTestSuite;
 			sourceTree = "<group>";
@@ -341,9 +364,19 @@
 			path = api;
 			sourceTree = "<group>";
 		};
+		1E82EDFF1D3A5BE400775DA0 /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				1E82EE001D3A5BE400775DA0 /* PBValidator.h */,
+				1E82EE011D3A5BE400775DA0 /* PBValidator.m */,
+			);
+			path = helper;
+			sourceTree = "<group>";
+		};
 		1EB064CC1D368CB3002CA239 /* Playbasis */ = {
 			isa = PBXGroup;
 			children = (
+				1E82EDFF1D3A5BE400775DA0 /* helper */,
 				1E82EDD71D39EE3800775DA0 /* api */,
 				1EB066711D38EBF9002CA239 /* http */,
 				1EB0665C1D38A82C002CA239 /* model */,
@@ -369,6 +402,10 @@
 				1EB064FA1D368E02002CA239 /* ui */,
 				1EB064CD1D368CB3002CA239 /* Playbasis.h */,
 				1EB064CE1D368CB3002CA239 /* Info.plist */,
+				1E82EDEB1D3A281300775DA0 /* PBBuilder.h */,
+				1E82EDEC1D3A281300775DA0 /* PBBuilder.m */,
+				1E82EDF11D3A2C2700775DA0 /* PBBuilderConfiguration.h */,
+				1E82EDF21D3A2C2700775DA0 /* PBBuilderConfiguration.m */,
 			);
 			path = Playbasis;
 			sourceTree = "<group>";
@@ -564,6 +601,7 @@
 			files = (
 				1EB065151D368E02002CA239 /* PBCommon.h in Headers */,
 				1EB065251D368E02002CA239 /* pbUserRegistrationFormViewController.h in Headers */,
+				1E82EDED1D3A281300775DA0 /* PBBuilder.h in Headers */,
 				1E82EDE21D3A18F800775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
 				1E82EDE31D3A18FA00775DA0 /* PBAuthApi.h in Headers */,
 				1EB0650D1D368E02002CA239 /* RNCryptorEngine.h in Headers */,
@@ -580,8 +618,10 @@
 				1EB065191D368E02002CA239 /* PBMacros.h in Headers */,
 				1EB065171D368E02002CA239 /* PBConstants.h in Headers */,
 				1EB065031D368E02002CA239 /* KLCPopup.h in Headers */,
+				1E82EE021D3A5BE400775DA0 /* PBValidator.h in Headers */,
 				1EB0651A1D368E02002CA239 /* PBRequestUnit.h in Headers */,
 				1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */,
+				1E82EDF31D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */,
 				1E82EDE11D3A18D200775DA0 /* PBSettings.h in Headers */,
 				1EB065071D368E02002CA239 /* Reachability.h in Headers */,
 				1EB0650F1D368E02002CA239 /* RNDecryptor.h in Headers */,
@@ -614,8 +654,11 @@
 				1EB065CA1D36B509002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
 				1EB065CB1D36B509002CA239 /* PBCommon.h in Headers */,
 				1EB065CC1D36B509002CA239 /* PBConstants.h in Headers */,
+				1E82EDEE1D3A281300775DA0 /* PBBuilder.h in Headers */,
+				1E82EE031D3A5BE400775DA0 /* PBValidator.h in Headers */,
 				1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */,
 				1EB065CE1D36B509002CA239 /* PBRequestUnit.h in Headers */,
+				1E82EDF41D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */,
 				1E82EDEA1D3A194400775DA0 /* pblib-Prefix.pch in Headers */,
 				1E82EDE71D3A192A00775DA0 /* PBTypes.h in Headers */,
 				1EB065CF1D36B509002CA239 /* PBResponses.h in Headers */,
@@ -947,6 +990,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E82EDF81D3A547800775DA0 /* TestGeneral.m in Sources */,
 				1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -961,7 +1005,10 @@
 				1EB065061D368E02002CA239 /* MBProgressHUD.m in Sources */,
 				1EB065081D368E02002CA239 /* Reachability.m in Sources */,
 				1EB0651D1D368E02002CA239 /* PBResponses.m in Sources */,
+				1E82EE041D3A5BE400775DA0 /* PBValidator.m in Sources */,
 				1EB065211D368E02002CA239 /* PBUtils.m in Sources */,
+				1E82EDEF1D3A281300775DA0 /* PBBuilder.m in Sources */,
+				1E82EDF51D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 				1EB066611D38A84F002CA239 /* PBAuth.m in Sources */,
 				1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EB0651B1D368E02002CA239 /* PBRequestUnit.m in Sources */,
@@ -996,6 +1043,9 @@
 				1E82EDDD1D39EE5A00775DA0 /* PBAuthApi.m in Sources */,
 				1EB066771D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EB065DE1D36B542002CA239 /* Playbasis.m in Sources */,
+				1E82EDF01D3A281300775DA0 /* PBBuilder.m in Sources */,
+				1E82EE051D3A5BE400775DA0 /* PBValidator.m in Sources */,
+				1E82EDF61D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

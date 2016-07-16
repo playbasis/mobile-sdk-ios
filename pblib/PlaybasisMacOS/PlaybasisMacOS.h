@@ -19,6 +19,11 @@
 #import <PlaybasisMacOS/PBUtils.h>
 #import <PlaybasisMacOS/PBMacros.h>
 #import <PlaybasisMacOS/Reachability.h>
+#import <PlaybasisMacOS/PBBuilder.h>
+#import <PlaybasisMacOS/PBBuilderConfiguration.h>
+
+// API
+#import <PlaybasisMacOS/PBAuthApi.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -49,6 +54,10 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 #endif
 }
 
+@property (nonatomic, strong, readonly) NSString* apiKey;
+@property (nonatomic, strong, readonly) NSString* apiSecret;
+@property (nonatomic, strong, readonly) NSString* baseUrl;
+@property (nonatomic, strong, readonly) NSString* baseAsyncUrl;
 @property (nonatomic, strong, readonly) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
 
@@ -88,7 +97,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  notification later.
  
  @param deviceToken Device token sent in from native iOS platform.
- @param withKey Key string for Playbasis SDK to retrieve the value from later via NSUserDefaults.
+ @param key Key string for Playbasis SDK to retrieve the value from later via NSUserDefaults.
  
  */
 +(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
@@ -99,28 +108,12 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  */
 +(NSString*)getDeviceToken;
 
-/**
- Set server url that SDK uses for synchronized api calls.
- */
-+(void)setServerUrl:(NSString*)url;
-
-/**
- Get server url that SDK uses for synchronized api calls.
- */
-+(NSString*)getServerUrl;
-
-/**
- Set asynchronized server url that SDK uses for aynchronized api calls.
- */
-+(void)setServerAsyncUrl:(NSString*)url;
-
-/**
- Get asynchronized server url that SDK uses for aynchronized api calls.
- */
-+(NSString*)getServerAsyncUrl;
++(PBBuilder*)builder;
 
 /**
  Get the singleton instance of Playbasis.
+ First you need to create Plabybasis instance by using builder method.
+ Otherwise, thie method will return nil.
  */
 +(Playbasis*)sharedPB;
 
@@ -131,8 +124,14 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
--(id)init;
+-(instancetype)initWithConfiguration:(PBBuilderConfiguration *)configs;
 -(void)dealloc;
+
+/**
+ * Fire request if necessary.
+ * If it cannot do it due to Intenet connection is down, then it will save into queue.
+ */
+-(void)fireRequestIfNecessary:(PBRequestUnit<id> *)request;
 
 /**
  Get request-operational-queue.
@@ -184,24 +183,6 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  Reset state of both intended player-id and its confirm status.
  */
 -(void)resetIntendedLogoutPlayerId;
-
-//------------------------------
-
-/**
- Authenticate and get access token.
- */
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)authWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)authWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret bundleId:(NSString *)bundleId andBlock:(PBAuth_ResponseBlock)block;
-
-/**
- Request a new access token, and discard the current one.
- */
--(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)renewWithApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
--(PBRequestUnit *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(PBRequestUnit *)renewWithApiKeyAsync:(NSString *)apiKey apiSecret:(NSString *)apiSecret andBlock:(PBAuth_ResponseBlock)block;
 
 /**
  Get player's public information.

@@ -15,13 +15,9 @@
 #import "MBProgressHUD.h"
 #endif
 
-#import "PBRequestUnit.h"
+#import "helper/PBValidator.h"
 
-/**
- Internal class use only when setting custom HTTP header fields whenever making a new request.
- 
- User should not use this class.
- */
+// TODO: Remove this when we completely refactored all the code
 @interface _customDeviceInfoHttpHeaderFields : NSObject
 
 @property (nonatomic) CGFloat screenWidth;
@@ -37,6 +33,9 @@
 
 @implementation _customDeviceInfoHttpHeaderFields
 @end
+
+// shared instance of Playbasis
+static Playbasis *sharedInstance = nil;
 
 //
 // additional interface for private methods
@@ -75,6 +74,12 @@
     _customDeviceInfoHttpHeaderFields *_customDeviceInfoHttpHeaderFieldsVar;
 }
 
+// overwrite write access within class only
+@property (nonatomic, strong, readwrite) NSString* apiKey;
+@property (nonatomic, strong, readwrite) NSString* apiSecret;
+@property (nonatomic, strong, readwrite) NSString* baseUrl;
+@property (nonatomic, strong, readwrite) NSString* baseAsyncUrl;
+
 /**
  Set token.
  */
@@ -91,6 +96,7 @@
  */
 -(void)checkNetworkStatus:(NSNotification*)notice;
 
+// TODO: Refactor UIApplication's event
 -(void)onApplicationDidFinishLaunching:(NSNotification *)notif;
 -(void)onApplicationWillResignActive:(NSNotification *)notif;
 -(void)onApplicationDidEnterBackground:(NSNotification *)notif;
@@ -459,110 +465,6 @@
 @end
 
 //
-// delegate object for handling authentication
-//
-@interface PBAuthDelegate : NSObject <PBAuth_ResponseHandler>
-{
-    Playbasis* pb;
-    BOOL finished;
-    
-    // either use one or another
-    id<PBAuth_ResponseHandler> finishDelegate;
-    PBAuth_ResponseBlock finishBlock;
-}
--(id)initWithCoder:(NSCoder *)decoder;
--(void)encodeWithCoder:(NSCoder *)encoder;
--(id)initWithPlaybasis:(Playbasis*)playbasis andDelegate:(id<PBAuth_ResponseHandler>)delegate;
--(id)initWithPlaybasis:(Playbasis*)playbasis andBlock:(PBAuth_ResponseBlock)block;
--(BOOL)isFinished;
--(void)processResponseWithAuth:(PBAuth_Response *)auth withURL:(NSURL *)url error:(NSError *)error;
-@end
-
-@implementation PBAuthDelegate
-
--(id)initWithCoder:(NSCoder *)decoder
-{
-    self = [super init];
-    if(!self)
-    {
-        return nil;
-    }
-    
-    pb = [decoder decodeObjectForKey:@"pb"];
-    finished = [decoder decodeBoolForKey:@"finished"];
-    finishDelegate = [decoder decodeObjectForKey:@"finishDelegate"];
-    
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)encoder
-{
-    [encoder encodeObject:pb forKey:@"pb"];
-    [encoder encodeBool:finished forKey:@"finished"];
-    [encoder encodeObject:finishDelegate forKey:@"finishDelegate"];
-}
-
--(id)initWithPlaybasis:(Playbasis *)playbasis andDelegate:(id<PBAuth_ResponseHandler>)delegate
-{
-    if(!(self = [super init]))
-        return nil;
-    finished = NO;
-    pb = playbasis;
-    
-    // use delegate, thus nil out block
-    finishDelegate = delegate;
-    finishBlock = nil;
-    
-    return self;
-}
-
--(id)initWithPlaybasis:(Playbasis *)playbasis andBlock:(PBAuth_ResponseBlock)block
-{
-    if(!(self = [super init]))
-        return nil;
-    finished = NO;
-    pb = playbasis;
-    
-    // use block, thus nil out delegate
-    finishDelegate = nil;
-    finishBlock = block;
-    
-    return self;
-}
-
--(BOOL)isFinished
-{
-    return finished;
-}
--(void)processResponseWithAuth:(PBAuth_Response *)auth withURL:(NSURL *)url error:(NSError *)error
-{
-    // there's an error
-    if(error)
-    {
-        // auth failed
-        PBLOG(@"Auth failed, error = %@", [error localizedDescription]);
-        // not return yet, this will allow user's flow to retry if needed
-    }
-    else
-    {
-        // otherwise, it's okay
-        [pb setToken:auth.token];
-        finished = YES;
-    }
-    
-    // just relay the response to user's delegate or block
-    if(finishDelegate && ([finishDelegate respondsToSelector:@selector(processResponseWithAuth:withURL:error:)]))
-    {
-        [finishDelegate processResponseWithAuth:auth withURL:url error:error];
-    }
-    else if(finishBlock)
-    {
-        finishBlock(auth, url, error);
-    }
-}
-@end
-
-//
 // The Playbasis Object
 //
 @implementation Playbasis
@@ -647,18 +549,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     return nil;
 }
 
++(PBBuilder*)builder
+{
+    return [[PBBuilder alloc] init];
+}
+
 +(Playbasis*)sharedPB
 {
-    static Playbasis *sharedPlaybasis = nil;
-    
-    // use dispatch_once_t to initialize singleton just once
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedPlaybasis = [[self alloc] init];
-        PBLOG(@"--Once creating instance for Playbasis--.");
-    });
-    
-    return sharedPlaybasis;
+    return sharedInstance;
 }
 
 +(NSString *)version
@@ -692,7 +590,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [encoder encodeObject:_requestOptQueue forKey:@"requestOptQueue"];
 }
 
--(id)init
+-(instancetype)initWithConfiguration:(PBBuilderConfiguration*)configs
 {
     if(!(self = [super init]))
         return nil;
@@ -751,6 +649,19 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // schedule interval call to dispatch request in queue
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(dispatchFirstRequestInQueue:) userInfo:nil repeats:YES];
+    
+    // check if either apiKey or apiSecret is not valid, then throw exception
+    if (![PBValidator isValidString:configs.apiKey] ||
+        ![PBValidator isValidString:configs.apiSecret])
+        [NSException raise:@"apiKey and apiSecret must be set first" format:@"either apiKey or apiSecret is nil"];
+    
+    // save configurations
+    self.apiKey = configs.apiKey;
+    self.apiSecret = configs.apiSecret;
+    self.baseUrl = configs.baseUrl;
+    self.baseAsyncUrl = configs.baseAsyncUrl;
+    // set instance of this to shared instance
+    sharedInstance = self;
     
     return self;
 }

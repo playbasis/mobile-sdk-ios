@@ -11,13 +11,16 @@
 /// Due to the problem with Cocoapod, after building the project, you have to copy all pod's frameworks to be in the same level of .xctest. Right click and open finder in .xctest file in Products group.
 ///
 #import <XCTest/XCTest.h>
+#import "Macros.h"
 #import "Playbasis.h"
 
 #define TIMEOUT 6.0f
 
+INIT_VARS_STATIC
+
 @interface TestAuthApi : XCTestCase
 {
-    XCTestExpectation *ex;
+    INIT_VARS_LOCAL
 }
 
 @end
@@ -26,6 +29,8 @@
 
 - (void)setUp {
     [super setUp];
+    
+    INIT_PLAYBASIS
 }
 
 - (void)tearDown {
@@ -33,30 +38,29 @@
 }
 
 - (void)testAuth {
-    ex = [self expectationWithDescription:@"auth"];
+    EXP_CREATE(@"auth")
     
-    [PBAuthApi auth:[Playbasis sharedPB] apiKey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
+    [PBAuthApi auth:[Playbasis sharedPB] bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
         XCTAssert(error == nil, @"error must be nil");
-        [ex fulfill];
+        EXP_FULFILL
     }];
     
-    [self waitForExpectationsWithTimeout:TIMEOUT handler:nil];
+    EXP_WAIT(TIMEOUT)
 }
 
 - (void)testRenew {
-    ex = [self expectationWithDescription:@"renew"];
+    EXP_CREATE(@"renew")
     
-    [PBAuthApi auth:[Playbasis sharedPB] apiKey:@"269122575" apiSecret:@"c57495174674157dd19317dd79e3c36e" bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
+    [PBAuthApi auth:[Playbasis sharedPB] bundleId:@"io.wasin.playbasisapitest" andCompletion:^(PBAuth *result, NSError *error) {
         XCTAssert(error == nil, @"error must be nil");
         
-        [PBAuthApi renew:[Playbasis sharedPB] completion:^(PBAuth *result, NSError *error) {
+        [PBAuthApi renew:[  Playbasis sharedPB] completion:^(PBAuth *result, NSError *error) {
             XCTAssert(error == nil, @"error must be nil");
-            NSLog(@"hehe %@ %@", result.token, [result.dateExpire descriptionWithLocale:[NSLocale systemLocale]]);
-            [ex fulfill];
+            EXP_FULFILL
         }];
     }];
     
-    [self waitForExpectationsWithTimeout:TIMEOUT handler:nil];
+    EXP_WAIT(TIMEOUT)
 }
 
 @end
