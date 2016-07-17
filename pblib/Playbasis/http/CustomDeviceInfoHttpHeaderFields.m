@@ -7,12 +7,7 @@
 //
 
 #import "CustomDeviceInfoHttpHeaderFields.h"
-#import <TargetConditionals.h>
-#if TARGET_OS_IOS
-    #import "Playbasis.h"
-#elif TARGET_OS_OSX
-    #import "PlaybasisMacOS.h"
-#endif
+#import "Playbasis.h"
 #import "../PBUtils.h"
 
 @implementation CustomDeviceInfoHttpHeaderFields

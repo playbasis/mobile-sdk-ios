@@ -1,0 +1,6 @@
+framework module PlaybasisMacOS {
+  umbrella header "PlaybasisMacOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

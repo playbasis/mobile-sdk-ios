@@ -15,7 +15,7 @@
 		1E82EDDC1D39EE5A00775DA0 /* PBAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */; };
 		1E82EDDD1D39EE5A00775DA0 /* PBAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDD91D39EE5A00775DA0 /* PBAuthApi.m */; };
 		1E82EDDE1D3A18BF00775DA0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; };
+		1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064CD1D368CB3002CA239 /* Playbasis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E82EDE01D3A18D000775DA0 /* PBUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F71D368E02002CA239 /* PBUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E82EDE11D3A18D200775DA0 /* PBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064F51D368E02002CA239 /* PBSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E82EDE21D3A18F800775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB066721D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,7 +87,7 @@
 		1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064FE1D368E02002CA239 /* pbUserRegistrationFormViewController.m */; };
 		1EB065271D368E02002CA239 /* UIImage+AutoLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */; };
-		1EB065BE1D36B47C002CA239 /* PlaybasisMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB065BC1D36B47C002CA239 /* PlaybasisMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EB065BE1D36B47C002CA239 /* PlaybasisMacOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB065BC1D36B47C002CA239 /* PlaybasisMacOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065C21D36B509002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065C31D36B509002CA239 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064DD1D368E02002CA239 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065C41D36B509002CA239 /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064E01D368E02002CA239 /* RNCryptor+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -153,6 +153,7 @@
 		1ED325D41D3BF34700060C1A /* PBApiMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED325D21D3BF28100060C1A /* PBApiMacros.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1ED325D51D3BF44800060C1A /* PBPlayerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EE081D3A833700775DA0 /* PBPlayerApi.m */; };
 		1ED325D61D3BF44900060C1A /* PBPlayerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EE081D3A833700775DA0 /* PBPlayerApi.m */; };
+		1ED325DD1D3C29BA00060C1A /* Playbasis-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED325DC1D3C287200060C1A /* Playbasis-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E6FAA764163EE44BDDC184A /* Pods_PlaybasisMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B48FE7F1C2A3BF65374418AD /* Pods_PlaybasisMacOS.framework */; };
 		534BFCF788C99904A6C87E24 /* Pods_Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F71571528E3BB7B030879C5 /* Pods_Playbasis.framework */; };
 /* End PBXBuildFile section */
@@ -290,7 +291,7 @@
 		1EB064FF1D368E02002CA239 /* UIImage+AutoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AutoLoader.h"; sourceTree = "<group>"; };
 		1EB065001D368E02002CA239 /* UIImage+AutoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AutoLoader.m"; sourceTree = "<group>"; };
 		1EB065BA1D36B47C002CA239 /* PlaybasisMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlaybasisMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1EB065BC1D36B47C002CA239 /* PlaybasisMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybasisMacOS.h; sourceTree = "<group>"; };
+		1EB065BC1D36B47C002CA239 /* PlaybasisMacOS-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlaybasisMacOS-umbrella.h"; sourceTree = "<group>"; };
 		1EB065BD1D36B47C002CA239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EB065E71D3746D3002CA239 /* PlaybasisWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlaybasisWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB065E91D3746D3002CA239 /* PlaybasisWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybasisWrapper.h; sourceTree = "<group>"; };
@@ -315,6 +316,9 @@
 		1ED325C51D3B5A9A00060C1A /* OCMapperModelConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMapperModelConfigurator.m; sourceTree = "<group>"; };
 		1ED325CC1D3B801600060C1A /* TestPlayerApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPlayerApi.m; sourceTree = "<group>"; };
 		1ED325D21D3BF28100060C1A /* PBApiMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBApiMacros.h; sourceTree = "<group>"; };
+		1ED325D91D3C282E00060C1A /* Playbasis.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = Playbasis.modulemap; sourceTree = "<group>"; };
+		1ED325DB1D3C282E00060C1A /* PlaybasisMacOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = PlaybasisMacOS.modulemap; sourceTree = "<group>"; };
+		1ED325DC1D3C287200060C1A /* Playbasis-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Playbasis-umbrella.h"; sourceTree = "<group>"; };
 		1EDA69D01AA13D1C00F8A13B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2C1C74F817461E1B005F3B57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -446,6 +450,7 @@
 				1E82EDF11D3A2C2700775DA0 /* PBBuilderConfiguration.h */,
 				1E82EDF21D3A2C2700775DA0 /* PBBuilderConfiguration.m */,
 				1ED325C11D3B59B200060C1A /* ConfigurableModelClasses.plist */,
+				1ED325DC1D3C287200060C1A /* Playbasis-umbrella.h */,
 			);
 			path = Playbasis;
 			sourceTree = "<group>";
@@ -521,7 +526,7 @@
 		1EB065BB1D36B47C002CA239 /* PlaybasisMacOS */ = {
 			isa = PBXGroup;
 			children = (
-				1EB065BC1D36B47C002CA239 /* PlaybasisMacOS.h */,
+				1EB065BC1D36B47C002CA239 /* PlaybasisMacOS-umbrella.h */,
 				1EB065BD1D36B47C002CA239 /* Info.plist */,
 			);
 			path = PlaybasisMacOS;
@@ -584,9 +589,35 @@
 			path = http;
 			sourceTree = "<group>";
 		};
+		1ED325D71D3C282E00060C1A /* Target Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1ED325D81D3C282E00060C1A /* Playbasis */,
+				1ED325DA1D3C282E00060C1A /* PlaybasisMacOS */,
+			);
+			path = "Target Support Files";
+			sourceTree = "<group>";
+		};
+		1ED325D81D3C282E00060C1A /* Playbasis */ = {
+			isa = PBXGroup;
+			children = (
+				1ED325D91D3C282E00060C1A /* Playbasis.modulemap */,
+			);
+			path = Playbasis;
+			sourceTree = "<group>";
+		};
+		1ED325DA1D3C282E00060C1A /* PlaybasisMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				1ED325DB1D3C282E00060C1A /* PlaybasisMacOS.modulemap */,
+			);
+			path = PlaybasisMacOS;
+			sourceTree = "<group>";
+		};
 		2C1C74EC17461E1B005F3B57 = {
 			isa = PBXGroup;
 			children = (
+				1ED325D71D3C282E00060C1A /* Target Support Files */,
 				1EB064CC1D368CB3002CA239 /* Playbasis */,
 				1EB065BB1D36B47C002CA239 /* PlaybasisMacOS */,
 				1EB065E81D3746D3002CA239 /* PlaybasisWrapper */,
@@ -668,6 +699,7 @@
 				1EB065031D368E02002CA239 /* KLCPopup.h in Headers */,
 				1E82EE021D3A5BE400775DA0 /* PBValidator.h in Headers */,
 				1EB0651A1D368E02002CA239 /* PBRequestUnit.h in Headers */,
+				1ED325DD1D3C29BA00060C1A /* Playbasis-umbrella.h in Headers */,
 				1EB0651C1D368E02002CA239 /* PBResponses.h in Headers */,
 				1E82EE091D3A833700775DA0 /* PBPlayerApi.h in Headers */,
 				1E82EDF31D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */,
@@ -689,7 +721,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EB065BE1D36B47C002CA239 /* PlaybasisMacOS.h in Headers */,
+				1EB065BE1D36B47C002CA239 /* PlaybasisMacOS-umbrella.h in Headers */,
 				1E82EDE41D3A190C00775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
 				1EB065C21D36B509002CA239 /* JSONKit.h in Headers */,
 				1E82EDE91D3A193700775DA0 /* PBSettings.h in Headers */,
@@ -1267,6 +1299,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Playbasis/Playbasis.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.playbasis.ios.playbasissdk.Playbasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1309,6 +1342,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Playbasis/Playbasis.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.playbasis.ios.playbasissdk.Playbasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1351,6 +1385,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/PlaybasisMacOS/PlaybasisMacOS.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.ios.playbasissdk.PlaybasisMacOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1395,6 +1430,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/PlaybasisMacOS/PlaybasisMacOS.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wasin.ios.playbasissdk.PlaybasisMacOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -9,34 +9,27 @@
 #import <TargetConditionals.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import <Playbasis/JSONKit.h>
-#import <Playbasis/PBTypes.h>
-#import <Playbasis/PBRequestUnit.h>
-#import <Playbasis/NSMutableArray+QueueAndSerializationAdditions.h>
-#import <Playbasis/PBResponses.h>
-#import <Playbasis/PBSettings.h>
-#import <Playbasis/PBConstants.h>
-#import <Playbasis/PBUtils.h>
-#import <Playbasis/PBMacros.h>
-#import <Playbasis/Reachability.h>
-#import <Playbasis/PBBuilder.h>
-#import <Playbasis/PBBuilderConfiguration.h>
+#import "JSONKit.h"
+#import "PBTypes.h"
+#import "PBRequestUnit.h"
+#import "NSMutableArray+QueueAndSerializationAdditions.h"
+#import "PBResponses.h"
+#import "PBSettings.h"
+#import "PBConstants.h"
+#import "PBUtils.h"
+#import "PBMacros.h"
+#import "Reachability.h"
+#import "PBBuilder.h"
+#import "PBBuilderConfiguration.h"
 
 // API
-#import <Playbasis/PBAuthApi.h>
-#import <Playbasis/PBPlayerApi.h>
+#import "PBAuthApi.h"
+#import "PBPlayerApi.h"
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
-
-//! Project version number for Playbasis.
-FOUNDATION_EXPORT double PlaybasisVersionNumber;
-
-//! Project version string for Playbasis.
-FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
-
 #import <CoreMotion/CoreMotion.h>
-#import <Playbasis/PBUI.h>
+#import "PBUI.h"
 #endif
 
 /**
