@@ -24,4 +24,17 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)player:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBPlayer *, NSError *))completion
+{
+    if (![PBValidator isValid:playbasis])
+        [NSException raise:@"playbasis instance is neeed" format:@"playabsis instance cannot be nil"];
+    
+    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:[NSString stringWithFormat:@"Player/%@", playerId] andApiKey:playbasis.apiKey];
+    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"token" : playbasis.token}];
+    
+    PBRequestUnit<PBPlayer*> *request = [[PBRequestUnit<PBPlayer*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion withJsonResultSubKey:@"player" forResultClass:[PBPlayer class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end

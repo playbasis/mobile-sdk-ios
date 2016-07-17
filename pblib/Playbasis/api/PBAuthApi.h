@@ -13,8 +13,6 @@
 
 @interface PBAuthApi : NSObject
 
-+ (NSString*)getToken;
-
 + (void)auth:(Playbasis *)playbasis bundleId:(NSString *)bundleId andCompletion:(void(^)(PBAuth* result, NSError* error))completion;
 
 + (void)renew:(Playbasis *)playbasis completion:(void(^)(PBAuth* result, NSError* error))completion;

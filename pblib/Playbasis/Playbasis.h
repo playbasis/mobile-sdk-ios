@@ -59,7 +59,7 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 @property (nonatomic, strong, readonly) NSString* apiSecret;
 @property (nonatomic, strong, readonly) NSString* baseUrl;
 @property (nonatomic, strong, readonly) NSString* baseAsyncUrl;
-@property (nonatomic, strong, readonly) NSString* token;
+@property (nonatomic, strong, readwrite) NSString* token;
 @property (nonatomic, readonly) BOOL isNetworkReachable;
 
 
@@ -184,14 +184,6 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  Reset state of both intended player-id and its confirm status.
  */
 -(void)resetIntendedLogoutPlayerId;
-
-/** 
- Get player's both private and public information.
- */
--(PBRequestUnit *)player:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
--(PBRequestUnit *)player:(NSString *)playerId withBlock:(PBPlayer_ResponseBlock)block;
--(PBRequestUnit *)playerAsync:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate;
--(PBRequestUnit *)playerAsync:(NSString *)playerId withBlock:(PBPlayer_ResponseBlock)block;
 
 /**
  Get basic information of list of players.

@@ -907,31 +907,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [self setIntendedLogoutPlayerIdAndResetConfirmStatus:nil];
 }
 
--(PBRequestUnit *)player:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate
-{
-    return [self playerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)player:(NSString *)playerId withBlock:(PBPlayer_ResponseBlock)block
-{
-    return [self playerInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)playerAsync:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate
-{
-    return [self playerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)playerAsync:(NSString *)playerId withBlock:(PBPlayer_ResponseBlock)block
-{
-    return [self playerInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)playerInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
-{
-    NSAssert(_token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@", _token];
-    
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_player andResponse:response];
-}
-
 // playerListId player id as used in client's website separate with ',' example '1,2,3'
 -(PBRequestUnit *)playerList:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate
 {
@@ -5123,6 +5098,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // it's always async url request, thus non-blocking call
     [self trackPlayerInternalBase:playerId forAction:action fromView:view useDelegate:NO withResponse:block];
 }
+// TODO: Fix this method, it's broken after we introduce PBPlayerApi and removed old
 -(void)trackPlayerInternalBase:(NSString *)playerId forAction:(NSString *)action fromView:(UIViewController *)view useDelegate:(BOOL)useDelegate withResponse:(id)response
 {
     // begin entire sequence in async way
@@ -5131,9 +5107,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
         // the sequence should be in sequencial thus we use blocking call
         
         // check if user exists in the system or not
-        [self player:playerId withBlock:^(PBPlayer_Response *player, NSURL *url, NSError *error) {
+        [PBPlayerApi player:self playerId:playerId andCompletion:^(PBPlayer *result, NSError *error) {
             // user doesn't exist
-            if(player == nil && error != nil && error.code == PBERROR_USER_NOT_EXIST)
+            if(result == nil && error != nil && error.code == PBERROR_USER_NOT_EXIST)
             {
                 PBLOG(@"Player doesn't exist");
                 
@@ -5162,14 +5138,14 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 {
                     PBLOG(@"No view set, then send back with error to reponse.");
                     // if there's no view input, then directly send back response with error
-                    PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
-                    sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);
+                    /*PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
+                    sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);*/
                 }
             }
             // player exists
-            else if(player != nil && error == nil)
+            else if(result != nil && error == nil)
             {
-                PBLOG(@"Player exists as following info: %@", player);
+                PBLOG(@"Player exists as following info: %@", result);
                 
                 // now it's time to track
                 // response back to the root response
@@ -5183,8 +5159,8 @@ static NSString *sDeviceTokenRetrievalKey = nil;
                 // direct response back
                 if(response != nil)
                 {
-                    PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
-                    sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);
+                    /*PBAsyncURLRequestResponseBlock sb = (PBAsyncURLRequestResponseBlock)response;
+                    sb([PBManualSetResultStatus_Response resultStatusWithFailure], url, error);*/
                 }
             }
         }];

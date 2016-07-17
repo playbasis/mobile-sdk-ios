@@ -10,14 +10,7 @@
 #import "Playbasis.h"
 #import "../helper/PBValidator.h"
 
-static NSString* s_token = nil;
-
 @implementation PBAuthApi
-
-+(NSString *)getToken
-{
-    return s_token;
-}
 
 + (void)auth:(Playbasis *)playbasis bundleId:(NSString *)bundleId andCompletion:(void (^)(PBAuth *, NSError *))completion
 {
@@ -31,7 +24,7 @@ static NSString* s_token = nil;
         // save token
         if (error == nil)
         {
-            s_token = result.token;
+            playbasis.token = result.token;
         }
         
         // call normal callback block
@@ -53,7 +46,7 @@ static NSString* s_token = nil;
     PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:^(PBAuth* result, NSError *error) {
         if (error == nil)
         {
-            s_token = result.token;
+            playbasis.token = result.token;
         }
         
         // call normal callback block

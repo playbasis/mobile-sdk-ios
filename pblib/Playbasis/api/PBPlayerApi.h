@@ -15,4 +15,6 @@
 
 + (void)playerPublic:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBPlayer *result, NSError *error))completion;
 
++ (void)player:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBPlayer *result, NSError *error))completion;
+
 @end
