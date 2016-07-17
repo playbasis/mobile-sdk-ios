@@ -907,32 +907,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     [self setIntendedLogoutPlayerIdAndResetConfirmStatus:nil];
 }
 
-// playerListId player id as used in client's website separate with ',' example '1,2,3'
--(PBRequestUnit *)playerList:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate
-{
-    return [self playerListInternalBase:playerListId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)playerList:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block
-{
-    return [self playerListInternalBase:playerListId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate
-{
-    return [self playerListInternalBase:playerListId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)playerListAsync:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block
-{
-    return [self playerListInternalBase:playerListId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)playerListInternalBase:(NSString *)playerListId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
-{
-    NSAssert(_token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/list%@", _apiKeyParam];
-    NSString *data = [NSString stringWithFormat:@"token=%@&list_player_id=%@", _token, playerListId];
-    
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:data responseType:responseType_playerList andResponse:response];
-}
-
 -(PBRequestUnit *)playerDetailPublic:(NSString *)playerId withDelegate:(id<PBPlayerDetailedPublic_ResponseHandler>)delegate
 {
     return [self playerDetailPublicInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];

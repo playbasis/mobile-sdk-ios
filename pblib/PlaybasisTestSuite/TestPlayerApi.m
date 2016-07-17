@@ -56,4 +56,18 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testListPlayer {
+    EXP_CREATE(@"listPlayer")
+    
+    BEGIN_AUTHWRAP
+    [PBPlayerApi listPlayer:[Playbasis sharedPB] listPlayerIds:@[@"jontestuser", @"jontestuser2"] andCompletion:^(NSArray<PBPlayer *> *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        XCTAssertEqual(2, [result count]);
+        EXP_FULFILL
+    }];
+    END_AUTHWRAP
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end

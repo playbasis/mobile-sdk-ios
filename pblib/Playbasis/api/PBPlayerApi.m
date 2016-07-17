@@ -36,6 +36,29 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
-
++(void)listPlayer:(Playbasis *)playbasis listPlayerIds:(NSArray<NSString *> *)listPlayerIds andCompletion:(void (^)(NSArray<PBPlayer *> *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    NSString *commaListPlayerIds = @"";
+    NSUInteger count = [listPlayerIds count];
+    if (listPlayerIds != nil && count > 0)
+    {
+        commaListPlayerIds = listPlayerIds[0];
+        if (count > 1)
+        {
+            for (int i=1; i<count; i++)
+            {
+                commaListPlayerIds = [commaListPlayerIds stringByAppendingString:[NSString stringWithFormat:@",%@", listPlayerIds[i]]];
+            }
+        }
+    }
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/list", nil)
+    API_CREATE_DATA_VARS(playbasis.token, @"token", commaListPlayerIds, @"list_player_id", nil)
+    
+    PBRequestUnit<NSArray<PBPlayer*>*> *request = [[PBRequestUnit<NSArray<PBPlayer*>*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion withJsonResultSubKey:@"player" forResultClass:[PBPlayer class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
 
 @end
