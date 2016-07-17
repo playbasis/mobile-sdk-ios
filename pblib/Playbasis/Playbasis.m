@@ -16,6 +16,7 @@
 #endif
 
 #import "helper/PBValidator.h"
+#import "model/OCMapperModelConfigurator.h"
 
 // TODO: Remove this when we completely refactored all the code
 @interface _customDeviceInfoHttpHeaderFields : NSObject
@@ -663,6 +664,9 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     // set instance of this to shared instance
     sharedInstance = self;
     
+    // configure model classes for OCMapper
+    [OCMapperModelConfigurator configure:@"ConfigurableModelClasses"];
+    
     return self;
 }
 
@@ -901,30 +905,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)resetIntendedLogoutPlayerId
 {
     [self setIntendedLogoutPlayerIdAndResetConfirmStatus:nil];
-}
-
--(PBRequestUnit *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate
-{
-    return [self playerPublicInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)playerPublic:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block
-{
-    return [self playerPublicInternalBase:playerId blockingCall:YES syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate
-{
-    return [self playerPublicInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:YES withResponse:delegate];
-}
--(PBRequestUnit *)playerPublicAsync:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block
-{
-    return [self playerPublicInternalBase:playerId blockingCall:NO syncUrl:YES useDelegate:NO withResponse:block];
-}
--(PBRequestUnit *)playerPublicInternalBase:(NSString *)playerId blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl useDelegate:(BOOL)useDelegate withResponse:(id)response
-{
-    NSAssert(_token, @"access token is nil");
-    NSString *method = [NSString stringWithFormat:@"Player/%@%@", playerId, _apiKeyParam];
-    
-    return [self refactoredInternalBaseReturnWithBlockingCall:blockingCall syncUrl:syncUrl useDelegate:useDelegate withMethod:method andData:nil responseType:responseType_playerPublic andResponse:response];
 }
 
 -(PBRequestUnit *)player:(NSString *)playerId withDelegate:(id<PBPlayer_ResponseHandler>)delegate
@@ -5726,7 +5706,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 -(void)showRegistrationFormFromView:(UIViewController *)view intendedPlayerId:(NSString *)playerId withBlock:(PBResponseBlock)block
 {
     // locate storyboard file from within framework
-    NSBundle *bundle = [NSBundle bundleWithIdentifier:@"com.playbasis.ios.playbasissdk.Playbasis"];
+    NSBundle *bundle = [NSBundle bundleForClass:[Playbasis class]];
     
     // get playbasis's storyboard
     UIStoryboard *pbStoryboard = [UIStoryboard storyboardWithName:@"PBStoryboard" bundle:bundle];

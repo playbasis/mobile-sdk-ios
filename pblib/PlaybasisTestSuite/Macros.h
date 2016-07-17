@@ -10,7 +10,7 @@
 #define Macros_h
 
 #define INIT_VARS_STATIC static Playbasis* playbasis = nil; \
-    BOOL initializedPlaybasis;
+    static BOOL initializedPlaybasis;
 #define INIT_VARS_LOCAL XCTestExpectation *ex;
 
 #define EXP_CREATE(msg) ex = [self expectationWithDescription:msg];

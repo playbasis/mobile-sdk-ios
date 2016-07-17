@@ -24,6 +24,7 @@
 
 // API
 #import <Playbasis/PBAuthApi.h>
+#import <Playbasis/PBPlayerApi.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -183,15 +184,6 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
  Reset state of both intended player-id and its confirm status.
  */
 -(void)resetIntendedLogoutPlayerId;
-
-/** 
- Get player's public information.
- It will send request via GET method.
- */
--(PBRequestUnit *)playerPublic:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate;
--(PBRequestUnit *)playerPublic:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block;
--(PBRequestUnit *)playerPublicAsync:(NSString *)playerId withDelegate:(id<PBPlayerPublic_ResponseHandler>)delegate;
--(PBRequestUnit *)playerPublicAsync:(NSString *)playerId withBlock:(PBPlayerPublic_ResponseBlock)block;
 
 /** 
  Get player's both private and public information.

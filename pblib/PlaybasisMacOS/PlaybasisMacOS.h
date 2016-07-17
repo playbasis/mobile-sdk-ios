@@ -24,6 +24,7 @@
 
 // API
 #import <PlaybasisMacOS/PBAuthApi.h>
+#import <PlaybasisMacOS/PBPlayerApi.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>

@@ -43,10 +43,14 @@ PBRequestState;
 @property (nonatomic, readonly) BOOL isBlockingCall;
 @property (nonatomic, readonly) BOOL isSyncURLRequest;
 
+// TODO: Remove these methods once we finished refactoring
 -(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andDelegate:(id<PBResponseHandler>)delegate;
 -(id)initWithURLRequest:(NSURLRequest *)request blockingCall:(BOOL)blockingCall syncUrl:(BOOL)syncUrl responseType:(pbResponseType)responseType andBlock:(PBResponseBlock)block;
 -(instancetype)initWithURLRequest:(NSURLRequest *)request isAsync:(BOOL)async completion:(void(^)(ObjectType result, NSError* error))completion forResultClass:(Class)objClass;
+
 -(instancetype)initWithMethodWithApikey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion forResultClass:(Class)objClass;
+-(instancetype)initWithMethodWithApikey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion withJsonResultSubKey:(NSString *)jsonSubKey forResultClass:(Class)objClass;
+
 -(id)initWithCoder:(NSCoder*)decoder;
 -(void)encodeWithCoder:(NSCoder*)encoder;
 -(NSDictionary *)getResponse;

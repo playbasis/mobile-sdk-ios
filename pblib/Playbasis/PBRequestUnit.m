@@ -12,6 +12,7 @@
 #import "http/CustomDeviceInfoHttpHeaderFields.h"
 #import "PBUtils.h"
 #import "PBSettings.h"
+#import "PBValidator.h"
 
 //
 // object for handling requests response
@@ -20,6 +21,7 @@
 @interface PBRequestUnit ()
 {
     CustomDeviceInfoHttpHeaderFields *_customDeviceInfoHttpHeaderFieldsVar;
+    NSString *jsonResultSubKey;
 }
 @end
 
@@ -115,6 +117,17 @@
     _state = ReadyToStart;
     _completion = completion;
     _resultClass = objClass;
+    
+    return self;
+}
+
+-(instancetype)initWithMethodWithApikey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion withJsonResultSubKey:(NSString *)jsonSubKey forResultClass:(Class)objClass
+{
+    if (!(self = [super init]))
+        return nil;
+    
+    self = [self initWithMethodWithApikey:method withData:data isAsync:async completion:completion forResultClass:objClass];
+    jsonResultSubKey = jsonSubKey;
     
     return self;
 }
@@ -352,7 +365,11 @@
         // TODO: Remove this when we completely refactored stuff
         // response success with actual 'response' data in json level
         NSLog(@"executing responseFromJsonResponse2");
-        [self responseFromJsonResponse2:[jsonResponse objectForKey:@"response"] error:nil];
+        
+        NSDictionary *result = [jsonResponse objectForKey:@"response"];
+        if ([PBValidator isValidString:jsonResultSubKey])
+            result = [result objectForKey:jsonResultSubKey];
+        [self responseFromJsonResponse2:result error:nil];
     }
     else
     {
@@ -371,10 +388,15 @@
         NSInteger nserrorErrorCode = [errorCode integerValue];
         
         // create an NSError
-        NSError *error = [NSError errorWithDomain:@"com.playbasis.iossdk" code:nserrorErrorCode userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:@"com.playbasis.ios.playbasissdk" code:nserrorErrorCode userInfo:userInfo];
         
         // response with fail
         [self responseFromJSONResponse:nil error:error];
+        
+        // TODO: Remove this when we completely refactored stuff
+        // response success with actual 'response' data in json level
+        NSLog(@"executing responseFromJsonResponse2 [fail case]");
+        [self responseFromJsonResponse2:nil error:error];
     }
 }
 
@@ -385,13 +407,17 @@
     
     if (_resultClass != nil)
     {
-        id result = [_resultClass objectFromDictionary:jsonResponse];
+        id result = nil;
+        if (error == nil)
+        {
+            result = [_resultClass objectFromDictionary:jsonResponse];
+        }
         
         NSLog(@"check _completion == nil? [%@]", _completion == nil ? @"YES" : @"NO");
         if (_completion != nil)
         {
             NSLog(@"execute inside if statement of _completion != nil");
-            _completion(result, nil);
+            _completion(result, error);
         }
     }
 }
