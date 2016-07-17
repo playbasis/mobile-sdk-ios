@@ -83,24 +83,6 @@
     return self;
 }
 
--(instancetype)initWithURLRequest:(NSURLRequest *)request isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion forResultClass:(Class)objClass
-{
-    if (!(self = [super init]))
-        return nil;
-    
-    
-    _urlRequest = request;
-    _receivedData = [NSMutableData data];
-    _retryCount = 0;
-    _isSyncURLRequest = !async;
-    _state = ReadyToStart;
-    NSLog(@"before setting completion block: null? [%@]", _completion == nil ? @"YES" : @"NO");
-    _completion = completion;
-    NSLog(@"after setting completion block: null? [%@]", _completion == nil ? @"YES" : @"NO");
-    _resultClass = objClass;
-    return self;
-}
-
 -(instancetype)initWithMethodWithApikey:(NSString *)method withData:(NSString *)data isAsync:(BOOL)async completion:(void (^)(id, NSError *))completion forResultClass:(Class)objClass
 {
     if (!(self = [super init]))
@@ -410,6 +392,7 @@
         id result = nil;
         if (error == nil)
         {
+            // either object returned is NSArray<>, or model class
             result = [_resultClass objectFromDictionary:jsonResponse];
         }
         

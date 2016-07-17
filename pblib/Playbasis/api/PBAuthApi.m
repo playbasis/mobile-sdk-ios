@@ -9,16 +9,16 @@
 #import "PBAuthApi.h"
 #import "Playbasis.h"
 #import "../helper/PBValidator.h"
+#import "PBApiMacros.h"
 
 @implementation PBAuthApi
 
 + (void)auth:(Playbasis *)playbasis bundleId:(NSString *)bundleId andCompletion:(void (^)(PBAuth *, NSError *))completion
 {
-    if (![PBValidator isValid:playbasis])
-        [NSException raise:@"playbasis instance is needed" format:@"playbasis instance cannot be nil"];
+    API_VALIDATE_PBOBJ(playbasis)
     
-    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:@"Auth" andApiKey:playbasis.apiKey];
-    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"api_key" : playbasis.apiKey, @"api_secret" : playbasis.apiSecret, @"pkg_name" : bundleId}];
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Auth", nil)
+    API_CREATE_DATA_VARS(playbasis.apiKey, @"api_key", playbasis.apiSecret, @"api_secret", bundleId, @"pkg_name", nil)
     
     PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:^(PBAuth* result, NSError *error) {
         // save token
@@ -37,11 +37,10 @@
 
 + (void)renew:(Playbasis *)playbasis completion:(void (^)(PBAuth *, NSError *))completion
 {
-    if (![PBValidator isValid:playbasis])
-        [NSException raise:@"playbasis instance is needed" format:@"playbasis instance cannot be nil"];
+    API_VALIDATE_PBOBJ(playbasis)
     
-    NSString *method = [[PBUtils sharedInstance] createMethodWithApiKeyUrlFromMethod:@"Auth" andApiKey:playbasis.apiKey];
-    NSString *data = [[PBUtils sharedInstance] createPostDataStringFromDictionary:@{@"api_key" : playbasis.apiKey, @"api_secret" : playbasis.apiSecret}];
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Auth", nil)
+    API_CREATE_DATA_VARS(playbasis.apiKey, @"api_key", playbasis.apiSecret, @"api_secret", nil)
     
     PBRequestUnit<PBAuth*> *request = [[PBRequestUnit<PBAuth*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:^(PBAuth* result, NSError *error) {
         if (error == nil)

@@ -186,15 +186,6 @@ FOUNDATION_EXPORT const unsigned char PlaybasisVersionString[];
 -(void)resetIntendedLogoutPlayerId;
 
 /**
- Get basic information of list of players.
- playerListId is in the format of id separated by "," ie. "1,2,3".
- */
--(PBRequestUnit *)playerList:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate;
--(PBRequestUnit *)playerList:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block;
--(PBRequestUnit *)playerListAsync:(NSString *)playerListId withDelegate:(id<PBPlayerList_ResponseHandler>)delegate;
--(PBRequestUnit *)playerListAsync:(NSString *)playerListId withBlock:(PBPlayerList_ResponseBlock)block;
-
-/**
  Get player's detailed public information including points and badge.
  */
 -(PBRequestUnit *)playerDetailPublic:(NSString *)playerId withDelegate:(id<PBPlayerDetailedPublic_ResponseHandler>)delegate;
