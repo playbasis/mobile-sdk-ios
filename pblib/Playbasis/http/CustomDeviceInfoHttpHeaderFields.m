@@ -8,7 +8,7 @@
 
 #import "CustomDeviceInfoHttpHeaderFields.h"
 #import "Playbasis.h"
-#import "../PBUtils.h"
+#import "../util/PBUtils.h"
 
 @implementation CustomDeviceInfoHttpHeaderFields
 

@@ -5,6 +5,9 @@
 	<key>models</key>
 	<array>
 		<string>PBPlayer</string>
+		<string>PBDetailedPlayer</string>
+		<string>PBBadge</string>
+		<string>PBGoods</string>
 	</array>
 </dict>
 </plist>

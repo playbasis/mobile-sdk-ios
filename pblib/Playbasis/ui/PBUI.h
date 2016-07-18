@@ -9,8 +9,6 @@
 #ifndef pblib_PBUI_h
 #define pblib_PBUI_h
 
-#import "pbUserRegistrationFormViewController.h"
-
 #if TARGET_OS_IOS
 #import "UIImage+AutoLoader.h"
 #endif

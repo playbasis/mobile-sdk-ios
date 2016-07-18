@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Playbasis. All rights reserved.
 //
 
-#if TARGET_OS_IOS
 #import "UIImage+AutoLoader.h"
 
 @implementation UIImage (AutoLoader)
@@ -44,4 +43,3 @@
 }
 
 @end
-#endif

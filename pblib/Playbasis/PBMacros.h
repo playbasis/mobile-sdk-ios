@@ -13,24 +13,12 @@
 #import "PBCommon.h"
 
 /**
- Check against NSNull.
- If input obj is NSNull then return YES, otherwise return NO.
- */
-#define PB_IS_NSNull(obj)   ((obj == (id)[NSNull null]) ? YES : NO)
-
-/**
- Check against nil or NSNull.
- If input obj is nil, or NSNull then return YES, otherwise return NO.
- */
-#define PB_IS_NIL_OR_NSNull(obj)    ((obj == nil) || (obj == (id)[NSNull null]) || ([obj respondsToSelector:@selector(count)] && [obj count] == 0) ? YES : NO)
-
-/**
  PBLOG, console logging
  */
-#if PBDebugMode == 1
+#if DEBUG
 #define PBLOG(text, ...)    PBLog(text, ##__VA_ARGS__)
 #else
-#define PBLOG(text, ...)    do {} while(0)
+#define PBLOG(text, ...)    /* */
 #endif
 
 #endif

@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 
 /**
- The max length of PBLog message.
+ Max buffer length in bytes
  */
 static const int kMaxLogLen = 16*1024;
 
 /**
- Ouput debug message.
+ Log message to console only if preprocessor "DEBUG" is set.
+
+ @param pszFormat format string
+ @param ...       variadic parameters
  */
 void PBLog(NSString * pszFormat, ...);
