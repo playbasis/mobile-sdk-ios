@@ -50,6 +50,10 @@
 		1E82EE1C1D3A89A300775DA0 /* PBGender.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E82EE191D3A89A300775DA0 /* PBGender.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E82EE1D1D3A89A300775DA0 /* PBGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EE1A1D3A89A300775DA0 /* PBGender.m */; };
 		1E82EE1E1D3A89A300775DA0 /* PBGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EE1A1D3A89A300775DA0 /* PBGender.m */; };
+		1EA20FA61D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA20FA41D3CAB8800CEA38A /* PBDetailedPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EA20FA71D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA20FA41D3CAB8800CEA38A /* PBDetailedPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EA20FA81D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA20FA51D3CAB8800CEA38A /* PBDetailedPlayer.m */; };
+		1EA20FA91D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA20FA51D3CAB8800CEA38A /* PBDetailedPlayer.m */; };
 		1EB065011D368E02002CA239 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D31D368E02002CA239 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065021D368E02002CA239 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D41D368E02002CA239 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1EB065031D368E02002CA239 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D71D368E02002CA239 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -187,6 +191,8 @@
 		1E82EE191D3A89A300775DA0 /* PBGender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGender.h; sourceTree = "<group>"; };
 		1E82EE1A1D3A89A300775DA0 /* PBGender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGender.m; sourceTree = "<group>"; };
 		1E82EE1F1D3B3DE900775DA0 /* OCMapperConfigurable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMapperConfigurable.h; sourceTree = "<group>"; };
+		1EA20FA41D3CAB8800CEA38A /* PBDetailedPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBDetailedPlayer.h; sourceTree = "<group>"; };
+		1EA20FA51D3CAB8800CEA38A /* PBDetailedPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBDetailedPlayer.m; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1EB064CB1D368CB3002CA239 /* Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB064CD1D368CB3002CA239 /* Playbasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
@@ -446,6 +452,8 @@
 				1E82EE1F1D3B3DE900775DA0 /* OCMapperConfigurable.h */,
 				1ED325C41D3B5A9A00060C1A /* OCMapperModelConfigurator.h */,
 				1ED325C51D3B5A9A00060C1A /* OCMapperModelConfigurator.m */,
+				1EA20FA41D3CAB8800CEA38A /* PBDetailedPlayer.h */,
+				1EA20FA51D3CAB8800CEA38A /* PBDetailedPlayer.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -542,6 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EB065151D368E02002CA239 /* PBCommon.h in Headers */,
+				1EA20FA61D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */,
 				1EB065251D368E02002CA239 /* pbUserRegistrationFormViewController.h in Headers */,
 				1E82EDED1D3A281300775DA0 /* PBBuilder.h in Headers */,
 				1E82EDE21D3A18F800775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
@@ -613,6 +622,7 @@
 				1E82EE031D3A5BE400775DA0 /* PBValidator.h in Headers */,
 				1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */,
 				1EB065CE1D36B509002CA239 /* PBRequestUnit.h in Headers */,
+				1EA20FA71D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */,
 				1E82EDF41D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */,
 				1E82EDEA1D3A194400775DA0 /* pblib-Prefix.pch in Headers */,
 				1E82EDE71D3A192A00775DA0 /* PBTypes.h in Headers */,
@@ -855,6 +865,7 @@
 				1ED325D51D3BF44800060C1A /* PBPlayerApi.m in Sources */,
 				1EB065261D368E02002CA239 /* pbUserRegistrationFormViewController.m in Sources */,
 				1EB065161D368E02002CA239 /* PBCommon.m in Sources */,
+				1EA20FA81D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,
 				1EB0650E1D368E02002CA239 /* RNCryptorEngine.m in Sources */,
 				1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */,
 				1EB065141D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
@@ -890,6 +901,7 @@
 				1E82EE051D3A5BE400775DA0 /* PBValidator.m in Sources */,
 				1E82EDF61D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 				1ED325C91D3B5A9A00060C1A /* OCMapperModelConfigurator.m in Sources */,
+				1EA20FA91D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

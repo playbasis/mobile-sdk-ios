@@ -61,4 +61,15 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)detailedPlayerPublic:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBDetailedPlayer *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/data/all", playerId, nil)
+    
+    PBRequestUnit<PBDetailedPlayer*> *request = [[PBRequestUnit<PBDetailedPlayer*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"player" forResultClass:[PBDetailedPlayer class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end

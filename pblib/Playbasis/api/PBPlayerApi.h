@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PBPlayer.h"
+#import "PBDetailedPlayer.h"
 
 @class Playbasis;
 
@@ -39,5 +40,14 @@
  @param completion   completion handler
  */
 + (void)listPlayer:(Playbasis *)playbasis listPlayerIds:(NSArray<NSString*>*)listPlayerIds andCompletion:(void(^)(NSArray<PBPlayer*> *result, NSError *error))completion;
+
+/**
+ Get player's public detailed information.
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handler
+ */
++ (void)detailedPlayerPublic:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBDetailedPlayer *result, NSError *error))completion;
 
 @end
