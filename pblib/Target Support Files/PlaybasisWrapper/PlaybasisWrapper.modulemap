@@ -1,0 +1,6 @@
+framework module PlaybasisWrapper {
+  umbrella header "PlaybasisWrapper-umbrella.h"
+
+  export *
+  module * { export * }
+}
