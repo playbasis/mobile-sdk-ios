@@ -116,4 +116,13 @@
  */
 + (void)level:(Playbasis *)playbasis level:(NSInteger)level andCompletion:(void(^)(PBLevel *result, NSError *error))completion;
 
+/**
+ Return information about all the badges that player has as well as of each that player has earned.
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handler
+ */
++ (void)badges:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(NSArray<PBBadge*> *result, NSError *error))completion;
+
 @end

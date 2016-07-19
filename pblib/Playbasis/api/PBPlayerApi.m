@@ -152,4 +152,15 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)badges:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(NSArray<PBBadge *> *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/badgeAll", playerId, nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<NSArray<PBBadge*>*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion forResultClass:[PBBadge class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end
