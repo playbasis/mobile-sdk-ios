@@ -112,9 +112,20 @@
 {
     API_VALIDATE_PBOBJ(playbasis)
     
-    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/points", playerId)
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/points", playerId, nil)
     
     PBRequestUnit<NSArray<PBPoint*>*> *request = [[PBRequestUnit<NSArray<PBPoint*>*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"points" forResultClass:[PBPoint class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
++(void)point:(Playbasis *)playbasis playerId:(NSString *)playerId pointName:(NSString *)pointName andCompletion:(void (^)(NSArray<PBPoint *> *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/point/%@", playerId, pointName, nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<NSArray<PBPoint*>*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"point" forResultClass:[PBPoint class]];
     
     [playbasis fireRequestIfNecessary:request];
 }

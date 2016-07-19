@@ -88,4 +88,14 @@
  */
 + (void)points:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(NSArray<PBPoint*> *result, NSError *error))completion;
 
+/**
+ Return information about specified point-based reward a player currently has.
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param pointName  point-based name
+ @param completion completion handler
+ */
++ (void)point:(Playbasis *)playbasis playerId:(NSString *)playerId pointName:(NSString *)pointName andCompletion:(void(^)(NSArray<PBPoint*> *result, NSError *error))completion;
+
 @end
