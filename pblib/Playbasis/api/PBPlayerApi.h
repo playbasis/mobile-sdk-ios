@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PBPlayer.h"
 #import "PBDetailedPlayer.h"
+#import "PBSuccessStatus.h"
 
 @class Playbasis;
 
@@ -58,5 +59,14 @@
  @param completion completion handler
  */
 + (void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBPlayer *result, NSError *error))completion;
+
+/**
+ Login for specified player id
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handelr
+ */
++ (void)login:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBSuccessStatus *result, NSError *error))completion;
 
 @end

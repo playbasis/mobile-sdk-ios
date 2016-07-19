@@ -276,11 +276,19 @@ static NSString * const KEY_RESULTCLASS = @"resultClass";
     // success
     if(success && [errorCode isEqualToString:@"0000"])
     {
-        // response success with actual 'response' data in json level
-        NSDictionary *result = [jsonResponse objectForKey:@"response"];
-        if ([PBValidator isValidString:_jsonResultSubKey])
-            result = [result objectForKey:_jsonResultSubKey];
-        [self responseFromJsonResponse:result error:nil];
+        // if it's type of success response
+        if ([NSStringFromClass([_resultClass class]) isEqualToString:NSStringFromClass([PBSuccessStatus class])])
+        {
+            [self responseFromBool:YES error:nil];
+        }
+        else
+        {
+            // response success with actual 'response' data in json level
+            NSDictionary *result = [jsonResponse objectForKey:@"response"];
+            if ([PBValidator isValidString:_jsonResultSubKey])
+                result = [result objectForKey:_jsonResultSubKey];
+            [self responseFromJsonResponse:result error:nil];
+        }
     }
     else
     {
@@ -302,7 +310,15 @@ static NSString * const KEY_RESULTCLASS = @"resultClass";
         NSError *error = [NSError errorWithDomain:@"com.playbasis.ios.playbasissdk" code:nserrorErrorCode userInfo:userInfo];
         
         // response with fail
-        [self responseFromJsonResponse:nil error:error];
+        // if it's type of success response
+        if ([NSStringFromClass([_resultClass class]) isEqualToString:NSStringFromClass([PBSuccessStatus class])])
+        {
+            [self responseFromBool:NO error:error];
+        }
+        else
+        {
+            [self responseFromJsonResponse:nil error:error];
+        }
     }
 }
 

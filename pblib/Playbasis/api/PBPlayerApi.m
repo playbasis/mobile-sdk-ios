@@ -84,4 +84,16 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)login:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBSuccessStatus *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/login", playerId, nil)
+    API_CREATE_DATA_VARS(playbasis.token, @"token", nil)
+    
+    PBRequestUnit<PBSuccessStatus*> *request = [[PBRequestUnit<PBSuccessStatus*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBSuccessStatus class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end
