@@ -66,6 +66,11 @@
 @property (nonatomic, readonly) BOOL isNetworkReachable;
 
 /**
+ Return device token
+ */
+@property (nonatomic, readonly) NSString* deviceToken;
+
+/**
  Delegate to listen to network availability via Reachability
  */
 @property (nonatomic, strong) id<PBNetworkStatusChangedDelegate> networkStatusChangedDelegate;
@@ -75,7 +80,7 @@
 
  @return Playbasis instance
  */
-+(PBBuilder*)builder;
++ (PBBuilder*)builder;
 
 /**
  Get shared instance of Playbasis.
@@ -83,12 +88,12 @@
 
  @return Playbasis instance, or if not initialized yet via "builder" method then it returns nil
  */
-+(Playbasis*)sharedPB;
++ (Playbasis*)sharedPB;
 
 /**
  Version of sdk.
  */
-+(NSString *)version;
++ (NSString *)version;
 
 /**
  Initialize with configuration
@@ -97,43 +102,55 @@
 
  @return Playbasis instance
  */
--(instancetype)initWithConfiguration:(PBBuilderConfiguration *)configs;
+- (instancetype)initWithConfiguration:(PBBuilderConfiguration *)configs;
 
 /**
  Dealloc
  */
--(void)dealloc;
+- (void)dealloc;
+
+/**
+ Register device for push notification
+ */
+- (void)registerDeviceForPushNotification;
+
+/**
+ Extract and save device token from data
+
+ @param rawData raw data
+ */
+- (void)extractAndSaveDeviceTokenFrom:(NSData *)rawData;
 
 /**
  * Fire request if necessary.
  * If it cannot do it due to Intenet connection is down, then it will save into queue.
  */
--(void)fireRequestIfNecessary:(PBRequestUnit<id> *)request;
+- (void)fireRequestIfNecessary:(PBRequestUnit<id> *)request;
 
 /**
  Get request-operational-queue.
  It holds all created http requests. Those requests are not dispatched or sent just yet. It's after dequeing, it will start sending those request one by one.
  */
--(const NSMutableArray *)getRequestOperationalQueue;
+- (const NSMutableArray *)getRequestOperationalQueue;
 
 #if TARGET_OS_IOS
 /**
  UI - for KLCPopup
  */
--(void)showFeedbackStatusUpdateWithText:(NSString *)text;
--(void)showFeedbackStatusUpdateWithText:(NSString *)text duration:(NSTimeInterval)duration;
--(void)showFeedbackEventPopupWithImage:(UIImage *)image title:(NSString *)title description:(NSString*)description;
--(void)showFeedbackEventPopupWithContent:(UIView *)contentView image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
--(void)dismissAllFeedbackPopups;
+- (void)showFeedbackStatusUpdateWithText:(NSString *)text;
+- (void)showFeedbackStatusUpdateWithText:(NSString *)text duration:(NSTimeInterval)duration;
+- (void)showFeedbackEventPopupWithImage:(UIImage *)image title:(NSString *)title description:(NSString*)description;
+- (void)showFeedbackEventPopupWithContent:(UIView *)contentView image:(UIImage *)image title:(NSString *)title description:(NSString*)description;
+- (void)dismissAllFeedbackPopups;
 
 /**
  UI - for MBProgressHUD
  */
--(void)showHUDFromView:(UIView *)view;
--(void)showHUDFromView:(UIView *)view withText:(NSString *)text;
--(void)showTextHUDFromView:(UIView *)view withText:(NSString *)text forDuration:(NSTimeInterval)duration;
--(void)hideHUDFromView:(UIView *)view;
--(void)hideAllHUDFromView:(UIView *)view;
+- (void)showHUDFromView:(UIView *)view;
+- (void)showHUDFromView:(UIView *)view withText:(NSString *)text;
+- (void)showTextHUDFromView:(UIView *)view withText:(NSString *)text forDuration:(NSTimeInterval)duration;
+- (void)hideHUDFromView:(UIView *)view;
+- (void)hideAllHUDFromView:(UIView *)view;
 #endif
 
 @end

@@ -44,6 +44,7 @@ static Playbasis *sharedInstance = nil;
 @property (nonatomic, strong, readwrite) NSString* baseUrl;
 @property (nonatomic, strong, readwrite) NSString* baseAsyncUrl;
 @property (nonatomic, readwrite) BOOL isNetworkReachable;
+@property (nonatomic, strong, readwrite) NSString* deviceToken;
 
 /**
  Dispatch a first founded request in the operational queue and only if network
@@ -129,6 +130,37 @@ static Playbasis *sharedInstance = nil;
 {
     // stop notifier
     [_reachability stopNotifier];
+}
+
+-(void)registerDeviceForPushNotification
+{
+    // register for push notification
+    #if TARGET_OS_IOS
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        PBLOG(@"Register device ios %f+", 8.0f);
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+        PBLOG(@"Registered devie ios < %f", 8.0f);
+    }
+    #endif
+}
+
+-(void)extractAndSaveDeviceTokenFrom:(NSData *)rawData
+{
+    // we got device token, then we need to trim the brackets, and cut out space
+    NSString *device = [rawData description];
+    device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    // save device token
+    self.deviceToken = device;
+    
+    PBLOG(@"Device token is: %@", self.deviceToken);
 }
 
 -(void)fireRequestIfNecessary:(PBRequestUnit<id> *)request
