@@ -10,6 +10,9 @@
 #import "RNDecryptor.h"
 #import "JSONKit.h"
 #import "PBRequestUnit.h"
+#if TARGET_OS_IOS
+#import <UserNotifications/UserNotifications.h>;
+#endif
 
 #import "helper/PBValidator.h"
 #import "model/OCMapperModelConfigurator.h"
@@ -136,7 +139,19 @@ static Playbasis *sharedInstance = nil;
 {
     // register for push notification
     #if TARGET_OS_IOS
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    float iosVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if(iosVersion >= 10.0)
+    {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert)
+                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                  if (!error && granted) {
+                                      [[UIApplication sharedApplication] registerForRemoteNotifications];
+                                      PBLOG(@"Register device for ios %f+", 10.0f);
+                                  }
+                              }];
+    }
+    else if (iosVersion >= 8.0)
     {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
