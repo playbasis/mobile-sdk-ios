@@ -11,6 +11,7 @@
 #import "PBDetailedPlayer.h"
 #import "PBSuccessStatus.h"
 #import "PBPoint.h"
+#import "PBLevel.h"
 
 @class Playbasis;
 
@@ -97,5 +98,13 @@
  @param completion completion handler
  */
 + (void)point:(Playbasis *)playbasis playerId:(NSString *)playerId pointName:(NSString *)pointName andCompletion:(void(^)(NSArray<PBPoint*> *result, NSError *error))completion;
+
+/**
+ Return all detail of levels
+
+ @param playbasis  instance of Playbasis
+ @param completion completion handler
+ */
++ (void)levels:(Playbasis *)playbasis andCompletion:(void(^)(NSArray<PBLevel*> *result, NSError *error))completion;
 
 @end

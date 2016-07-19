@@ -11,6 +11,10 @@
 		1E30B8571D3E2135004B7644 /* PBPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B8541D3E2135004B7644 /* PBPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E30B8581D3E2135004B7644 /* PBPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B8551D3E2135004B7644 /* PBPoint.m */; };
 		1E30B8591D3E2135004B7644 /* PBPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B8551D3E2135004B7644 /* PBPoint.m */; };
+		1E30B85C1D3E25B3004B7644 /* PBLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B85A1D3E25B3004B7644 /* PBLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E30B85D1D3E25B3004B7644 /* PBLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B85A1D3E25B3004B7644 /* PBLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E30B85E1D3E25B3004B7644 /* PBLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B85B1D3E25B3004B7644 /* PBLevel.m */; };
+		1E30B85F1D3E25B3004B7644 /* PBLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B85B1D3E25B3004B7644 /* PBLevel.m */; };
 		1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; };
 		1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */; };
 		1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -181,6 +185,8 @@
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1E30B8541D3E2135004B7644 /* PBPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPoint.h; sourceTree = "<group>"; };
 		1E30B8551D3E2135004B7644 /* PBPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPoint.m; sourceTree = "<group>"; };
+		1E30B85A1D3E25B3004B7644 /* PBLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBLevel.h; sourceTree = "<group>"; };
+		1E30B85B1D3E25B3004B7644 /* PBLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBLevel.m; sourceTree = "<group>"; };
 		1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisTestSuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E82EDC51D391EF400775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthApi.m; sourceTree = "<group>"; };
@@ -483,6 +489,8 @@
 				1EA20FBE1D3CEBF700CEA38A /* PBSuccessStatus.m */,
 				1E30B8541D3E2135004B7644 /* PBPoint.h */,
 				1E30B8551D3E2135004B7644 /* PBPoint.m */,
+				1E30B85A1D3E25B3004B7644 /* PBLevel.h */,
+				1E30B85B1D3E25B3004B7644 /* PBLevel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -585,6 +593,7 @@
 				1EA20FA61D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */,
 				1EA20FB91D3CD08700CEA38A /* JSONKit.h in Headers */,
 				1E82EDED1D3A281300775DA0 /* PBBuilder.h in Headers */,
+				1E30B85C1D3E25B3004B7644 /* PBLevel.h in Headers */,
 				1E82EDE21D3A18F800775DA0 /* CustomDeviceInfoHttpHeaderFields.h in Headers */,
 				1EA20FBF1D3CEBF700CEA38A /* PBSuccessStatus.h in Headers */,
 				1E82EDE31D3A18FA00775DA0 /* PBAuthApi.h in Headers */,
@@ -639,6 +648,7 @@
 				1EA20FB31D3CCB6B00CEA38A /* PBGoods.h in Headers */,
 				1ED325C71D3B5A9A00060C1A /* OCMapperModelConfigurator.h in Headers */,
 				1EA20FAD1D3CC1B200CEA38A /* PBBadge.h in Headers */,
+				1E30B85D1D3E25B3004B7644 /* PBLevel.h in Headers */,
 				1EB065C61D36B509002CA239 /* RNCryptor.h in Headers */,
 				1EB065C71D36B509002CA239 /* RNCryptorEngine.h in Headers */,
 				1E82EE0A1D3A833700775DA0 /* PBPlayerApi.h in Headers */,
@@ -902,6 +912,7 @@
 				1EA20FB41D3CCB6B00CEA38A /* PBGoods.m in Sources */,
 				1EA20FA81D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,
 				1EB0650E1D368E02002CA239 /* RNCryptorEngine.m in Sources */,
+				1E30B85E1D3E25B3004B7644 /* PBLevel.m in Sources */,
 				1EA20FCE1D3CF32800CEA38A /* PBRequestUnit.m in Sources */,
 				1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */,
 				1EB065141D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
@@ -926,6 +937,7 @@
 				1EA20FC91D3CF31800CEA38A /* PBUtils.m in Sources */,
 				1EB065D81D36B542002CA239 /* RNEncryptor.m in Sources */,
 				1ED325D61D3BF44900060C1A /* PBPlayerApi.m in Sources */,
+				1E30B85F1D3E25B3004B7644 /* PBLevel.m in Sources */,
 				1E82EE181D3A873200775DA0 /* PBPlayer.m in Sources */,
 				1EB065D91D36B542002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
 				1EA20FB51D3CCB6B00CEA38A /* PBGoods.m in Sources */,
