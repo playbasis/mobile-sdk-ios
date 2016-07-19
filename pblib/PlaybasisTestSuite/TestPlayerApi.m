@@ -177,4 +177,15 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testBadgesEarned {
+    EXP_CREATE(@"badgesEarned")
+    
+    [PBPlayerApi badgesEarned:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(NSArray<PBBadge *> *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end
