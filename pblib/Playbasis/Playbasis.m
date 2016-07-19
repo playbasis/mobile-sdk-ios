@@ -33,12 +33,6 @@ static Playbasis *sharedInstance = nil;
     NSMutableArray *_requestOptQueue;
     
     /**
-     Keep track of whether network is available or not
-     This works with Reachability
-     */
-    BOOL _isNetworkReachable;
-    
-    /**
      Rechability object to detect availability of network
      */
     Reachability *_reachability;
@@ -49,6 +43,7 @@ static Playbasis *sharedInstance = nil;
 @property (nonatomic, strong, readwrite) NSString* apiSecret;
 @property (nonatomic, strong, readwrite) NSString* baseUrl;
 @property (nonatomic, strong, readwrite) NSString* baseAsyncUrl;
+@property (nonatomic, readwrite) BOOL isNetworkReachable;
 
 /**
  Dispatch a first founded request in the operational queue and only if network
@@ -61,78 +56,12 @@ static Playbasis *sharedInstance = nil;
  */
 -(void)checkNetworkStatus:(NSNotification*)notice;
 
-/**
- List of event listener method to listen to for UIAppliationDelegate
- */
--(void)onApplicationDidFinishLaunching:(NSNotification *)notif;
-
-// TODO: Remove this when we've done all parts except UI
-/**
- Generic dismiss method after touching button.
- Use with KLCPopup.
- */
-- (void)klcPopup_dismissButtonPressed:(id)sender;
-
 @end
 
 //
 // The Playbasis Object
 //
 @implementation Playbasis
-
-// NSUserDefaults key for Playbasis sdk to retrieve it later
-static NSString *sDeviceTokenRetrievalKey = nil;
-
-@synthesize isNetworkReachable = _isNetworkReachable;
-
-+(void)registerDeviceForPushNotification
-{
-    #if TARGET_OS_IOS
-    // register for push notification
-    // note: ios 8 changes the way to setup push notification, it's deprecated the old method
-    // thus we need to check on this one
-    // note 2: we will register device with this device token later with playbasis
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
-        PBLOG(@"Register device ios %f+", 8.0f);
-    }
-    else
-    {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-        
-        PBLOG(@"Registered devie ios < %f", 8.0f);
-    }
-    #endif
-}
-
-+(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString *)key
-{
-    // we got device token, then we need to trim the brackets, and cut out space
-    NSString *device = [deviceToken description];
-    device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    PBLOG(@"Device token is: %@", device);
-    
-    // save the key for Playbasis to be able to retrieve it via NSUserDefaults later
-    sDeviceTokenRetrievalKey = key;
-    
-    // save it via NSUserDefaults (non-critical data to be encrypted)
-    // we will got this data later in UIViewController-based class
-    [[NSUserDefaults standardUserDefaults] setObject:device forKey:sDeviceTokenRetrievalKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+(NSString*)getDeviceToken
-{
-    if (sDeviceTokenRetrievalKey != nil && [sDeviceTokenRetrievalKey isEqualToString:@""])
-        return [[NSUserDefaults standardUserDefaults] objectForKey:sDeviceTokenRetrievalKey];
-    else
-        return nil;
-}
 
 +(PBBuilder*)builder
 {
@@ -154,7 +83,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     if(!(self = [super init]))
         return nil;
     
-    _isNetworkReachable = FALSE;
+    self.isNetworkReachable = FALSE;
     
     // create reachability instance
     _reachability = [Reachability reachabilityForInternetConnection];
@@ -164,12 +93,6 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     
     // add notification of network status change
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
-    
-#if TARGET_OS_IOS
-    // add notification of UIApplication
-    // we add them here to reduce code user has to add in Delegate class
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
-#endif
     
     // start notifier right away
     [_reachability startNotifier];
@@ -206,19 +129,12 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     // stop notifier
     [_reachability stopNotifier];
-    // remove notification of network status change
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
-    
-#if TARGET_OS_IOS
-    // remove notification of UIApplication
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidFinishLaunchingNotification object:nil];
-#endif
 }
 
 -(void)fireRequestIfNecessary:(PBRequestUnit<id> *)request
 {
     // if network is reachable then dispatch it immediately
-    if(_isNetworkReachable)
+    if(self.isNetworkReachable)
     {
         // start the request
         [request start];
@@ -242,7 +158,7 @@ static NSString *sDeviceTokenRetrievalKey = nil;
 {
     // only dispatch a first found request if network can be reached, and
     // operational queue is not empty
-    if(_isNetworkReachable && ![_requestOptQueue empty])
+    if(self.isNetworkReachable && ![_requestOptQueue empty])
     {
         [[self getRequestOperationalQueue] dequeueAndStart];
         PBLOG(@"Dispatched first founed request in queue");
@@ -255,15 +171,15 @@ static NSString *sDeviceTokenRetrievalKey = nil;
     switch(networkStatus)
     {
         case NotReachable:
-            _isNetworkReachable = FALSE;
+            self.isNetworkReachable = FALSE;
             PBLOG(@"Network is not reachable");
             break;
         case ReachableViaWiFi:
-            _isNetworkReachable = TRUE;
+            self.isNetworkReachable = TRUE;
             PBLOG(@"Network is reachable via WiFi");
             break;
         case ReachableViaWWAN:
-            _isNetworkReachable = TRUE;
+            self.isNetworkReachable = TRUE;
             PBLOG(@"Network is reachable via WWAN");
             break;
     }

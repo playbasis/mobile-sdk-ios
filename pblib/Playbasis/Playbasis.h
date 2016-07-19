@@ -35,42 +35,40 @@
  */
 @interface Playbasis : NSObject
 
+/**
+ Return api key
+ */
 @property (nonatomic, strong, readonly) NSString* apiKey;
+
+/**
+ Return api secret
+ */
 @property (nonatomic, strong, readonly) NSString* apiSecret;
+
+/**
+ Base url used in HTTP request
+ */
 @property (nonatomic, strong, readonly) NSString* baseUrl;
+
+/**
+ Return base async url used in async HTTP request
+ */
 @property (nonatomic, strong, readonly) NSString* baseAsyncUrl;
+
+/**
+ Retuen access token
+ */
 @property (nonatomic, strong, readwrite) NSString* token;
+
+/**
+ Return whether or not at the moment network is reachabled
+ */
 @property (nonatomic, readonly) BOOL isNetworkReachable;
 
 /**
  Delegate to listen to network availability via Reachability
  */
 @property (nonatomic, strong) id<PBNetworkStatusChangedDelegate> networkStatusChangedDelegate;
-
-/**
- Utility method to register device for push notification.
- Call this method inside
- */
-+(void)registerDeviceForPushNotification;
-
-/**
- Utility method to handle device token data, and convert it into
- a proper format ready to use later, then save it to NSUserDefaults
- for Playbasis SDK to retrieve it and register device for push
- notification later.
- 
- @param deviceToken Device token sent in from native iOS platform.
- @param key Key string for Playbasis SDK to retrieve the value from later via NSUserDefaults.
- 
- */
-+(void)saveDeviceToken:(NSData *)deviceToken withKey:(NSString*)key;
-
-/**
- Get device token
-
- @return device token
- */
-+(NSString*)getDeviceToken;
 
 /**
  Create Playbasis instance by setting its configurations and build.
