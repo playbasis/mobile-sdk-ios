@@ -122,4 +122,17 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testPoints {
+    EXP_CREATE(@"points")
+    
+    BEGIN_AUTHWRAP
+    [PBPlayerApi points:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(NSArray<PBPoint *> *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    END_AUTHWRAP
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end

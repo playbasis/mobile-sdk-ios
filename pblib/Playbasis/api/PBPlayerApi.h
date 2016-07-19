@@ -10,6 +10,7 @@
 #import "PBPlayer.h"
 #import "PBDetailedPlayer.h"
 #import "PBSuccessStatus.h"
+#import "PBPoint.h"
 
 @class Playbasis;
 
@@ -77,5 +78,14 @@
  @param completion completion handler
  */
 + (void)logout:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBSuccessStatus *result, NSError *error))completion;
+
+/**
+ Return information about all point-based rewards that a player currently has.
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handler
+ */
++ (void)points:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(NSArray<PBPoint*> *result, NSError *error))completion;
 
 @end

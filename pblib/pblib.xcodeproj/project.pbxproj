@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E30B8561D3E2135004B7644 /* PBPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B8541D3E2135004B7644 /* PBPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E30B8571D3E2135004B7644 /* PBPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B8541D3E2135004B7644 /* PBPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E30B8581D3E2135004B7644 /* PBPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B8551D3E2135004B7644 /* PBPoint.m */; };
+		1E30B8591D3E2135004B7644 /* PBPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B8551D3E2135004B7644 /* PBPoint.m */; };
 		1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; };
 		1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */; };
 		1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -175,6 +179,8 @@
 		1675267138D27A92EDF476EE /* Pods-Playbasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Playbasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Playbasis/Pods-Playbasis.debug.xcconfig"; sourceTree = "<group>"; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1E30B8541D3E2135004B7644 /* PBPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPoint.h; sourceTree = "<group>"; };
+		1E30B8551D3E2135004B7644 /* PBPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPoint.m; sourceTree = "<group>"; };
 		1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisTestSuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E82EDC51D391EF400775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthApi.m; sourceTree = "<group>"; };
@@ -475,6 +481,8 @@
 				1EA20FB11D3CCB6B00CEA38A /* PBGoods.m */,
 				1EA20FBD1D3CEBF700CEA38A /* PBSuccessStatus.h */,
 				1EA20FBE1D3CEBF700CEA38A /* PBSuccessStatus.m */,
+				1E30B8541D3E2135004B7644 /* PBPoint.h */,
+				1E30B8551D3E2135004B7644 /* PBPoint.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -607,6 +615,7 @@
 				1ED325C61D3B5A9A00060C1A /* OCMapperModelConfigurator.h in Headers */,
 				1EB065241D368E02002CA239 /* PBUI.h in Headers */,
 				1ED325D31D3BF34700060C1A /* PBApiMacros.h in Headers */,
+				1E30B8561D3E2135004B7644 /* PBPoint.h in Headers */,
 				1E82EDDE1D3A18BF00775DA0 /* Playbasis.h in Headers */,
 				1EB0665F1D38A84F002CA239 /* PBAuth.h in Headers */,
 				1E82EE151D3A873200775DA0 /* PBPlayer.h in Headers */,
@@ -637,6 +646,7 @@
 				1E82EE1C1D3A89A300775DA0 /* PBGender.h in Headers */,
 				1EB065C91D36B509002CA239 /* RNEncryptor.h in Headers */,
 				1EA20FCD1D3CF32800CEA38A /* PBRequestUnit.h in Headers */,
+				1E30B8571D3E2135004B7644 /* PBPoint.h in Headers */,
 				1E82EE161D3A873200775DA0 /* PBPlayer.h in Headers */,
 				1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */,
 				1ED325D41D3BF34700060C1A /* PBApiMacros.h in Headers */,
@@ -886,6 +896,7 @@
 				1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EA20FC11D3CEBF700CEA38A /* PBSuccessStatus.m in Sources */,
 				1E82EDDC1D39EE5A00775DA0 /* PBAuthApi.m in Sources */,
+				1E30B8581D3E2135004B7644 /* PBPoint.m in Sources */,
 				1ED325D51D3BF44800060C1A /* PBPlayerApi.m in Sources */,
 				1EB065161D368E02002CA239 /* PBCommon.m in Sources */,
 				1EA20FB41D3CCB6B00CEA38A /* PBGoods.m in Sources */,
@@ -927,6 +938,7 @@
 				1EB065DE1D36B542002CA239 /* Playbasis.m in Sources */,
 				1E82EDF01D3A281300775DA0 /* PBBuilder.m in Sources */,
 				1E82EE051D3A5BE400775DA0 /* PBValidator.m in Sources */,
+				1E30B8591D3E2135004B7644 /* PBPoint.m in Sources */,
 				1E82EDF61D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 				1ED325C91D3B5A9A00060C1A /* OCMapperModelConfigurator.m in Sources */,
 				1EA20FA91D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,
