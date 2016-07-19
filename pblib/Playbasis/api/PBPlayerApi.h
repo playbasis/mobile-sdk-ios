@@ -134,4 +134,13 @@
  */
 + (void)badgesEarned:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(NSArray<PBBadge*> *result, NSError *error))completion;
 
+/**
+ Return information about all the good that player has redeemed
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handler
+ */
++ (void)goods:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(NSArray<PBGoods*> *result, NSError *error))completion;
+
 @end

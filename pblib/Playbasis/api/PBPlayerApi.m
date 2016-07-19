@@ -174,4 +174,15 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)goods:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(NSArray<PBGoods *> *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/goods", playerId, nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<NSArray<PBGoods*>*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"goods" forResultClass:[PBGoods class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end

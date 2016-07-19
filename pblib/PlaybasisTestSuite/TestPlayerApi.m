@@ -188,4 +188,15 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testGoods {
+    EXP_CREATE(@"goods")
+    
+    [PBPlayerApi goods:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(NSArray<PBGoods *> *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end
