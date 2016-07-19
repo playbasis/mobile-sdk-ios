@@ -107,4 +107,13 @@
  */
 + (void)levels:(Playbasis *)playbasis andCompletion:(void(^)(NSArray<PBLevel*> *result, NSError *error))completion;
 
+/**
+ Return level information
+
+ @param playbasis  instance of Playbasis
+ @param level      level number
+ @param completion completion handler
+ */
++ (void)level:(Playbasis *)playbasis level:(NSInteger)level andCompletion:(void(^)(PBLevel *result, NSError *error))completion;
+
 @end

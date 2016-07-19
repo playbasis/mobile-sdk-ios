@@ -141,4 +141,15 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)level:(Playbasis *)playbasis level:(NSInteger)level andCompletion:(void (^)(PBLevel *, NSError *))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/level/%ld", level, nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<PBLevel*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion forResultClass:[PBLevel class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end

@@ -155,4 +155,15 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testLevel {
+    EXP_CREATE(@"level")
+    
+    [PBPlayerApi level:[Playbasis sharedPB] level:2 andCompletion:^(PBLevel *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end
