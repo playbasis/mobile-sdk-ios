@@ -61,12 +61,21 @@
 + (void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBPlayer *result, NSError *error))completion;
 
 /**
- Login for specified player id
+ Login for player
 
  @param playbasis  instance of Playbasis
  @param playerId   player id
- @param completion completion handelr
+ @param completion completion handler
  */
 + (void)login:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBSuccessStatus *result, NSError *error))completion;
+
+/**
+ Logout for player
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handler
+ */
++ (void)logout:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBSuccessStatus *result, NSError *error))completion;
 
 @end

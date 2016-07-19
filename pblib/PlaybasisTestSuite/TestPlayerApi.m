@@ -108,4 +108,18 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testLogout {
+    EXP_CREATE(@"logout")
+    
+    BEGIN_AUTHWRAP
+    [PBPlayerApi logout:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(PBSuccessStatus *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        XCTAssertTrue(result.success, @"success must be true");
+        EXP_FULFILL
+    }];
+    END_AUTHWRAP
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end
