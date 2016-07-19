@@ -81,4 +81,17 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testDetailedPlayerPrivate {
+    EXP_CREATE(@"detailedPlayerPrivate")
+    
+    BEGIN_AUTHWRAP
+    [PBPlayerApi detailedPlayerPrivate:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(PBPlayer *result, NSError *error) {
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    END_AUTHWRAP
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 @end

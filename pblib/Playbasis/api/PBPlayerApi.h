@@ -50,4 +50,13 @@
  */
 + (void)detailedPlayerPublic:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBDetailedPlayer *result, NSError *error))completion;
 
+/**
+ Get player's detailed information both public and private.
+
+ @param playbasis  instance of Playbasis
+ @param playerId   player id
+ @param completion completion handler
+ */
++ (void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBPlayer *result, NSError *error))completion;
+
 @end
