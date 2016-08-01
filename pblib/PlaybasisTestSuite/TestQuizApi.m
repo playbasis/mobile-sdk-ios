@@ -35,7 +35,7 @@ INIT_VARS_STATIC
 - (void)testActiveQuizList {
     EXP_CREATE(@"activeQuizList")
     
-    [PBQuizApi activeQuizList:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(NSArray<PBQuiz *> *result, NSError *error) {
+    [PBQuizApi activeQuizList:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(NSArray<PBQuiz *> * _Nullable result, NSError * _Nullable error) {
         XCTAssert(error == nil, @"error must be nil");
         EXP_FULFILL
     }];

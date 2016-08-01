@@ -21,6 +21,6 @@
  @param playerId   player id
  @param completion completion callback
  */
-+ (void)activeQuizList:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(NSArray<PBQuiz*> *result, NSError *error))completion;
++ (void)activeQuizList:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId andCompletion:(nonnull void(^)(NSArray<PBQuiz*>* _Nullable result, NSError * _Nullable error))completion;
 
 @end

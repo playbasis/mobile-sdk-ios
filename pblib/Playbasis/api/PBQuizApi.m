@@ -13,7 +13,7 @@
 
 @implementation PBQuizApi
 
-+ (void)activeQuizList:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(NSArray<PBQuiz *> *, NSError *))completion
++(void)activeQuizList:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(NSArray<PBQuiz *> * _Nullable, NSError * _Nullable))completion
 {
     API_VALIDATE_PBOBJ(playbasis)
     
