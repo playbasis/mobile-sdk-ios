@@ -23,6 +23,7 @@
 #import "PBAuthApi.h"
 #import "PBPlayerApi.h"
 #import "PBCommunicationApi.h"
+#import "PBQuizApi.h"
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>

@@ -106,7 +106,15 @@
 
 -(NSString *)createMethodWithApiKeyUrlFromMethod:(NSString *)method andApiKey:(NSString *)apiKey
 {
-    return [NSString stringWithFormat:@"%@?api_key=%@", method, apiKey];
+    // check if we need to use "&" or "?" to append api_key
+    if ([method containsString:@"?"])
+    {
+        return [NSString stringWithFormat:@"%@&api_key=%@", method, apiKey];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%@?api_key=%@", method, apiKey];
+    }
 }
 
 - (NSString *)createPostDataStringFromDictionary:(NSDictionary<NSString*, NSString*> *)keyValues
