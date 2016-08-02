@@ -380,10 +380,8 @@ static NSString * const KEY_RESULTCLASS = @"resultClass";
                 // set to a proper state
                 _state = pbRequestUnitStateFinished;
                 
-                // convert response data to string
-                NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                // parse string into json
-                _jsonResponse = [responseString objectFromJSONString];
+                // convert data into dictionary
+                _jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 
                 // validate json response before sending back to user's callback
                 [self validateAndCall:_jsonResponse];

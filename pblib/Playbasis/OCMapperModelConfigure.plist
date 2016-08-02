@@ -9,6 +9,8 @@
 		<string>PBBadge</string>
 		<string>PBGoods</string>
 		<string>PBQuiz</string>
+		<string>PBQuizDetail</string>
+		<string>PBRewards</string>
 	</array>
 </dict>
 </plist>

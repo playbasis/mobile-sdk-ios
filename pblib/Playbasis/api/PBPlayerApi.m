@@ -72,14 +72,14 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
-+(void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBPlayer *, NSError *))completion
++(void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBDetailedPlayer *, NSError *))completion
 {
     API_VALIDATE_PBOBJ(playbasis)
     
     API_CREATE_METHOD_VARS(playbasis.apiKey, @"Player/%@/data/all", playerId, nil)
     API_CREATE_DATA_VARS(playbasis.token, @"token", nil)
     
-    PBRequestUnit<PBPlayer*> *request = [[PBRequestUnit<PBPlayer*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion withJsonResultSubKey:@"player" forResultClass:[PBPlayer class]];
+    PBRequestUnit<PBDetailedPlayer*> *request = [[PBRequestUnit<PBDetailedPlayer*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion withJsonResultSubKey:@"player" forResultClass:[PBDetailedPlayer class]];
     
     [playbasis fireRequestIfNecessary:request];
 }

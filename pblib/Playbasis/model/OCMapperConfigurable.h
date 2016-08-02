@@ -21,4 +21,15 @@
  */
 + (void)configure:(InCodeMappingProvider*)mappingProvider;
 
+@optional
+
+
+/**
+ Configure with mapping provider of OCMapper, and targeting class.
+
+ @param mappingProvider Mapping provider
+ @param cls           Targeting class
+ */
++ (void)configure:(InCodeMappingProvider*)mappingProvider forClass:(Class)cls;
+
 @end

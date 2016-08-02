@@ -60,7 +60,7 @@
  @param playerId   player id
  @param completion completion handler
  */
-+ (void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBPlayer *result, NSError *error))completion;
++ (void)detailedPlayerPrivate:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void(^)(PBDetailedPlayer *result, NSError *error))completion;
 
 /**
  Login for player

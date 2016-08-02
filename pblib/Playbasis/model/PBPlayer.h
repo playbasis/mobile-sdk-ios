@@ -27,6 +27,4 @@
 @property (nonatomic, strong) NSDate* lastLogout;
 @property (nonatomic, strong) NSString* clPlayerId;
 
-+(void)configure:(InCodeMappingProvider *)mappingProvider;
-
 @end

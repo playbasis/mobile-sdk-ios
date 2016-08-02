@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSNumber* percentOfLevel;
 @property (nonatomic, strong) NSString* levelTitle;
 @property (nonatomic, strong) NSString* levelImage;
-@property (nonatomic, strong) NSMutableArray<PBBadge*>* badges;
-@property (nonatomic, strong) NSMutableArray<PBGoods*>* goods;
+@property (nonatomic, strong) NSArray<PBBadge*>* badges;
+@property (nonatomic, strong) NSArray<PBGoods*>* goods;
 
 @end

@@ -85,7 +85,7 @@ INIT_VARS_STATIC
     EXP_CREATE(@"detailedPlayerPrivate")
     
     BEGIN_AUTHWRAP
-    [PBPlayerApi detailedPlayerPrivate:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(PBPlayer *result, NSError *error) {
+    [PBPlayerApi detailedPlayerPrivate:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(PBDetailedPlayer *result, NSError *error) {
         XCTAssert(error == nil, @"error must be nil");
         EXP_FULFILL
     }];

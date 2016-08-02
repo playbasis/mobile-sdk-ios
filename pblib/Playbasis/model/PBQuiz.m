@@ -12,7 +12,12 @@
 
 +(void)configure:(InCodeMappingProvider *)mappingProvider
 {
-    [mappingProvider mapFromDictionaryKey:@"description" toPropertyKey:@"desc" forClass:[PBQuiz class]];
+    [self configure:mappingProvider forClass:[PBQuiz class]];
+}
+
++(void)configure:(InCodeMappingProvider *)mappingProvider forClass:(Class)cls
+{
+    [mappingProvider mapFromDictionaryKey:@"description" toPropertyKey:@"desc" forClass:cls];
 }
 
 @end

@@ -18,6 +18,4 @@
 @property (nonatomic, strong) NSString* code;
 @property (nonatomic, strong) NSNumber* amount;
 
-+(void)configure:(InCodeMappingProvider *)mappingProvider;
-
 @end
