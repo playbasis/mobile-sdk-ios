@@ -35,4 +35,26 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)randomQuiz:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBQuiz * _Nullable, NSError * _Nullable))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Quiz/random?player_id=%@", playerId, nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<PBQuiz*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"result" forResultClass:[PBQuiz class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
++ (void)question:(Playbasis *)playbasis quizId:(NSString *)quizId playerId:(NSString *)playerId andCompletion:(void (^)(PBQuestion * _Nullable, NSError * _Nullable))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Quiz/%@/question?player_id=%@", quizId, playerId, nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<PBQuestion*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"result" forResultClass:[PBQuestion class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end

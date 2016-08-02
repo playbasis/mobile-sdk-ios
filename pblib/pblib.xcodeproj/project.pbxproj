@@ -58,6 +58,14 @@
 		1E428C931D4FDC7500CE5ADB /* PBQuizGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428C901D4FDC7500CE5ADB /* PBQuizGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E428C941D4FDC7500CE5ADB /* PBQuizGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C911D4FDC7500CE5ADB /* PBQuizGrade.m */; };
 		1E428C951D4FDC7500CE5ADB /* PBQuizGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C911D4FDC7500CE5ADB /* PBQuizGrade.m */; };
+		1E428C981D5040D300CE5ADB /* PBQuestion.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428C961D5040D300CE5ADB /* PBQuestion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428C991D5040D300CE5ADB /* PBQuestion.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428C961D5040D300CE5ADB /* PBQuestion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428C9A1D5040D300CE5ADB /* PBQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C971D5040D300CE5ADB /* PBQuestion.m */; };
+		1E428C9B1D5040D300CE5ADB /* PBQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C971D5040D300CE5ADB /* PBQuestion.m */; };
+		1E428C9E1D50419500CE5ADB /* PBQuestionOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428C9F1D50419500CE5ADB /* PBQuestionOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CA01D50419500CE5ADB /* PBQuestionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */; };
+		1E428CA11D50419500CE5ADB /* PBQuestionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */; };
 		1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; };
 		1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */; };
 		1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -249,6 +257,10 @@
 		1E428C8B1D4FD69900CE5ADB /* PBBadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBadgeValue.m; sourceTree = "<group>"; };
 		1E428C901D4FDC7500CE5ADB /* PBQuizGrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuizGrade.h; sourceTree = "<group>"; };
 		1E428C911D4FDC7500CE5ADB /* PBQuizGrade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuizGrade.m; sourceTree = "<group>"; };
+		1E428C961D5040D300CE5ADB /* PBQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestion.h; sourceTree = "<group>"; };
+		1E428C971D5040D300CE5ADB /* PBQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestion.m; sourceTree = "<group>"; };
+		1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestionOption.h; sourceTree = "<group>"; };
+		1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestionOption.m; sourceTree = "<group>"; };
 		1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisTestSuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E82EDC51D391EF400775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthApi.m; sourceTree = "<group>"; };
@@ -576,6 +588,10 @@
 				1E428C8B1D4FD69900CE5ADB /* PBBadgeValue.m */,
 				1E428C901D4FDC7500CE5ADB /* PBQuizGrade.h */,
 				1E428C911D4FDC7500CE5ADB /* PBQuizGrade.m */,
+				1E428C961D5040D300CE5ADB /* PBQuestion.h */,
+				1E428C971D5040D300CE5ADB /* PBQuestion.m */,
+				1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */,
+				1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -690,6 +706,7 @@
 				1EB065271D368E02002CA239 /* UIImage+AutoLoader.h in Headers */,
 				1EB065131D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
 				1EB065091D368E02002CA239 /* RNCryptor+Private.h in Headers */,
+				1E428C981D5040D300CE5ADB /* PBQuestion.h in Headers */,
 				1E82EDE61D3A192900775DA0 /* PBTypes.h in Headers */,
 				1EA20FAC1D3CC1B200CEA38A /* PBBadge.h in Headers */,
 				1EB0650B1D368E02002CA239 /* RNCryptor.h in Headers */,
@@ -724,6 +741,7 @@
 				1EB0665F1D38A84F002CA239 /* PBAuth.h in Headers */,
 				1E82EE151D3A873200775DA0 /* PBPlayer.h in Headers */,
 				1EA20FCC1D3CF32800CEA38A /* PBRequestUnit.h in Headers */,
+				1E428C9E1D50419500CE5ADB /* PBQuestionOption.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +758,7 @@
 				1EB065C41D36B509002CA239 /* RNCryptor+Private.h in Headers */,
 				1EB066601D38A84F002CA239 /* PBAuth.h in Headers */,
 				1E82EDE51D3A191400775DA0 /* PBAuthApi.h in Headers */,
+				1E428C991D5040D300CE5ADB /* PBQuestion.h in Headers */,
 				1EB065C51D36B509002CA239 /* RNCryptor-Prefix.pch in Headers */,
 				1EA20FB31D3CCB6B00CEA38A /* PBGoods.h in Headers */,
 				1ED325C71D3B5A9A00060C1A /* OCMapperModelConfigurator.h in Headers */,
@@ -757,6 +776,7 @@
 				1E428C7B1D4FB4A000CE5ADB /* PBRewards.h in Headers */,
 				1E82EE161D3A873200775DA0 /* PBPlayer.h in Headers */,
 				1E428C601D4F880600CE5ADB /* PBQuizApi.h in Headers */,
+				1E428C9F1D50419500CE5ADB /* PBQuestionOption.h in Headers */,
 				1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */,
 				1ED325D41D3BF34700060C1A /* PBApiMacros.h in Headers */,
 				1EB065CA1D36B509002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
@@ -1002,9 +1022,11 @@
 				1EB065081D368E02002CA239 /* Reachability.m in Sources */,
 				1E82EE041D3A5BE400775DA0 /* PBValidator.m in Sources */,
 				1E428C941D4FDC7500CE5ADB /* PBQuizGrade.m in Sources */,
+				1E428CA01D50419500CE5ADB /* PBQuestionOption.m in Sources */,
 				1E82EE1D1D3A89A300775DA0 /* PBGender.m in Sources */,
 				1EA20FAE1D3CC1B200CEA38A /* PBBadge.m in Sources */,
 				1E30B8761D3E8429004B7644 /* PBCommunicationApi.m in Sources */,
+				1E428C9A1D5040D300CE5ADB /* PBQuestion.m in Sources */,
 				1ED325C81D3B5A9A00060C1A /* OCMapperModelConfigurator.m in Sources */,
 				1E82EDEF1D3A281300775DA0 /* PBBuilder.m in Sources */,
 				1E82EDF51D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
@@ -1049,6 +1071,7 @@
 				1EB065D51D36B542002CA239 /* RNCryptor.m in Sources */,
 				1E428C711D4FB25200CE5ADB /* PBQuizType.m in Sources */,
 				1EB065D61D36B542002CA239 /* RNCryptorEngine.m in Sources */,
+				1E428C9B1D5040D300CE5ADB /* PBQuestion.m in Sources */,
 				1EB065D71D36B542002CA239 /* RNDecryptor.m in Sources */,
 				1EA20FC21D3CEBF700CEA38A /* PBSuccessStatus.m in Sources */,
 				1EA20FC91D3CF31800CEA38A /* PBUtils.m in Sources */,
@@ -1077,6 +1100,7 @@
 				1E82EDF61D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 				1E30B8771D3E8429004B7644 /* PBCommunicationApi.m in Sources */,
 				1ED325C91D3B5A9A00060C1A /* OCMapperModelConfigurator.m in Sources */,
+				1E428CA11D50419500CE5ADB /* PBQuestionOption.m in Sources */,
 				1EA20FA91D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
