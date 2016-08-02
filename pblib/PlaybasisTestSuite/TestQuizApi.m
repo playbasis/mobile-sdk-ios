@@ -99,6 +99,17 @@ INIT_VARS_STATIC
     EXP_WAIT(TIMEOUT)
 }
 
+- (void)testQuizDoneListWithLimit {
+    EXP_CREATE(@"quizDoneListWithLimit")
+    
+    [PBQuizApi quizDoneList:[Playbasis sharedPB] playerId:@"jontestuser" limit:10 andCompletion:^(NSArray<PBQuizDone *> * _Nullable result, NSError * _Nullable error) {
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    
+    EXP_WAIT(TIMEOUT)
+}
+
 - (void)testAnswerQuestion {
     EXP_CREATE(@"answerQuestion")
     

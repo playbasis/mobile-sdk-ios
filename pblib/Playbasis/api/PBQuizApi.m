@@ -59,9 +59,15 @@
 
 +(void)pendingQuizList:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(NSArray<PBPendingQuiz *> * _Nullable, NSError * _Nullable))completion
 {
+    // send in with limit of 5 items
+    [self pendingQuizList:playbasis playerId:playerId limit:5 andCompletion:completion];
+}
+
++(void)pendingQuizList:(Playbasis *)playbasis playerId:(NSString *)playerId limit:(NSInteger)limit andCompletion:(void (^)(NSArray<PBPendingQuiz *> * _Nullable, NSError * _Nullable))completion
+{
     API_VALIDATE_PBOBJ(playbasis)
     
-    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Quiz/player/%@/pending/5", playerId, nil)
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Quiz/player/%@/pending/%ld", playerId, limit, nil)
     
     PBRequestUnit *request = [[PBRequestUnit<NSArray<PBPendingQuiz*>*> alloc] initWithMethodWithApikey:method withData:nil isAsync:NO completion:completion withJsonResultSubKey:@"result" forResultClass:[PBPendingQuiz class]];
     
@@ -69,6 +75,12 @@
 }
 
 +(void)quizDoneList:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(NSArray<PBQuizDone *> * _Nullable, NSError * _Nullable))completion
+{
+    // send in with limit of 5 items
+    [self quizDoneList:playbasis playerId:playerId limit:5 andCompletion:completion];
+}
+
++(void)quizDoneList:(Playbasis *)playbasis playerId:(NSString *)playerId limit:(NSInteger)limit andCompletion:(void (^)(NSArray<PBQuizDone *> * _Nullable, NSError * _Nullable))completion
 {
     API_VALIDATE_PBOBJ(playbasis)
     

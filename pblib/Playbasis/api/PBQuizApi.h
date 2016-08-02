@@ -71,6 +71,15 @@
  */
 + (void)pendingQuizList:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId andCompletion:(nullable void(^)(NSArray<PBPendingQuiz*>* _Nullable result, NSError * _Nullable error))completion;
 
+/**
+ Get pending quiz list with limit items to get
+
+ @param playbasis  playbasis
+ @param playerId   player id
+ @param limit      limit number of items to get
+ @param completion completion callback
+ */
++ (void)pendingQuizList:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId limit:(NSInteger)limit andCompletion:(nullable void(^)(NSArray<PBPendingQuiz*>* _Nullable result, NSError * _Nullable error))completion;
 
 /**
  Get a list of quiz done
@@ -80,6 +89,17 @@
  @param completion completion callback
  */
 + (void)quizDoneList:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId andCompletion:(nullable void(^)(NSArray<PBQuizDone*>* _Nullable result, NSError* _Nullable error))completion;
+
+
+/**
+ Get a list of quiz done with limit items to get
+
+ @param playbasis  playbasis
+ @param playerId   player id
+ @param limit      limit number of items to get
+ @param completion completion callback
+ */
++ (void)quizDoneList:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId limit:(NSInteger)limit andCompletion:(nullable void(^)(NSArray<PBQuizDone*>* _Nullable result, NSError* _Nullable error))completion;
 
 
 /**
