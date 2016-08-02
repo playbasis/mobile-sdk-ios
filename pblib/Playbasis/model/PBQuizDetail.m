@@ -13,7 +13,8 @@
 +(void)configure:(InCodeMappingProvider *)mappingProvider
 {
     // call super to set up for derived class
-    //[super configure:mappingProvider forClass:[PBQuizDetail class]];
+    // BUG: resolve issue of crash for "description" is not key-value pair of class, but others won't affected
+    [super configure:mappingProvider forClass:[PBQuizDetail class]];
     
     // override in level of PBQuizDetail
     [mappingProvider mapFromDictionaryKey:@"type" toPropertyKey:@"type" forClass:[PBQuizDetail class] withTransformer:^id(id currentNode, id parentNode) {

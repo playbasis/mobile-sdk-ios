@@ -66,6 +66,62 @@
 		1E428C9F1D50419500CE5ADB /* PBQuestionOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E428CA01D50419500CE5ADB /* PBQuestionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */; };
 		1E428CA11D50419500CE5ADB /* PBQuestionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */; };
+		1E428CA41D50496300CE5ADB /* PBPendingQuiz.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CA21D50496300CE5ADB /* PBPendingQuiz.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CA51D50496300CE5ADB /* PBPendingQuiz.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CA21D50496300CE5ADB /* PBPendingQuiz.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CA61D50496300CE5ADB /* PBPendingQuiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CA31D50496300CE5ADB /* PBPendingQuiz.m */; };
+		1E428CA71D50496300CE5ADB /* PBPendingQuiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CA31D50496300CE5ADB /* PBPendingQuiz.m */; };
+		1E428CAA1D5049C100CE5ADB /* PBPendingQuizGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CA81D5049C100CE5ADB /* PBPendingQuizGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CAB1D5049C100CE5ADB /* PBPendingQuizGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CA81D5049C100CE5ADB /* PBPendingQuizGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CAC1D5049C100CE5ADB /* PBPendingQuizGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CA91D5049C100CE5ADB /* PBPendingQuizGrade.m */; };
+		1E428CAD1D5049C100CE5ADB /* PBPendingQuizGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CA91D5049C100CE5ADB /* PBPendingQuizGrade.m */; };
+		1E428CB01D504A8B00CE5ADB /* PBPendingQuizGradeReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CAE1D504A8B00CE5ADB /* PBPendingQuizGradeReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CB11D504A8B00CE5ADB /* PBPendingQuizGradeReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CAE1D504A8B00CE5ADB /* PBPendingQuizGradeReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CB21D504A8B00CE5ADB /* PBPendingQuizGradeReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CAF1D504A8B00CE5ADB /* PBPendingQuizGradeReward.m */; };
+		1E428CB31D504A8B00CE5ADB /* PBPendingQuizGradeReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CAF1D504A8B00CE5ADB /* PBPendingQuizGradeReward.m */; };
+		1E428CB61D504E7E00CE5ADB /* PBQuizDone.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CB41D504E7E00CE5ADB /* PBQuizDone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CB71D504E7E00CE5ADB /* PBQuizDone.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CB41D504E7E00CE5ADB /* PBQuizDone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CB81D504E7E00CE5ADB /* PBQuizDone.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CB51D504E7E00CE5ADB /* PBQuizDone.m */; };
+		1E428CB91D504E7E00CE5ADB /* PBQuizDone.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CB51D504E7E00CE5ADB /* PBQuizDone.m */; };
+		1E428CBC1D504ECD00CE5ADB /* PBQuizDoneGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CBA1D504ECD00CE5ADB /* PBQuizDoneGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CBD1D504ECD00CE5ADB /* PBQuizDoneGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CBA1D504ECD00CE5ADB /* PBQuizDoneGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CBE1D504ECD00CE5ADB /* PBQuizDoneGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CBB1D504ECD00CE5ADB /* PBQuizDoneGrade.m */; };
+		1E428CBF1D504ECD00CE5ADB /* PBQuizDoneGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CBB1D504ECD00CE5ADB /* PBQuizDoneGrade.m */; };
+		1E428CC21D504F4E00CE5ADB /* PBQuizDoneGradeReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CC01D504F4E00CE5ADB /* PBQuizDoneGradeReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CC31D504F4E00CE5ADB /* PBQuizDoneGradeReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CC01D504F4E00CE5ADB /* PBQuizDoneGradeReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CC41D504F4E00CE5ADB /* PBQuizDoneGradeReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CC11D504F4E00CE5ADB /* PBQuizDoneGradeReward.m */; };
+		1E428CC51D504F4E00CE5ADB /* PBQuizDoneGradeReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CC11D504F4E00CE5ADB /* PBQuizDoneGradeReward.m */; };
+		1E428CC81D5052C500CE5ADB /* PBQuestionAnswer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CC61D5052C500CE5ADB /* PBQuestionAnswer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CC91D5052C500CE5ADB /* PBQuestionAnswer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CC61D5052C500CE5ADB /* PBQuestionAnswer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CCA1D5052C500CE5ADB /* PBQuestionAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CC71D5052C500CE5ADB /* PBQuestionAnswer.m */; };
+		1E428CCB1D5052C500CE5ADB /* PBQuestionAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CC71D5052C500CE5ADB /* PBQuestionAnswer.m */; };
+		1E428CCE1D50536E00CE5ADB /* PBQuestionOptionAnswer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CCC1D50536E00CE5ADB /* PBQuestionOptionAnswer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CCF1D50536E00CE5ADB /* PBQuestionOptionAnswer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CCC1D50536E00CE5ADB /* PBQuestionOptionAnswer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CD01D50536E00CE5ADB /* PBQuestionOptionAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CCD1D50536E00CE5ADB /* PBQuestionOptionAnswer.m */; };
+		1E428CD11D50536E00CE5ADB /* PBQuestionOptionAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CCD1D50536E00CE5ADB /* PBQuestionOptionAnswer.m */; };
+		1E428CD41D5053CA00CE5ADB /* PBQuestionAnswerGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CD21D5053CA00CE5ADB /* PBQuestionAnswerGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CD51D5053CA00CE5ADB /* PBQuestionAnswerGrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CD21D5053CA00CE5ADB /* PBQuestionAnswerGrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CD61D5053CA00CE5ADB /* PBQuestionAnswerGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CD31D5053CA00CE5ADB /* PBQuestionAnswerGrade.m */; };
+		1E428CD71D5053CA00CE5ADB /* PBQuestionAnswerGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CD31D5053CA00CE5ADB /* PBQuestionAnswerGrade.m */; };
+		1E428CDA1D50541F00CE5ADB /* PBQuestionAnswerReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CD81D50541F00CE5ADB /* PBQuestionAnswerReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CDB1D50541F00CE5ADB /* PBQuestionAnswerReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CD81D50541F00CE5ADB /* PBQuestionAnswerReward.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CDC1D50541F00CE5ADB /* PBQuestionAnswerReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CD91D50541F00CE5ADB /* PBQuestionAnswerReward.m */; };
+		1E428CDD1D50541F00CE5ADB /* PBQuestionAnswerReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CD91D50541F00CE5ADB /* PBQuestionAnswerReward.m */; };
+		1E428CE01D50546000CE5ADB /* PBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CDE1D50546000CE5ADB /* PBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CE11D50546000CE5ADB /* PBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CDE1D50546000CE5ADB /* PBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CE21D50546000CE5ADB /* PBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CDF1D50546000CE5ADB /* PBEvent.m */; };
+		1E428CE31D50546000CE5ADB /* PBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CDF1D50546000CE5ADB /* PBEvent.m */; };
+		1E428CE61D5054B600CE5ADB /* PBRewardData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CE41D5054B600CE5ADB /* PBRewardData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CE71D5054B600CE5ADB /* PBRewardData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CE41D5054B600CE5ADB /* PBRewardData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CE81D5054B600CE5ADB /* PBRewardData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CE51D5054B600CE5ADB /* PBRewardData.m */; };
+		1E428CE91D5054B600CE5ADB /* PBRewardData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CE51D5054B600CE5ADB /* PBRewardData.m */; };
+		1E428CEC1D50554E00CE5ADB /* PBBadgeRewardData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CEA1D50554E00CE5ADB /* PBBadgeRewardData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CED1D50554E00CE5ADB /* PBBadgeRewardData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CEA1D50554E00CE5ADB /* PBBadgeRewardData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CEE1D50554E00CE5ADB /* PBBadgeRewardData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CEB1D50554E00CE5ADB /* PBBadgeRewardData.m */; };
+		1E428CEF1D50554E00CE5ADB /* PBBadgeRewardData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CEB1D50554E00CE5ADB /* PBBadgeRewardData.m */; };
+		1E428CF21D50558800CE5ADB /* PBGoodsRewardData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CF01D50558800CE5ADB /* PBGoodsRewardData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CF31D50558800CE5ADB /* PBGoodsRewardData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E428CF01D50558800CE5ADB /* PBGoodsRewardData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E428CF41D50558800CE5ADB /* PBGoodsRewardData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CF11D50558800CE5ADB /* PBGoodsRewardData.m */; };
+		1E428CF51D50558800CE5ADB /* PBGoodsRewardData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E428CF11D50558800CE5ADB /* PBGoodsRewardData.m */; };
 		1E82EDC61D391EF400775DA0 /* Playbasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; };
 		1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */; };
 		1E82EDD01D3922D000775DA0 /* Playbasis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EB064CB1D368CB3002CA239 /* Playbasis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -261,6 +317,34 @@
 		1E428C971D5040D300CE5ADB /* PBQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestion.m; sourceTree = "<group>"; };
 		1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestionOption.h; sourceTree = "<group>"; };
 		1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestionOption.m; sourceTree = "<group>"; };
+		1E428CA21D50496300CE5ADB /* PBPendingQuiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPendingQuiz.h; sourceTree = "<group>"; };
+		1E428CA31D50496300CE5ADB /* PBPendingQuiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPendingQuiz.m; sourceTree = "<group>"; };
+		1E428CA81D5049C100CE5ADB /* PBPendingQuizGrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPendingQuizGrade.h; sourceTree = "<group>"; };
+		1E428CA91D5049C100CE5ADB /* PBPendingQuizGrade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPendingQuizGrade.m; sourceTree = "<group>"; };
+		1E428CAE1D504A8B00CE5ADB /* PBPendingQuizGradeReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPendingQuizGradeReward.h; sourceTree = "<group>"; };
+		1E428CAF1D504A8B00CE5ADB /* PBPendingQuizGradeReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBPendingQuizGradeReward.m; sourceTree = "<group>"; };
+		1E428CB41D504E7E00CE5ADB /* PBQuizDone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuizDone.h; sourceTree = "<group>"; };
+		1E428CB51D504E7E00CE5ADB /* PBQuizDone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuizDone.m; sourceTree = "<group>"; };
+		1E428CBA1D504ECD00CE5ADB /* PBQuizDoneGrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuizDoneGrade.h; sourceTree = "<group>"; };
+		1E428CBB1D504ECD00CE5ADB /* PBQuizDoneGrade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuizDoneGrade.m; sourceTree = "<group>"; };
+		1E428CC01D504F4E00CE5ADB /* PBQuizDoneGradeReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuizDoneGradeReward.h; sourceTree = "<group>"; };
+		1E428CC11D504F4E00CE5ADB /* PBQuizDoneGradeReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuizDoneGradeReward.m; sourceTree = "<group>"; };
+		1E428CC61D5052C500CE5ADB /* PBQuestionAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestionAnswer.h; sourceTree = "<group>"; };
+		1E428CC71D5052C500CE5ADB /* PBQuestionAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestionAnswer.m; sourceTree = "<group>"; };
+		1E428CCC1D50536E00CE5ADB /* PBQuestionOptionAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestionOptionAnswer.h; sourceTree = "<group>"; };
+		1E428CCD1D50536E00CE5ADB /* PBQuestionOptionAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestionOptionAnswer.m; sourceTree = "<group>"; };
+		1E428CD21D5053CA00CE5ADB /* PBQuestionAnswerGrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestionAnswerGrade.h; sourceTree = "<group>"; };
+		1E428CD31D5053CA00CE5ADB /* PBQuestionAnswerGrade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestionAnswerGrade.m; sourceTree = "<group>"; };
+		1E428CD81D50541F00CE5ADB /* PBQuestionAnswerReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBQuestionAnswerReward.h; sourceTree = "<group>"; };
+		1E428CD91D50541F00CE5ADB /* PBQuestionAnswerReward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBQuestionAnswerReward.m; sourceTree = "<group>"; };
+		1E428CDE1D50546000CE5ADB /* PBEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBEvent.h; sourceTree = "<group>"; };
+		1E428CDF1D50546000CE5ADB /* PBEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBEvent.m; sourceTree = "<group>"; };
+		1E428CE41D5054B600CE5ADB /* PBRewardData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRewardData.h; sourceTree = "<group>"; };
+		1E428CE51D5054B600CE5ADB /* PBRewardData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRewardData.m; sourceTree = "<group>"; };
+		1E428CEA1D50554E00CE5ADB /* PBBadgeRewardData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBadgeRewardData.h; sourceTree = "<group>"; };
+		1E428CEB1D50554E00CE5ADB /* PBBadgeRewardData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBadgeRewardData.m; sourceTree = "<group>"; };
+		1E428CF01D50558800CE5ADB /* PBGoodsRewardData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGoodsRewardData.h; sourceTree = "<group>"; };
+		1E428CF11D50558800CE5ADB /* PBGoodsRewardData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGoodsRewardData.m; sourceTree = "<group>"; };
 		1E82EDC11D391EF400775DA0 /* PlaybasisTestSuite.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaybasisTestSuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E82EDC51D391EF400775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E82EDCC1D39203A00775DA0 /* TestAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthApi.m; sourceTree = "<group>"; };
@@ -592,6 +676,34 @@
 				1E428C971D5040D300CE5ADB /* PBQuestion.m */,
 				1E428C9C1D50419500CE5ADB /* PBQuestionOption.h */,
 				1E428C9D1D50419500CE5ADB /* PBQuestionOption.m */,
+				1E428CA21D50496300CE5ADB /* PBPendingQuiz.h */,
+				1E428CA31D50496300CE5ADB /* PBPendingQuiz.m */,
+				1E428CA81D5049C100CE5ADB /* PBPendingQuizGrade.h */,
+				1E428CA91D5049C100CE5ADB /* PBPendingQuizGrade.m */,
+				1E428CAE1D504A8B00CE5ADB /* PBPendingQuizGradeReward.h */,
+				1E428CAF1D504A8B00CE5ADB /* PBPendingQuizGradeReward.m */,
+				1E428CB41D504E7E00CE5ADB /* PBQuizDone.h */,
+				1E428CB51D504E7E00CE5ADB /* PBQuizDone.m */,
+				1E428CBA1D504ECD00CE5ADB /* PBQuizDoneGrade.h */,
+				1E428CBB1D504ECD00CE5ADB /* PBQuizDoneGrade.m */,
+				1E428CC01D504F4E00CE5ADB /* PBQuizDoneGradeReward.h */,
+				1E428CC11D504F4E00CE5ADB /* PBQuizDoneGradeReward.m */,
+				1E428CC61D5052C500CE5ADB /* PBQuestionAnswer.h */,
+				1E428CC71D5052C500CE5ADB /* PBQuestionAnswer.m */,
+				1E428CCC1D50536E00CE5ADB /* PBQuestionOptionAnswer.h */,
+				1E428CCD1D50536E00CE5ADB /* PBQuestionOptionAnswer.m */,
+				1E428CD21D5053CA00CE5ADB /* PBQuestionAnswerGrade.h */,
+				1E428CD31D5053CA00CE5ADB /* PBQuestionAnswerGrade.m */,
+				1E428CD81D50541F00CE5ADB /* PBQuestionAnswerReward.h */,
+				1E428CD91D50541F00CE5ADB /* PBQuestionAnswerReward.m */,
+				1E428CDE1D50546000CE5ADB /* PBEvent.h */,
+				1E428CDF1D50546000CE5ADB /* PBEvent.m */,
+				1E428CE41D5054B600CE5ADB /* PBRewardData.h */,
+				1E428CE51D5054B600CE5ADB /* PBRewardData.m */,
+				1E428CEA1D50554E00CE5ADB /* PBBadgeRewardData.h */,
+				1E428CEB1D50554E00CE5ADB /* PBBadgeRewardData.m */,
+				1E428CF01D50558800CE5ADB /* PBGoodsRewardData.h */,
+				1E428CF11D50558800CE5ADB /* PBGoodsRewardData.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -691,6 +803,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EA20FC61D3CF31800CEA38A /* PBUtils.h in Headers */,
+				1E428CEC1D50554E00CE5ADB /* PBBadgeRewardData.h in Headers */,
+				1E428CB01D504A8B00CE5ADB /* PBPendingQuizGradeReward.h in Headers */,
+				1E428CC21D504F4E00CE5ADB /* PBQuizDoneGradeReward.h in Headers */,
 				1EB065151D368E02002CA239 /* PBCommon.h in Headers */,
 				1EA20FA61D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */,
 				1E82EDED1D3A281300775DA0 /* PBBuilder.h in Headers */,
@@ -707,12 +822,17 @@
 				1EB065131D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
 				1EB065091D368E02002CA239 /* RNCryptor+Private.h in Headers */,
 				1E428C981D5040D300CE5ADB /* PBQuestion.h in Headers */,
+				1E428CE01D50546000CE5ADB /* PBEvent.h in Headers */,
 				1E82EDE61D3A192900775DA0 /* PBTypes.h in Headers */,
+				1E428CE61D5054B600CE5ADB /* PBRewardData.h in Headers */,
+				1E428CB61D504E7E00CE5ADB /* PBQuizDone.h in Headers */,
 				1EA20FAC1D3CC1B200CEA38A /* PBBadge.h in Headers */,
 				1EB0650B1D368E02002CA239 /* RNCryptor.h in Headers */,
 				1E428C8C1D4FD69900CE5ADB /* PBBadgeValue.h in Headers */,
 				1EB065051D368E02002CA239 /* MBProgressHUD.h in Headers */,
 				1EB065111D368E02002CA239 /* RNEncryptor.h in Headers */,
+				1E428CD41D5053CA00CE5ADB /* PBQuestionAnswerGrade.h in Headers */,
+				1E428CC81D5052C500CE5ADB /* PBQuestionAnswer.h in Headers */,
 				1E428C6E1D4FB25200CE5ADB /* PBQuizType.h in Headers */,
 				1EB065181D368E02002CA239 /* pblib-Prefix.pch in Headers */,
 				1EB065191D368E02002CA239 /* PBMacros.h in Headers */,
@@ -720,21 +840,27 @@
 				1ED325D01D3B83B300060C1A /* OCMapperConfigurable.h in Headers */,
 				1EB065171D368E02002CA239 /* PBConstants.h in Headers */,
 				1EA20FB21D3CCB6B00CEA38A /* PBGoods.h in Headers */,
+				1E428CA41D50496300CE5ADB /* PBPendingQuiz.h in Headers */,
 				1EB065031D368E02002CA239 /* KLCPopup.h in Headers */,
 				1E82EE021D3A5BE400775DA0 /* PBValidator.h in Headers */,
+				1E428CCE1D50536E00CE5ADB /* PBQuestionOptionAnswer.h in Headers */,
 				1E428C801D4FD62E00CE5ADB /* PBExpValue.h in Headers */,
 				1ED325DD1D3C29BA00060C1A /* Playbasis-umbrella.h in Headers */,
 				1E428C921D4FDC7500CE5ADB /* PBQuizGrade.h in Headers */,
+				1E428CBC1D504ECD00CE5ADB /* PBQuizDoneGrade.h in Headers */,
+				1E428CDA1D50541F00CE5ADB /* PBQuestionAnswerReward.h in Headers */,
 				1E82EE091D3A833700775DA0 /* PBPlayerApi.h in Headers */,
 				1E30B8741D3E8429004B7644 /* PBCommunicationApi.h in Headers */,
 				1E82EDF31D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */,
 				1E82EDE11D3A18D200775DA0 /* PBSettings.h in Headers */,
 				1EB065071D368E02002CA239 /* Reachability.h in Headers */,
+				1E428CAA1D5049C100CE5ADB /* PBPendingQuizGrade.h in Headers */,
 				1EB0650F1D368E02002CA239 /* RNDecryptor.h in Headers */,
 				1E82EE1B1D3A89A300775DA0 /* PBGender.h in Headers */,
 				1ED325C61D3B5A9A00060C1A /* OCMapperModelConfigurator.h in Headers */,
 				1EB065241D368E02002CA239 /* PBUI.h in Headers */,
 				1ED325D31D3BF34700060C1A /* PBApiMacros.h in Headers */,
+				1E428CF21D50558800CE5ADB /* PBGoodsRewardData.h in Headers */,
 				1E30B8561D3E2135004B7644 /* PBPoint.h in Headers */,
 				1E428C7A1D4FB4A000CE5ADB /* PBRewards.h in Headers */,
 				1E82EDDE1D3A18BF00775DA0 /* Playbasis.h in Headers */,
@@ -764,34 +890,48 @@
 				1ED325C71D3B5A9A00060C1A /* OCMapperModelConfigurator.h in Headers */,
 				1EA20FAD1D3CC1B200CEA38A /* PBBadge.h in Headers */,
 				1E30B85D1D3E25B3004B7644 /* PBLevel.h in Headers */,
+				1E428CBD1D504ECD00CE5ADB /* PBQuizDoneGrade.h in Headers */,
 				1EB065C61D36B509002CA239 /* RNCryptor.h in Headers */,
 				1EB065C71D36B509002CA239 /* RNCryptorEngine.h in Headers */,
 				1E82EE0A1D3A833700775DA0 /* PBPlayerApi.h in Headers */,
+				1E428CB11D504A8B00CE5ADB /* PBPendingQuizGradeReward.h in Headers */,
+				1E428CC91D5052C500CE5ADB /* PBQuestionAnswer.h in Headers */,
+				1E428CA51D50496300CE5ADB /* PBPendingQuiz.h in Headers */,
 				1EB065C81D36B509002CA239 /* RNDecryptor.h in Headers */,
+				1E428CDB1D50541F00CE5ADB /* PBQuestionAnswerReward.h in Headers */,
 				1E82EE1C1D3A89A300775DA0 /* PBGender.h in Headers */,
 				1EB065C91D36B509002CA239 /* RNEncryptor.h in Headers */,
 				1E428C6F1D4FB25200CE5ADB /* PBQuizType.h in Headers */,
 				1EA20FCD1D3CF32800CEA38A /* PBRequestUnit.h in Headers */,
 				1E30B8571D3E2135004B7644 /* PBPoint.h in Headers */,
 				1E428C7B1D4FB4A000CE5ADB /* PBRewards.h in Headers */,
+				1E428CB71D504E7E00CE5ADB /* PBQuizDone.h in Headers */,
 				1E82EE161D3A873200775DA0 /* PBPlayer.h in Headers */,
 				1E428C601D4F880600CE5ADB /* PBQuizApi.h in Headers */,
 				1E428C9F1D50419500CE5ADB /* PBQuestionOption.h in Headers */,
 				1E82EDDF1D3A18C000775DA0 /* Playbasis.h in Headers */,
+				1E428CE11D50546000CE5ADB /* PBEvent.h in Headers */,
 				1ED325D41D3BF34700060C1A /* PBApiMacros.h in Headers */,
 				1EB065CA1D36B509002CA239 /* NSMutableArray+QueueAndSerializationAdditions.h in Headers */,
 				1EB065CB1D36B509002CA239 /* PBCommon.h in Headers */,
 				1E428C811D4FD62E00CE5ADB /* PBExpValue.h in Headers */,
 				1E428C8D1D4FD69900CE5ADB /* PBBadgeValue.h in Headers */,
+				1E428CC31D504F4E00CE5ADB /* PBQuizDoneGradeReward.h in Headers */,
+				1E428CAB1D5049C100CE5ADB /* PBPendingQuizGrade.h in Headers */,
 				1EB065CC1D36B509002CA239 /* PBConstants.h in Headers */,
 				1EA20FC01D3CEBF700CEA38A /* PBSuccessStatus.h in Headers */,
 				1E428C5A1D4F851500CE5ADB /* PBQuiz.h in Headers */,
+				1E428CD51D5053CA00CE5ADB /* PBQuestionAnswerGrade.h in Headers */,
 				1E428C691D4FB08600CE5ADB /* PBQuizDetail.h in Headers */,
 				1EA20FC71D3CF31800CEA38A /* PBUtils.h in Headers */,
+				1E428CE71D5054B600CE5ADB /* PBRewardData.h in Headers */,
 				1E82EDEE1D3A281300775DA0 /* PBBuilder.h in Headers */,
 				1E82EE031D3A5BE400775DA0 /* PBValidator.h in Headers */,
 				1EB065CD1D36B509002CA239 /* PBMacros.h in Headers */,
+				1E428CED1D50554E00CE5ADB /* PBBadgeRewardData.h in Headers */,
+				1E428CCF1D50536E00CE5ADB /* PBQuestionOptionAnswer.h in Headers */,
 				1EA20FA71D3CAB8800CEA38A /* PBDetailedPlayer.h in Headers */,
+				1E428CF31D50558800CE5ADB /* PBGoodsRewardData.h in Headers */,
 				1E30B8751D3E8429004B7644 /* PBCommunicationApi.h in Headers */,
 				1E82EDF41D3A2C2700775DA0 /* PBBuilderConfiguration.h in Headers */,
 				1E82EDEA1D3A194400775DA0 /* pblib-Prefix.pch in Headers */,
@@ -1018,12 +1158,15 @@
 			files = (
 				1EB065221D368E02002CA239 /* Playbasis.m in Sources */,
 				1EB065101D368E02002CA239 /* RNDecryptor.m in Sources */,
+				1E428CC41D504F4E00CE5ADB /* PBQuizDoneGradeReward.m in Sources */,
 				1EB065061D368E02002CA239 /* MBProgressHUD.m in Sources */,
 				1EB065081D368E02002CA239 /* Reachability.m in Sources */,
+				1E428CF41D50558800CE5ADB /* PBGoodsRewardData.m in Sources */,
 				1E82EE041D3A5BE400775DA0 /* PBValidator.m in Sources */,
 				1E428C941D4FDC7500CE5ADB /* PBQuizGrade.m in Sources */,
 				1E428CA01D50419500CE5ADB /* PBQuestionOption.m in Sources */,
 				1E82EE1D1D3A89A300775DA0 /* PBGender.m in Sources */,
+				1E428CE81D5054B600CE5ADB /* PBRewardData.m in Sources */,
 				1EA20FAE1D3CC1B200CEA38A /* PBBadge.m in Sources */,
 				1E30B8761D3E8429004B7644 /* PBCommunicationApi.m in Sources */,
 				1E428C9A1D5040D300CE5ADB /* PBQuestion.m in Sources */,
@@ -1031,22 +1174,33 @@
 				1E82EDEF1D3A281300775DA0 /* PBBuilder.m in Sources */,
 				1E82EDF51D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 				1EA20FC81D3CF31800CEA38A /* PBUtils.m in Sources */,
+				1E428CB81D504E7E00CE5ADB /* PBQuizDone.m in Sources */,
+				1E428CD01D50536E00CE5ADB /* PBQuestionOptionAnswer.m in Sources */,
 				1EB066611D38A84F002CA239 /* PBAuth.m in Sources */,
+				1E428CEE1D50554E00CE5ADB /* PBBadgeRewardData.m in Sources */,
 				1E82EE171D3A873200775DA0 /* PBPlayer.m in Sources */,
 				1EB066761D38EC29002CA239 /* CustomDeviceInfoHttpHeaderFields.m in Sources */,
 				1EA20FC11D3CEBF700CEA38A /* PBSuccessStatus.m in Sources */,
 				1E82EDDC1D39EE5A00775DA0 /* PBAuthApi.m in Sources */,
 				1E30B8581D3E2135004B7644 /* PBPoint.m in Sources */,
+				1E428CCA1D5052C500CE5ADB /* PBQuestionAnswer.m in Sources */,
 				1ED325D51D3BF44800060C1A /* PBPlayerApi.m in Sources */,
 				1E428C6A1D4FB08600CE5ADB /* PBQuizDetail.m in Sources */,
 				1EB065161D368E02002CA239 /* PBCommon.m in Sources */,
+				1E428CAC1D5049C100CE5ADB /* PBPendingQuizGrade.m in Sources */,
 				1EA20FB41D3CCB6B00CEA38A /* PBGoods.m in Sources */,
 				1E428C701D4FB25200CE5ADB /* PBQuizType.m in Sources */,
 				1EA20FA81D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,
+				1E428CE21D50546000CE5ADB /* PBEvent.m in Sources */,
 				1EB0650E1D368E02002CA239 /* RNCryptorEngine.m in Sources */,
+				1E428CDC1D50541F00CE5ADB /* PBQuestionAnswerReward.m in Sources */,
+				1E428CB21D504A8B00CE5ADB /* PBPendingQuizGradeReward.m in Sources */,
+				1E428CA61D50496300CE5ADB /* PBPendingQuiz.m in Sources */,
 				1E30B85E1D3E25B3004B7644 /* PBLevel.m in Sources */,
 				1E428C8E1D4FD69900CE5ADB /* PBBadgeValue.m in Sources */,
+				1E428CBE1D504ECD00CE5ADB /* PBQuizDoneGrade.m in Sources */,
 				1EA20FCE1D3CF32800CEA38A /* PBRequestUnit.m in Sources */,
+				1E428CD61D5053CA00CE5ADB /* PBQuestionAnswerGrade.m in Sources */,
 				1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */,
 				1E428C611D4F880600CE5ADB /* PBQuizApi.m in Sources */,
 				1EB065141D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
@@ -1065,6 +1219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EB066621D38A84F002CA239 /* PBAuth.m in Sources */,
+				1E428CE31D50546000CE5ADB /* PBEvent.m in Sources */,
 				1EA20FAF1D3CC1B200CEA38A /* PBBadge.m in Sources */,
 				1EB065D41D36B542002CA239 /* Reachability.m in Sources */,
 				1E428C8F1D4FD69900CE5ADB /* PBBadgeValue.m in Sources */,
@@ -1074,17 +1229,23 @@
 				1E428C9B1D5040D300CE5ADB /* PBQuestion.m in Sources */,
 				1EB065D71D36B542002CA239 /* RNDecryptor.m in Sources */,
 				1EA20FC21D3CEBF700CEA38A /* PBSuccessStatus.m in Sources */,
+				1E428CF51D50558800CE5ADB /* PBGoodsRewardData.m in Sources */,
+				1E428CB31D504A8B00CE5ADB /* PBPendingQuizGradeReward.m in Sources */,
+				1E428CAD1D5049C100CE5ADB /* PBPendingQuizGrade.m in Sources */,
 				1EA20FC91D3CF31800CEA38A /* PBUtils.m in Sources */,
 				1EB065D81D36B542002CA239 /* RNEncryptor.m in Sources */,
 				1ED325D61D3BF44900060C1A /* PBPlayerApi.m in Sources */,
 				1E30B85F1D3E25B3004B7644 /* PBLevel.m in Sources */,
 				1E428C5C1D4F851500CE5ADB /* PBQuiz.m in Sources */,
 				1E82EE181D3A873200775DA0 /* PBPlayer.m in Sources */,
+				1E428CDD1D50541F00CE5ADB /* PBQuestionAnswerReward.m in Sources */,
 				1EB065D91D36B542002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
 				1EA20FB51D3CCB6B00CEA38A /* PBGoods.m in Sources */,
 				1EA20FCF1D3CF32800CEA38A /* PBRequestUnit.m in Sources */,
+				1E428CA71D50496300CE5ADB /* PBPendingQuiz.m in Sources */,
 				1EB065DA1D36B542002CA239 /* PBCommon.m in Sources */,
 				1E428C621D4F880600CE5ADB /* PBQuizApi.m in Sources */,
+				1E428CEF1D50554E00CE5ADB /* PBBadgeRewardData.m in Sources */,
 				1E82EDDD1D39EE5A00775DA0 /* PBAuthApi.m in Sources */,
 				1E428C831D4FD62E00CE5ADB /* PBExpValue.m in Sources */,
 				1E428C891D4FD66A00CE5ADB /* PBPointValue.m in Sources */,
@@ -1093,12 +1254,19 @@
 				1E82EE1E1D3A89A300775DA0 /* PBGender.m in Sources */,
 				1E428C951D4FDC7500CE5ADB /* PBQuizGrade.m in Sources */,
 				1EB065DE1D36B542002CA239 /* Playbasis.m in Sources */,
+				1E428CE91D5054B600CE5ADB /* PBRewardData.m in Sources */,
 				1E428C7D1D4FB4A000CE5ADB /* PBRewards.m in Sources */,
+				1E428CBF1D504ECD00CE5ADB /* PBQuizDoneGrade.m in Sources */,
 				1E82EDF01D3A281300775DA0 /* PBBuilder.m in Sources */,
+				1E428CCB1D5052C500CE5ADB /* PBQuestionAnswer.m in Sources */,
+				1E428CD11D50536E00CE5ADB /* PBQuestionOptionAnswer.m in Sources */,
+				1E428CC51D504F4E00CE5ADB /* PBQuizDoneGradeReward.m in Sources */,
 				1E82EE051D3A5BE400775DA0 /* PBValidator.m in Sources */,
 				1E30B8591D3E2135004B7644 /* PBPoint.m in Sources */,
+				1E428CB91D504E7E00CE5ADB /* PBQuizDone.m in Sources */,
 				1E82EDF61D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
 				1E30B8771D3E8429004B7644 /* PBCommunicationApi.m in Sources */,
+				1E428CD71D5053CA00CE5ADB /* PBQuestionAnswerGrade.m in Sources */,
 				1ED325C91D3B5A9A00060C1A /* OCMapperModelConfigurator.m in Sources */,
 				1E428CA11D50419500CE5ADB /* PBQuestionOption.m in Sources */,
 				1EA20FA91D3CAB8800CEA38A /* PBDetailedPlayer.m in Sources */,

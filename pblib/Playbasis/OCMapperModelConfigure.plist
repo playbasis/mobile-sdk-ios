@@ -12,6 +12,10 @@
 		<string>PBQuizDetail</string>
 		<string>PBRewards</string>
 		<string>PBQuestion</string>
+		<string>PBPendingQuizGrade</string>
+		<string>PBQuizDoneGrade</string>
+		<string>PBQuestionAnswer</string>
+		<string>PBRewardData</string>
 	</array>
 </dict>
 </plist>
