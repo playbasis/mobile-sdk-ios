@@ -68,7 +68,7 @@ INIT_VARS_STATIC
 - (void)testQuestion {
     EXP_CREATE(@"question")
     
-    [PBQuizApi question:[Playbasis sharedPB] quizId:@"5796b47772d3e1a5108b5ec9" playerId:@"jontestuser" andCompletion:^(PBQuestion * _Nullable result, NSError * _Nullable error) {
+    [PBQuizApi question:[Playbasis sharedPB] quizId:@"5796b32272d3e1a5108b5def" playerId:@"jontestuser" andCompletion:^(PBQuestion * _Nullable result, NSError * _Nullable error) {
         XCTAssert(error == nil, @"error must be nil");
         EXP_FULFILL
     }];

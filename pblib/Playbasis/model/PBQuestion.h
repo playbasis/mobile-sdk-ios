@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSString* question;
 @property (nonatomic, strong) NSString* questionImage;
-@property (nonatomic, strong) NSDate* timelimit;
+@property (nonatomic, strong) NSNumber* timelimit;
 @property (nonatomic, strong) NSNumber* questionNumber;
 @property (nonatomic, strong) NSArray<PBQuestionOption*>* options;
 @property (nonatomic, strong) NSNumber* index;
