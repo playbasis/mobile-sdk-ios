@@ -296,6 +296,8 @@ static NSString * const KEY_RESULTCLASS = @"resultClass";
         
         // get error message
         NSString *errorMessage = [jsonResponse objectForKey:@"message"];
+        if (errorMessage == nil)
+            errorMessage = @"unknown error message, probably request timeout";
         
         // create an userInfo for NSError
         NSDictionary *userInfo = @{
