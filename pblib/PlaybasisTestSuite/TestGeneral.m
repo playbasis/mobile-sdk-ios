@@ -8,11 +8,15 @@
 
 #import <XCTest/XCTest.h>
 #import "Playbasis.h"
+#import "Macros.h"
 
-static Playbasis* playbasis = nil;
-static BOOL initializedPlaybasis = NO;
+#define TIMEOUT 6.0f
+INIT_VARS_STATIC
 
 @interface TestGeneral : XCTestCase
+{
+    INIT_VARS_LOCAL
+}
 
 @end
 
@@ -21,15 +25,7 @@ static BOOL initializedPlaybasis = NO;
 - (void)setUp {
     [super setUp];
     
-    if (!initializedPlaybasis)
-    {
-        playbasis = [[[[Playbasis builder]
-                        setApiKey:@"269122575"]
-                        setApiSecret:@"c57495174674157dd19317dd79e3c36e"]
-                        build];
-        initializedPlaybasis = YES;
-        XCTAssert(playbasis != nil, @"playbasis instance cannot be nil");
-    }
+    INIT_PLAYBASIS
 }
 
 - (void)tearDown {
@@ -39,6 +35,32 @@ static BOOL initializedPlaybasis = NO;
 - (void)testCreatePlaybasisObject {
     // test case already in setUp() method
     // if setUp() is passed, then this test case is passed too
+}
+
+- (void)testDownloadImageWithUrl {
+    EXP_CREATE(@"uiimageDownload")
+    
+    [UIImage startLoadingImageInTheBackgroundWithUrl:@"http://images.pbapp.net/data/97285abc55573558c6ba0321124f5108.png" complete:^(UIImage *image) {
+        XCTAssert(image != nil, @"image must not be nil");
+        EXP_FULFILL
+    } andError:^(NSError *error) {
+        XCTAssert(NO, @"there's an error");
+    }];
+    
+    EXP_WAIT(TIMEOUT)
+}
+
+- (void)testDownloadImageWithUrlVariant2 {
+    EXP_CREATE(@"uiimageDownloaderVariant2");
+    
+    [UIImage startLoadingImageWithUrl:@"http://images.pbapp.net/data/97285abc55573558c6ba0321124f5108.png" complete:^(UIImage *image) {
+        XCTAssert(image != nil, @"image must not be nil");
+        EXP_FULFILL
+    } andError:^(NSError *error) {
+        XCTAssert(NO, @"there's an error");
+    }];
+    
+    EXP_WAIT(TIMEOUT)
 }
 
 @end
