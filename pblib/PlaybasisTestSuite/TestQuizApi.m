@@ -125,10 +125,24 @@ INIT_VARS_STATIC
 }
 
 - (void)testResetQuiz {
-    EXP_CREATE(@"answerQuestion")
+    EXP_CREATE(@"resetQuiz")
     
     BEGIN_AUTHWRAP
     [PBQuizApi resetQuiz:[Playbasis sharedPB] playerId:@"jontestuser" quizId:@"5796b32272d3e1a5108b5def" andCompletion:^(PBSuccessStatus * _Nullable result, NSError * _Nullable error) {
+        XCTAssert(result.success == YES, @"success must be set to true");
+        XCTAssert(error == nil, @"error must be nil");
+        EXP_FULFILL
+    }];
+    END_AUTHWRAP
+    
+    EXP_WAIT(TIMEOUT)
+}
+
+- (void)testResetAllQuiz {
+    EXP_CREATE(@"resetQuiz - all")
+    
+    BEGIN_AUTHWRAP
+    [PBQuizApi resetQuiz:[Playbasis sharedPB] playerId:@"jontestuser" andCompletion:^(PBSuccessStatus * _Nullable result, NSError * _Nullable error) {
         XCTAssert(result.success == YES, @"success must be set to true");
         XCTAssert(error == nil, @"error must be nil");
         EXP_FULFILL

@@ -114,7 +114,6 @@
  */
 + (void)answerQuestion:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId quizId:(nonnull NSString *)quizId questionId:(nonnull NSString *)questionId optionId:(nonnull NSString *)optionId andCompletion:(nullable void(^)(PBQuestionAnswer* _Nullable result, NSError* _Nullable error))completion;
 
-
 /**
  Reset a particular quiz
 
@@ -124,5 +123,14 @@
  @param completion completion callback
  */
 + (void)resetQuiz:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId quizId:(nonnull NSString *)quizId andCompletion:(nullable void(^)(PBSuccessStatus* _Nullable result, NSError* _Nullable error))completion;
+
+/**
+ Reset all quizzes
+ 
+ @param playbasis  playbasis
+ @param playerId   player id
+ @param completion completion callback
+ */
++ (void)resetQuiz:(nonnull Playbasis *)playbasis playerId:(nonnull NSString *)playerId andCompletion:(nullable void(^)(PBSuccessStatus* _Nullable result, NSError* _Nullable error))completion;
 
 @end

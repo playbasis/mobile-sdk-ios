@@ -115,4 +115,16 @@
     [playbasis fireRequestIfNecessary:request];
 }
 
++(void)resetQuiz:(Playbasis *)playbasis playerId:(NSString *)playerId andCompletion:(void (^)(PBSuccessStatus * _Nullable, NSError * _Nullable))completion
+{
+    API_VALIDATE_PBOBJ(playbasis)
+    
+    API_CREATE_METHOD_VARS(playbasis.apiKey, @"Quiz/reset", nil)
+    API_CREATE_DATA_VARS(playbasis.token, @"token", playerId, @"player_id", nil)
+    
+    PBRequestUnit *request = [[PBRequestUnit<PBSuccessStatus*> alloc] initWithMethodWithApikey:method withData:data isAsync:NO completion:completion forResultClass:[PBSuccessStatus class]];
+    
+    [playbasis fireRequestIfNecessary:request];
+}
+
 @end
