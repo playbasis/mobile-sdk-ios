@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E278CDE1D642052007715C6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E278CDD1D642052007715C6 /* CoreGraphics.framework */; };
+		1E278CE11D642061007715C6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1C74F817461E1B005F3B57 /* Foundation.framework */; };
 		1E30B8561D3E2135004B7644 /* PBPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B8541D3E2135004B7644 /* PBPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E30B8571D3E2135004B7644 /* PBPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30B8541D3E2135004B7644 /* PBPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E30B8581D3E2135004B7644 /* PBPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30B8551D3E2135004B7644 /* PBPoint.m */; };
@@ -284,6 +286,8 @@
 
 /* Begin PBXFileReference section */
 		1675267138D27A92EDF476EE /* Pods-Playbasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Playbasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Playbasis/Pods-Playbasis.debug.xcconfig"; sourceTree = "<group>"; };
+		1E278CDD1D642052007715C6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1E278CDF1D642059007715C6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1E304A411A90BC83006F0C7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1E304A431A90BC8F006F0C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1E30B8541D3E2135004B7644 /* PBPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBPoint.h; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E278CE11D642061007715C6 /* Foundation.framework in Frameworks */,
+				1E278CDE1D642052007715C6 /* CoreGraphics.framework in Frameworks */,
 				1E30B87B1D3E9054004B7644 /* UserNotifications.framework in Frameworks */,
 				534BFCF788C99904A6C87E24 /* Pods_Playbasis.framework in Frameworks */,
 			);
@@ -770,6 +776,8 @@
 		2C1C74F717461E1B005F3B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E278CDF1D642059007715C6 /* UIKit.framework */,
+				1E278CDD1D642052007715C6 /* CoreGraphics.framework */,
 				1E30B87A1D3E9054004B7644 /* UserNotifications.framework */,
 				1E82EDD11D3922FB00775DA0 /* OCMapper.framework */,
 				1EDA69D51AA14F1000F8A13B /* CoreMotion.framework */,

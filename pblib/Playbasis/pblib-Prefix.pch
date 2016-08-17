@@ -2,6 +2,8 @@
 // Prefix header for all source files of the 'pblib' target in the 'pblib' project
 //
 
+#import <Availability.h>
+
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
 #endif
