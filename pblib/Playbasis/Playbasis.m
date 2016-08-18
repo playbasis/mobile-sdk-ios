@@ -11,7 +11,7 @@
 #import "JSONKit.h"
 #import "PBRequestUnit.h"
 #if TARGET_OS_IOS
-#import <UserNotifications/UserNotifications.h>;
+#import <UserNotifications/UserNotifications.h>
 #endif
 
 #import "helper/PBValidator.h"
