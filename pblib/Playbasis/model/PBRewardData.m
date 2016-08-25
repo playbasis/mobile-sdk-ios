@@ -15,4 +15,9 @@
     [mappingProvider mapFromDictionaryKey:@"description" toPropertyKey:@"desc" forClass:[PBRewardData class]];
 }
 
++(void)configure:(InCodeMappingProvider *)mappingProvider forClass:(Class)cls
+{
+    [mappingProvider mapFromDictionaryKey:@"description" toPropertyKey:@"desc" forClass:cls];
+}
+
 @end

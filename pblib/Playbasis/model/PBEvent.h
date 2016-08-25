@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OCMapperConfigurable.h"
 #import "PBRewardData.h"
 
-@interface PBEvent : NSObject
+@interface PBEvent : NSObject <OCMapperConfigurable>
 
 @property (nonatomic, strong) NSString* eventType;
 @property (nonatomic, strong) NSString* rewardType;

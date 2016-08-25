@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OCMapperConfigurable.H"
+#import "OCMapperConfigurable.h"
 
 @interface PBRewardData : NSObject <OCMapperConfigurable>
 
