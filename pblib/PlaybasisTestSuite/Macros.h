@@ -25,6 +25,16 @@ initializedPlaybasis = YES; \
 XCTAssert(playbasis != nil, @"playbasis instance cannot be nil"); \
 }
 
+#define INIT_PLAYBASIS_GAME  if (!initializedPlaybasis) \
+{ \
+playbasis = [[[[Playbasis builder] \
+setApiKey:@"175638284"] \
+setApiSecret:@"f0ba4d419fa87f1b9b8a7566d1567e17"] \
+build]; \
+initializedPlaybasis = YES; \
+XCTAssert(playbasis != nil, @"playbasis instance cannot be nil"); \
+}
+
 /**
  Expectation handling.
  */

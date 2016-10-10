@@ -198,6 +198,15 @@
 		1EA20FCD1D3CF32800CEA38A /* PBRequestUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA20FCA1D3CF32800CEA38A /* PBRequestUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EA20FCE1D3CF32800CEA38A /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA20FCB1D3CF32800CEA38A /* PBRequestUnit.m */; };
 		1EA20FCF1D3CF32800CEA38A /* PBRequestUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA20FCB1D3CF32800CEA38A /* PBRequestUnit.m */; };
+		1EA552071DABA4E90035058B /* PBGameApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA552051DABA4E90035058B /* PBGameApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EA552081DABA4E90035058B /* PBGameApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA552061DABA4E90035058B /* PBGameApi.m */; };
+		1EA5520B1DABA7D70035058B /* PBGameItemStatusRoot.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA552091DABA7D70035058B /* PBGameItemStatusRoot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EA5520C1DABA7D70035058B /* PBGameItemStatusRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA5520A1DABA7D70035058B /* PBGameItemStatusRoot.m */; };
+		1EA5520F1DABA8120035058B /* PBItemStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA5520D1DABA8120035058B /* PBItemStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EA552101DABA8120035058B /* PBItemStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA5520E1DABA8120035058B /* PBItemStatus.m */; };
+		1EA552121DABB3580035058B /* TestGameApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA552111DABB3580035058B /* TestGameApi.m */; };
+		1EA552151DABB74F0035058B /* PBItemConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA552131DABB74F0035058B /* PBItemConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EA552161DABB74F0035058B /* PBItemConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA552141DABB74F0035058B /* PBItemConfig.m */; };
 		1EB065031D368E02002CA239 /* KLCPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064D71D368E02002CA239 /* KLCPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB065041D368E02002CA239 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB064D81D368E02002CA239 /* KLCPopup.m */; };
 		1EB065051D368E02002CA239 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB064DA1D368E02002CA239 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -399,6 +408,15 @@
 		1EA20FCA1D3CF32800CEA38A /* PBRequestUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestUnit.h; sourceTree = "<group>"; };
 		1EA20FCB1D3CF32800CEA38A /* PBRequestUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBRequestUnit.m; sourceTree = "<group>"; };
 		1EA3AE171A717A3C008F17F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1EA552051DABA4E90035058B /* PBGameApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGameApi.h; sourceTree = "<group>"; };
+		1EA552061DABA4E90035058B /* PBGameApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGameApi.m; sourceTree = "<group>"; };
+		1EA552091DABA7D70035058B /* PBGameItemStatusRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBGameItemStatusRoot.h; sourceTree = "<group>"; };
+		1EA5520A1DABA7D70035058B /* PBGameItemStatusRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBGameItemStatusRoot.m; sourceTree = "<group>"; };
+		1EA5520D1DABA8120035058B /* PBItemStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBItemStatus.h; sourceTree = "<group>"; };
+		1EA5520E1DABA8120035058B /* PBItemStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBItemStatus.m; sourceTree = "<group>"; };
+		1EA552111DABB3580035058B /* TestGameApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGameApi.m; sourceTree = "<group>"; };
+		1EA552131DABB74F0035058B /* PBItemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBItemConfig.h; sourceTree = "<group>"; };
+		1EA552141DABB74F0035058B /* PBItemConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBItemConfig.m; sourceTree = "<group>"; };
 		1EB064CB1D368CB3002CA239 /* Playbasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Playbasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB064CD1D368CB3002CA239 /* Playbasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playbasis.h; sourceTree = "<group>"; };
 		1EB064CE1D368CB3002CA239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -499,6 +517,7 @@
 				1E30B8781D3E89EB004B7644 /* TestCommunicationApi.m */,
 				1E428C631D4F8BBA00CE5ADB /* TestQuizApi.m */,
 				1E7CBFD91D6F3B00009BF8FA /* TestEngineApi.m */,
+				1EA552111DABB3580035058B /* TestGameApi.m */,
 			);
 			path = PlaybasisTestSuite;
 			sourceTree = "<group>";
@@ -517,6 +536,8 @@
 				1E428C5E1D4F880600CE5ADB /* PBQuizApi.m */,
 				1E7CBFCD1D6F2EE3009BF8FA /* PBEngineApi.h */,
 				1E7CBFCE1D6F2EE3009BF8FA /* PBEngineApi.m */,
+				1EA552051DABA4E90035058B /* PBGameApi.h */,
+				1EA552061DABA4E90035058B /* PBGameApi.m */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -729,6 +750,12 @@
 				1E428CF11D50558800CE5ADB /* PBGoodsRewardData.m */,
 				1E7CBFD31D6F3176009BF8FA /* PBRule.h */,
 				1E7CBFD41D6F3176009BF8FA /* PBRule.m */,
+				1EA552091DABA7D70035058B /* PBGameItemStatusRoot.h */,
+				1EA5520A1DABA7D70035058B /* PBGameItemStatusRoot.m */,
+				1EA5520D1DABA8120035058B /* PBItemStatus.h */,
+				1EA5520E1DABA8120035058B /* PBItemStatus.m */,
+				1EA552131DABB74F0035058B /* PBItemConfig.h */,
+				1EA552141DABB74F0035058B /* PBItemConfig.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -887,10 +914,14 @@
 				1EB0650F1D368E02002CA239 /* RNDecryptor.h in Headers */,
 				1E82EE1B1D3A89A300775DA0 /* PBGender.h in Headers */,
 				1ED325C61D3B5A9A00060C1A /* OCMapperModelConfigurator.h in Headers */,
+				1EA5520F1DABA8120035058B /* PBItemStatus.h in Headers */,
+				1EA5520B1DABA7D70035058B /* PBGameItemStatusRoot.h in Headers */,
+				1EA552071DABA4E90035058B /* PBGameApi.h in Headers */,
 				1EB065241D368E02002CA239 /* PBUI.h in Headers */,
 				1ED325D31D3BF34700060C1A /* PBApiMacros.h in Headers */,
 				1E428CF21D50558800CE5ADB /* PBGoodsRewardData.h in Headers */,
 				1E30B8561D3E2135004B7644 /* PBPoint.h in Headers */,
+				1EA552151DABB74F0035058B /* PBItemConfig.h in Headers */,
 				1E428C7A1D4FB4A000CE5ADB /* PBRewards.h in Headers */,
 				1E82EDDE1D3A18BF00775DA0 /* Playbasis.h in Headers */,
 				1EB0665F1D38A84F002CA239 /* PBAuth.h in Headers */,
@@ -1180,6 +1211,7 @@
 				1E30B8791D3E89EB004B7644 /* TestCommunicationApi.m in Sources */,
 				1E82EDCD1D39203A00775DA0 /* TestAuthApi.m in Sources */,
 				1E428C641D4F8BBA00CE5ADB /* TestQuizApi.m in Sources */,
+				1EA552121DABB3580035058B /* TestGameApi.m in Sources */,
 				1ED325CD1D3B801600060C1A /* TestPlayerApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1198,11 +1230,14 @@
 				1E428C941D4FDC7500CE5ADB /* PBQuizGrade.m in Sources */,
 				1E428CA01D50419500CE5ADB /* PBQuestionOption.m in Sources */,
 				1E7CBFD71D6F3176009BF8FA /* PBRule.m in Sources */,
+				1EA552161DABB74F0035058B /* PBItemConfig.m in Sources */,
+				1EA552101DABA8120035058B /* PBItemStatus.m in Sources */,
 				1E82EE1D1D3A89A300775DA0 /* PBGender.m in Sources */,
 				1E428CE81D5054B600CE5ADB /* PBRewardData.m in Sources */,
 				1EA20FAE1D3CC1B200CEA38A /* PBBadge.m in Sources */,
 				1E30B8761D3E8429004B7644 /* PBCommunicationApi.m in Sources */,
 				1E428C9A1D5040D300CE5ADB /* PBQuestion.m in Sources */,
+				1EA5520C1DABA7D70035058B /* PBGameItemStatusRoot.m in Sources */,
 				1ED325C81D3B5A9A00060C1A /* OCMapperModelConfigurator.m in Sources */,
 				1E82EDEF1D3A281300775DA0 /* PBBuilder.m in Sources */,
 				1E82EDF51D3A2C2700775DA0 /* PBBuilderConfiguration.m in Sources */,
@@ -1238,6 +1273,7 @@
 				1EB065281D368E02002CA239 /* UIImage+AutoLoader.m in Sources */,
 				1E428C611D4F880600CE5ADB /* PBQuizApi.m in Sources */,
 				1EB065141D368E02002CA239 /* NSMutableArray+QueueAndSerializationAdditions.m in Sources */,
+				1EA552081DABA4E90035058B /* PBGameApi.m in Sources */,
 				1EB065041D368E02002CA239 /* KLCPopup.m in Sources */,
 				1EB065121D368E02002CA239 /* RNEncryptor.m in Sources */,
 				1E428C821D4FD62E00CE5ADB /* PBExpValue.m in Sources */,

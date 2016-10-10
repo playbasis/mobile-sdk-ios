@@ -20,6 +20,7 @@
 		<string>PBRule</string>
 		<string>PBBadgeRewardData</string>
 		<string>PBGoodsRewardData</string>
+		<string>PBGameItemStatusRoot</string>
 	</array>
 </dict>
 </plist>
